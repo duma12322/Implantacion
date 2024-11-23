@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-11-2024 a las 13:27:24
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 23-11-2024 a las 20:40:00
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,6 +42,14 @@ CREATE TABLE `administrativo` (
   `telefono` varchar(15) NOT NULL,
   `status` enum('activo','inactivo') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `administrativo`
+--
+
+INSERT INTO `administrativo` (`id_administrativo`, `usuario`, `contraseña`, `Nombre1`, `Nombre2`, `Apellido1`, `Apellido2`, `tipo_doc`, `num_doc`, `correo`, `Fecha_Nac`, `telefono`, `status`) VALUES
+(1, 'ana12322', '202cb962ac59075b964b07152d234b70', 'Marcelis', 'Anais', 'Dun', 'Suarez', 'V', '12345678', 'anais.asdm@gmail.com', '1995-07-05', '04120515005', 'activo'),
+(2, 'michi12322', '202cb962ac59075b964b07152d234b70', 'michelle', 'veruska', 'camacaro', NULL, 'V', '987654321', 'michi@gmail.com', '2000-12-20', '04125555555', 'activo');
 
 -- --------------------------------------------------------
 
@@ -649,6 +657,13 @@ CREATE TABLE `especialidad` (
   `Descripcion` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `especialidad`
+--
+
+INSERT INTO `especialidad` (`id_especialidad`, `Tipo_Esp`, `Descripcion`) VALUES
+(2, 'Infantil', 'Psicología enfocada en el desarrollo infantil');
+
 -- --------------------------------------------------------
 
 --
@@ -658,8 +673,15 @@ CREATE TABLE `especialidad` (
 CREATE TABLE `especialidad_psicologo` (
   `id_espe_psicologo` int(10) NOT NULL,
   `id_especialidad` int(10) NOT NULL,
-  `id_psicologo` int(10) NOT NULL
+  `id_psicologo` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `especialidad_psicologo`
+--
+
+INSERT INTO `especialidad_psicologo` (`id_espe_psicologo`, `id_especialidad`, `id_psicologo`) VALUES
+(1, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -1082,11 +1104,18 @@ INSERT INTO `municipios` (`id_municipio`, `id_estado`, `municipio`) VALUES
 CREATE TABLE `paciente` (
   `id_paciente` int(10) NOT NULL,
   `num_hijos` int(11) NOT NULL,
-  `dispacitado` tinyint(4) NOT NULL,
-  `descrip_disca` date NOT NULL,
+  `dispacitado` tinyint(4) DEFAULT NULL,
+  `descrip_disca` varchar(250) DEFAULT NULL,
   `id_usuario` int(11) NOT NULL,
   `id_direccion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `paciente`
+--
+
+INSERT INTO `paciente` (`id_paciente`, `num_hijos`, `dispacitado`, `descrip_disca`, `id_usuario`, `id_direccion`) VALUES
+(2, 0, 0, '', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2287,8 +2316,15 @@ INSERT INTO `parroquias` (`id_parroquia`, `id_municipio`, `parroquia`) VALUES
 CREATE TABLE `psicologo` (
   `id_psicologo` int(11) NOT NULL,
   `id_espe_psicologo` int(10) NOT NULL,
-  `id_administrativo` int(11) NOT NULL
+  `id_administrativo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `psicologo`
+--
+
+INSERT INTO `psicologo` (`id_psicologo`, `id_espe_psicologo`, `id_administrativo`) VALUES
+(7, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -2316,13 +2352,21 @@ CREATE TABLE `usuario` (
   `correo` varchar(70) NOT NULL,
   `contraseña` varchar(34) NOT NULL,
   `Nombre1` varchar(150) NOT NULL,
-  `Nombre2` varchar(150) NOT NULL,
+  `Nombre2` varchar(150) DEFAULT NULL,
   `Apellido1` varchar(150) NOT NULL,
-  `Apellido2` varchar(150) NOT NULL,
+  `Apellido2` varchar(150) DEFAULT NULL,
+  `foto` blob DEFAULT NULL,
   `Fecha_Nac` date NOT NULL,
   `Telefono` varchar(15) NOT NULL,
   `status` enum('activo','inactivo') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `usuario`, `tipo_doc`, `num_doc`, `correo`, `contraseña`, `Nombre1`, `Nombre2`, `Apellido1`, `Apellido2`, `foto`, `Fecha_Nac`, `Telefono`, `status`) VALUES
+(1, 'neyli12322', 'V', '29888888', 'neyli@gmail.com', '202cb962ac59075b964b07152d234b70', 'Neylimar', NULL, 'Perez', NULL, NULL, '2000-06-20', '04145986326', 'activo');
 
 --
 -- Índices para tablas volcadas
@@ -2466,7 +2510,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `administrativo`
 --
 ALTER TABLE `administrativo`
-  MODIFY `id_administrativo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_administrativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `agenda`
@@ -2490,13 +2534,13 @@ ALTER TABLE `empresa`
 -- AUTO_INCREMENT de la tabla `especialidad`
 --
 ALTER TABLE `especialidad`
-  MODIFY `id_especialidad` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_especialidad` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `especialidad_psicologo`
 --
 ALTER TABLE `especialidad_psicologo`
-  MODIFY `id_espe_psicologo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_espe_psicologo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
@@ -2508,7 +2552,7 @@ ALTER TABLE `factura`
 -- AUTO_INCREMENT de la tabla `paciente`
 --
 ALTER TABLE `paciente`
-  MODIFY `id_paciente` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_paciente` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `paciente_relacion`
@@ -2526,7 +2570,7 @@ ALTER TABLE `pago_cita`
 -- AUTO_INCREMENT de la tabla `psicologo`
 --
 ALTER TABLE `psicologo`
-  MODIFY `id_psicologo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_psicologo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_cita`
@@ -2538,7 +2582,7 @@ ALTER TABLE `tipo_cita`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
