@@ -1,0 +1,51 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+/*header {
+    background: linear-gradient(to bottom, #007bff, #0056b3);
+}*/
+
+header h1 {
+    font-weight: bold;
+}
+
+img {
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+blockquote {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #555;
+}
+
+        .navbar-nav .nav-item {
+            margin-right: 100px; 
+        }
+
+        /* Aseguramos que el último item no tenga margen extra */
+        .navbar-nav .nav-item:last-child {
+            margin-right: 0;
+        }
+        
+
+        .nav-custom {
+    font-size: 1.2rem; /* Incrementa el tamaño */
+    font-weight: bold; /* Aplica negrita */
+    
+}
+.navbar .nav-link.nav-custom:hover {
+    color: black !important; /* Cambia a negro al pasar el ratón */
+}
+
+.btn-light:hover {
+    background-color: #e0e0e0; /* Color gris oscuro al pasar el ratón */
+    color: black; /* Mantiene el texto negro */
+    border: 1px solid #b3b3b3; /* Oscurece el borde */
+}
