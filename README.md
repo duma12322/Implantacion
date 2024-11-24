@@ -1,10 +1,13 @@
-Proyecto de Implantacion.
 
-Integrates:
+# Proyecto de Implantación
 
-Marcelis Dun
-Michelle Camacaro
-Neylimar Perez
-Wilfredo Salas
+# Sistema Psicologico de consultas
 
-Prof. Oswaldo Anzola
+
+## Integrantes
+
+- [@Marcelis Dun](https://github.com/duma12322)
+- [@Neylimar Pérez](https://github.com/Neylimar18)
+- [@Michelle Camacaroz](https://github.com/#)
+- [@Wilfredo Salas](https://github.com/#)
+- [@Oswaldo Anzola](https://github.com/rapanuti)
