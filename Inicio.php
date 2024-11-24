@@ -21,6 +21,9 @@
                     <a class="nav-link nav-custom" href="Inicio.php">Inicio</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link nav-custom" href="#quienessomos">Quienes Somos</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link nav-custom" href="#acercademi">Acerca de mi</a>
                 </li>
                 <li class="nav-item">
@@ -39,16 +42,17 @@
             <div class="row align-items-center">
                 <!-- Columna izquierda: Logo y botones -->
                 <div class="col-md-6 d-flex flex-column justify-content-center text-center text-md-left">
-                    <h1 class="display-4">Bienvenido a "nombre de la empresa"</h1>
-                    <p class="lead">Cuidar tu salud mental es el primer paso hacia una vida plena.</p>
-                    <div class="d-flex justify-content-start">
+                    <img src="files/logo.png" alt="Bienvenido" class="img-fluid rounded shadow mx-auto d-block" style="max-width: 200px; height: auto;">
+                    <h1 class="display-6">Bienvenido a Emoción Vital</h1>
+                    <p class="lead mx-auto d-block">¡Estamos aquí para acompañarte en tu camino!</p>
+                    <div class="d-flex justify-content-start mx-auto d-block">
                         <a href="login_paciente.php" class="btn btn-light btn-lg mt-3 mr-2">Ingresa</a>
                         <a href="registro_paciente.php" class="btn btn-light btn-lg mt-3">Registrate</a>
                     </div>
                 </div>
 
                 <!-- Columna derecha: Imagen con servicios -->
-                <div class="col-md-6" style="position: relative; left: 60px;">
+                <div class="col-md-6" style="position: relative; left: 80px;">
                     <img src="files/collage.png" alt="Servicios" class="img-fluid rounded shadow">
                 </div>
 
@@ -56,20 +60,47 @@
         </div>
     </header>
 
-    <!-- Acerca de mi (psicologa) -->
-    <section id="acercademi" class="py-5" style="background-color: #9DC88D;">
+    <!-- Quienes somos -->
+    <section id="quienessomos" class="py-5" style="background-color: #9DC88D;">
         <div class="container text-center">
-            <h2 class="mb-4">Acerca de mí</h2>
-            <div class="perfil-cuadro" style="max-width: 400px; margin: 0 auto; border: 2px solid #ccc; padding: 15px; border-radius: 10px; background-color: #fff;">
+            <!-- Título principal -->
+            <h2 class="mb-4">Quiénes Somos</h2>
+            <h3 class="mb-6">¿Qué es? </h3>
+            <p class="lead">
+                La emoción vital es la capacidad de experimentar y expresar emociones de una manera auténtica y profunda, que refleja la vitalidad y energía de una persona. Implica estar conectado con las propias emociones, ser capaz de reconocerlas, procesarlas y expresarlas de manera saludable. La emoción vital también implica estar en sintonía con uno mismo, con los demás y con el entorno, lo que contribuye a una sensación de plenitud y bienestar emocional.
+            </p>
+            <br>
+            <h3 class="mb-6">Porque elegir Emoción Vital</h3>
+            <p class="lead">
+                Como especialista en psicología, mi enfoque terapéutico se centra en proporcionar un espacio seguro y confidencial donde pueda comprender y abordar sus desafíos emocionales. Con una amplia experiencia en el campo de la psicología clínica, ofrece un enfoque personalizado que se adapta a las necesidades individuales de cada cliente. Al elegirme como su terapeuta, se beneficiará de un enfoque compasivo y basado en la evidencia, diseñado para promover el crecimiento personal y el bienestar emocional. Mi objetivo es trabajar en colaboración con usted para fomentar el autoconocimiento, la resiliencia emocional y el desarrollo de estrategias efectivas para afrontar los desafíos de la vida. Le invitamos a considerar iniciar este viaje hacia el bienestar emocional y el crecimiento personal, y espero poder acompañarle en este proceso de cambio y transformación.
+            </p>
+            <br>
+            <h3 class="mb-6">Objetivo principal de Emoción Vital</h3>
+            <p class="lead">
+                El objetivo principal siempre será el poder coadyuvar a las personas a mejorar su bienestar emocional y mental, brindando terapias, asesoramiento y herramientas para gestionar sus emociones de manera saludable. Además, se busca promover la salud mental y el autoconocimiento en la sociedad, fomentando un enfoque positivo hacia la vida y el desarrollo personal en base a un foque terapéutico.
+            </p>
+        </div>
+    </section>
+
+    <!-- Acerca de mi (psicologa) -->
+    <section id="acercademi" class="py-5" style="background-color: #4D774E;">
+        <div class="container text-center">
+
+            <div class="perfil-cuadro" style="max-width: 800px; margin: 0 auto; border: 2px solid #ccc; padding: 15px; border-radius: 10px; background-color: #fff;">
+                <h2 class="mb-4">Acerca de mí</h2>
                 <img src="files/Marce.png" alt="Foto de la psicóloga" style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; margin-bottom: 15px;">
                 <p>
-                    Soy una psicóloga con amplia experiencia en terapia cognitivo-conductual, ayudando a mis pacientes a
-                    superar sus desafíos emocionales y mejorar su calidad de vida.
+                    En Emoción Vital, creemos que la conexión entre el terapeuta y el paciente es fundamental para un proceso terapéutico efectivo. Te presentamos a nuestra psicóloga, la licenciada María Daniela Mogollón quien se dedica al acompañamiento terapéutico y la evaluación de la conducta, enfocándose en el tratamiento de la salud mental y emocional.
+                    Con una sólida formación académica, nuestra psicóloga es licenciada en Psicología por la Universidad Yacambú y cuenta con especializaciones en atención y evaluación psicológica. Su experiencia laboral incluye más de cuatro años como docente universitario en la Universidad Nacional Experimental Politécnica de la Fuerza Armada (UNEFA), donde impartió materias relacionadas con la psicología y el desarrollo social.
+                    Además, ha trabajado en el departamento de Bienestar Estudiantil, brindando atención y evaluación psicológica a estudiantes, así como en el ámbito organizacional, donde se encargó de la selección y capacitación de personal en Transbarca.
+                    Nuestra psicóloga también ha complementado su formación con diversos cursos, incluyendo liderazgo en Yoga de la Risa y talleres sobre conductas en niños y adolescentes, lo que le permite abordar una amplia gama de problemáticas desde diferentes perspectivas.
+                    Si buscas un espacio seguro y profesional para tu bienestar emocional, no dudes en conocer más a tu psicólogo y dar el primer paso hacia tu salud mental.
+                    ¡Estamos aquí para acompañarte en tu camino!
+
                 </p>
             </div>
         </div>
     </section>
-
 
     <!-- Servicios -->
     <section id="services" class="py-5" style="background-color: #FFFFFF;">
@@ -125,7 +156,8 @@
                 </div>
                 <div class="col-md-4">
                     <h5>Teléfonos</h5>
-                    <p>0412-0515005 | 0251-7178172</p>
+                    <p> <i class="bi bi-whatsapp" style="font-size: 1rem; color: #4D774E;">
+                        </i> 0418-001-00-11 | <i class="bi bi-telephone" style="color: #4D774E;"></i> 0251-7178172</p>
                 </div>
                 <div class="col-md-4">
                     <h5>Visítanos</h5>
@@ -153,7 +185,7 @@
 
     <!-- Footer de página -->
     <footer class="py-2 text-white text-center" style="background-color: #D88E3C;">
-        <p>© 2024 Psicólogo. Todos los derechos reservados.</p>
+        <p>© 2024 Emoción Vital. Todos los derechos reservados.</p>
     </footer>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
