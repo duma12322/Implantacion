@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2024 a las 20:40:00
+-- Tiempo de generación: 28-11-2024 a las 02:35:51
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -62,7 +62,7 @@ CREATE TABLE `agenda` (
   `fecha` date NOT NULL,
   `hora_inicio` time NOT NULL,
   `hora_final` time NOT NULL,
-  `contador_cita` int(11) DEFAULT NULL,
+  `contador_cita` int(11) DEFAULT 0,
   `status` enum('Pendiente','Confirmada','Completada','Cancelada','Reprogramada') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1107,15 +1107,16 @@ CREATE TABLE `paciente` (
   `dispacitado` tinyint(4) DEFAULT NULL,
   `descrip_disca` varchar(250) DEFAULT NULL,
   `id_usuario` int(11) NOT NULL,
-  `id_direccion` int(11) NOT NULL
+  `id_direccion` int(11) NOT NULL,
+  `correo` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `paciente`
 --
 
-INSERT INTO `paciente` (`id_paciente`, `num_hijos`, `dispacitado`, `descrip_disca`, `id_usuario`, `id_direccion`) VALUES
-(2, 0, 0, '', 1, 1);
+INSERT INTO `paciente` (`id_paciente`, `num_hijos`, `dispacitado`, `descrip_disca`, `id_usuario`, `id_direccion`, `correo`) VALUES
+(2, 0, 0, '', 1, 1, '');
 
 -- --------------------------------------------------------
 
@@ -2334,8 +2335,8 @@ INSERT INTO `psicologo` (`id_psicologo`, `id_espe_psicologo`, `id_administrativo
 
 CREATE TABLE `tipo_cita` (
   `id_tipo_cita` int(10) NOT NULL,
-  `tipo_cita` enum('infantil','empresarial','pareja','adolescente','motivacional') NOT NULL,
-  `modalidad` enum('online','presencial','','') NOT NULL
+  `tipo_cita` enum('infantil','individual','pareja','adolescente') NOT NULL,
+  `modalidad` enum('online','presencial') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -2366,7 +2367,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `usuario`, `tipo_doc`, `num_doc`, `correo`, `contraseña`, `Nombre1`, `Nombre2`, `Apellido1`, `Apellido2`, `foto`, `Fecha_Nac`, `Telefono`, `status`) VALUES
-(1, 'neyli12322', 'V', '29888888', 'neyli@gmail.com', '202cb962ac59075b964b07152d234b70', 'Neylimar', NULL, 'Perez', NULL, NULL, '2000-06-20', '04145986326', 'activo');
+(1, 'neyli12322', 'V', '29888888', 'anais.asdm@gmail.com', '202cb962ac59075b964b07152d234b70', 'Neylimar', NULL, 'Perez', NULL, NULL, '2000-06-20', '04145986326', 'activo');
 
 --
 -- Índices para tablas volcadas

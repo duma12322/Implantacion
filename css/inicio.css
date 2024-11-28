@@ -2,9 +2,15 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
-/*header {
-    background: linear-gradient(to bottom, #007bff, #0056b3);
-}*/
+header {
+    background: linear-gradient(to bottom, #4D774E, #164A41);
+}
+
+header.py-5.text-white {
+    padding-top: 3rem; 
+    padding-bottom: 3rem; 
+    color: white; 
+}
 
 header h1 {
     font-weight: bold;
@@ -25,27 +31,371 @@ blockquote {
     color: #555;
 }
 
-        .navbar-nav .nav-item {
-            margin-right: 100px; 
-        }
-
-        /* Aseguramos que el último item no tenga margen extra */
-        .navbar-nav .nav-item:last-child {
-            margin-right: 0;
-        }
-        
-
-        .nav-custom {
-    font-size: 1.2rem; /* Incrementa el tamaño */
-    font-weight: bold; /* Aplica negrita */
-    
+/* Estilo personalizado para la navegación */
+.nav-link.nav-custom {
+    color: #000000 !important;
+    font-weight: bold;
+    font-size: 1.2rem; 
+    transition: all 0.3s ease; 
+    margin-right: 50px;
+    margin-top: -25px; 
+    position: relative; 
 }
-.navbar .nav-link.nav-custom:hover {
-    color: black !important; /* Cambia a negro al pasar el ratón */
+
+.navbar-nav {
+    display: flex;
+    align-items: center; 
+}
+
+.navbar {
+    min-height: 80px;
+}
+
+.navbar-nav .nav-item {
+    display: flex;
+    align-items: center; 
+}
+
+/* Estilo del span dentro de los enlaces */
+.nav-link.nav-custom span {
+    position: relative; /* Para poder colocar la barra debajo de cada letra */
+    display: inline-block;
+}
+
+/* Efecto al pasar el ratón */
+.nav-link.nav-custom:hover {
+    color: #727272 !important; /* Color del texto al pasar el ratón */
+    text-decoration: none; 
+}
+
+/* Añadir barra debajo de cada letra al pasar el ratón */
+.nav-link.nav-custom span::after {
+    content: ''; 
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0; /* Empieza con el ancho de la barra en 0 */
+    height: 2px; /* Grosor de la barra */
+    background-color: #727272; /* Color de la barra */
+    transition: width 0.3s ease; /* Animación de la barra */
+}
+
+.nav-link.nav-custom:hover span::after {
+    width: 100%; /* La barra se expande a lo largo del ancho de la letra */
 }
 
 .btn-light:hover {
     background-color: #e0e0e0; /* Color gris oscuro al pasar el ratón */
     color: black; /* Mantiene el texto negro */
     border: 1px solid #b3b3b3; /* Oscurece el borde */
+}
+
+/* Estilo general para la sección tipo de consultas y precios */
+#tipos-consulta {
+    background-color: #4D774E; 
+    color: #ffffff; 
+    text-align: center; /* Centrar todo el texto en la sección */
+    padding: 5rem 0;
+}
+
+#tipos-consulta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+#tipos-consulta .nav-tabs {
+    justify-content: center; /* Centra las pestañas */
+    border-bottom: none; /* Elimina línea debajo de las pestañas */
+    display: flex;
+    align-items: center;
+}
+
+#tipos-consulta .nav-link {
+    background: transparent;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    margin: 0 0.5rem;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+#tipos-consulta .nav-link:hover, 
+#tipos-consulta .nav-link.active {
+    background-color: #ffffff;
+    color: #232323;
+    border-color: #ffffff;
+}
+
+#tipos-consulta .tab-pane {
+    margin-top: 2rem;
+}
+
+/* Subrayar el título "Precios" */
+.subrayado {
+    text-decoration: underline;
+}
+
+/* Contenedor de las modalidades */
+.modalidades {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modalidad-left, .modalidad-right {
+    flex: 1;
+}
+
+.modalidad-left ul, .modalidad-right ul {
+    list-style: none;
+    padding: 0;
+    margin: 1rem auto; /* Centrado automático */
+    max-width: 800px; /* Limitar ancho */
+}
+
+.modalidad-left li, .modalidad-right li {
+    margin-bottom: 0.5rem;
+}
+
+/* Alineación de listas */
+#tipos-consulta ul, #tipos-consulta ol {
+    display: inline-block; 
+    text-align: left; /* Alinear las listas a la izquierda */
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px; /* Limitar ancho */
+}
+
+ /* Estilo personalizado para el botón VER*/
+    #verButton {
+        background-color: white;  
+        color: black;             
+        border: 1px solid #ccc;  
+    }
+
+    /* Estilo para el botón cuando está en hover (cuando el cursor pasa por encima) */
+    #verButton:hover {
+        background-color: #727272;  /* Fondo gris claro al pasar el mouse */
+        color: black;               /* Mantener el texto en negro */
+        border: 1px solid #888;     /* Borde gris oscuro al pasar el mouse */
+    }
+
+
+/* Estilo general para la sección quienes somos*/
+#quienessomos {
+    background-color: #9DC88D;
+    padding: 3rem 0;
+    text-align: center;
+}
+
+#quienessomos h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #000000; /* Color del título principal */
+}
+
+#quienessomos h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #000000; /* Color de los subtítulos */
+}
+
+#quienessomos p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #000000; /* Color del texto */
+}
+
+#quienessomos p.lead {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    color: #000000; /* Color más claro para resaltar el texto principal */
+}
+
+#quienessomos br {
+    margin-bottom: 1rem;
+}
+
+/* Estilo general para la sección acerca de mi*/
+#acercademi {
+    background-color: #4D774E;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+#acercademi .container {
+    text-align: center;
+}
+
+.perfil-cuadro {
+    max-width: 800px;
+    margin: 0 auto;
+    border: 2px solid #ccc;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.perfil-cuadro h2 {
+    margin-bottom: 1.5rem;
+}
+
+.perfil-cuadro img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.perfil-cuadro p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Estilo general para la sección servicios*/
+#services {
+    background-color: #9DC88D;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+button.btn {
+    background-color: #4D774E;  
+    color: white;                
+    border: none;                
+    border-radius: 5px;          
+    padding: 10px 20px;         
+    font-size: 16px;             
+    cursor: pointer;            
+    display: inline-block;       
+    text-align: center;        
+    transition: background-color 0.3s ease; 
+}
+
+/* Efecto cuando el ratón pasa por encima del botón */
+button.btn:hover {
+    background-color: #3B5A3E;  
+    color: white;
+}
+
+.collapse {
+    margin-top: 15px;
+}
+
+/* Estilo de la sección de Contacto */
+#contact {
+    background-color: #164A41;  /* Fondo verde oscuro */
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+/* Estilo de los títulos */
+#contact h2, #contact h5 {
+    color: white;  /* Títulos en blanco */
+    font-weight: bold;
+}
+
+/* Estilo para los párrafos */
+#contact p {
+    color: white;  /* Texto en blanco */
+    font-size: 0.9rem;
+}
+
+/* Estilo para los íconos en los párrafos */
+#contact .bi {
+    font-size: 1.2rem;  /* Tamaño de los íconos */
+    margin-right: 10px;  /* Espaciado entre iconos y texto */
+}
+
+/* Estilo para los enlaces (correo y redes sociales) */
+#contact a {
+    color: white;  /* Texto en blanco para los enlaces */
+    text-decoration: none;  /* Eliminar subrayado */
+}
+
+#contact a:hover {
+    text-decoration: underline;  /* Subrayado en hover */
+}
+
+/* Estilo de la fila de columnas */
+#contact .row {
+    margin-top: 2rem;
+}
+
+/* Estilo de las columnas */
+#contact .col-md-3 {
+    margin-bottom: 2rem;
+}
+
+/* Estilo para los iconos de redes sociales */
+#contact .bi-facebook {
+    font-size: 2rem;
+    color: #3b5998;  /* Color de Facebook */
+}
+
+#contact .bi-instagram {
+    font-size: 2rem;
+    color: #E1306C;  /* Color de Instagram */
+}
+
+#contact .bi-twitter {
+    font-size: 2rem;
+    color: #1DA1F2;  /* Color de Twitter */
+}
+
+/* Estilo para el botón de mapa */
+#contact .bi-geo-alt {
+    font-size: 2rem;
+    color: #007bff;  /* Color del ícono de ubicación */
+}
+
+/* Ajuste de márgenes en dispositivos pequeños */
+@media (max-width: 768px) {
+    #contact .row {
+        text-align: center;  /* Centrar el texto en pantallas pequeñas */
+    }
+
+    #contact .col-md-3 {
+        margin-bottom: 1.5rem;  /* Menor espacio entre columnas */
+    }
+}
+
+/* Estilos para el footer de página */
+.footer {
+    background-color: #164A41;  
+    color: white;               
+    text-align: center;         
+    padding: 20px 0;            
+}
+
+.footer p {
+    margin-bottom: 10px;                 
+    font-size: 18px;           
+}
+
+.footer strong {
+    font-weight: bold;          
 }

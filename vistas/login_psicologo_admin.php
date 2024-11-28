@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Paciente</title>
-    <link rel="stylesheet" href="css/login_paciente.css">
+    <title>Login Psicologo/Admin</title>
+    <link rel="stylesheet" href="../css/login_psicologo_admin.css">
 </head>
 
 <body>
     <div class="wrapper">
         <form action="procesar_login.php" method="POST">
-            <h2>Login Paciente</h2>
+            <h2>Login Psicologo/Admin</h2>
             <div class="input-field">
                 <input type="text" name="usuario" id="usuario" placeholder=" " required>
                 <label for="usuario">Usuario</label>
@@ -29,9 +29,9 @@
                 <a href="#">¿Olvidaste tu contraseña?</a>
             </div>
             <button type="submit">Iniciar Sesión</button>
-            <div class="register">
+            <!--<div class="register">
                 <p>¿No tienes una cuenta? <a href="#">Regístrate</a></p>
-            </div>
+            </div> -->
         </form>
     </div>
 </body>
