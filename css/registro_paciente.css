@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+  }
+  
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(#164a41, #9dc88d);
+    min-height: 100vh;
+    width: 100%;
+    padding: 0 10px;
+  }
+  
+  body::before {
+    content: "";
+    position: absolute;
+    width: 95%;
+    height: 95%;
+  background: url("../files/logoe.png") #0000; 
+    background-position: center;
+    background-size: cover;
+  }
+
+  .container  {
+    width: 500px;
+    border-radius: 8px;
+    padding: 40px; 
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  h2 {
+    font-size: 35px;
+    margin-bottom: 10px;
+    color: #ffffff;
+    text-align: center;
+  
+  }
+/*.form-group input{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}*/
+
+  .form-group{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    text-align: left;
+    width: 90%;
+    height: 40px;
+    font-size: 15px;
+    color: #ffffff;
+  }
+  
+
+  .btn {
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 16px;
+    border: 2px #000000;
+    transition: 0.3s ease;
+  }
+  
