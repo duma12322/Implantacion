@@ -9,5 +9,5 @@
 - [@Marcelis Dun](https://github.com/duma12322)
 - [@Neylimar Pérez](https://github.com/Neylimar18)
 - [@Michelle Camacaroz](https://github.com/#)
-- [@Wilfredo Salas](https://github.com/#)
+- [@Wilfredo Salas](https://github.com/wjsalassalazar)
 - [@Oswaldo Anzola](https://github.com/rapanuti)
