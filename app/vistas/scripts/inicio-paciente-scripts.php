@@ -1,0 +1,1 @@
+<script src="<?php echo APP_URL; ?>app/vistas/js/inicio-paciente.js"></script>
