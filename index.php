@@ -57,6 +57,7 @@ $scripts_paginas = [
     "inicio" => "./app/vistas/scripts/inicio-scripts.php",
     "inicio-paciente" => "./app/vistas/scripts/inicio-paciente-scripts.php",
     "inicio-psicologo-admin" => "./app/vistas/scripts/inicio-psicologo-admin-scripts.php",
+    "registro-paciente" => "./app/vistas/scripts/inicio-psicologo-admin-scripts.php",
 ];
 $scripts_generales = "./app/vistas/scripts/general-scripts.php";
 ?>

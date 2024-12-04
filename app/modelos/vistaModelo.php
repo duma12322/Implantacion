@@ -20,7 +20,7 @@
 				if(is_file("./app/vistas/contenido/".$vista."-view.php")){
 					$contenido="./app/vistas/contenido/".$vista."-view.php";
 				}else{
-					$contenido="Página de error 404";
+					$contenido="404";
 				}
 			}elseif($vista=="inicio" || $vista=="index"){
 				$contenido="inicio";

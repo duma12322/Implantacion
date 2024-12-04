@@ -10,6 +10,7 @@ $links_paginas = [
     "inicio-paciente" => "./app/vistas/links/inicio-paciente-links.php",
     "login-paciente" => "./app/vistas/links/login-paciente-links.php",
     "inicio-psicologo-admin" => "./app/vistas/links/inicio-psicologo-admin-link.php",
+    "registro-paciente" => "./app/vistas/links/inicio-psicologo-admin-link.php",
 ];
 
 $links_generales = "./app/vistas/links/general-links.php";

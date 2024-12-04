@@ -31,13 +31,24 @@
         <nav class="sidebar-nav">
             <!-- Primary top nav -->
             <ul class="nav-list primary-nav">
+            <?php if ($_SESSION['tipo_usuario'] === 'administrativo'): ?>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="<?php echo APP_URL."inicio-psicologo-admin"; ?>" class="nav-link">
                         <i class="bi bi-house-fill"></i>
                         <span class="nav-label">Inicio</span>
                     </a>
                     <span class="nav-tooltip">Inicio</span>
                 </li>
+            <?php endif; ?>
+            <?php if ($_SESSION['tipo_usuario'] === 'usuario'): ?>
+                <li class="nav-item">
+                    <a href="<?php echo APP_URL."inicio-paciente"; ?>" class="nav-link">
+                        <i class="bi bi-house-fill"></i>
+                        <span class="nav-label">Inicio</span>
+                    </a>
+                    <span class="nav-tooltip">Inicio</span>
+                </li>
+            <?php endif; ?>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="bi bi-calendar-plus-fill"></i>
@@ -63,7 +74,7 @@
                 </li>
                 <?php if($_SESSION['tipo_usuario'] === 'administrativo') : ?>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="<?php echo APP_URL."registro-paciente/"; ?>" class="nav-link">
                         <i class="bi bi-person-plus-fill"></i>
                         <span class="nav-label">Agregar Paciente</span>
                     </a>

@@ -1,6 +1,6 @@
 <div class="wrapper">
         <form action="" method="POST" autocomplete="on">
-            <h2>Login Paciente</h2>
+            <h2>Emoción Vital</h2>
             <div class="input-field">
                 <input class="input" type="text" name="usuario" id="usuario" placeholder=" " pattern="[a-zA-Z0-9]{1,20}" maxlength="20" required>
                 <label for="usuario">Usuario</label>
