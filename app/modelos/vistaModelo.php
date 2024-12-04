@@ -25,7 +25,7 @@
 			}elseif($vista=="inicio" || $vista=="index"){
 				$contenido="inicio";
 			}else{
-				$contenido="Página de error 404";
+				$contenido="404";
 			}
 			return $contenido;
 		}
