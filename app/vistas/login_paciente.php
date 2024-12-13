@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Paciente</title>
-    <link rel="stylesheet" href="../css/login_paciente.css">
+    <link rel="stylesheet" href="css/login_paciente.css">
 </head>
 
 <body>
     <div class="wrapper">
-        <form action="procesar_login.php" method="POST">
+        <form action="../../config/procesar_login.php" method="POST">
             <h2>Login Paciente</h2>
             <div class="input-field">
                 <input type="text" name="usuario" id="usuario" placeholder=" " required>

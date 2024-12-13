@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../conexion/conexion.php';
+require_once __DIR__ . '/conexion.php';
 
 session_start();
 
@@ -58,15 +58,15 @@ try {
             if (isset($resultado['id_usuario'])) {
                 // Si se encuentra en la tabla `usuario`, es un paciente
                 $_SESSION['tipo_usuario'] = 'paciente'; // Guardamos el tipo de usuario
-                header("Location: inicio_paciente.php");
+                header("Location: ../app/vistas/inicio_paciente.php");
             } elseif (isset($resultado['id_psicologo'])) {
                 // Si se encuentra en la tabla `psicologo`, es un psicólogo
                 $_SESSION['tipo_usuario'] = 'psicologo'; // Guardamos el tipo de usuario
-                header("Location: inicio_psicologo_admin.php");
+                header("Location: ../app/vistas/inicio_psicologo_admin.php");
             } elseif (isset($resultado['id_administrativo'])) {
                 // Si se encuentra en la tabla `administrativo`, es un administrativo
                 $_SESSION['tipo_usuario'] = 'administrativo'; // Guardamos el tipo de usuario
-                header("Location: inicio_psicologo_admin.php");
+                header("Location: ../app/vistas/inicio_psicologo_admin.php");
             }
             exit;
         } else {

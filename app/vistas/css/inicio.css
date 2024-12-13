@@ -14,7 +14,13 @@ header.py-5.text-white {
 
 header h1 {
     font-weight: bold;
+    font-family: 'Georgia', serif;
 }
+
+header h2 {
+    font-family: 'Georgia', serif;
+}
+
 
 img {
     max-height: 400px;
@@ -54,6 +60,8 @@ blockquote {
 .navbar-nav .nav-item {
     display: flex;
     align-items: center; 
+    font-family: 'Georgia', serif;
+    font-size: 2.2rem;
 }
 
 /* Estilo del span dentro de los enlaces */
@@ -84,16 +92,34 @@ blockquote {
     width: 100%; /* La barra se expande a lo largo del ancho de la letra */
 }
 
-.btn-light:hover {
-    background-color: #e0e0e0; /* Color gris oscuro al pasar el ratón */
-    color: black; /* Mantiene el texto negro */
-    border: 1px solid #b3b3b3; /* Oscurece el borde */
+/* Estilo para el botón "Ingresa" */
+.btn-custom {
+    background-color: #f1b24a !important;  /* Color de fondo */
+    color: black !important;              /* Color del texto */
+    padding: 12px 30px !important;        /* Tamaño del botón */
+    border-radius: 5px !important;        /* Bordes redondeados */
+    text-align: center !important;        /* Alinear texto */
+    display: inline-block !important;     /* Asegura que el enlace se comporte como un botón */
+    text-decoration: none !important;     /* Eliminar subrayado del enlace */
+    font-weight: bold !important;         /* Hacer el texto más destacable */
+    font-size: 18px !important;           /* Tamaño de fuente */
+    transition: background-color 0.3s ease, color 0.3s ease !important; /* Transición suave */
 }
+
+/* Estilo cuando el botón está en hover */
+.btn-custom:hover {
+   background-color: #727272 !important;  /* Fondo gris claro al pasar el mouse */
+    color: rgb(255, 255, 255) !important;               /* Mantener el texto en negro */
+    border: 1px solid #888 !important;     /* Borde gris oscuro al pasar el mouse */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;  /* Sombra más profunda */
+    transform: translateY(-4px) !important; /* Aumenta el efecto de elevación */
+}
+
 
 /* Estilo general para la sección tipo de consultas y precios */
 #tipos-consulta {
-    background-color: #4D774E; 
-    color: #ffffff; 
+    background-color: #9DC88D; 
+    color: #000000; 
     text-align: center; /* Centrar todo el texto en la sección */
     padding: 5rem 0;
 }
@@ -101,6 +127,9 @@ blockquote {
 #tipos-consulta h2 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
+    font-weight: bold;
+    font-family: 'Georgia', serif;
+    color: #000000; /* Color del título principal */
 }
 
 #tipos-consulta .nav-tabs {
@@ -111,20 +140,23 @@ blockquote {
 }
 
 #tipos-consulta .nav-link {
-    background: transparent;
-    color: #ffffff;
-    border: 1px solid #ffffff;
-    margin: 0 0.5rem;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
+    background-color: #f1b24a;  
+    color: black;             
+    border: 1px solid #f1b24a;  
+    padding: 12px 25px;       /* Aumenta el padding para hacerlo más grande */
+    border-radius: 8px;       /* Bordes más redondeados */
+    font-size: 18px;          /* Tamaño de fuente más grande */
+    transition: all 0.3s ease; /* Transición suave */
+    margin-left: 10px;
 }
 
 #tipos-consulta .nav-link:hover, 
 #tipos-consulta .nav-link.active {
-    background-color: #ffffff;
-    color: #232323;
-    border-color: #ffffff;
+     background-color: #727272;  /* Fondo gris claro al pasar el mouse */
+    color: rgb(255, 255, 255);               /* Mantener el texto en negro */
+    border: 1px solid #888;     /* Borde gris oscuro al pasar el mouse */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);  /* Sombra más profunda */
+    transform: translateY(-4px); /* Aumenta el efecto de elevación */
 }
 
 #tipos-consulta .tab-pane {
@@ -167,23 +199,30 @@ blockquote {
 }
 
  /* Estilo personalizado para el botón VER*/
-    #verButton {
-        background-color: white;  
-        color: black;             
-        border: 1px solid #ccc;  
-    }
+#verButton {
+    background-color: #f1b24a;  
+    color: black;             
+    border: 1px solid #f1b24a;  
+    padding: 12px 25px;       /* Aumenta el padding para hacerlo más grande */
+    border-radius: 8px;       /* Bordes más redondeados */
+    font-size: 18px;          /* Tamaño de fuente más grande */
+    transition: all 0.3s ease; /* Transición suave */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
-    /* Estilo para el botón cuando está en hover (cuando el cursor pasa por encima) */
-    #verButton:hover {
-        background-color: #727272;  /* Fondo gris claro al pasar el mouse */
-        color: black;               /* Mantener el texto en negro */
-        border: 1px solid #888;     /* Borde gris oscuro al pasar el mouse */
-    }
+#verButton:hover {
+    background-color: #727272;  /* Fondo gris claro al pasar el mouse */
+    color: rgb(255, 255, 255);               /* Mantener el texto en negro */
+    border: 1px solid #888;     /* Borde gris oscuro al pasar el mouse */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);  /* Sombra más profunda */
+    transform: translateY(-4px); /* Aumenta el efecto de elevación */
+}
 
 
 /* Estilo general para la sección quienes somos*/
 #quienessomos {
-    background-color: #9DC88D;
+    background-color: #4D774E;
     padding: 3rem 0;
     text-align: center;
 }
@@ -191,27 +230,28 @@ blockquote {
 #quienessomos h2 {
     font-size: 2.5rem;
     font-weight: bold;
+    font-family: 'Georgia', serif;
     margin-bottom: 1.5rem;
-    color: #000000; /* Color del título principal */
+    color: #ffffff; /* Color del título principal */
 }
 
 #quienessomos h3 {
     font-size: 2rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
-    color: #000000; /* Color de los subtítulos */
+    color: #ffffff; /* Color de los subtítulos */
 }
 
 #quienessomos p {
     font-size: 1.2rem;
     line-height: 1.8;
-    color: #000000; /* Color del texto */
+    color: #ffffff; /* Color del texto */
 }
 
 #quienessomos p.lead {
     font-size: 1.25rem;
     margin-bottom: 2rem;
-    color: #000000; /* Color más claro para resaltar el texto principal */
+    color: #969696; /* Color más claro para resaltar el texto principal */
 }
 
 #quienessomos br {
@@ -223,6 +263,14 @@ blockquote {
     background-color: #4D774E;
     padding-top: 5rem;
     padding-bottom: 5rem;
+}
+
+#acercademi h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: 'Georgia', serif;
+    margin-bottom: 1.5rem;
+    color: #000000; /* Color del título principal */
 }
 
 #acercademi .container {
@@ -258,7 +306,7 @@ blockquote {
 
 /* Estilo general para la sección servicios*/
 #services {
-    background-color: #9DC88D;
+    background: linear-gradient(to bottom, #4D774E, #164A41);
 }
 
 .card {
@@ -283,7 +331,7 @@ blockquote {
 }
 
 button.btn {
-    background-color: #4D774E;  
+    background-color: #000000;  
     color: white;                
     border: none;                
     border-radius: 5px;          
@@ -399,3 +447,50 @@ button.btn:hover {
 .footer strong {
     font-weight: bold;          
 }
+
+.image-collage {
+    position: relative;
+    width: 90%; /* Reduce el ancho si está ocupando demasiado espacio */
+    height: 550px; /* Ajusta según tus necesidades */
+    border: 5px solid #164A41; /* Borde del contenedor */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5); /* Efecto 3D */
+    background: linear-gradient(to bottom, #4D774E, #164A41);
+    padding: 10px; /* Espaciado interno */
+    margin-left: -20px; /* Mueve el contenedor hacia la izquierda */  
+}
+
+.image-item {
+    position: absolute;
+}
+
+.image-item img {
+    width: 210px; /* Ajusta el tamaño de las imágenes */
+    height: 210px; /* Mantener proporciones */
+    border-radius: 10px; /* Bordes redondeados */
+      border: 5px solid #164A41; /* Borde del contenedor */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5); /* Efecto 3D */
+}
+
+/* Posicionamiento de cada imagen */
+.image-item-1 {
+    top: 60px;
+    left: 60px;
+}
+
+.image-item-2 {
+    top: 60px;
+    left: 290px;
+}
+
+.image-item-3 {
+    top: 290px;
+    left: 60px;
+}
+
+.image-item-4 {
+    top: 290px;
+    left: 290px;
+}
+

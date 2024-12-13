@@ -1,14 +1,13 @@
 <?php
 session_start();
 
-// Muestra el contenido de la sesión para depuración (si lo necesitas)
 //echo '<pre>';
 //print_r($_SESSION);
 //echo '</pre>';
 
 // Verifica si la sesión está activa
 if (!isset($_SESSION['usuario'])) {
-    header("Location: login_psicologo.admin.php");
+    header("Location: login_paciente.php");
     exit;
 }
 
@@ -17,7 +16,7 @@ if (isset($_POST['cerrar_sesion'])) {
     // Destruye la sesión y redirige al login
     session_unset();
     session_destroy();
-    header("Location: login_psicologo_admin.php");
+    header("Location: login_paciente.php");
     exit;
 }
 
@@ -32,7 +31,7 @@ $nombreUsuario = $_SESSION['nombre']
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/inicio_psicologo_admin.css">
+    <link rel="stylesheet" href="css/inicio_paciente.css">
 </head>
 
 <body>
@@ -48,7 +47,7 @@ $nombreUsuario = $_SESSION['nombre']
             </button>
             <div class="dropdown-content">
                 <a href="#">Perfil</a>
-                <a href="logout.php">Cerrar Sesion</a>
+                <a href="../../config/logout.php">Cerrar Sesion</a>
             </div>
         </div>
     </header>
@@ -78,25 +77,11 @@ $nombreUsuario = $_SESSION['nombre']
                     <span class="nav-tooltip">Inicio</span>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="solicitar_cita.php" class="nav-link">
                         <i class="bi bi-calendar-plus-fill"></i>
                         <span class="nav-label">Agendar Cita</span>
                     </a>
                     <span class="nav-tooltip">Agendar Cita</span>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-person-hearts"></i>
-                        <span class="nav-label">Agregar Psicologo</span>
-                    </a>
-                    <span class="nav-tooltip">Agregar Psicologo</span>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-person-plus-fill"></i>
-                        <span class="nav-label">Agregar Paciente</span>
-                    </a>
-                    <span class="nav-tooltip">Agregar Paciente</span>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
@@ -105,30 +90,6 @@ $nombreUsuario = $_SESSION['nombre']
                     </a>
                     <span class="nav-tooltip">Consultar Citas</span>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-person-vcard-fill"></i>
-                        <span class="nav-label">Historial</span>
-                    </a>
-                    <span class="nav-tooltip">Historial</span>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-file-earmark-text-fill"></i>
-                        <span class="nav-label">Reportes</span>
-                    </a>
-                    <span class="nav-tooltip">Reportes</span>
-                </li>
-                <?php if ($_SESSION['tipo_usuario'] === 'administrativo') : ?>
-                    <!-- Solo administrativo puede ver Logs -->
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="bi bi-gear-fill"></i>
-                            <span class="nav-label">Logs</span>
-                        </a>
-                        <span class="nav-tooltip">Logs</span>
-                    </li>
-                <?php endif; ?>
             </ul>
 
             <!-- <ul class="nav-list secondary-nav">

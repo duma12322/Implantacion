@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio Psicólogo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/inicio.css">
+    <link rel="stylesheet" href="css/inicio.css">
 </head>
 
 <body>
@@ -24,13 +24,13 @@
                     <a class="nav-link nav-custom" href="#quienessomos"><span>Quienes Somos</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-custom" href="#acercademi"><span>Acerca de mi</span></a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link nav-custom" href="#services"><span>Servicios</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-custom" href="#tiposconsultas"><span>Consultas y Precios</span></a>
+                    <a class="nav-link nav-custom" href="#tipos-consulta"><span>Consultas y Precios</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-custom" href="#acercademi"><span>Acerca de mi</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-custom" href="#contact"><span>Contacto</span></a>
@@ -45,23 +45,118 @@
             <div class="row align-items-center">
                 <!-- Columna izquierda: Logo y botones -->
                 <div class="col-md-6 d-flex flex-column justify-content-center text-center text-md-left">
-                    <img src="../files/logo.png" alt="Bienvenido" class="img-fluid rounded shadow mx-auto d-block" style="max-width: 200px; height: auto;">
+                    <img src="files/logo.png" alt="Bienvenido" class="img-fluid rounded shadow mx-auto d-block" style="max-width: 300px; height: auto;">
                     <h1 class="display-6">Bienvenido a Emoción Vital</h1>
                     <p class="lead mx-auto d-block">¡Estamos aquí para acompañarte en tu camino!</p>
                     <div class="d-flex justify-content-start mx-auto d-block">
-                        <a href="login_paciente.php" class="btn btn-light btn-lg mt-3 mr-2">Ingresa</a>
-                        <a href="registro_paciente.php" class="btn btn-light btn-lg mt-3">Registrate</a>
+                        <a href="login_paciente.php" class="btn btn-lg mt-3 mr-2 btn-custom">Ingresa</a>
+                        <a href="registro_paciente.php" class="btn btn-lg mt-3 btn-custom">Registrate</a>
+
                     </div>
                 </div>
 
                 <!-- Columna derecha: Imagen con servicios -->
+                <!-- Servicios -->
                 <div class="col-md-6" style="position: relative; left: 80px;">
-                    <img src="../files/collage.png" alt="Servicios" class="img-fluid rounded shadow">
+                    <section id="services">
+                        <div class="image-collage">
+                            <h2 class="mb-4" style="text-align: center;">Servicios</h2>
+                            <!-- Imagen 1 -->
+                            <div class="image-item image-item-1">
+                                <a href="#" onclick="openPopup('Psicoterapia Individual', 'collapseIndividual')">
+                                    <img src="files/individual.png" alt="Psicoterapia Individual">
+                                </a>
+                            </div>
+                            <!-- Imagen 2 -->
+                            <div class="image-item image-item-2">
+                                <a href="#" onclick="openPopup('Psicoterapia para Niños', 'collapseNinos')">
+                                    <img src="files/niños.png" alt="Psicoterapia para Niños">
+                                </a>
+                            </div>
+                            <!-- Imagen 3 -->
+                            <div class="image-item image-item-3">
+                                <a href="#" onclick="openPopup('Psicoterapia de Parejas', 'collapseParejas')">
+                                    <img src="files/parejas.png" alt="Psicoterapia de Parejas">
+                                </a>
+                            </div>
+                            <!-- Imagen 4 -->
+                            <div class="image-item image-item-4">
+                                <a href="#" onclick="openPopup('Psicoterapia para Adolescentes', 'collapseAdolescentes')">
+                                    <img src="files/adolescentes.png" alt="Psicoterapia para Adolescentes">
+                                </a>
+                            </div>
+                            <p style="text-align: center; margin-top: 460px;">Click en la imagen para ver los servicios</p>
+
+
+                        </div>
+                    </section>
                 </div>
 
             </div>
         </div>
     </header>
+
+    <!-- Modal de servicio -->
+    <div class="modal fade" id="serviceModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">Título del Servicio</h5>
+                    <!-- Botón de cierre -->
+                    <button type="button" class="btn-close" aria-label="Close" onclick="closeModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="collapse" id="collapseIndividual">
+                        <p>En ocasiones, nos encontramos abrumados, tristes, desesperanzados, estresados o afligidos, lo cual es parte de la experiencia humana. Sin embargo, cuando estos sentimientos se prolongan y afectan diferentes áreas de nuestra vida (social, personal, afectiva, laboral y familiar), la terapia psicológica individual puede ser una alternativa eficaz para abordar estas problemáticas.
+                            <br><br>La terapia individual ofrece una reducción efectiva de problemáticas psicológicas como la depresión y la ansiedad, así como de los síntomas asociados, como el dolor, el cansancio y los problemas de sueño, entre otros. Además, la psicoterapia tiene un impacto positivo en la salud emocional y física, lo que conlleva una mejora general en el estado de salud de las personas.
+                        </p>
+                    </div>
+                    <div class="collapse" id="collapseNinos">
+                        <p>La niñez es una etapa crucial para el desarrollo, donde es fundamental que los niños y niñas reciban un apoyo que les permita adquirir habilidades y estrategias para enfrentar las situaciones que surgirán a lo largo de sus vidas.</p>
+                        <p class="mt-3">Este apoyo es fundamental para detectar cualquier problema emocional, conductual, cognitivo u otros que puedan surgir. Por esta razón, es importante buscar ayuda o apoyo psicológico si usted está preocupado por el comportamiento de su hijo o hija. A través de un tratamiento adecuado, el psicólogo infantil puede ayudar tanto a los padres como a los niños a superar estas dificultades. El trabajo conjunto les permitirá aprender a relacionarse con los demás ya desarrollar habilidades y hábitos que les ayudarán a tener éxito en la escuela, en sus interacciones sociales y en la vida en general.</p>
+                        <p>Algunas de las problemáticas más comunes en la niñez son:</p>
+                        <ul style="text-align: left;">
+                            <li>Miedos (oscuridad, dormir solos, etc.)</li>
+                            <li>Ansiedad</li>
+                            <li>Tristeza y desesperanza</li>
+                            <li>Desobediencia</li>
+                            <li>Bajo rendimiento académico</li>
+                            <li>Divorcio de padres</li>
+                            <li>Hiperactividad y falta de atención</li>
+                        </ul>
+                        </p>
+                    </div>
+                    <div class="collapse" id="collapseParejas">
+                        <p>La terapia de pareja puede ser beneficiosa en varias situaciones, ya que ofrece la oportunidad de abordar de manera conjunta las dificultades emocionales y relacionales que puedan estar afectando la relación. Algunas de las razones comunes por las que las parejas buscan terapia incluyen la falta de confianza, problemas de comunicación, diferencias en la convivencia, discusiones recurrentes, crisis en la relación, problemas sexuales, celos, desconfianza, y la llegada de los hijos. La terapia de pareja proporciona un espacio para trabajar en la resolución de conflictos, mejorar la comunicación, reconstruir la conexión emocional y fortalecer la relación.
+                            Además, puede ayudar a reducir el impacto negativo del estrés y la ansiedad, promoviendo un mayor entendimiento mutuo y bienestar emocional en la relación.</p>
+                    </div>
+                    <div class="collapse" id="collapseAdolescentes">
+                        <p>En la adolescencia, es común enfrentarse a una variedad de desafíos psicológicos, conductuales, emocionales y cognitivos, ya que esta etapa es fundamental para la transición y la formación de la identidad.</p>
+                        Es importante reconocer que estas luchas son parte natural del proceso de crecimiento. Sin embargo, si como padre o madre se encuentra preocupado por el comportamiento de su hijo o hija, considere conversar con un psicólogo especializado en adolescentes puede ser de gran ayuda. Un psicólogo puede proporcionar orientación para comprender si los cambios en el comportamiento son normales o si el adolescente se beneficiaría de la ayuda de un experto. Este enfoque puede brindar tranquilidad a los padres y fomentar un mejor entendimiento de los desafíos que enfrenta su hijo o hija durante esta etapa crucial de desarrollo.</p>
+                        <p>Algunas de las problemáticas más comunes en la adolescencia son:</p>
+                        <ul style="text-align: left;">
+                            <li>Acoso escolar</li>
+                            <li>Muerte y suicidio</li>
+                            <li>Divorcio de padres</li>
+                            <li>Problemas con la imagen corporal</li>
+                            <li>Miedo, preocupación y angustia</li>
+                            <li>Cambios de humor</li>
+                            <li>Comer más o menos</li>
+                            <li>Exceso de peso</li>
+                            <li>Rebeldía</li>
+                            <li>Timidez</li>
+                            <li>Tristeza, desesperanza y daño propio</li>
+                            <li>Deficiencias sociales</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-custom" onclick="closeModal()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Quienes somos -->
     <section id="quienessomos" class="py-5">
@@ -85,133 +180,12 @@
         </div>
     </section>
 
-    <!-- Acerca de mi (psicologa) -->
-    <section id="acercademi" class="py-5">
-        <div class="container text-center">
-            <div class="perfil-cuadro">
-                <h2 class="mb-4">Acerca de mí</h2>
-                <img src="../files/Marce.png" alt="Foto de la psicóloga">
-                <p>
-                    En Emoción Vital, creemos que la conexión entre el terapeuta y el paciente es fundamental para un proceso terapéutico efectivo. Te presentamos a nuestra psicóloga, la licenciada María Daniela Mogollón quien se dedica al acompañamiento terapéutico y la evaluación de la conducta, enfocándose en el tratamiento de la salud mental y emocional.
-                    Con una sólida formación académica, nuestra psicóloga es licenciada en Psicología por la Universidad Yacambú y cuenta con especializaciones en atención y evaluación psicológica. Su experiencia laboral incluye más de cuatro años como docente universitario en la Universidad Nacional Experimental Politécnica de la Fuerza Armada (UNEFA), donde impartió materias relacionadas con la psicología y el desarrollo social.
-                    Además, ha trabajado en el departamento de Bienestar Estudiantil, brindando atención y evaluación psicológica a estudiantes, así como en el ámbito organizacional, donde se encargó de la selección y capacitación de personal en Transbarca.
-                    Nuestra psicóloga también ha complementado su formación con diversos cursos, incluyendo liderazgo en Yoga de la Risa y talleres sobre conductas en niños y adolescentes, lo que le permite abordar una amplia gama de problemáticas desde diferentes perspectivas.
-                    Si buscas un espacio seguro y profesional para tu bienestar emocional, no dudes en conocer más a tu psicólogo y dar el primer paso hacia tu salud mental.
-                    ¡Estamos aquí para acompañarte en tu camino!
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Servicios -->
-    <section id="services" class="py-5">
-        <div class="container text-center">
-            <h2 class="mb-4">Servicios</h2>
-            <div class="row">
-                <!-- Columna izquierda (dos tarjetas una debajo de la otra) -->
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Psicoterapia Individual</h5>
-                            <p class="card-text">En ocasiones, nos encontramos abrumados, tristes, desesperanzados, estresados o afligidos, lo cual es parte de la experiencia humana.</p>
-                            <!-- Contenido desplegable -->
-                            <div class="collapse" id="collapseIndividual">
-                                <p class="mt-3">Sin embargo, cuando estos sentimientos se prolongan y afectan diferentes áreas de nuestra vida (social, personal, afectiva, laboral y familiar), la terapia psicológica individual puede ser una alternativa eficaz para abordar estas problemáticas. <br>
-                                    La terapia individual ofrece una reducción efectiva de problemáticas psicológicas como la depresión y la ansiedad, así como de los síntomas asociados, como el dolor, el cansancio y los problemas de sueño, entre otros. Además, la psicoterapia tiene un impacto positivo en la salud emocional y física, lo que conlleva una mejora general en el estado de salud de las personas.
-                                </p>
-                            </div>
-                            <!-- Botón de despliegue -->
-                            <button class="btn" type="button" data-toggle="collapse" data-target="#collapseIndividual" aria-expanded="false" aria-controls="collapseIndividual" onclick="toggleText(this)">
-                                Leer más
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Psicoterapia para Pareja</h5>
-                            <p class="card-text">La terapia de pareja puede ser beneficiosa en varias situaciones, ya que ofrece la oportunidad de abordar de manera conjunta las dificultades emocionales y relacionales que puedan estar afectando la relación.</p>
-                            <!-- Contenido desplegable -->
-                            <div class="collapse" id="collapsePareja">
-                                <p class="mt-3">Algunas de las razones comunes por las que las parejas buscan terapia incluyen la falta de confianza, problemas de comunicación, diferencias en la convivencia, discusiones recurrentes, crisis en la relación, problemas sexuales, celos, desconfianza, y la llegada de los hijos. <br>
-                                    La terapia de pareja proporciona un espacio para trabajar en la resolución de conflictos, mejorar la comunicación, reconstruir la conexión emocional y fortalecer la relación. Además, puede ayudar a reducir el impacto negativo del estrés y la ansiedad, promoviendo un mayor entendimiento mutuo y bienestar emocional en la relación.
-                                </p>
-                            </div>
-                            <!-- Botón de despliegue -->
-                            <button class="btn" type="button" data-toggle="collapse" data-target="#collapsePareja" aria-expanded="false" aria-controls="collapsePareja" onclick="toggleText(this)">
-                                Leer más
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Columna derecha (dos tarjetas una debajo de la otra) -->
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">Psicoterapia Infantil</h5>
-                            <p class="card-text">La niñez es una etapa crucial para el desarrollo, donde es fundamental que los niños y niñas reciban un apoyo que les permita adquirir habilidades y estrategias para enfrentar las situaciones que surgirán a lo largo de sus vidas.</p>
-                            <!-- Contenido desplegable -->
-                            <div class="collapse" id="collapseInfantil">
-                                <p class="mt-3">Este apoyo es fundamental para detectar cualquier problema emocional, conductual, cognitivo u otros que puedan surgir. Por esta razón, es importante buscar ayuda o apoyo psicológico si usted está preocupado por el comportamiento de su hijo o hija. A través de un tratamiento adecuado, el psicólogo infantil puede ayudar tanto a los padres como a los niños a superar estas dificultades. El trabajo conjunto les permitirá aprender a relacionarse con los demás ya desarrollar habilidades y hábitos que les ayudarán a tener éxito en la escuela, en sus interacciones sociales y en la vida en general.</p>
-                                <p class="mt-3">Algunas de las problemáticas más comunes en la niñez son:</p>
-                                <ul style="text-align: left;">
-                                    <li>Miedos (oscuridad, dormir solos, etc.)</li>
-                                    <li>Ansiedad</li>
-                                    <li>Tristeza y desesperanza</li>
-                                    <li>Desobediencia</li>
-                                    <li>Bajo rendimiento académico</li>
-                                    <li>Divorcio de padres</li>
-                                    <li>Hiperactividad y falta de atención</li>
-                                </ul>
-                            </div>
-                            <!-- Botón de despliegue -->
-                            <button class="btn" type="button" data-toggle="collapse" data-target="#collapseInfantil" aria-expanded="false" aria-controls="collapseInfantil" onclick="toggleText(this)">
-                                Leer más
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Psicoterapia para Adolescentes</h5>
-                            <p class="card-text">En la adolescencia, es común enfrentarse a una variedad de desafíos psicológicos, conductuales, emocionales y cognitivos, ya que esta etapa es fundamental para la transición y la formación de la identidad.</p>
-                            <!-- Contenido desplegable -->
-                            <div class="collapse" id="collapseAdolescentes">
-                                <p class="mt-3">Es importante reconocer que estas luchas son parte natural del proceso de crecimiento. Sin embargo, si como padre o madre se encuentra preocupado por el comportamiento de su hijo o hija, considere conversar con un psicólogo especializado en adolescentes puede ser de gran ayuda. Un psicólogo puede proporcionar orientación para comprender si los cambios en el comportamiento son normales o si el adolescente se beneficiaría de la ayuda de un experto. Este enfoque puede brindar tranquilidad a los padres y fomentar un mejor entendimiento de los desafíos que enfrenta su hijo o hija durante esta etapa crucial de desarrollo.</p>
-                                <p class="mt-3">Algunas de las problemáticas más comunes en la adolescencia son:</p>
-                                <ul style="text-align: left;">
-                                    <li>Acoso escolar</li>
-                                    <li>Muerte y suicidio</li>
-                                    <li>Divorcio de padres</li>
-                                    <li>Problemas con la imagen corporal</li>
-                                    <li>Miedo, preocupación y angustia</li>
-                                    <li>Cambios de humor</li>
-                                    <li>Comer más o menos</li>
-                                    <li>Exceso de peso</li>
-                                    <li>Rebeldía</li>
-                                    <li>Timidez</li>
-                                    <li>Tristeza, desesperanza y daño propio</li>
-                                    <li>Deficiencias sociales</li>
-                                </ul>
-                            </div>
-                            <!-- Botón de despliegue -->
-                            <button class="btn" type="button" data-toggle="collapse" data-target="#collapseAdolescentes" aria-expanded="false" aria-controls="collapseAdolescentes" onclick="toggleText(this)">
-                                Leer más
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Tipos de Consultas -->
     <section id="tipos-consulta" class="py-5">
         <div class="container">
             <h2 class="text-center mb-4">Consultas y Precios</h2>
             <!-- Botón para mostrar las opciones -->
-            <button id="verButton" class="btn mb-4">Ver</button>
+            <button id="verButton" class="btn btn-lg mt-3 mr-2">Ver</button>
 
             <!-- Contenedor de las pestañas, inicialmente oculto -->
             <div class="tab-content-container" style="display:none;" id="consultaTabs">
@@ -318,6 +292,24 @@
         </div>
     </section>
 
+    <!-- Acerca de mi (psicologa) -->
+    <section id="acercademi" class="py-5">
+        <div class="container text-center">
+            <div class="perfil-cuadro">
+                <h2 class="mb-4">Acerca de mí</h2>
+                <img src="files/Marce.png" alt="Foto de la psicóloga">
+                <p>
+                    En Emoción Vital, creemos que la conexión entre el terapeuta y el paciente es fundamental para un proceso terapéutico efectivo. Te presentamos a nuestra psicóloga, la licenciada María Daniela Mogollón quien se dedica al acompañamiento terapéutico y la evaluación de la conducta, enfocándose en el tratamiento de la salud mental y emocional.
+                    Con una sólida formación académica, nuestra psicóloga es licenciada en Psicología por la Universidad Yacambú y cuenta con especializaciones en atención y evaluación psicológica. Su experiencia laboral incluye más de cuatro años como docente universitario en la Universidad Nacional Experimental Politécnica de la Fuerza Armada (UNEFA), donde impartió materias relacionadas con la psicología y el desarrollo social.
+                    Además, ha trabajado en el departamento de Bienestar Estudiantil, brindando atención y evaluación psicológica a estudiantes, así como en el ámbito organizacional, donde se encargó de la selección y capacitación de personal en Transbarca.
+                    Nuestra psicóloga también ha complementado su formación con diversos cursos, incluyendo liderazgo en Yoga de la Risa y talleres sobre conductas en niños y adolescentes, lo que le permite abordar una amplia gama de problemáticas desde diferentes perspectivas.
+                    Si buscas un espacio seguro y profesional para tu bienestar emocional, no dudes en conocer más a tu psicólogo y dar el primer paso hacia tu salud mental.
+                    ¡Estamos aquí para acompañarte en tu camino!
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!-- Contacto -->
     <section id="contact" class="py-3 text-white">
         <div class="container text-center">
@@ -389,6 +381,8 @@
 
     <script src="script/Textservicio.js"></script>
     <script src="script/botonver.js"></script>
+    <script src="script/inicio-collageImagen.js "></script>
+    <script src="script/imagenpopups.js "></script>
 </body>
 
 </html>

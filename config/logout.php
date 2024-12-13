@@ -6,11 +6,11 @@ session_start();
 if (isset($_SESSION['tipo_usuario'])) {
     // Redirigir a la página correspondiente dependiendo del tipo de usuario
     if ($_SESSION['tipo_usuario'] === 'paciente') {
-        header("Location: login_paciente.php"); // Redirigir a login de paciente
+        header("Location: ../app/vistas/login_paciente.php"); // Redirigir a login de paciente
     } elseif ($_SESSION['tipo_usuario'] === 'psicologo') {
-        header("Location: login_psicologo_admin.php"); // Redirigir a login de psicólogo
+        header("Location: ../app/vistas/login_psicologo_admin.php"); // Redirigir a login de psicólogo
     } elseif ($_SESSION['tipo_usuario'] === 'administrativo') {
-        header("Location: login_psicologo_admin.php"); // Redirigir a login de administrativo
+        header("Location: ../app/vistas/login_psicologo_admin.php"); // Redirigir a login de administrativo
     }
 } else {
     // Si no hay tipo de usuario, redirigir al login general
