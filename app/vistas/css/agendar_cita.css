@@ -8,11 +8,6 @@
   font-family: "Poppins", sans-serif;
 }
 
-body {
-  min-height: 100vh;
-  background: linear-gradient(#F1FAFF, #CBE4FF);
-}
-
 .sidebar {
   position: fixed;
   top: 0;
@@ -36,6 +31,7 @@ body {
   padding: 25px 20px;
   align-items: center;
   justify-content: space-between;
+  margin-top: -1px;
  /*border-right: 1px solid white; */
 }
 
@@ -241,6 +237,7 @@ header {
     height: 60px; 
     padding: 20px;
     z-index: 999;
+    /*margin-top: -20px;*/
 }
 
 /*footer {
@@ -324,3 +321,113 @@ main {
 .nav-item.active i {
     color: #007BFF; 
 }*/
+
+
+
+/* CCS de Agendar Cita */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+h4 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Card styling */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.card-header {
+    background: linear-gradient( #1b1b1b, #303030, #164A41 );
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.2rem;
+}
+
+/* Aseguramos que las columnas estén alineadas correctamente */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+/* Ajustar las imágenes a un tamaño más pequeño */
+.card-body img {
+    width: 30%;  /* Asegúrate de que las imágenes no sean demasiado grandes */
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Efecto hover en las imágenes */
+.card-body img:hover {
+    transform: scale(1.05);
+}
+
+/* Estilo para los botones y enlaces */
+.card-body a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #007bff;
+}
+
+/* Añadir un poco de espacio entre las tarjetas */
+.col-md-6 {
+    margin-bottom: 20px;
+}
+
+/* Responsividad: Aseguramos que las tarjetas ocupen el 50% del ancho en pantallas medianas */
+@media (max-width: 748px) {
+    .col-md-6 {
+        flex: 1 1 35%; 
+        margin-bottom: 15px;
+    }
+}
+
+/* Image styling */
+img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect for images */
+img:hover {
+    transform: scale(1.05);
+}
+
+/* Column styling */
+.row {
+    margin-bottom: 30px;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Buttons and Links */
+a {
+    text-decoration: none;
+    display: block;
+}
+
+/* Add responsiveness */
+@media (max-width: 768px) {
+    .col-md-6 {
+        margin-bottom: 20px;
+    }
+}
+
