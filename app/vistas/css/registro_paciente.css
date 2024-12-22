@@ -13,7 +13,7 @@
     align-items: center;
     justify-content: center;
     margin: 10px;
-    background:linear-gradient(#f3fff1, #cbffd3) ;
+    background: url("../files/dis.png");
     min-height: 100vh;
     width: 100%;
     padding: 0 10px;
@@ -23,7 +23,7 @@
 
   h2 {
     font-size: 35px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     color: #000000;
     text-align: center;
   
@@ -37,7 +37,7 @@
     text-align: left;
     width: 90%;
     height: 40px;
-    font-size: 15px;
+    font-size: 18px;
     color: #000000;
   }
  
@@ -49,7 +49,7 @@
     padding: 12px 20px;
     cursor: pointer;
     border-radius: 3px;
-    font-size: 16px;
+    font-size: 22px;
     text-align: right;
     border: 2px #000000;
     transition: 0.3s ease;
