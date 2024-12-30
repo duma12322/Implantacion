@@ -39,13 +39,6 @@ try {
         $resultado = $query->fetch(PDO::FETCH_ASSOC);
     }
 
-    // Depurar el contenido de $resultado
-    if ($resultado) {
-        echo "<pre>";
-        print_r($resultado); // Esto muestra los datos que devuelve la consulta
-        echo "</pre>";
-    }
-
     // Verificar si se obtuvo un resultado
     if ($resultado && isset($resultado['contraseña'])) {
         // Validar contraseña usando MD5
@@ -58,22 +51,49 @@ try {
             if (isset($resultado['id_usuario'])) {
                 // Si se encuentra en la tabla `usuario`, es un paciente
                 $_SESSION['tipo_usuario'] = 'paciente'; // Guardamos el tipo de usuario
-                header("Location: ../app/vistas/inicio_paciente.php");
+                // Redirigir al login del paciente
+                header("Location: ../app/vistas/login_paciente.php");
+                exit;
             } elseif (isset($resultado['id_psicologo'])) {
                 // Si se encuentra en la tabla `psicologo`, es un psicólogo
                 $_SESSION['tipo_usuario'] = 'psicologo'; // Guardamos el tipo de usuario
-                header("Location: ../app/vistas/inicio_psicologo_admin.php");
+                header("Location: ../app/vistas/dashboard.php");
+                exit;
             } elseif (isset($resultado['id_administrativo'])) {
                 // Si se encuentra en la tabla `administrativo`, es un administrativo
                 $_SESSION['tipo_usuario'] = 'administrativo'; // Guardamos el tipo de usuario
-                header("Location: ../app/vistas/inicio_psicologo_admin.php");
+                header("Location: ../app/vistas/dashboard.php");
+                exit;
             }
-            exit;
         } else {
-            echo "Usuario o contraseña incorrectos.";
+            // Si la contraseña es incorrecta, mostramos un popup con SweetAlert2
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js'></script>";
+            echo "<script>
+                    window.onload = function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '¡Error!',
+                            text: 'Usuario o contraseña incorrectos.',
+                        }).then(function() {
+                            window.location.href = '/implantacion/app/vistas/login_paciente.php'; // Redirigir a la página de login del paciente después del mensaje
+                        });
+                    }
+                  </script>";
         }
     } else {
-        echo "Usuario o contraseña incorrectos o la columna 'contraseña' no existe en el resultado.";
+        // Si no se encontró el usuario o la columna 'contraseña' no existe
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js'></script>";
+        echo "<script>
+                window.onload = function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '¡Error!',
+                        text: 'Usuario o contraseña incorrectos',
+                    }).then(function() {
+                        window.location.href = '/implantacion/app/vistas/login_paciente.php'; // Redirigir a la página de login del paciente después del mensaje
+                    });
+                }
+              </script>";
     }
 } catch (Exception $e) {
     die("Error: " . $e->getMessage());

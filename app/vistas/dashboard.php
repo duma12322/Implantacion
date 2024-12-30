@@ -75,7 +75,7 @@ $nombreUsuario = $_SESSION['nombre']
                     <span class="nav-tooltip">Inicio</span>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="agendar_cita.php" class="nav-link">
                         <i class="bi bi-calendar-plus-fill"></i>
                         <span class="nav-label">Agendar Cita</span>
                     </a>

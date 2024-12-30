@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-
 * {
   margin: 0;
   padding: 0;
@@ -12,12 +11,12 @@
   position: fixed;
   top: 0;
   left: 0;
-  bottom: 0; 
+  bottom: 0;
   width: 270px;
   margin: 0;
-  background: linear-gradient( #1b1b1b, #303030, #164A41 );
+  background: linear-gradient(#1b1b1b, #303030, #164a41);
   transition: all 0.4s ease;
-  border-right: 1px solid white; 
+  border-right: 1px solid white;
 }
 
 .sidebar.collapsed {
@@ -25,14 +24,14 @@
 }
 
 .sidebar .sidebar-header {
-  background-color: #164A41;
+  background-color: #164a41;
   display: flex;
   position: relative;
   padding: 25px 20px;
   align-items: center;
   justify-content: space-between;
   margin-top: -1px;
- /*border-right: 1px solid white; */
+  /*border-right: 1px solid white; */
 }
 
 .sidebar-header .header-logo img {
@@ -123,7 +122,7 @@
 }
 
 .sidebar-nav .nav-link:hover {
-  color: #151A2D;
+  color: #151a2d;
   background: #fff;
 }
 
@@ -135,7 +134,7 @@
   position: absolute;
   top: -10px;
   opacity: 0;
-  color: #151A2D;
+  color: #151a2d;
   display: none;
   pointer-events: none;
   padding: 6px 12px;
@@ -184,7 +183,7 @@
     top: 0;
     z-index: 20;
     border-radius: 16px;
-    background: #151A2D;
+    background: #151a2d;
     padding: 8px 10px;
   }
 
@@ -197,7 +196,7 @@
   .sidebar-nav .nav-item:hover .nav-tooltip {
     display: none;
   }
-  
+
   .sidebar-header .menu-toggler {
     display: flex;
     height: 30px;
@@ -219,7 +218,7 @@
   }
 
   .sidebar-nav .nav-link .nav-icon {
-    font-size: 0.75rem !important;  
+    font-size: 0.75rem !important;
   }
 
   .sidebar-nav .secondary-nav {
@@ -229,15 +228,14 @@
   }
 }
 
-
 /* Estilo del header */
 header {
-    background-color: #164A41;
-    color: white;
-    height: 60px; 
-    padding: 20px;
-    z-index: 999;
-    /*margin-top: -20px;*/
+  background-color: #164a41;
+  color: white;
+  height: 60px;
+  padding: 20px;
+  z-index: 999;
+  /*margin-top: -20px;*/
 }
 
 /*footer {
@@ -253,10 +251,8 @@ header {
 }*/
 
 main {
-    padding: 20px;
+  padding: 20px;
 }
-
-
 
 /* Estilo Dropdown Boton */
 .dropbtn {
@@ -269,13 +265,11 @@ main {
   border-radius: 10%;
 }
 
-
 .dropdown {
   position: absolute;
   right: 10px; /* Contenedor completo a la derecha */
   top: 10px; /* Distancia desde el top */
-  display: inline-block; 
-  
+  display: inline-block;
 }
 
 .dropdown-content {
@@ -283,11 +277,10 @@ main {
   position: absolute;
   background-color: #f9f9f9;
   min-width: 140px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  right: 0; 
+  right: 0;
 }
-
 
 .dropdown-content a {
   color: black;
@@ -296,7 +289,9 @@ main {
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #727272}
+.dropdown-content a:hover {
+  background-color: #727272;
+}
 
 .dropdown:hover .dropdown-content {
   display: block;
@@ -308,13 +303,13 @@ main {
 
 /* Cambiar el color de los iconos */
 .nav-link i {
-    color: #f1b24a; 
-    transition: color 0.3s ease; /* Para que el color cambie suavemente */
+  color: #f1b24a;
+  transition: color 0.3s ease; /* Para que el color cambie suavemente */
 }
 
 /* Color al pasar el mouse sobre el icono */
 .nav-item:hover i {
-    color: #4D774E; /* Cambia el color del icono al pasar el ratón */
+  color: #4d774e; /* Cambia el color del icono al pasar el ratón */
 }
 
 /* Color de los iconos en la barra de navegación cuando está activo 
@@ -322,112 +317,110 @@ main {
     color: #007BFF; 
 }*/
 
-
-
 /* CCS de Agendar Cita */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
 }
 
 h4 {
-    text-align: center;
-    margin-bottom: 30px;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
 /* Card styling */
 .card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 30px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 .card-header {
-    background: linear-gradient( #1b1b1b, #303030, #164A41 );
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    font-size: 1.2rem;
+  background: linear-gradient(#1b1b1b, #303030, #164a41);
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2rem;
 }
 
 /* Aseguramos que las columnas estén alineadas correctamente */
 .row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 /* Ajustar las imágenes a un tamaño más pequeño */
 .card-body img {
-    width: 30%;  /* Asegúrate de que las imágenes no sean demasiado grandes */
-    height: auto;
-    border-radius: 8px;
-    transition: transform 0.3s ease-in-out;
+  width: 50%;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
 }
 
 /* Efecto hover en las imágenes */
 .card-body img:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 /* Estilo para los botones y enlaces */
 .card-body a {
-    display: block;
-    text-align: center;
-    margin-top: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    color: #007bff;
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #007bff;
 }
 
 /* Añadir un poco de espacio entre las tarjetas */
 .col-md-6 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 /* Responsividad: Aseguramos que las tarjetas ocupen el 50% del ancho en pantallas medianas */
 @media (max-width: 748px) {
-    .col-md-6 {
-        flex: 1 1 35%; 
-        margin-bottom: 15px;
-    }
+  .col-md-6 {
+    flex: 1 1 35%;
+    margin-bottom: 15px;
+  }
 }
 
 /* Image styling */
 img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    transition: transform 0.3s ease-in-out;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
 }
 
 /* Hover effect for images */
 img:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
 /* Column styling */
 .row {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 /* Container */
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* Buttons and Links */
 a {
-    text-decoration: none;
-    display: block;
+  text-decoration: none;
+  display: block;
 }
 
 /* Add responsiveness */
 @media (max-width: 768px) {
-    .col-md-6 {
-        margin-bottom: 20px;
-    }
+  .col-md-6 {
+    margin-bottom: 20px;
+  }
 }
-

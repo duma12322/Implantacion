@@ -16,13 +16,13 @@
     <nav class="sidebar-nav">
         <!-- Primary top nav -->
         <ul class="nav-list primary-nav">
-            <li class="nav-item">
+            <!--<li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="bi bi-house-fill"></i>
                     <span class="nav-label">Inicio</span>
                 </a>
                 <span class="nav-tooltip">Inicio</span>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a href="agendar_cita.php" class="nav-link">
                     <i class="bi bi-calendar-plus-fill"></i>
