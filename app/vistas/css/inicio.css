@@ -1,496 +1,676 @@
 body {
-    font-family: 'Arial', sans-serif;
+  font-family: 'Arial', sans-serif;
 }
 
 header {
-    background: linear-gradient(to bottom, #4D774E, #164A41);
+  background: linear-gradient(to bottom, #4d774e, #164a41);
 }
 
 header.py-5.text-white {
-    padding-top: 3rem; 
-    padding-bottom: 3rem; 
-    color: white; 
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  color: white;
 }
 
 header h1 {
-    font-weight: bold;
-    font-family: 'Georgia', serif;
+  font-weight: bold;
+  font-family: 'Georgia', serif;
 }
 
 header h2 {
-    font-family: 'Georgia', serif;
+  font-family: 'Georgia', serif;
 }
 
-
 img {
-    max-height: 400px;
-    object-fit: cover;
+  max-height: 400px;
+  object-fit: cover;
 }
 
 .card {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 blockquote {
-    font-size: 1.2rem;
-    font-style: italic;
-    color: #555;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #555;
 }
 
 /* Estilo personalizado para la navegación */
 .nav-link.nav-custom {
-    color: #000000 !important;
-    font-weight: bold;
-    font-size: 1.2rem; 
-    transition: all 0.3s ease; 
-    margin-right: 50px;
-    margin-top: -25px; 
-    position: relative; 
+  color: #000000 !important;
+  font-weight: bold;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  margin-right: 50px;
+  margin-top: -25px;
+  position: relative;
 }
 
 .navbar-nav {
-    display: flex;
-    align-items: center; 
+  display: flex;
+  align-items: center;
 }
 
 .navbar {
-    min-height: 80px;
+  min-height: 80px;
 }
 
 .navbar-nav .nav-item {
-    display: flex;
-    align-items: center; 
-    font-family: 'Georgia', serif;
-    font-size: 2.2rem;
+  display: flex;
+  align-items: center;
+  font-family: 'Georgia', serif;
+  font-size: 2.2rem;
 }
 
 /* Estilo del span dentro de los enlaces */
 .nav-link.nav-custom span {
-    position: relative; /* Para poder colocar la barra debajo de cada letra */
-    display: inline-block;
+  position: relative; /* Para poder colocar la barra debajo de cada letra */
+  display: inline-block;
 }
 
 /* Efecto al pasar el ratón */
 .nav-link.nav-custom:hover {
-    color: #727272 !important; /* Color del texto al pasar el ratón */
-    text-decoration: none; 
+  color: #727272 !important; /* Color del texto al pasar el ratón */
+  text-decoration: none;
 }
 
 /* Añadir barra debajo de cada letra al pasar el ratón */
 .nav-link.nav-custom span::after {
-    content: ''; 
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0; /* Empieza con el ancho de la barra en 0 */
-    height: 2px; /* Grosor de la barra */
-    background-color: #727272; /* Color de la barra */
-    transition: width 0.3s ease; /* Animación de la barra */
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0; /* Empieza con el ancho de la barra en 0 */
+  height: 2px; /* Grosor de la barra */
+  background-color: #727272; /* Color de la barra */
+  transition: width 0.3s ease; /* Animación de la barra */
 }
 
 .nav-link.nav-custom:hover span::after {
-    width: 100%; /* La barra se expande a lo largo del ancho de la letra */
+  width: 100%; /* La barra se expande a lo largo del ancho de la letra */
 }
 
 /* Estilo para el botón "Ingresa" */
 .btn-custom {
-    background-color: #f1b24a !important;  /* Color de fondo */
-    color: black !important;              /* Color del texto */
-    padding: 12px 30px !important;        /* Tamaño del botón */
-    border-radius: 5px !important;        /* Bordes redondeados */
-    text-align: center !important;        /* Alinear texto */
-    display: inline-block !important;     /* Asegura que el enlace se comporte como un botón */
-    text-decoration: none !important;     /* Eliminar subrayado del enlace */
-    font-weight: bold !important;         /* Hacer el texto más destacable */
-    font-size: 18px !important;           /* Tamaño de fuente */
-    transition: background-color 0.3s ease, color 0.3s ease !important; /* Transición suave */
+  background-color: #f1b24a !important; /* Color de fondo */
+  color: black !important; /* Color del texto */
+  padding: 12px 30px !important; /* Tamaño del botón */
+  border-radius: 5px !important; /* Bordes redondeados */
+  text-align: center !important; /* Alinear texto */
+  display: inline-block !important; /* Asegura que el enlace se comporte como un botón */
+  text-decoration: none !important; /* Eliminar subrayado del enlace */
+  font-weight: bold !important; /* Hacer el texto más destacable */
+  font-size: 18px !important; /* Tamaño de fuente */
+  transition: background-color 0.3s ease, color 0.3s ease !important; /* Transición suave */
 }
 
 /* Estilo cuando el botón está en hover */
 .btn-custom:hover {
-   background-color: #727272 !important;  /* Fondo gris claro al pasar el mouse */
-    color: rgb(255, 255, 255) !important;               /* Mantener el texto en negro */
-    border: 1px solid #888 !important;     /* Borde gris oscuro al pasar el mouse */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important;  /* Sombra más profunda */
-    transform: translateY(-4px) !important; /* Aumenta el efecto de elevación */
+  background-color: #727272 !important; /* Fondo gris claro al pasar el mouse */
+  color: rgb(255, 255, 255) !important; /* Mantener el texto en negro */
+  border: 1px solid #888 !important; /* Borde gris oscuro al pasar el mouse */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3) !important; /* Sombra más profunda */
+  transform: translateY(-4px) !important; /* Aumenta el efecto de elevación */
 }
-
 
 /* Estilo general para la sección tipo de consultas y precios */
 #tipos-consulta {
-    background-color: #9DC88D; 
-    color: #000000; 
-    text-align: center; /* Centrar todo el texto en la sección */
-    padding: 5rem 0;
+  background-color: #9dc88d;
+  color: #000000;
+  text-align: center; /* Centrar todo el texto en la sección */
+  padding: 5rem 0;
 }
 
 #tipos-consulta h2 {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    font-weight: bold;
-    font-family: 'Georgia', serif;
-    color: #000000; /* Color del título principal */
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  color: #000000; /* Color del título principal */
 }
 
 #tipos-consulta .nav-tabs {
-    justify-content: center; /* Centra las pestañas */
-    border-bottom: none; /* Elimina línea debajo de las pestañas */
-    display: flex;
-    align-items: center;
+  justify-content: center; /* Centra las pestañas */
+  border-bottom: none; /* Elimina línea debajo de las pestañas */
+  display: flex;
+  align-items: center;
 }
 
 #tipos-consulta .nav-link {
-    background-color: #f1b24a;  
-    color: black;             
-    border: 1px solid #f1b24a;  
-    padding: 12px 25px;       /* Aumenta el padding para hacerlo más grande */
-    border-radius: 8px;       /* Bordes más redondeados */
-    font-size: 18px;          /* Tamaño de fuente más grande */
-    transition: all 0.3s ease; /* Transición suave */
-    margin-left: 10px;
+  background-color: #f1b24a;
+  color: black;
+  border: 1px solid #f1b24a;
+  padding: 12px 25px; /* Aumenta el padding para hacerlo más grande */
+  border-radius: 8px; /* Bordes más redondeados */
+  font-size: 18px; /* Tamaño de fuente más grande */
+  transition: all 0.3s ease; /* Transición suave */
+  margin-left: 10px;
 }
 
-#tipos-consulta .nav-link:hover, 
+#tipos-consulta .nav-link:hover,
 #tipos-consulta .nav-link.active {
-     background-color: #727272;  /* Fondo gris claro al pasar el mouse */
-    color: rgb(255, 255, 255);               /* Mantener el texto en negro */
-    border: 1px solid #888;     /* Borde gris oscuro al pasar el mouse */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);  /* Sombra más profunda */
-    transform: translateY(-4px); /* Aumenta el efecto de elevación */
+  background-color: #727272; /* Fondo gris claro al pasar el mouse */
+  color: rgb(255, 255, 255); /* Mantener el texto en negro */
+  border: 1px solid #888; /* Borde gris oscuro al pasar el mouse */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra más profunda */
+  transform: translateY(-4px); /* Aumenta el efecto de elevación */
 }
 
 #tipos-consulta .tab-pane {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 /* Subrayar el título "Precios" */
 .subrayado {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* Contenedor de las modalidades */
 .modalidades {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
-.modalidad-left, .modalidad-right {
-    flex: 1;
+.modalidad-left,
+.modalidad-right {
+  flex: 1;
 }
 
-.modalidad-left ul, .modalidad-right ul {
-    list-style: none;
-    padding: 0;
-    margin: 1rem auto; /* Centrado automático */
-    max-width: 800px; /* Limitar ancho */
+.modalidad-left ul,
+.modalidad-right ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem auto; /* Centrado automático */
+  max-width: 800px; /* Limitar ancho */
 }
 
-.modalidad-left li, .modalidad-right li {
-    margin-bottom: 0.5rem;
+.modalidad-left li,
+.modalidad-right li {
+  margin-bottom: 0.5rem;
 }
 
 /* Alineación de listas */
-#tipos-consulta ul, #tipos-consulta ol {
-    display: inline-block; 
-    text-align: left; /* Alinear las listas a la izquierda */
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 800px; /* Limitar ancho */
+#tipos-consulta ul,
+#tipos-consulta ol {
+  display: inline-block;
+  text-align: left; /* Alinear las listas a la izquierda */
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 800px; /* Limitar ancho */
 }
 
- /* Estilo personalizado para el botón VER*/
+/* Estilo personalizado para el botón VER*/
 #verButton {
-    background-color: #f1b24a;  
-    color: black;             
-    border: 1px solid #f1b24a;  
-    padding: 12px 25px;       /* Aumenta el padding para hacerlo más grande */
-    border-radius: 8px;       /* Bordes más redondeados */
-    font-size: 18px;          /* Tamaño de fuente más grande */
-    transition: all 0.3s ease; /* Transición suave */
-    font-weight: bold;
-    margin-bottom: 10px;
+  background-color: #f1b24a;
+  color: black;
+  border: 1px solid #f1b24a;
+  padding: 12px 25px; /* Aumenta el padding para hacerlo más grande */
+  border-radius: 8px; /* Bordes más redondeados */
+  font-size: 18px; /* Tamaño de fuente más grande */
+  transition: all 0.3s ease; /* Transición suave */
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 #verButton:hover {
-    background-color: #727272;  /* Fondo gris claro al pasar el mouse */
-    color: rgb(255, 255, 255);               /* Mantener el texto en negro */
-    border: 1px solid #888;     /* Borde gris oscuro al pasar el mouse */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);  /* Sombra más profunda */
-    transform: translateY(-4px); /* Aumenta el efecto de elevación */
+  background-color: #727272; /* Fondo gris claro al pasar el mouse */
+  color: rgb(255, 255, 255); /* Mantener el texto en negro */
+  border: 1px solid #888; /* Borde gris oscuro al pasar el mouse */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra más profunda */
+  transform: translateY(-4px); /* Aumenta el efecto de elevación */
 }
-
 
 /* Estilo general para la sección quienes somos*/
 #quienessomos {
-    background-color: #4D774E;
-    padding: 3rem 0;
-    text-align: center;
+  background-color: #4d774e;
+  padding: 3rem 0;
+  text-align: center;
 }
 
 #quienessomos h2 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    font-family: 'Georgia', serif;
-    margin-bottom: 1.5rem;
-    color: #ffffff; /* Color del título principal */
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  margin-bottom: 1.5rem;
+  color: #ffffff; /* Color del título principal */
 }
 
 #quienessomos h3 {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    color: #ffffff; /* Color de los subtítulos */
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #ffffff; /* Color de los subtítulos */
 }
 
 #quienessomos p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #ffffff; /* Color del texto */
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #ffffff; /* Color del texto */
 }
 
 #quienessomos p.lead {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    color: #969696; /* Color más claro para resaltar el texto principal */
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #969696; /* Color más claro para resaltar el texto principal */
 }
 
 #quienessomos br {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 /* Estilo general para la sección acerca de mi*/
 #acercademi {
-    background-color: #4D774E;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+  background-color: #4d774e;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
 #acercademi h2 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    font-family: 'Georgia', serif;
-    margin-bottom: 1.5rem;
-    color: #000000; /* Color del título principal */
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  margin-bottom: 1.5rem;
+  color: #000000; /* Color del título principal */
 }
 
 #acercademi .container {
-    text-align: center;
+  text-align: center;
 }
 
 .perfil-cuadro {
-    max-width: 800px;
-    margin: 0 auto;
-    border: 2px solid #ccc;
-    padding: 15px;
-    border-radius: 10px;
-    background-color: #fff;
+  max-width: 800px;
+  margin: 0 auto;
+  border: 2px solid #ccc;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #fff;
 }
 
 .perfil-cuadro h2 {
-    margin-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .perfil-cuadro img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 15px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 15px;
 }
 
 .perfil-cuadro p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #333;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
 }
 
 /* Estilo general para la sección servicios*/
 #services {
-    background: linear-gradient(to bottom, #4D774E, #164A41);
+  background: linear-gradient(to bottom, #4d774e, #164a41);
+  width: 100%;
 }
 
 .card {
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card-body {
-    padding: 20px;
+  padding: 20px;
 }
 
 .card-title {
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 15px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
 .card-text {
-    font-size: 1rem;
-    margin-bottom: 15px;
+  font-size: 1rem;
+  margin-bottom: 15px;
 }
 
 button.btn {
-    background-color: #000000;  
-    color: white;                
-    border: none;                
-    border-radius: 5px;          
-    padding: 10px 20px;         
-    font-size: 16px;             
-    cursor: pointer;            
-    display: inline-block;       
-    text-align: center;        
-    transition: background-color 0.3s ease; 
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  transition: background-color 0.3s ease;
 }
 
 /* Efecto cuando el ratón pasa por encima del botón */
 button.btn:hover {
-    background-color: #3B5A3E;  
-    color: white;
+  background-color: #3b5a3e;
+  color: white;
 }
 
 .collapse {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 /* Estilo de la sección de Contacto */
 #contact {
-    background-color: #164A41;  /* Fondo verde oscuro */
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+  background-color: #164a41; /* Fondo verde oscuro */
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 /* Estilo de los títulos */
-#contact h2, #contact h5 {
-    color: white;  /* Títulos en blanco */
-    font-weight: bold;
+#contact h2,
+#contact h5 {
+  color: white; /* Títulos en blanco */
+  font-weight: bold;
 }
 
 /* Estilo para los párrafos */
 #contact p {
-    color: white;  /* Texto en blanco */
-    font-size: 0.9rem;
+  color: white; /* Texto en blanco */
+  font-size: 0.9rem;
 }
 
 /* Estilo para los íconos en los párrafos */
 #contact .bi {
-    font-size: 1.2rem;  /* Tamaño de los íconos */
-    margin-right: 10px;  /* Espaciado entre iconos y texto */
+  font-size: 1.2rem; /* Tamaño de los íconos */
+  margin-right: 10px; /* Espaciado entre iconos y texto */
 }
 
 /* Estilo para los enlaces (correo y redes sociales) */
 #contact a {
-    color: white;  /* Texto en blanco para los enlaces */
-    text-decoration: none;  /* Eliminar subrayado */
+  color: white; /* Texto en blanco para los enlaces */
+  text-decoration: none; /* Eliminar subrayado */
 }
 
 #contact a:hover {
-    text-decoration: underline;  /* Subrayado en hover */
+  text-decoration: underline; /* Subrayado en hover */
 }
 
 /* Estilo de la fila de columnas */
 #contact .row {
-    margin-top: 2rem;
+  margin-top: 2rem;
 }
 
 /* Estilo de las columnas */
 #contact .col-md-3 {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 /* Estilo para los iconos de redes sociales */
 #contact .bi-facebook {
-    font-size: 2rem;
-    color: #3b5998;  /* Color de Facebook */
+  font-size: 2rem;
+  color: #3b5998; /* Color de Facebook */
 }
 
 #contact .bi-instagram {
-    font-size: 2rem;
-    color: #E1306C;  /* Color de Instagram */
+  font-size: 2rem;
+  color: #e1306c; /* Color de Instagram */
 }
 
 #contact .bi-twitter {
-    font-size: 2rem;
-    color: #1DA1F2;  /* Color de Twitter */
+  font-size: 2rem;
+  color: #1da1f2; /* Color de Twitter */
 }
 
 /* Estilo para el botón de mapa */
 #contact .bi-geo-alt {
-    font-size: 2rem;
-    color: #007bff;  /* Color del ícono de ubicación */
+  font-size: 2rem;
+  color: #007bff; /* Color del ícono de ubicación */
 }
 
-/* Ajuste de márgenes en dispositivos pequeños */
+/* Media Queries para hacer la página completamente responsive */
+@media (max-width: 1200px) {
+  header h1 {
+    font-size: 3.0rem;
+  }
+
+  header h2 {
+    font-size: 1.8rem;
+  }
+
+  .navbar .navbar-nav .nav-link {
+    font-size: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  #contact {
+    width: 90%;
+  }
+
+  .modalidades {
+    flex-direction: column;
+  }
+
+  .modalidad-left,
+  .modalidad-right {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .perfil-cuadro img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
 @media (max-width: 768px) {
-    #contact .row {
-        text-align: center;  /* Centrar el texto en pantallas pequeñas */
-    }
+  header h1 {
+    font-size: 2.0rem;
+  }
 
-    #contact .col-md-3 {
-        margin-bottom: 1.5rem;  /* Menor espacio entre columnas */
-    }
+  header h2 {
+    font-size: 1.5rem;
+  }
+
+  .navbar .navbar-nav .nav-link {
+    font-size: 1rem;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+
+  #contact {
+    width: 100%;
+  }
+
+  .btn-custom {
+    font-size: 20px;
+    padding: 10px 20px;
+  }
+
+  #tipos-consulta h2 {
+    font-size: 2rem;
+  }
+
+  .modalidades {
+    flex-direction: column;
+  }
+
+  .modalidad-left,
+  .modalidad-right {
+    flex: none;
+    width: 100%;
+  }
+
+  .perfil-cuadro img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .image-collage {
+    grid-template-areas: "title" "img1" "img2" "img3" "img4" "text"; /* Imágenes en una sola columna */
+    grid-template-columns: 1fr; /* Solo una columna */
+  }
+
+  .collage-title {
+    font-size: 20px; /* Ajustar el tamaño del texto */
+  }
+
+  .collage-text {
+    font-size: 12px; /* Ajustar el tamaño del texto */
+  }
+
+  .image-item img {
+    width: 100%; /* Asegurarse de que las imágenes ocupen todo el ancho disponible */
+  }
+
+  .footer {
+    padding: 15px 0; /* Reducir el padding en pantallas medianas */
+    font-size: 16px; /* Ajustar tamaño de texto */
+  }
+
+  .footer p {
+    margin-bottom: 8px;
+  }
+
+  img {
+    max-height: 200px;
+    object-fit: cover;
+  }
 }
 
-/* Estilos para el footer de página */
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  header h2 {
+    font-size: 1.2rem;
+  }
+
+  .navbar .navbar-nav .nav-link {
+    font-size: 1rem;
+  }
+
+  .card-body {
+    padding: 0.8rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  #contact {
+    width: 100%;
+  }
+
+  .collage-title {
+    font-size: 18px; /* Reducir aún más el tamaño del texto en pantallas muy pequeñas */
+  }
+
+  .collage-text {
+    font-size: 10px;
+  }
+
+  .image-collage {
+    padding: 10px; /* Reducir el padding en dispositivos pequeños */
+    gap: 10px; /* Reducir el espaciado entre elementos */
+    margin-top: 20px;
+  }
+
+  .footer {
+    padding: 10px 0; /* Reducir aún más el padding en pantallas pequeñas */
+    font-size: 14px; /* Reducir tamaño de texto */
+  }
+
+  .footer p {
+    margin-bottom: 5px;
+  }
+
+  img {
+    max-height: 200px;
+    object-fit: cover;
+  }
+}
+
+/* Estilos generales del footer */
 .footer {
-    background-color: #164A41;  
-    color: white;               
-    text-align: center;         
-    padding: 20px 0;            
+  background-color: #164a41;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 18px; /* Tamaño de texto por defecto */
+  width: 100%;
+  margin: 0; /* Elimina márgenes externos */
+  box-sizing: border-box; /* padding no expande el tamaño del footer */
 }
 
 .footer p {
-    margin-bottom: 10px;                 
-    font-size: 18px;           
+  margin-bottom: 10px;
 }
 
 .footer strong {
-    font-weight: bold;          
+  font-weight: bold;
 }
 
 .image-collage {
-    position: relative;
-    width: 90%; /* Reduce el ancho si está ocupando demasiado espacio */
-    height: 550px; /* Ajusta según tus necesidades */
-    border: 5px solid #164A41; /* Borde del contenedor */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5); /* Efecto 3D */
-    background: linear-gradient(to bottom, #4D774E, #164A41);
-    padding: 10px; /* Espaciado interno */
-    margin-left: -20px; /* Mueve el contenedor hacia la izquierda */  
+  position: relative;
+  display: grid;
+  grid-template-areas: "title title" "img1 img2" "img3 img4" "text text";
+  grid-template-columns: 1fr 1fr; /* 2 columnas iguales */
+  grid-template-rows: auto;
+  gap: 20px; /* Espaciado entre elementos */
+  width: 95%;
+  max-width: 100%;
+  border: 5px solid #164a41;
+  border-radius: 10px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(to bottom, #4d774e, #164a41);
+  padding: 20px;
+  margin: 0 auto;
 }
 
-.image-item {
-    position: absolute;
+.collage-title {
+  grid-area: title;
+  text-align: center;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px; /* Separación del resto del contenido */
 }
 
 .image-item img {
-    width: 210px; /* Ajusta el tamaño de las imágenes */
-    height: 210px; /* Mantener proporciones */
-    border-radius: 10px; /* Bordes redondeados */
-      border: 5px solid #164A41; /* Borde del contenedor */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5); /* Efecto 3D */
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Posicionamiento de cada imagen */
+.collage-text {
+  grid-area: text;
+  text-align: center;
+  color: #ffffff;
+  font-size: 14px;
+  margin-top: 10px; /* Separación del resto del contenido */
+}
+
+/* Asignar cada imagen a un área específica del collage */
 .image-item-1 {
-    top: 60px;
-    left: 60px;
+  grid-area: img1;
 }
 
 .image-item-2 {
-    top: 60px;
-    left: 290px;
+  grid-area: img2;
 }
 
 .image-item-3 {
-    top: 290px;
-    left: 60px;
+  grid-area: img3;
 }
 
 .image-item-4 {
-    top: 290px;
-    left: 290px;
+  grid-area: img4;
 }
-

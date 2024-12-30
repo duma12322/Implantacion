@@ -1,47 +1,49 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" dir="ltr">
 
 <head>
     <meta charset="UTF-8">
-    <title>Registro de Paciente</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="CSS/registro_paciente.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-    <div class="container mt-5">
-        <h2 class="text-center">Registro de Paciente</h2>
-        <form action="procesar_registro_paciente.php" method="POST" class="mt-4">
-            <div class="form-group">
-                <label for="usuario">Usuario</label>
-                <input type="text" name="usuario" id="usuario" class="form-control" required>
+    <div class="container">
+        <input type="checkbox" id="flip">
+        <div class="cover">
+            <div class="front">
+                <img src="files/logo.png" alt="">
             </div>
-            <div class="form-group">
-                <label for="contraseña">Contraseña</label>
-                <input type="password" name="contraseña" id="contraseña" class="form-control" required>
+        </div>
+        <div class="forms">
+            <div class="form-content">
+                <div class="login-form">
+                    <div class="title">Parte 1: Registro</div>
+                    <form action="registro_paciente2.php" method="POST">
+                        <div class="input-boxes">
+                            <div class="input-box">
+                                <i class="bi bi-person-fill"></i>
+                                <input type="usuario" name="usuario" id="usuario" placeholder="Ingresa un usuario" required>
+                            </div>
+                            <div class="input-box">
+                                <i class="bi bi-envelope-fill"></i>
+                                <input type="usuario" name="correo" id="correo" placeholder="Ingresa un correo" required>
+                            </div>
+                            <div class="input-box">
+                                <i class="bi bi-lock-fill"></i>
+                                <input type="password" name="contraseña" id="contraseña" placeholder="Ingresa una contraseña" required>
+                            </div>
+                            <div class="button input-box">
+                                <input type="submit" value="Siguiente">
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="correo">Correo Electrónico</label>
-                <input type="email" name="correo" id="correo" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="nombre1">Primer Nombre</label>
-                <input type="text" name="nombre1" id="nombre1" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="apellido1">Primer Apellido</label>
-                <input type="text" name="apellido1" id="apellido1" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="num_doc">Número de Documento</label>
-                <input type="text" name="num_doc" id="num_doc" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="telefono">Teléfono</label>
-                <input type="text" name="telefono" id="telefono" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Registrar Paciente</button>
-        </form>
+        </div>
     </div>
 </body>
+
 
 </html>

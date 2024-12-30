@@ -45,7 +45,8 @@
             <div class="row align-items-center">
                 <!-- Columna izquierda: Logo y botones -->
                 <div class="col-md-6 d-flex flex-column justify-content-center text-center text-md-left">
-                    <img src="files/logo.png" alt="Bienvenido" class="img-fluid rounded shadow mx-auto d-block" style="max-width: 300px; height: auto;">
+                    <img src="files/logo.png" alt="Bienvenido" class="img-fluid rounded shadow mx-auto d-block" style="max-width: 400px; height: auto;">
+                    <br>
                     <h1 class="display-6">Bienvenido a Emoción Vital</h1>
                     <p class="lead mx-auto d-block">¡Estamos aquí para acompañarte en tu camino!</p>
                     <div class="d-flex justify-content-start mx-auto d-block">
@@ -57,10 +58,11 @@
 
                 <!-- Columna derecha: Imagen con servicios -->
                 <!-- Servicios -->
-                <div class="col-md-6" style="position: relative; left: 80px;">
+                <div class="col-md-6">
                     <section id="services">
                         <div class="image-collage">
-                            <h2 class="mb-4" style="text-align: center;">Servicios</h2>
+                            <!-- Título dentro del collage -->
+                            <h2 class="collage-title">Servicios</h2>
                             <!-- Imagen 1 -->
                             <div class="image-item image-item-1">
                                 <a href="#" onclick="openPopup('Psicoterapia Individual', 'collapseIndividual')">
@@ -85,13 +87,11 @@
                                     <img src="files/adolescentes.png" alt="Psicoterapia para Adolescentes">
                                 </a>
                             </div>
-                            <p style="text-align: center; margin-top: 460px;">Click en la imagen para ver los servicios</p>
-
-
+                            <!-- Texto dentro del collage -->
+                            <p class="collage-text">Click en la imagen para ver los servicios</p>
                         </div>
                     </section>
                 </div>
-
             </div>
         </div>
     </header>
