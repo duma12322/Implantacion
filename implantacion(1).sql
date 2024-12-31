@@ -2609,6 +2609,10 @@ CREATE TABLE `usuario` (
   `foto` blob DEFAULT NULL,
   `fecha_nac` date NOT NULL,
   `telefono` varchar(15) NOT NULL,
+  `pregunta_s1` enum('NOMBRE MADRE','NOMBRE MASCOTA','NOMBRE COLEGIO','PRIMER TRABAJO','NOMBRE PADRE') NOT NULL,
+  `respuesta_1` varchar(150) NOT NULL,
+  `pregunta_s2` enum('NOMBRE MADRE','NOMBRE MASCOTA','NOMBRE COLEGIO','PRIMER TRABAJO','NOMBRE PADRE') NOT NULL,
+  `respuesta_2` varchar(150) NOT NULL,
   `status` enum('activo','inactivo') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -2616,8 +2620,8 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `usuario`, `tipo_doc`, `num_doc`, `correo`, `contraseña`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, `foto`, `fecha_nac`, `telefono`, `status`) VALUES
-(1, 'neyli12322', 'V', '29888888', 'neyli@gmail.com', '202cb962ac59075b964b07152d234b70', 'Neylimar', NULL, 'Perez', NULL, NULL, '2000-06-20', '04145986326', 'activo');
+INSERT INTO `usuario` (`id_usuario`, `usuario`, `tipo_doc`, `num_doc`, `correo`, `contraseña`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, `foto`, `fecha_nac`, `telefono`, `pregunta_s1`, `respuesta_1`, `pregunta_s2`, `respuesta_2`, `status`) VALUES
+(1, 'neyli12322', 'V', '29888888', 'neyli@gmail.com', '202cb962ac59075b964b07152d234b70', 'Neylimar', NULL, 'Perez', NULL, NULL, '2000-06-20', '04145986326', 'NOMBRE MADRE', '', 'NOMBRE MADRE', '', 'activo');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
