@@ -30,8 +30,11 @@ $nombreUsuario = $_SESSION['nombre']
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda tu cita</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="css/agendar_cita.css">
+    <link rel="stylesheet" href="css/sidebarandheader.css">
+
 </head>
 
 <body>
@@ -47,7 +50,7 @@ $nombreUsuario = $_SESSION['nombre']
 
         <div class="row">
             <!-- Cita Individual -->
-            <div class="col-md-6 mb-4">
+            <div class="col-md-6 mb-2">
                 <div class="card">
                     <div class="card-header">
                         Cita Individual
@@ -62,7 +65,7 @@ $nombreUsuario = $_SESSION['nombre']
             </div>
 
             <!-- Cita Pareja -->
-            <div class="col-md-6 mb-4">
+            <div class="col-md-6 mb-2">
                 <div class="card">
                     <div class="card-header">
                         Cita Pareja
@@ -79,7 +82,7 @@ $nombreUsuario = $_SESSION['nombre']
 
         <div class="row">
             <!-- Cita Niño -->
-            <div class="col-md-6 mb-4">
+            <div class="col-md-6 mb-2">
                 <div class="card">
                     <div class="card-header">
                         Cita Niño
@@ -94,7 +97,7 @@ $nombreUsuario = $_SESSION['nombre']
             </div>
 
             <!-- Cita Adolescente -->
-            <div class="col-md-6 mb-4">
+            <div class="col-md-6 mb-2">
                 <div class="card">
                     <div class="card-header">
                         Cita Adolescente
@@ -110,13 +113,15 @@ $nombreUsuario = $_SESSION['nombre']
         </div>
     </div>
 
+
     <!-- Vinculamos los scripts de Bootstrap 4 -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
 
     <!-- Script -->
-    <script src="script/inicio_paciente.js"></script>
+    <script src="script/sidebarandheader.js"></script>
 </body>
 
 </html>

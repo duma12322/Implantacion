@@ -21,8 +21,7 @@ h4 {
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 20px;
-  width: 80%;
-  margin-left: 10%; /* Añadí margen izquierdo para mover las tarjetas hacia la derecha */
+  width: 100%;
 }
 
 .card-header {
@@ -33,23 +32,17 @@ h4 {
   font-size: 1.2rem;
 }
 
+/* Aseguramos que las columnas estén alineadas correctamente */
 .row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  margin: -10px;
-}
-
-.col-md-6 {
-  flex: 1 1 48%;
-  margin: 10px;
-  padding: 0;
+  justify-content: space-around;
 }
 
 /* Ajustar las imágenes a un tamaño más pequeño */
 .card-body img {
-  width: 80%;
-  height: 80%;
+  width: 50%;
+  height: auto;
   border-radius: 8px;
   transition: transform 0.3s ease-in-out;
 }
@@ -71,17 +64,22 @@ h4 {
   color: #007bff;
 }
 
+/* Añadir un poco de espacio entre las tarjetas */
+.col-md-6 {
+  margin-bottom: 20px;
+}
+
 /* Responsividad: Aseguramos que las tarjetas ocupen el 50% del ancho en pantallas medianas */
 @media (max-width: 748px) {
   .col-md-6 {
-    flex: 1 1 100%;
-    margin: 10px 0;
+    flex: 1 1 35%;
+    margin-bottom: 15px;
   }
 }
 
 /* Image styling */
 img {
-  width: 100%;
+  width: 80%;
   height: auto;
   border-radius: 8px;
   transition: transform 0.3s ease-in-out;
@@ -90,6 +88,11 @@ img {
 /* Hover effect for images */
 img:hover {
   transform: scale(1.05);
+}
+
+/* Column styling */
+.row {
+  margin-bottom: 30px;
 }
 
 /* Container */
@@ -102,7 +105,6 @@ img:hover {
 a {
   text-decoration: none;
   display: block;
-  
 }
 
 a:hover {
@@ -119,5 +121,27 @@ a:hover {
 }
 
 
+.policy-box {
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+.policy-box h5 {
+    font-weight: bold;
+    color: #007bff;
+  text-align: center;
+ font-weight: bold;
+  font-family: 'Georgia', serif;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
 
+}
+
+.policy-box p {
+    color: #555;
+    font-size: 16px;
+}

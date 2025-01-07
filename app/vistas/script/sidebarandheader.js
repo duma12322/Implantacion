@@ -32,7 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
    // Update sidebar height and menu toggle text
    const toggleMenu = (isMenuActive) => {
      sidebar.style.height = isMenuActive ? `${sidebar.scrollHeight}px` : collapsedSidebarHeight;
-     menuToggler.querySelector("span").innerText = isMenuActive ? "close" : "menu";
+     menuToggler.innerHTML = isMenuActive
+  ? '<i class="bi bi-x-lg"></i>'  // Ícono de cerrar
+  : '<i class="bi bi-list"></i>';  // Ícono de menú
+
    }
 
    // Toggle menu-active class and adjust height

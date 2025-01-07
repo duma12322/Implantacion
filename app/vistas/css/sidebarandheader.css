@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 
 * {
@@ -8,21 +7,17 @@
   font-family: "Poppins", sans-serif;
 }
 
-body {
-  min-height: 100vh;
-  background: linear-gradient(#F1FAFF, #CBE4FF);
-}
-
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  bottom: 0; 
+  bottom: 0;
   width: 270px;
-  margin: 0;
-  background: linear-gradient( #1b1b1b, #303030, #164A41 );
+  background: linear-gradient(#1b1b1b, #303030, #164a41);
   transition: all 0.4s ease;
-  border-right: 1px solid white; 
+  border-right: 1px solid white;
+  z-index: 1000; /* Asegúrate de que el sidebar esté por encima del contenido */
+  height: 100vh; /* Asegura que la barra lateral ocupe el 100% de la altura de la ventana */
 }
 
 .sidebar.collapsed {
@@ -30,13 +25,14 @@ body {
 }
 
 .sidebar .sidebar-header {
-  background-color: #164A41;
+  background-color: #164a41;
   display: flex;
   position: relative;
   padding: 25px 20px;
   align-items: center;
   justify-content: space-between;
- /*border-right: 1px solid white; */
+  margin-top: -1px;
+  /*border-right: 1px solid white; */
 }
 
 .sidebar-header .header-logo img {
@@ -127,7 +123,7 @@ body {
 }
 
 .sidebar-nav .nav-link:hover {
-  color: #151A2D;
+  color: #151a2d;
   background: #fff;
 }
 
@@ -139,7 +135,7 @@ body {
   position: absolute;
   top: -10px;
   opacity: 0;
-  color: #151A2D;
+  color: #151a2d;
   display: none;
   pointer-events: none;
   padding: 6px 12px;
@@ -169,14 +165,13 @@ body {
 }
 
 /* Código responsive media query para pantallas pequeñas */
-@media (max-width: 1024px) {
-  .sidebar {
-    height: 56px;
-    margin: 13px;
+@media (max-width: 768px) {
+   .sidebar {
+    height: auto; /* Ajustar automáticamente la altura para pantallas pequeñas */
+    position: absolute;
     overflow-y: hidden;
     scrollbar-width: none;
-    width: calc(100% - 26px);
-    max-height: calc(100vh - 26px);
+    width: 200px;
   }
 
   .sidebar.menu-active {
@@ -187,8 +182,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 20;
-    border-radius: 16px;
-    background: #151A2D;
+    background: #151a2d;
     padding: 8px 10px;
   }
 
@@ -201,7 +195,7 @@ body {
   .sidebar-nav .nav-item:hover .nav-tooltip {
     display: none;
   }
-  
+
   .sidebar-header .menu-toggler {
     display: flex;
     height: 30px;
@@ -223,7 +217,7 @@ body {
   }
 
   .sidebar-nav .nav-link .nav-icon {
-    font-size: 0.75rem !important;  
+    font-size: 0.75rem !important;
   }
 
   .sidebar-nav .secondary-nav {
@@ -233,14 +227,14 @@ body {
   }
 }
 
-
 /* Estilo del header */
 header {
-    background-color: #164A41;
-    color: white;
-    height: 60px; 
-    padding: 20px;
-    z-index: 999;
+  background-color: #164a41;
+  color: white;
+  height: 60px;
+  padding: 20px;
+  z-index: 999;
+  /*margin-top: -20px;*/
 }
 
 /*footer {
@@ -256,10 +250,8 @@ header {
 }*/
 
 main {
-    padding: 20px;
+  padding: 20px;
 }
-
-
 
 /* Estilo Dropdown Boton */
 .dropbtn {
@@ -272,13 +264,11 @@ main {
   border-radius: 10%;
 }
 
-
 .dropdown {
   position: absolute;
   right: 10px; /* Contenedor completo a la derecha */
   top: 10px; /* Distancia desde el top */
-  display: inline-block; 
-  
+  display: inline-block;
 }
 
 .dropdown-content {
@@ -286,11 +276,10 @@ main {
   position: absolute;
   background-color: #f9f9f9;
   min-width: 140px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  right: 0; 
+  right: 0;
 }
-
 
 .dropdown-content a {
   color: black;
@@ -299,7 +288,9 @@ main {
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #727272}
+.dropdown-content a:hover {
+  background-color: #727272;
+}
 
 .dropdown:hover .dropdown-content {
   display: block;
@@ -311,16 +302,19 @@ main {
 
 /* Cambiar el color de los iconos */
 .nav-link i {
-    color: #f1b24a; 
-    transition: color 0.3s ease; /* Para que el color cambie suavemente */
+  color: #f1b24a;
+  transition: color 0.3s ease; /* Para que el color cambie suavemente */
 }
 
 /* Color al pasar el mouse sobre el icono */
 .nav-item:hover i {
-    color: #4D774E; /* Cambia el color del icono al pasar el ratón */
+  color: #4d774e; /* Cambia el color del icono al pasar el ratón */
 }
 
 /* Color de los iconos en la barra de navegación cuando está activo 
 .nav-item.active i {
     color: #007BFF; 
 }*/
+
+
+
