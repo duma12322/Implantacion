@@ -26,18 +26,40 @@
                         </div>
 
                         <div class="input-field">
-                            <label>Segundo Apellido</label>
-                            <input type="text" placeholder="Ingrese su segundo apellido">
+                            <label>Tipo de Documento</label>
+                            <select required>
+                                <option disabled selected>Seleccione su tipo de documento</option>
+                                <option>V</option>
+                                <option>E</option>
+                                <option>J</option>
+                                <option>P</option>
+                            </select>
                         </div>
 
                         <div class="input-field">
-                            <label>Telefono</label>
-                            <input type="text" placeholder="Ingrese su numero de telefono" required>
+                            <label>Estado</label>
+                            <input type="text" placeholder="Ingrese su estado (ubicacion)" required>
                         </div>
+
 
                         <div class="input-field">
                             <label>Segundo Nombre</label>
                             <input type="text" placeholder="Ingrese su segundo apellido">
+                        </div>
+
+                        <div class="input-field">
+                            <label>Numero de Documento</label>
+                            <input type="text" placeholder="Ingrese su numero de documento" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Ciudad</label>
+                            <input type="text" placeholder="Ingrese su cuidad (ubicacion)" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Primer Apellido</label>
+                            <input type="number" placeholder="Ingrese su primer apellido" required>
                         </div>
 
                         <div class="input-field">
@@ -46,13 +68,13 @@
                         </div>
 
                         <div class="input-field">
-                            <label>Estado</label>
-                            <input type="text" placeholder="Ingrese su estado (ubicacion)" required>
+                            <label>Parroquia</label>
+                            <input type="text" placeholder="Ingrese su parroquia (ubicacion)" required>
                         </div>
 
                         <div class="input-field">
-                            <label>Primer Apellido</label>
-                            <input type="number" placeholder="Ingrese su primer apellido" required>
+                            <label>Segundo Apellido</label>
+                            <input type="text" placeholder="Ingrese su segundo apellido">
                         </div>
 
                         <div class="input-field">
@@ -65,47 +87,56 @@
                         </div>
 
                         <div class="input-field">
-                            <label>Ciudad</label>
-                            <input type="text" placeholder="Ingrese su cuidad (ubicacion)" required>
-                        </div>
-
-                        <div class="input-field">
-                            <label>Parroquia</label>
-                            <input type="text" placeholder="Ingrese su parroquia (ubicacion)" required>
-                        </div>
-
-                        <div class="input-field">
                             <label>Municipio</label>
                             <input type="text" placeholder="Ingrese su municipio (ubicacion)" required>
                         </div>
 
-                        <div class="input-field">
+                        <div class="input-field-other">
                             <label>Otro</label>
                             <input type="text" placeholder="Ingrese detalles de su ubicacion">
                         </div>
+
+
                     </div>
                 </div>
 
                 <div class="Detalles ID">
-                    <span class="title">Detalles de identidad</span>
+                    <span class="title">Preguntas de seguridad</span>
 
-                    <div class="fields">
+                    <div class="fields2">
                         <div class="input-field">
-                            <label>Tipo de Documento</label>
+                            <label>Preguntas de seguridad 1</label>
                             <select required>
-                                <option disabled selected>Seleccione el tipo de documento</option>
-                                <option>V</option>
-                                <option>E</option>
-                                <option>J</option>
-                                <option>P</option>
+                                <option disabled selected>Seleccione la primera pregunta de seguridad</option>
+                                <option>NOMBRE DE MI MADRE</option>
+                                <option>NOMBRE DE MI MASCOTA</option>
+                                <option>NOMBRE DE MI PRIMER COLEGIO</option>
+                                <option>NOMBRE DE MI PRIMER TRABAJO</option>
+                                <option>NOMBRE DE MI PADRE</option>
                             </select>
                         </div>
 
                         <div class="input-field">
-                            <label>Numero de Documento</label>
-                            <input type="text" placeholder="Ingrese el numero del documento" required>
+                            <label>Respuesta 1</label>
+                            <input type="text" placeholder="Ingrese la respuesta de la pregunta 1" required>
                         </div>
 
+                        <div class="input-field">
+                            <label>Preguntas de seguridad 2</label>
+                            <select required>
+                                <option disabled selected>Seleccione la segunda pregunta de seguridad</option>
+                                <option>NOMBRE DE MI HERMANO MAYOR</option>
+                                <option>DONDE NACIO SU MADRE</option>
+                                <option>NOMBRE DE MEJOR AMIGO DE LA INFANCIA</option>
+                                <option>PELICULA FAVORITA</option>
+                                <option>SEGUNDO APELLIDO DE MI MADRE</option>
+                            </select>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Respuesta 2</label>
+                            <input type="text" placeholder="Ingrese la respuesta de la pregunta 2" required>
+                        </div>
 
                         <button class="nextBtn">
                             <span class="btnText">Finalizar</span>

@@ -42,7 +42,7 @@ body {
 .container form {
   position: relative;
   margin-top: 16px;
-  min-height: 490px;
+  min-height: 770px;
   background-color: #fff;
   overflow: hidden;
 }
@@ -84,14 +84,55 @@ form .fields .input-field {
   display: flex;
   width: calc(100% / 3 - 15px);
   flex-direction: column;
-  margin: 4px 0;
+  margin: 6px 0;
+}
+
+form .fields .input-field-other{
+  display: flex;
+  width: calc(100% / 3 - 15px);
+  flex-direction: column;
+  margin: 6px 0;
+  margin-left: 578px;
+}
+
+.container form .fields2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+form .fields2 .input-field {
+  display: flex;
+  width: calc(100% / 2 - 15px);
+  flex-direction: column;
+  margin: 8px 0;
 }
 .input-field label {
   font-size: 12px;
   font-weight: 500;
   color: #2e2e2e;
 }
+
+.input-field-other label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #2e2e2e;
+}
 .input-field input,
+select {
+  outline: none;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  padding: 0 15px;
+  height: 42px;
+  margin: 8px 0;
+}
+
+.input-field-other input,
 select {
   outline: none;
   font-size: 14px;
@@ -114,6 +155,13 @@ select {
 .input-field input[type="date"]:valid {
   color: #333;
 }
+
+.input-field-other input :focus,
+.input-field-other select:focus {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.13);
+}
+
+
 .container form button,
 .backBtn {
   display: flex;
@@ -130,6 +178,7 @@ select {
   background-color: #f1b24a;
   transition: all 0.3s linear;
   cursor: pointer;
+  margin-left: 640px;
 }
 .container form .btnText {
   font-size: 14px;
@@ -154,20 +203,66 @@ form .buttons button,
   margin-right: 14px;
 }
 
-@media (max-width: 750px) {
-  .container form {
-    overflow-y: scroll;
+/* Media Queries for Responsive Design */
+/* Estilos para pantallas pequeñas (móviles) */
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    padding: 20px;
   }
-  .container form::-webkit-scrollbar {
-    display: none;
+
+  form .fields .input-field,
+  form .fields2 .input-field {
+    width: 100%; /* Ocupa el 100% del ancho en pantallas pequeñas */
   }
-  form .fields .input-field {
-    width: calc(100% / 2 - 15px);
+
+  form .fields .input-field-other {
+    width: 100%;
+    margin-left: 0; /* Elimina el margen izquierdo en pantallas pequeñas */
+  }
+
+  .container form button,
+  .backBtn {
+    max-width: 100%; /* Botón ocupa el ancho completo */
+    margin-left: 0;
   }
 }
 
-@media (max-width: 550px) {
-  form .fields .input-field {
-    width: 100%;
+/* Estilos para tablets */
+@media (max-width: 1024px) {
+  form .fields .input-field,
+  form .fields2 .input-field {
+    width: calc(100% / 3 - 10px); 
+  }
+
+  form .fields .input-field-other {
+    width: calc(100% / 3 - 10px); /* Ajusta el ancho */
+    margin-left: 0; /* Elimina el margen izquierdo */
+  }
+
+  .container form button,
+  .backBtn {
+    margin-left: 0; /* Centra el botón */
+  }
+}
+
+/* Estilos para pantallas muy pequeñas (menos de 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+
+  .container header {
+    font-size: 18px;
+  }
+
+  .input-field label {
+    font-size: 10px;
+  }
+
+  .input-field input,
+  select {
+    height: 36px;
+    font-size: 12px;
   }
 }
