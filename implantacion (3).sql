@@ -2352,13 +2352,17 @@ CREATE TABLE `usuario` (
   `num_doc` varchar(12) NOT NULL,
   `correo` varchar(70) NOT NULL,
   `contraseña` varchar(34) NOT NULL,
-  `Nombre1` varchar(150) NOT NULL,
-  `Nombre2` varchar(150) DEFAULT NULL,
-  `Apellido1` varchar(150) NOT NULL,
-  `Apellido2` varchar(150) DEFAULT NULL,
+  `nombre1` varchar(150) NOT NULL,
+  `nombre2` varchar(150) DEFAULT NULL,
+  `apellido1` varchar(150) NOT NULL,
+  `apellido2` varchar(150) DEFAULT NULL,
   `foto` blob DEFAULT NULL,
-  `Fecha_Nac` date NOT NULL,
-  `Telefono` varchar(15) NOT NULL,
+  `fecha_nac` date NOT NULL,
+  `telefono` varchar(15) NOT NULL,
+  `pregunta_s1` enum('NOMBRE DE MI MADRE','NOMBRE DE MI MASCOTA','NOMBRE DE MI PRIMER COLEGIO','PRIMER DE MI TRABAJO','NOMBRE DE MI PADRE') NOT NULL,
+  `respuesta_1` varchar(150) NOT NULL,
+  `pregunta_s2` enum('NOMBRE DE MI HERMANO MAYOR','DONDE NACIO SU MADRE','NOMBRE DE MEJOR AMIGO DE LA INFANCIA','PELICULA FAVORITA','SEGUNDO APELLIDO DE MI MADRE') NOT NULL,
+  `respuesta_2` varchar(150) NOT NULL,
   `status` enum('activo','inactivo') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
