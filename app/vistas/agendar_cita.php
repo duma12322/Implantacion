@@ -20,7 +20,7 @@ if (isset($_POST['cerrar_sesion'])) {
     exit;
 }
 
-$nombreUsuario = $_SESSION['nombre']
+$nombreUsuario = isset($_SESSION['nombre1']) ? $_SESSION['nombre1'] : 'Usuario';
 ?>
 
 <!DOCTYPE html>

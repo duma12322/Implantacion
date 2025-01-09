@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <header class="header">
     <div class="dropdown">
         <!-- Botón del dropdown con la foto y el nombre del usuario -->
         <button class="dropbtn">
             <img src="ruta/a/la/foto.jpg" class="patient-photo" />
-            <?php echo $nombreUsuario; // Aquí se muestra el nombre del usuario 
-            ?>
+            <?php echo htmlspecialchars($nombreUsuario); ?>
         </button>
         <div class="dropdown-content">
             <a href="#">Perfil</a>
@@ -16,5 +14,8 @@
     </div>
 </header>
 
-
 <body>
+    <!-- Aquí el contenido de tu página -->
+</body>
+
+</html>

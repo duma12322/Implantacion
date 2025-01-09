@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-11-2024 a las 02:35:51
+-- Tiempo de generación: 09-01-2025 a las 14:47:33
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -1107,16 +1107,15 @@ CREATE TABLE `paciente` (
   `dispacitado` tinyint(4) DEFAULT NULL,
   `descrip_disca` varchar(250) DEFAULT NULL,
   `id_usuario` int(11) NOT NULL,
-  `id_direccion` int(11) NOT NULL,
-  `correo` varchar(255) NOT NULL
+  `id_direccion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `paciente`
 --
 
-INSERT INTO `paciente` (`id_paciente`, `num_hijos`, `dispacitado`, `descrip_disca`, `id_usuario`, `id_direccion`, `correo`) VALUES
-(2, 0, 0, '', 1, 1, '');
+INSERT INTO `paciente` (`id_paciente`, `num_hijos`, `dispacitado`, `descrip_disca`, `id_usuario`, `id_direccion`) VALUES
+(2, 0, 0, '', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -2352,17 +2351,14 @@ CREATE TABLE `usuario` (
   `num_doc` varchar(12) NOT NULL,
   `correo` varchar(70) NOT NULL,
   `contraseña` varchar(34) NOT NULL,
-  `nombre1` varchar(150) NOT NULL,
-  `nombre2` varchar(150) DEFAULT NULL,
-  `apellido1` varchar(150) NOT NULL,
-  `apellido2` varchar(150) DEFAULT NULL,
+  `Nombre1` varchar(150) NOT NULL,
+  `Nombre2` varchar(150) DEFAULT NULL,
+  `Apellido1` varchar(150) NOT NULL,
+  `Apellido2` varchar(150) DEFAULT NULL,
+  `sexo` enum('Masculino','Femenino') NOT NULL,
   `foto` blob DEFAULT NULL,
-  `fecha_nac` date NOT NULL,
-  `telefono` varchar(15) NOT NULL,
-  `pregunta_s1` enum('NOMBRE DE MI MADRE','NOMBRE DE MI MASCOTA','NOMBRE DE MI PRIMER COLEGIO','PRIMER DE MI TRABAJO','NOMBRE DE MI PADRE') NOT NULL,
-  `respuesta_1` varchar(150) NOT NULL,
-  `pregunta_s2` enum('NOMBRE DE MI HERMANO MAYOR','DONDE NACIO SU MADRE','NOMBRE DE MEJOR AMIGO DE LA INFANCIA','PELICULA FAVORITA','SEGUNDO APELLIDO DE MI MADRE') NOT NULL,
-  `respuesta_2` varchar(150) NOT NULL,
+  `Fecha_Nac` date NOT NULL,
+  `Telefono` varchar(15) NOT NULL,
   `status` enum('activo','inactivo') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -2370,8 +2366,8 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id_usuario`, `usuario`, `tipo_doc`, `num_doc`, `correo`, `contraseña`, `Nombre1`, `Nombre2`, `Apellido1`, `Apellido2`, `foto`, `Fecha_Nac`, `Telefono`, `status`) VALUES
-(1, 'neyli12322', 'V', '29888888', 'anais.asdm@gmail.com', '202cb962ac59075b964b07152d234b70', 'Neylimar', NULL, 'Perez', NULL, NULL, '2000-06-20', '04145986326', 'activo');
+INSERT INTO `usuario` (`id_usuario`, `usuario`, `tipo_doc`, `num_doc`, `correo`, `contraseña`, `Nombre1`, `Nombre2`, `Apellido1`, `Apellido2`, `sexo`, `foto`, `Fecha_Nac`, `Telefono`, `status`) VALUES
+(1, 'neyli12322', 'V', '29888888', 'anais.asdm@gmail.com', '202cb962ac59075b964b07152d234b70', 'Neylimar', NULL, 'Perez', NULL, 'Femenino', NULL, '2000-06-20', '04145986326', 'activo');
 
 --
 -- Índices para tablas volcadas

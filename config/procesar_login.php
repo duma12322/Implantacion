@@ -49,7 +49,7 @@ try {
         if (md5($contraseña) === $resultado['contraseña']) {
             // Configurar variables de sesión
             $_SESSION['usuario'] = $resultado['usuario'];
-            $_SESSION['nombre'] = $resultado['Nombre1'];
+            $_SESSION['nombre1'] = $resultado['nombre1'];
 
             if (isset($resultado['id_usuario'])) {
                 // Usuario es un paciente

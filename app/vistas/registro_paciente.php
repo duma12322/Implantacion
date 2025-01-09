@@ -20,15 +20,15 @@
             <div class="form-content">
                 <div class="login-form">
                     <div class="title">Parte 1: Registro</div>
-                    <form action="registro_paciente2.php" method="POST">
+                    <form action="../../config/procesar_registro.php" method="POST">
                         <div class="input-boxes">
                             <div class="input-box">
                                 <i class="bi bi-person-fill"></i>
-                                <input type="usuario" name="usuario" id="usuario" placeholder="Ingresa un usuario" required>
+                                <input type="text" name="usuario" id="usuario" placeholder="Ingresa un usuario" required>
                             </div>
                             <div class="input-box">
                                 <i class="bi bi-envelope-fill"></i>
-                                <input type="usuario" name="correo" id="correo" placeholder="Ingresa un correo" required>
+                                <input type="email" name="correo" id="correo" placeholder="Ingresa un correo" required>
                             </div>
                             <div class="input-box">
                                 <i class="bi bi-lock-fill"></i>
@@ -44,6 +44,5 @@
         </div>
     </div>
 </body>
-
 
 </html>

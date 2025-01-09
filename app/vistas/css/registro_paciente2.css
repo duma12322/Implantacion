@@ -178,7 +178,24 @@ select {
   background-color: #f1b24a;
   transition: all 0.3s linear;
   cursor: pointer;
-  margin-left: 640px;
+}
+
+.container form button,
+.nextBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;
+  max-width: 200px;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 5px;
+  margin: 25px 0;
+  background-color: #f1b24a;
+  transition: all 0.3s linear;
+  cursor: pointer;
 }
 .container form .btnText {
   font-size: 14px;
