@@ -51,7 +51,7 @@
                     <span class="nav-tooltip">Psicologos</span>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="../vistas/listado_pacientes.php" class="nav-link">
                         <i class="bi bi-person-plus-fill"></i>
                         <span class="nav-label">Pacientes</span>
                     </a>
