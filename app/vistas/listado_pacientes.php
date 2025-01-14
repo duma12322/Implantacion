@@ -31,6 +31,18 @@ if (!empty($searchTerm)) {
 } else {
     $usuarios = $controller->obtenerUsuarios();
 }
+
+if (isset($_POST['id_usuario'])) {
+    $id_usuario = $_POST['id_usuario'];
+
+    $controller = new listado_PacienteControlador();
+    $controller->eliminarUsuario($id_usuario);
+    echo "Usuario eliminado correctamente";
+        // Redirigir después de la eliminación
+        header('Location: /Implantacion/app/vistas/listado_pacientes.php');
+        exit();
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -191,7 +203,7 @@ if (!empty($searchTerm)) {
                             <?php endif; ?>
                         </td>
                         <td>
-                        <form method="POST" action="/Implantacion/config/eliminar_usuario.php">
+                        <form method="POST" action="#">
                                     <input type="hidden" name="id_usuario" value="<?= htmlspecialchars($usuario['id_usuario']) ?>">
                                     <button type="submit" class="btn-delete">Eliminar</button>
                                 </form>

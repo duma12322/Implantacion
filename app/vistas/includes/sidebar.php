@@ -44,7 +44,7 @@
 
             <?php if ($_SESSION['tipo_usuario'] === 'administrativo' || $_SESSION['tipo_usuario'] === 'psicologo') : ?>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="../vistas/listado_Psicologos.php" class="nav-link">
                         <i class="bi bi-person-hearts"></i>
                         <span class="nav-label">Psicologos</span>
                     </a>
