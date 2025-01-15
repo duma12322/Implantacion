@@ -1,0 +1,29 @@
+.table-wide {
+    width: 200%; /* Ajusta el ancho de la tabla */
+    max-width: 1600px; /* Puedes ajustar el valor según tus necesidades */
+    margin-left: -10%; /* Desplaza la tabla hacia la izquierda */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.d-flex {
+    display: flex;
+    justify-content: space-between; 
+    margin-left: -50px;
+}
+
+/* Estilo para la barra de búsqueda */
+.search-container {
+    width: 40%; /* Aumenta el ancho de la barra de búsqueda */
+    margin-right: -13%; /* Alinea la barra a la derecha */
+}
+
+.selected-row {
+    background-color: #d3d3d3; /* Gris claro */
+}
+
+
+
