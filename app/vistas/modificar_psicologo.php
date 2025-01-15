@@ -57,114 +57,83 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modificar Psicólogo</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-
-        .main-container {
-            display: flex;
-        }
-
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-
-        h1 {
-            color: #333;
-        }
-
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        form label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        form input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        form button {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        form button:hover {
-            background-color: #0056b3;
-        }
-
-        .error {
-            color: red;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar Datos del Psicólogo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/modificar.css">
 </head>
+
 <body>
-    <div class="main-content">
-        <h1>Modificar Datos del Psicólogo</h1>
-        <form method="POST" action="">
-            <label for="Nombre1">Primer Nombre:</label>
-            <input type="text" id="Nombre1" name="Nombre1" value="<?= htmlspecialchars($psicologo['Nombre1']) ?>" required>
-
-            <label for="Nombre2">Segundo Nombre:</label>
-            <input type="text" id="Nombre2" name="Nombre2" value="<?= htmlspecialchars($psicologo['Nombre2']) ?>">
-
-            <label for="Apellido1">Primer Apellido:</label>
-            <input type="text" id="Apellido1" name="Apellido1" value="<?= htmlspecialchars($psicologo['Apellido1']) ?>" required>
-
-            <label for="Apellido2">Segundo Apellido:</label>
-            <input type="text" id="Apellido2" name="Apellido2" value="<?= htmlspecialchars($psicologo['Apellido2']) ?>">
-
-            <label for="num_doc">Número de Documento:</label>
-            <input type="text" id="num_doc" name="num_doc" value="<?= htmlspecialchars($psicologo['num_doc']) ?>" required>
-
-            <label for="Fecha_Nac">Fecha de Nacimiento:</label>
-            <input type="date" id="Fecha_Nac" name="Fecha_Nac" value="<?= htmlspecialchars($psicologo['Fecha_Nac']) ?>" required>
-
-            <label for="telefono">Teléfono:</label>
-            <input type="text" id="telefono" name="telefono" value="<?= htmlspecialchars($psicologo['telefono']) ?>" required>
-
-            <button type="submit">Guardar Cambios</button>
-        </form>
-        <a href="listado_psicologos.php" class="back-link">Volver al listado</a>
+    <div class="container-xl px-4 mt-4">
+        <!-- Navigation -->
+        <nav class="nav nav-borders">
+            <a class="nav-link" href="listado_psicologos.php" target="_self">Volver al listado</a>
+        </nav>
+        <hr class="mt-0 mb-4">
+        <div class="row">
+            <div class="col-xl-4">
+                <!-- Profile picture card -->
+                <div class="card mb-4 mb-xl-0">
+                    <div class="card-header">Foto de Perfil</div>
+                    <div class="card-body text-center">
+                        <!-- Profile picture image -->
+                        <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="Avatar">
+                        <!-- Profile picture help block -->
+                        <div class="small font-italic text-muted mb-4">JPG o PNG no mayor a 5 MB</div>
+                        <!-- Profile picture upload button -->
+                        <button class="btn btn-primary" type="button">Subir nueva imagen</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8">
+                <!-- Account details card -->
+                <div class="card mb-4">
+                    <div class="card-header">Detalles del Psicólogo</div>
+                    <div class="card-body">
+                        <form method="POST" action="">
+                            <div class="mb-3">
+                                <label class="small mb-1" for="Nombre1">Primer Nombre</label>
+                                <input class="form-control" id="Nombre1" name="Nombre1" type="text" placeholder="Ingrese el primer nombre" value="<?= htmlspecialchars($psicologo['Nombre1']) ?>" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="Nombre2">Segundo Nombre</label>
+                                <input class="form-control" id="Nombre2" name="Nombre2" type="text" placeholder="Ingrese el segundo nombre" value="<?= htmlspecialchars($psicologo['Nombre2']) ?>">
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="Apellido1">Primer Apellido</label>
+                                    <input class="form-control" id="Apellido1" name="Apellido1" type="text" placeholder="Ingrese el primer apellido" value="<?= htmlspecialchars($psicologo['Apellido1']) ?>" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="Apellido2">Segundo Apellido</label>
+                                    <input class="form-control" id="Apellido2" name="Apellido2" type="text" placeholder="Ingrese el segundo apellido" value="<?= htmlspecialchars($psicologo['Apellido2']) ?>">
+                                </div>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="num_doc">Número de Documento</label>
+                                    <input class="form-control" id="num_doc" name="num_doc" type="text" placeholder="Ingrese el número de documento" value="<?= htmlspecialchars($psicologo['num_doc']) ?>" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="Fecha_Nac">Fecha de Nacimiento</label>
+                                    <input class="form-control" id="Fecha_Nac" name="Fecha_Nac" type="date" value="<?= htmlspecialchars($psicologo['Fecha_Nac']) ?>" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small mb-1" for="telefono">Teléfono</label>
+                                <input class="form-control" id="telefono" name="telefono" type="text" placeholder="Ingrese el número de teléfono" value="<?= htmlspecialchars($psicologo['telefono']) ?>" required>
+                            </div>
+                            <button class="btn btn-primary" type="submit">Guardar Cambios</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
