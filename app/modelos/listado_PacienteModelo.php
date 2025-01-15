@@ -2,15 +2,23 @@
 
 namespace app\modelos;
 
-require_once __DIR__ . '/principalModelo.php';
+require_once '../../config/conexion.php';
 
-use app\modelos\principalModelo;
+class listado_PacienteModelo
+{
+    private $conn;
 
-class listado_PacienteModelo extends principalModelo {
+    // Constructor que recibe la conexión
+    public function __construct($conn)
+    {
+        $this->conn = $conn;
+    }
+
     // Método para listar todos los usuarios con estado activo
-    public function listarUsuarios() {
+    public function listarUsuarios()
+    {
         try {
-            $sql = $this->conectar()->prepare("SELECT * FROM usuario WHERE status = 'activo'");
+            $sql = $this->conn->prepare("SELECT * FROM usuario WHERE status = 'activo'");
             $sql->execute();
             return $sql->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
@@ -20,9 +28,10 @@ class listado_PacienteModelo extends principalModelo {
     }
 
     // Método para buscar un usuario por su ID
-    public function buscarUsuarioPorId($id_usuario) {
+    public function buscarUsuarioPorId($id_usuario)
+    {
         try {
-            $sql = $this->conectar()->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario");
+            $sql = $this->conn->prepare("SELECT * FROM usuario WHERE id_usuario = :id_usuario");
             $sql->bindParam(':id_usuario', $id_usuario, \PDO::PARAM_INT);
             $sql->execute();
             return $sql->fetch(\PDO::FETCH_ASSOC);
@@ -32,12 +41,10 @@ class listado_PacienteModelo extends principalModelo {
         }
     }
 
-    public function actualizarUsuarioPorId($id_usuario, $datos) {
+    // Método para actualizar un usuario por su ID
+    public function actualizarUsuarioPorId($id_usuario, $datos)
+    {
         try {
-            // Log de depuración para verificar los datos
-            error_log("ID del usuario: " . $id_usuario);
-            error_log("Datos recibidos para actualizar: " . print_r($datos, true));
-    
             $sql = "UPDATE usuario SET 
                     nombre1 = :nombre1, 
                     nombre2 = :nombre2, 
@@ -48,8 +55,8 @@ class listado_PacienteModelo extends principalModelo {
                     num_doc = :num_doc, 
                     telefono = :telefono 
                     WHERE id_usuario = :id_usuario";
-            $stmt = $this->conectar()->prepare($sql);
-    
+            $stmt = $this->conn->prepare($sql);
+
             // Asociar parámetros
             $stmt->bindParam(':id_usuario', $id_usuario, \PDO::PARAM_INT);
             $stmt->bindParam(':nombre1', $datos['nombre1']);
@@ -60,7 +67,7 @@ class listado_PacienteModelo extends principalModelo {
             $stmt->bindParam(':fecha_nac', $datos['fecha_nac']);
             $stmt->bindParam(':num_doc', $datos['num_doc']);
             $stmt->bindParam(':telefono', $datos['telefono']);
-    
+
             // Ejecutar y devolver resultado
             return $stmt->execute();
         } catch (\PDOException $e) {
@@ -68,12 +75,12 @@ class listado_PacienteModelo extends principalModelo {
             return false;
         }
     }
-    
 
     // Método para cambiar el estado de un usuario (eliminar lógicamente)
-    public function cambiarEstadoUsuario($id_usuario) {
+    public function cambiarEstadoUsuario($id_usuario)
+    {
         try {
-            $sql = $this->conectar()->prepare("UPDATE usuario SET status = 'inactivo' WHERE id_usuario = :id_usuario");
+            $sql = $this->conn->prepare("UPDATE usuario SET status = 'inactivo' WHERE id_usuario = :id_usuario");
             $sql->bindParam(':id_usuario', $id_usuario, \PDO::PARAM_INT);
             return $sql->execute();
         } catch (\PDOException $e) {
@@ -83,13 +90,14 @@ class listado_PacienteModelo extends principalModelo {
     }
 
     // Método para buscar usuarios filtrados por nombre o número de documento
-    public function buscarUsuariosFiltrados($searchTerm) {
+    public function buscarUsuariosFiltrados($searchTerm)
+    {
         try {
             // Crear un término de búsqueda con los comodines para la búsqueda parcial
             $searchTerm = "%" . $searchTerm . "%";
 
             // Preparar la consulta SQL para buscar en los campos nombre1 y num_doc
-            $sql = $this->conectar()->prepare("SELECT * FROM usuario WHERE (nombre1 LIKE :searchTerm OR num_doc LIKE :searchTerm) AND status = 'activo'");
+            $sql = $this->conn->prepare("SELECT * FROM usuario WHERE (nombre1 LIKE :searchTerm OR num_doc LIKE :searchTerm) AND status = 'activo'");
             $sql->bindParam(':searchTerm', $searchTerm, \PDO::PARAM_STR);
             $sql->execute();
 
