@@ -1,0 +1,167 @@
+/* Google Font Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(#2f3c48, #1b1b1b);
+  padding: 30px;
+}
+
+.container {
+  position: relative;
+  max-width: 850px;
+  width: 100%;
+  height: 450px; /* Ajusté la altura a un valor fijo */
+  background: #fff;
+  padding: 0;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  display: flex; /* Flexbox para dividir el formulario e imagen */
+  border-radius: 10px;
+}
+
+.container .cover {
+  width: 50%;
+  height: 100%;
+  z-index: 98;
+  position: relative;
+}
+
+.container .cover .front img {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.container .forms {
+  width: 50%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.form-content {
+  width: 100%;
+  padding: 20px;
+}
+
+.form-content .title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #333;
+  position: relative;
+  text-align: center;
+}
+
+.form-content .title:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 30px;
+  background: #f1b24a;
+}
+
+.input-boxes {
+  margin-top: 30px;
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.input-box label {
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.input-box input {
+  height: 50px;
+  padding: 0 20px;
+  font-size: 16px;
+  font-weight: 500;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.input-box input:focus {
+  border-color: #f1b24a;
+}
+
+.button input {
+  width: 100%;
+  height: 50px;
+  background-color: #f1b24a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.button input:hover {
+  background-color: #5b13b9;
+}
+
+.button input:active {
+  background-color: #3a0f76;
+}
+
+.text {
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+  margin-top: 20px;
+}
+
+.text a {
+  text-decoration: none;
+  color: #5b13b9;
+}
+
+.text a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 730px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+  }
+
+  .cover {
+    width: 100%;
+    height: 250px;
+    display: none;
+  }
+
+  .forms {
+    width: 100%;
+    height: auto;
+  }
+
+  .form-content {
+    padding: 15px;
+  }
+}

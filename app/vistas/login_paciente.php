@@ -33,7 +33,7 @@
                                 <input type="password" name="contraseña" placeholder="Ingresa la contraseña" required>
                             </div>
                             <input type="hidden" name="tipo" value="paciente">
-                            <div class="text"><a href="#">¿Olvidaste tu contraseña?</a></div>
+                            <div class="text"><a href="recuperar_contraseña.php">¿Olvidaste tu contraseña?</a></div>
                             <div class="button input-box">
                                 <input type="submit" value="Iniciar Sesión">
                             </div>
