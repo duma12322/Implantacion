@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-01-2025 a las 06:35:12
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 17-01-2025 a las 02:20:47
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -66,6 +66,16 @@ CREATE TABLE `agenda` (
   `status` enum('Pendiente','Confirmada','Completada','Cancelada','Reprogramada') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `agenda`
+--
+
+INSERT INTO `agenda` (`id_agenda`, `fecha`, `hora_inicio`, `hora_final`, `contador_cita`, `status`) VALUES
+(1, '1995-01-17', '10:30:00', '11:30:00', NULL, 'Pendiente'),
+(2, '1995-01-17', '00:00:00', '01:00:00', NULL, 'Pendiente'),
+(3, '2025-01-17', '00:00:00', '01:00:00', NULL, 'Pendiente'),
+(4, '2025-01-22', '09:00:00', '10:00:00', NULL, 'Pendiente');
+
 -- --------------------------------------------------------
 
 --
@@ -103,6 +113,18 @@ CREATE TABLE `cita` (
   `fecha` datetime NOT NULL,
   `motivo` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `cita`
+--
+
+INSERT INTO `cita` (`id_cita`, `id_agenda`, `id_psicologo`, `id_paciente`, `id_tipo_cita`, `fecha`, `motivo`) VALUES
+(1, 1, 7, 0, 1, '1995-01-17 00:00:00', 'Consulta'),
+(2, 2, 7, 2, 1, '1995-01-17 00:00:00', 'Consulta'),
+(3, 2, 7, 2, 1, '1995-01-17 00:00:00', 'Consulta'),
+(4, 2, 7, 2, 1, '1995-01-17 00:00:00', 'Consulta'),
+(5, 3, 7, 2, 1, '2025-01-17 00:00:00', 'Consulta'),
+(6, 4, 7, 0, 1, '2025-01-22 00:00:00', 'Consulta');
 
 -- --------------------------------------------------------
 
@@ -1361,6 +1383,18 @@ CREATE TABLE `pago_cita` (
   `referencia_bancaria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `pago_cita`
+--
+
+INSERT INTO `pago_cita` (`id_pago_cita`, `id_cita`, `tipo_pago`, `monto`, `fecha_pago`, `referencia_bancaria`) VALUES
+(1, 1, 'PAGO MOVIL', 100, '2025-01-16', 100),
+(2, 2, 'PAGO MOVIL', 100, '2025-01-16', 100),
+(3, 3, 'PAGO MOVIL', 100, '2025-01-16', 100),
+(4, 4, 'PAGO MOVIL', 100, '2025-01-16', 100),
+(5, 5, 'PAGO MOVIL', 100, '2025-01-16', 100),
+(6, 6, 'EFECTIVO $', 200, '2025-01-16', 100);
+
 -- --------------------------------------------------------
 
 --
@@ -2572,9 +2606,24 @@ CREATE TABLE `relacion_social_niñez` (
 
 CREATE TABLE `tipo_cita` (
   `id_tipo_cita` int(10) NOT NULL,
-  `tipo_cita` enum('infantil','empresarial','pareja','adolescente','motivacional') NOT NULL,
+  `tipo_cita` enum('infantil','individual','pareja','adolescente') NOT NULL,
   `modalidad` enum('online','presencial','','') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_cita`
+--
+
+INSERT INTO `tipo_cita` (`id_tipo_cita`, `tipo_cita`, `modalidad`) VALUES
+(1, 'individual', 'online'),
+(2, 'individual', 'presencial'),
+(3, 'pareja', 'online'),
+(4, 'pareja', 'presencial'),
+(6, 'adolescente', 'presencial'),
+(8, 'infantil', 'presencial'),
+(9, 'individual', ''),
+(10, 'individual', ''),
+(17, 'individual', 'presencial');
 
 -- --------------------------------------------------------
 
@@ -2630,9 +2679,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_usuario`, `usuario`, `tipo_doc`, `num_doc`, `correo`, `contraseña`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, `foto`, `fecha_nac`, `telefono`, `sexo`, `pregunta_s1`, `respuesta_1`, `pregunta_s2`, `respuesta_2`, `status`) VALUES
-(1, 'neyli12322', 'V', '29888888', 'neyli@gmail.com', '202cb962ac59075b964b07152d234b70', 'Neylimar', NULL, 'Perez', NULL, NULL, '2000-06-20', '04145986326', 'Masculino', '', '', '', '', 'activo'),
+(1, 'neyli12322', 'V', '29888888', 'neyli@gmail.com', '202cb962ac59075b964b07152d234b70', 'Neylimar', NULL, 'Perez', NULL, NULL, '2000-06-20', '04145986326', 'Masculino', 'NOMBRE DE MI MADRE', 'Maria', 'NOMBRE DE MI HERMANO MAYOR', 'Jose', 'activo'),
 (26, 'test1', 'P', '22198821', 'dunsuarez.ma@gmail.com', '202cb962ac59075b964b07152d234b70', 'test1', 'test1', 'test1', 'test1', NULL, '1995-02-02', '04125972365', 'Masculino', 'NOMBRE DE MI PRIMER COLEGIO', 's', 'NOMBRE DE MEJOR AMIGO DE LA INFANCIA', 'd', 'activo'),
-(27, 'test2', 'P', '22198821', 'anais_asdm@hotmail.com', '202cb962ac59075b964b07152d234b70', 'Maria', '', 'Perez', '', NULL, '1995-12-02', '02514456248', 'Masculino', 'NOMBRE DE MI MASCOTA', 'Terry', 'PELICULA FAVORITA', 'Titanic', 'activo'),
+(27, 'test2', 'P', '22198821', 'anais_asdm@hotmail.com', '202cb962ac59075b964b07152d234b70', 'Maria', 'Juana', 'Perez', '', NULL, '1995-12-02', '02514456248', 'Masculino', 'NOMBRE DE MI MASCOTA', 'Terry', 'PELICULA FAVORITA', 'Titanic', 'activo'),
 (28, 'tes3', 'V', '22198821', 'anais_asdm@hotmail.com', '202cb962ac59075b964b07152d234b70', 'Maria', '', 'Rodriguez', '', NULL, '1995-01-06', '02517178172', 'Femenino', 'NOMBRE DE MI MASCOTA', 'Negro', 'NOMBRE DE MI HERMANO MAYOR', 'Jose', 'activo');
 
 --
@@ -2644,6 +2693,18 @@ INSERT INTO `usuario` (`id_usuario`, `usuario`, `tipo_doc`, `num_doc`, `correo`,
 --
 ALTER TABLE `administrativo`
   ADD PRIMARY KEY (`id_administrativo`);
+
+--
+-- Indices de la tabla `agenda`
+--
+ALTER TABLE `agenda`
+  ADD PRIMARY KEY (`id_agenda`);
+
+--
+-- Indices de la tabla `cita`
+--
+ALTER TABLE `cita`
+  ADD PRIMARY KEY (`id_cita`);
 
 --
 -- Indices de la tabla `direccion`
@@ -2658,10 +2719,22 @@ ALTER TABLE `paciente`
   ADD PRIMARY KEY (`id_paciente`);
 
 --
+-- Indices de la tabla `pago_cita`
+--
+ALTER TABLE `pago_cita`
+  ADD PRIMARY KEY (`id_pago_cita`);
+
+--
 -- Indices de la tabla `psicologo`
 --
 ALTER TABLE `psicologo`
   ADD PRIMARY KEY (`id_psicologo`);
+
+--
+-- Indices de la tabla `tipo_cita`
+--
+ALTER TABLE `tipo_cita`
+  ADD PRIMARY KEY (`id_tipo_cita`);
 
 --
 -- Indices de la tabla `usuario`
@@ -2680,6 +2753,18 @@ ALTER TABLE `administrativo`
   MODIFY `id_administrativo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `agenda`
+--
+ALTER TABLE `agenda`
+  MODIFY `id_agenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `cita`
+--
+ALTER TABLE `cita`
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `direccion`
 --
 ALTER TABLE `direccion`
@@ -2692,10 +2777,22 @@ ALTER TABLE `paciente`
   MODIFY `id_paciente` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `pago_cita`
+--
+ALTER TABLE `pago_cita`
+  MODIFY `id_pago_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `psicologo`
 --
 ALTER TABLE `psicologo`
   MODIFY `id_psicologo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_cita`
+--
+ALTER TABLE `tipo_cita`
+  MODIFY `id_tipo_cita` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

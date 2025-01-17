@@ -49,6 +49,7 @@ try {
         if (md5($contraseña) === $resultado['contraseña']) {
             // Configurar variables de sesión
             $_SESSION['usuario'] = $resultado['usuario'];
+            $_SESSION['id_usuario'] = $resultado['id_usuario']; // Almacenar el ID del usuario en la sesión
             $_SESSION['nombre1'] = $resultado['nombre1'];
 
             if (isset($resultado['id_usuario'])) {
