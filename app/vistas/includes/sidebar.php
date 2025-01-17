@@ -25,7 +25,24 @@
                 </li>
             <?php endif; ?>
 
-            <?php if ($_SESSION['tipo_usuario'] === 'administrativo' || $_SESSION['tipo_usuario'] === 'psicologo' || $_SESSION['tipo_usuario'] === 'paciente') : ?>
+            <?php if ($_SESSION['tipo_usuario'] === 'administrativo' || $_SESSION['tipo_usuario'] === 'psicologo') : ?>
+                <li class="nav-item">
+                    <a href="agendar_cita.php" class="nav-link">
+                        <i class="bi bi-calendar-plus-fill"></i>
+                        <span class="nav-label">Agendar Cita</span>
+                    </a>
+                    <span class="nav-tooltip">Agendar Cita</span>
+                </li>
+                <li class="nav-item">
+                    <a href="consultar_cita.php" class="nav-link">
+                        <i class="bi bi-clipboard-heart-fill"></i>
+                        <span class="nav-label">Consultar Citas</span>
+                    </a>
+                    <span class="nav-tooltip">Consultar Citas</span>
+                </li>
+            <?php endif; ?>
+
+            <?php if ($_SESSION['tipo_usuario'] === 'paciente') : ?>
                 <li class="nav-item">
                     <a href="agendar_cita.php" class="nav-link">
                         <i class="bi bi-calendar-plus-fill"></i>

@@ -15,10 +15,9 @@ if (isset($_POST['cerrar_sesion'])) {
     exit;
 }
 
-$nombreUsuario = isset($_SESSION['nombre1']) ? $_SESSION['nombre1'] : 'Usuario';
+$nombreUsuario = $_SESSION['usuario'];
 
 // Conexión a la base de datos
-// Conexión a la base de datos con PDO
 include '../../config/conexion.php'; // Asegúrate de que esta línea esté configurada para PDO
 
 if (isset($_POST['tipo_cita'])) {

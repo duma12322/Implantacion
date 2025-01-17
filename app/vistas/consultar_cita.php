@@ -2,7 +2,7 @@
 session_start();
 
 // Verificar si el usuario está logueado
-if (!isset($_SESSION['id_usuario'])) {
+if (!isset($_SESSION['usuario'])) {
     header("Location: login_paciente.php");
     exit;
 }
@@ -10,7 +10,7 @@ if (!isset($_SESSION['id_usuario'])) {
 // Incluir el archivo controlador
 include_once('../controladores/validar_consultar_cita.php');
 
-$nombreUsuario = isset($_SESSION['nombre1']) ? $_SESSION['nombre1'] : 'Usuario';
+$nombreUsuario = $_SESSION['usuario'];
 ?>
 
 <!DOCTYPE html>

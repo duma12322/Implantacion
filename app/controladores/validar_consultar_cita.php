@@ -2,12 +2,6 @@
 
 include_once('../../config/conexion.php');
 
-// Verificar si el usuario está logueado
-if (!isset($_SESSION['id_usuario'])) {
-    header("Location: login_paciente.php");
-    exit;
-}
-
 // Función para verificar la disponibilidad de horarios
 function isTimeSlotAvailable($conn, $fecha, $hora_inicio, $hora_final)
 {
@@ -66,13 +60,44 @@ $query = "
     JOIN usuario u ON p.id_usuario = u.id_usuario 
     JOIN psicologo ps ON c.id_psicologo = ps.id_psicologo 
     JOIN administrativo adm ON ps.id_administrativo = adm.id_administrativo 
-    LEFT JOIN pago_cita pc ON c.id_cita = pc.id_cita
-    LEFT JOIN tipo_cita t ON c.id_tipo_cita = t.id_tipo_cita
-    " . (count($where_clauses) > 0 ? " WHERE " . implode(" AND ", $where_clauses) : "");
+    JOIN pago_cita pc ON c.id_cita = pc.id_cita 
+    JOIN tipo_cita t ON c.id_tipo_cita = t.id_tipo_cita
+";
 
-$stmt = $conn->prepare($query);
-foreach ($params as $param => $value) {
-    $stmt->bindValue($param, $value);
+// Aplicar filtros a la consulta
+if (!empty($where_clauses)) {
+    $query .= " WHERE " . implode(" AND ", $where_clauses);
 }
-$stmt->execute();
-$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+try {
+    $stmt = $conn->prepare($query);
+    foreach ($params as $key => $value) {
+        $stmt->bindValue($key, $value);
+    }
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Error en la consulta: " . $e->getMessage());
+}
+
+// Actualizar el estado de la agenda si se envía el formulario
+if (isset($_POST['update_status'])) {
+    $id_agenda = $_POST['id_agenda']; // Asegúrate de que id_agenda sea el campo correcto
+    $new_status = $_POST['status'];
+
+    // Actualizar el estado en la tabla agenda
+    $update_query = "UPDATE agenda SET status = :status WHERE id_agenda = :id_agenda";
+
+    try {
+        $stmt_update = $conn->prepare($update_query);
+        $stmt_update->bindValue(':status', $new_status);
+        $stmt_update->bindValue(':id_agenda', $id_agenda);
+        $stmt_update->execute();
+
+        // Redirigir a la misma página después de la actualización
+        header("Location: consultar_cita.php");
+        exit;
+    } catch (PDOException $e) {
+        die("Error al actualizar el estado: " . $e->getMessage());
+    }
+}

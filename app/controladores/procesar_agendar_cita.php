@@ -1,14 +1,16 @@
 <?php
 session_start();
 
+// Verifica si la sesión está activa
 if (!isset($_SESSION['id_usuario'])) {
     header("Location: login_paciente.php");
     exit;
 }
 
-$id_usuario = (int)$_SESSION['id_usuario'];
-
 include_once('../../config/conexion.php');
+
+// Obtener el ID de usuario desde la sesión
+$id_usuario = $_SESSION['id_usuario'];  // Asegúrate de que esto esté disponible en la sesión
 
 // Consultar información del paciente
 $query_paciente = "
