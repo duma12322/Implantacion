@@ -1,95 +1,148 @@
 <?php
-include_once('../../config/conexion.php');
+session_start();
 
-// Recibir los datos del formulario
-$id_psicologo = $_POST['id_psicologo'];
-$id_paciente = $_POST['id_paciente'];
-$fecha = $_POST['fecha'];
-$hora = $_POST['hora'];
-$minutos = $_POST['minutos'];
-$ampm = $_POST['am_pm'];
-$motivo = $_POST['motivo'];
-$tipo_pago = $_POST['tipo_pago'];
-$referencia_bancaria = $_POST['referencia_bancaria'];
-
-// Definir el monto para citas individuales presenciales
-$monto = 30;
-
-// Convertir la hora a formato 24 horas
-$hora24 = ($ampm == 'PM' && $hora != 12) ? $hora + 12 : (($ampm == 'AM' && $hora == 12) ? 0 : $hora);
-$hora_inicio = sprintf("%02d:%02d:00", $hora24, $minutos);
-$hora_final = sprintf("%02d:%02d:00", ($hora24 + 1) % 24, $minutos); // Ejemplo: Duración de 1 hora
-
-// Verificar el número de citas pendientes del paciente para el día
-$query_verificar_citas = "SELECT MAX(contador_cita) as max_citas FROM agenda WHERE fecha = :fecha AND id_paciente = :id_paciente AND status = 'Pendiente'";
-$stmt_verificar_citas = $conn->prepare($query_verificar_citas);
-$stmt_verificar_citas->bindParam(':fecha', $fecha);
-$stmt_verificar_citas->bindParam(':id_paciente', $id_paciente);
-$stmt_verificar_citas->execute();
-$max_citas = $stmt_verificar_citas->fetch(PDO::FETCH_ASSOC)['max_citas'];
-
-if ($max_citas >= 3) {
-    echo "Has alcanzado el máximo de citas permitidas para el día.";
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: login_paciente.php");
     exit;
 }
 
-// Verificar si hay una agenda disponible para la hora y fecha dadas
-$query_agenda = "SELECT id_agenda, contador_cita FROM agenda WHERE fecha = :fecha AND hora_inicio = :hora_inicio AND id_paciente = :id_paciente AND status = 'Pendiente'";
-$stmt_agenda = $conn->prepare($query_agenda);
-$stmt_agenda->bindParam(':fecha', $fecha);
-$stmt_agenda->bindParam(':hora_inicio', $hora_inicio);
-$stmt_agenda->bindParam(':id_paciente', $id_paciente);
-$stmt_agenda->execute();
-$agenda = $stmt_agenda->fetch(PDO::FETCH_ASSOC);
+$id_usuario = (int)$_SESSION['id_usuario'];
 
-if ($agenda) {
-    // Incrementar el contador de citas si ya existe una agenda
-    if ($agenda['contador_cita'] < 3) {
-        $query_update_contador = "UPDATE agenda SET contador_cita = contador_cita + 1 WHERE id_agenda = :id_agenda";
-        $stmt_update_contador = $conn->prepare($query_update_contador);
-        $stmt_update_contador->bindParam(':id_agenda', $agenda['id_agenda']);
-        $stmt_update_contador->execute();
-        $id_agenda = $agenda['id_agenda'];
-    } else {
-        echo "El paciente ya tiene 3 citas pendientes para el día.";
-        exit;
-    }
-} else {
-    // Insertar nueva agenda
-    $contador_cita = is_null($max_citas) ? 1 : $max_citas + 1;
-    $query_new_agenda = "INSERT INTO agenda (fecha, hora_inicio, hora_final, contador_cita, status, id_paciente) VALUES (:fecha, :hora_inicio, :hora_final, :contador_cita, 'Pendiente', :id_paciente)";
-    $stmt_new_agenda = $conn->prepare($query_new_agenda);
-    $stmt_new_agenda->bindParam(':fecha', $fecha);
-    $stmt_new_agenda->bindParam(':hora_inicio', $hora_inicio);
-    $stmt_new_agenda->bindParam(':hora_final', $hora_final);
-    $stmt_new_agenda->bindParam(':contador_cita', $contador_cita);
-    $stmt_new_agenda->bindParam(':id_paciente', $id_paciente);
-    $stmt_new_agenda->execute();
-    $id_agenda = $conn->lastInsertId();
+include_once('../../config/conexion.php');
+
+// Consultar información del paciente
+$query_paciente = "
+    SELECT u.id_usuario, u.nombre1, u.nombre2, u.apellido1, u.apellido2, p.id_paciente 
+    FROM usuario u 
+    JOIN paciente p ON u.id_usuario = p.id_usuario
+    WHERE u.id_usuario = :id_usuario
+";
+$stmt_paciente = $conn->prepare($query_paciente);
+$stmt_paciente->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+$stmt_paciente->execute();
+$paciente = $stmt_paciente->fetch(PDO::FETCH_ASSOC);
+
+if (!$paciente) {
+    echo "No se encontró información para el paciente.";
+    exit;
 }
 
-// Insertar nueva cita
-$query_cita = "INSERT INTO cita (id_agenda, id_psicologo, id_paciente, fecha, motivo, id_tipo_cita) VALUES (:id_agenda, :id_psicologo, :id_paciente, :fecha, :motivo, 1)";
-$stmt_cita = $conn->prepare($query_cita);
-$stmt_cita->bindParam(':id_agenda', $id_agenda);
-$stmt_cita->bindParam(':id_psicologo', $id_psicologo);
-$stmt_cita->bindParam(':id_paciente', $id_paciente);
-$stmt_cita->bindParam(':fecha', $fecha);
-$stmt_cita->bindParam(':motivo', $motivo);
+// Consultar información de psicólogos
+$query_psicologos = "
+    SELECT p.id_psicologo, a.Nombre1, a.Apellido1 
+    FROM psicologo p 
+    JOIN administrativo a ON p.id_administrativo = a.id_administrativo
+";
+$stmt_psicologos = $conn->prepare($query_psicologos);
+$stmt_psicologos->execute();
+$result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
 
-if ($stmt_cita->execute()) {
-    $id_cita = $conn->lastInsertId();
+// Procesar formulario de cita
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_psicologo = $_POST['id_psicologo'];
+    $id_paciente = $_POST['id_paciente'];
+    $fecha = $_POST['fecha'];
+    $hora = $_POST['hora'];
+    $minutos = $_POST['minutos'];
+    $ampm = $_POST['am_pm'];
+    $motivo = $_POST['motivo'];
+    $tipo_pago = $_POST['tipo_pago'];
+    $referencia_bancaria = $_POST['referencia_bancaria'];
+    $monto = 30;
 
-    // Registrar pago
-    $query_pago = "INSERT INTO pago_cita (id_cita, tipo_pago, monto, fecha_pago, referencia_bancaria) VALUES (:id_cita, :tipo_pago, :monto, CURDATE(), :referencia_bancaria)";
-    $stmt_pago = $conn->prepare($query_pago);
-    $stmt_pago->bindParam(':id_cita', $id_cita);
-    $stmt_pago->bindParam(':tipo_pago', $tipo_pago);
-    $stmt_pago->bindParam(':monto', $monto);
-    $stmt_pago->bindParam(':referencia_bancaria', $referencia_bancaria);
-    $stmt_pago->execute();
+    // Convertir hora AM/PM a formato 24 horas
+    $hora24 = ($ampm == 'PM' && $hora != 12) ? $hora + 12 : (($ampm == 'AM' && $hora == 12) ? 0 : $hora);
+    $hora_inicio = sprintf("%02d:%02d:00", $hora24, $minutos);
 
-    echo "Cita agendada correctamente.";
-} else {
-    echo "Error al agendar la cita: " . $stmt_cita->errorInfo()[2];
+    // Calcular hora final sumando 45 minutos
+    $minutos_totales = ($hora24 * 60) + $minutos + 45;
+    $hora_final24 = intdiv($minutos_totales, 60);
+    $minutos_finales = $minutos_totales % 60;
+    $hora_final = sprintf("%02d:%02d:00", $hora_final24, $minutos_finales);
+
+    // Verificar si el paciente tiene el máximo de citas permitidas para el día
+    $query_verificar_citas = "
+        SELECT MAX(contador_cita) AS max_citas 
+        FROM agenda 
+        WHERE fecha = :fecha 
+        AND id_paciente = :id_paciente 
+        AND status = 'Pendiente'
+    ";
+    $stmt_verificar_citas = $conn->prepare($query_verificar_citas);
+    $stmt_verificar_citas->bindParam(':fecha', $fecha);
+    $stmt_verificar_citas->bindParam(':id_paciente', $id_paciente);
+    $stmt_verificar_citas->execute();
+    $max_citas = $stmt_verificar_citas->fetch(PDO::FETCH_ASSOC)['max_citas'];
+
+    if ($max_citas >= 3) {
+        echo "Has alcanzado el máximo de citas permitidas para el día.";
+        exit;
+    }
+
+    // Verificar si hay una cita agendada en el horario seleccionado
+    $query_agenda = "
+        SELECT id_agenda, contador_cita 
+        FROM agenda 
+        WHERE fecha = :fecha 
+        AND (hora_inicio < :hora_final AND hora_final > :hora_inicio) 
+        AND status = 'Pendiente'
+    ";
+    $stmt_agenda = $conn->prepare($query_agenda);
+    $stmt_agenda->bindParam(':fecha', $fecha);
+    $stmt_agenda->bindParam(':hora_inicio', $hora_inicio);
+    $stmt_agenda->bindParam(':hora_final', $hora_final);
+    $stmt_agenda->execute();
+    $agenda = $stmt_agenda->fetch(PDO::FETCH_ASSOC);
+
+    if ($agenda) {
+        echo "Ya hay una cita agendada en este horario.";
+        exit;
+    } else {
+        $contador_cita = is_null($max_citas) ? 1 : $max_citas + 1;
+
+        // Insertar nueva agenda
+        $query_new_agenda = "
+            INSERT INTO agenda (fecha, hora_inicio, hora_final, contador_cita, status, id_paciente) 
+            VALUES (:fecha, :hora_inicio, :hora_final, :contador_cita, 'Pendiente', :id_paciente)
+        ";
+        $stmt_new_agenda = $conn->prepare($query_new_agenda);
+        $stmt_new_agenda->bindParam(':fecha', $fecha);
+        $stmt_new_agenda->bindParam(':hora_inicio', $hora_inicio);
+        $stmt_new_agenda->bindParam(':hora_final', $hora_final);
+        $stmt_new_agenda->bindParam(':contador_cita', $contador_cita);
+        $stmt_new_agenda->bindParam(':id_paciente', $id_paciente);
+        $stmt_new_agenda->execute();
+        $id_agenda = $conn->lastInsertId();
+
+        // Insertar nueva cita
+        $query_cita = "
+            INSERT INTO cita (id_agenda, id_psicologo, id_paciente, fecha, motivo, id_tipo_cita) 
+            VALUES (:id_agenda, :id_psicologo, :id_paciente, :fecha, :motivo, 1)
+        ";
+        $stmt_cita = $conn->prepare($query_cita);
+        $stmt_cita->bindParam(':id_agenda', $id_agenda);
+        $stmt_cita->bindParam(':id_psicologo', $id_psicologo);
+        $stmt_cita->bindParam(':id_paciente', $id_paciente);
+        $stmt_cita->bindParam(':fecha', $fecha);
+        $stmt_cita->bindParam(':motivo', $motivo);
+        if ($stmt_cita->execute()) {
+            $id_cita = $conn->lastInsertId();
+
+            // Insertar pago de cita
+            $query_pago = "
+                INSERT INTO pago_cita (id_cita, tipo_pago, monto, fecha_pago, referencia_bancaria) 
+                VALUES (:id_cita, :tipo_pago, :monto, CURDATE(), :referencia_bancaria)
+            ";
+            $stmt_pago = $conn->prepare($query_pago);
+            $stmt_pago->bindParam(':id_cita', $id_cita);
+            $stmt_pago->bindParam(':tipo_pago', $tipo_pago);
+            $stmt_pago->bindParam(':monto', $monto);
+            $stmt_pago->bindParam(':referencia_bancaria', $referencia_bancaria);
+            $stmt_pago->execute();
+
+            echo "Cita agendada correctamente.";
+        } else {
+            echo "Error al agendar la cita: " . $stmt_cita->errorInfo()[2];
+        }
+    }
 }

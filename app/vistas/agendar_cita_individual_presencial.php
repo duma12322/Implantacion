@@ -124,23 +124,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const dateInput = document.getElementById('fecha');
-            const today = new Date();
-            const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1);
-
-            const formatDate = (date) => {
-                const year = date.getFullYear();
-                const month = ('0' + (date.getMonth() + 1)).slice(-2);
-                const day = ('0' + date.getDate()).slice(-2);
-                return `${year}-${month}-${day}`;
-            };
-
-            dateInput.min = formatDate(today);
-            dateInput.max = formatDate(nextMonth);
-        });
-    </script>
+    <script src="script/fecha.js"></script>
 </body>
 
 </html>
