@@ -1,42 +1,34 @@
-/* /css/style.css */
-
-table {
-    width: 100%;
-    border-collapse: collapse;
+/* Ajusta el ancho de la tabla y la mueve un poco a la derecha */
+.table-wide {
+    width: 100%; /* Establece el ancho al 100% */
+    max-width: 1700px; /* Limita el ancho máximo a 1700px */
+    margin-left: auto; /* Mueve la tabla un poco a la derecha (ajusta el porcentaje según sea necesario) */
+    margin-right: auto; /* Mantiene el margen derecho automático */
+    
 }
 
-table,
-th,
-td {
-    border: 1px solid black;
+/* Ajustes del contenedor principal */
+.container {
+  display: flex;
+    flex-direction: column;
+     max-width: 1700px;
+     
 }
 
-th,
-td {
-    padding: 10px;
-    text-align: left;
+/* Barra de búsqueda */
+.search-container {
+    width: 40%; /* Ajusta el ancho de la barra de búsqueda */
+    margin-right: 0; /* Alinea la barra de búsqueda sin margen extra */
 }
 
-th {
-    background-color: #f2f2f2;
+/* Flex para los filtros */
+.d-flex {
+    display: flex;
+    justify-content: space-between; /* Mantiene el espacio entre los filtros */
+    margin-left: 0; /* Asegúrate de que no haya margen extra */
 }
 
-.search-bar {
-    margin-bottom: 20px;
-}
-
-.status-dropdown {
-    width: 150px;
-}
-
-.save-button {
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.save-button:hover {
-    background-color: #45a049;
+/* Si necesitas separar los elementos */
+.selected-row {
+    background-color: #d3d3d3; /* Color de fondo para las filas seleccionadas */
 }
