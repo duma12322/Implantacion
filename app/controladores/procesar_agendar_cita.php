@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         FROM agenda 
         WHERE fecha = :fecha 
         AND (hora_inicio < :hora_final AND hora_final > :hora_inicio) 
-        AND status = 'Pendiente'
+        AND (status = 'Pendiente' OR status = 'Confirmada')
     ";
     $stmt_agenda = $conn->prepare($query_agenda);
     $stmt_agenda->bindParam(':fecha', $fecha);
