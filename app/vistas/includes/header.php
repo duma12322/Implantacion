@@ -8,7 +8,7 @@
             <?php echo htmlspecialchars($nombreUsuario); ?>
         </button>
         <div class="dropdown-content">
-            <a href="#">Perfil</a>
+            <a href="perfil.php">Perfil</a>
             <a href="../../config/logout.php">Cerrar Sesion</a>
         </div>
     </div>
