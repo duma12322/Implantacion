@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-01-2025 a las 02:20:47
+-- Tiempo de generación: 17-01-2025 a las 14:25:52
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -63,6 +63,7 @@ CREATE TABLE `agenda` (
   `hora_inicio` time NOT NULL,
   `hora_final` time NOT NULL,
   `contador_cita` int(11) DEFAULT NULL,
+  `id_paciente` int(11) DEFAULT NULL,
   `status` enum('Pendiente','Confirmada','Completada','Cancelada','Reprogramada') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -70,11 +71,22 @@ CREATE TABLE `agenda` (
 -- Volcado de datos para la tabla `agenda`
 --
 
-INSERT INTO `agenda` (`id_agenda`, `fecha`, `hora_inicio`, `hora_final`, `contador_cita`, `status`) VALUES
-(1, '1995-01-17', '10:30:00', '11:30:00', NULL, 'Pendiente'),
-(2, '1995-01-17', '00:00:00', '01:00:00', NULL, 'Pendiente'),
-(3, '2025-01-17', '00:00:00', '01:00:00', NULL, 'Pendiente'),
-(4, '2025-01-22', '09:00:00', '10:00:00', NULL, 'Pendiente');
+INSERT INTO `agenda` (`id_agenda`, `fecha`, `hora_inicio`, `hora_final`, `contador_cita`, `id_paciente`, `status`) VALUES
+(1, '1995-01-17', '10:30:00', '11:30:00', NULL, NULL, 'Pendiente'),
+(2, '1995-01-17', '00:00:00', '01:00:00', NULL, NULL, 'Pendiente'),
+(3, '2025-01-17', '00:00:00', '01:00:00', NULL, NULL, 'Pendiente'),
+(4, '2025-01-22', '09:00:00', '10:00:00', NULL, NULL, 'Pendiente'),
+(5, '2025-01-16', '09:00:00', '10:00:00', NULL, NULL, 'Pendiente'),
+(6, '2025-01-30', '10:30:00', '11:30:00', NULL, NULL, 'Pendiente'),
+(7, '2025-01-31', '10:30:00', '11:30:00', NULL, NULL, 'Pendiente'),
+(8, '2025-01-22', '08:00:00', '09:00:00', NULL, NULL, 'Pendiente'),
+(9, '2025-01-21', '08:20:00', '09:20:00', NULL, NULL, 'Pendiente'),
+(20, '2025-01-30', '07:00:00', '08:00:00', 1, 2, 'Pendiente'),
+(21, '2025-01-30', '10:00:00', '11:00:00', 2, 2, 'Pendiente'),
+(22, '2025-01-30', '14:00:00', '15:00:00', 3, 2, 'Pendiente'),
+(23, '2025-01-31', '10:20:00', '11:20:00', 1, 2, 'Pendiente'),
+(24, '2025-01-31', '13:20:00', '14:20:00', 2, 2, 'Pendiente'),
+(25, '2025-01-31', '16:20:00', '17:20:00', 3, 2, 'Pendiente');
 
 -- --------------------------------------------------------
 
@@ -124,7 +136,29 @@ INSERT INTO `cita` (`id_cita`, `id_agenda`, `id_psicologo`, `id_paciente`, `id_t
 (3, 2, 7, 2, 1, '1995-01-17 00:00:00', 'Consulta'),
 (4, 2, 7, 2, 1, '1995-01-17 00:00:00', 'Consulta'),
 (5, 3, 7, 2, 1, '2025-01-17 00:00:00', 'Consulta'),
-(6, 4, 7, 0, 1, '2025-01-22 00:00:00', 'Consulta');
+(6, 4, 7, 0, 1, '2025-01-22 00:00:00', 'Consulta'),
+(7, 5, 7, 0, 1, '2025-01-16 00:00:00', 'Consulta'),
+(8, 6, 7, 0, 1, '2025-01-30 00:00:00', 'Consulta'),
+(9, 7, 7, 0, 1, '2025-01-31 00:00:00', 'Consulta'),
+(10, 8, 7, 2, 1, '2025-01-22 00:00:00', 'Motivacional'),
+(11, 9, 7, 2, 1, '2025-01-21 00:00:00', 'Trabajo'),
+(12, 10, 7, 2, 1, '2025-02-01 00:00:00', 'Trabajo2'),
+(13, 11, 7, 2, 1, '2025-02-01 00:00:00', 'Trabajo3'),
+(14, 12, 7, 2, 1, '2025-02-01 00:00:00', 'Consulta'),
+(15, 13, 7, 2, 1, '2025-02-01 00:00:00', 'Consulta'),
+(16, 14, 7, 2, 1, '2025-02-01 00:00:00', 'Trabajo5'),
+(17, 15, 7, 2, 1, '2025-02-01 00:00:00', 'Trabajo7'),
+(18, 15, 7, 2, 1, '2025-02-01 00:00:00', 'Trabajo7'),
+(19, 16, 7, 2, 1, '2025-02-01 00:00:00', 'Trabajo9'),
+(20, 17, 7, 2, 1, '2025-02-01 00:00:00', 'Trabajo9'),
+(21, 18, 7, 2, 1, '2025-02-01 00:00:00', 'Trabajo9'),
+(22, 19, 7, 2, 1, '2025-02-01 00:00:00', 'Trabajo9'),
+(23, 20, 7, 2, 1, '2025-01-30 00:00:00', 'Consulta'),
+(24, 21, 7, 2, 1, '2025-01-30 00:00:00', 'Consulta'),
+(25, 22, 7, 2, 1, '2025-01-30 00:00:00', 'Consulta'),
+(26, 23, 7, 2, 1, '2025-01-31 00:00:00', 'Consulta'),
+(27, 24, 7, 2, 1, '2025-01-31 00:00:00', 'Consulta'),
+(28, 25, 7, 2, 1, '2025-01-31 00:00:00', 'Consulta');
 
 -- --------------------------------------------------------
 
@@ -1393,7 +1427,29 @@ INSERT INTO `pago_cita` (`id_pago_cita`, `id_cita`, `tipo_pago`, `monto`, `fecha
 (3, 3, 'PAGO MOVIL', 100, '2025-01-16', 100),
 (4, 4, 'PAGO MOVIL', 100, '2025-01-16', 100),
 (5, 5, 'PAGO MOVIL', 100, '2025-01-16', 100),
-(6, 6, 'EFECTIVO $', 200, '2025-01-16', 100);
+(6, 6, 'EFECTIVO $', 200, '2025-01-16', 100),
+(7, 7, 'EFECTIVO $', 200, '2025-01-16', 100),
+(8, 8, 'TRANSFERENCIA BANCARIA', 30, '2025-01-16', 123),
+(9, 9, 'TRANSFERENCIA BANCARIA', 30, '2025-01-16', 123),
+(10, 10, 'TRANSFERENCIA BANCARIA', 30, '2025-01-16', 456),
+(11, 11, 'TRANSFERENCIA BANCARIA', 30, '2025-01-16', 78),
+(12, 12, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 18),
+(13, 13, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 18),
+(14, 14, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 7),
+(15, 15, 'PAGO MOVIL', 30, '2025-01-17', 78),
+(16, 16, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 89),
+(17, 17, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 89),
+(18, 18, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 89),
+(19, 19, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 89),
+(20, 20, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 89),
+(21, 21, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 89),
+(22, 22, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 89),
+(23, 23, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 8),
+(24, 24, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 88),
+(25, 25, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 889),
+(26, 26, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 5),
+(27, 27, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 57),
+(28, 28, 'TRANSFERENCIA BANCARIA', 30, '2025-01-17', 577);
 
 -- --------------------------------------------------------
 
@@ -2623,7 +2679,8 @@ INSERT INTO `tipo_cita` (`id_tipo_cita`, `tipo_cita`, `modalidad`) VALUES
 (8, 'infantil', 'presencial'),
 (9, 'individual', ''),
 (10, 'individual', ''),
-(17, 'individual', 'presencial');
+(17, 'individual', 'presencial'),
+(18, 'individual', 'presencial');
 
 -- --------------------------------------------------------
 
@@ -2756,13 +2813,13 @@ ALTER TABLE `administrativo`
 -- AUTO_INCREMENT de la tabla `agenda`
 --
 ALTER TABLE `agenda`
-  MODIFY `id_agenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_agenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `cita`
 --
 ALTER TABLE `cita`
-  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `direccion`
@@ -2780,7 +2837,7 @@ ALTER TABLE `paciente`
 -- AUTO_INCREMENT de la tabla `pago_cita`
 --
 ALTER TABLE `pago_cita`
-  MODIFY `id_pago_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_pago_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `psicologo`
@@ -2792,7 +2849,7 @@ ALTER TABLE `psicologo`
 -- AUTO_INCREMENT de la tabla `tipo_cita`
 --
 ALTER TABLE `tipo_cita`
-  MODIFY `id_tipo_cita` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_tipo_cita` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
