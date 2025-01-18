@@ -71,15 +71,11 @@ $result_pacientes = $stmt_pacientes->fetchAll(PDO::FETCH_ASSOC);
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="id_paciente">Paciente</label>
+            <div class="form-group"> <label for="id_paciente">Paciente</label>
                 <select name="id_paciente" id="id_paciente" class="form-control" required>
-                    <option value="">Seleccione un paciente</option>
-                    <?php foreach ($result_pacientes as $row_paciente): ?>
-                        <option value="<?= $row_paciente['id_paciente']; ?>">
-                            <?= $row_paciente['nombre_completo']; ?>
-                        </option>
-                    <?php endforeach; ?>
+                    <option value="">Seleccione un paciente</option> <?php foreach ($result_pacientes as $row_paciente): ?>
+                        <option value="<?= $row_paciente['id_paciente']; ?>"> <?= $row_paciente['nombre_completo']; ?>
+                        </option> <?php endforeach; ?>
                 </select>
             </div>
             <div class="form-group">
@@ -130,7 +126,11 @@ $result_pacientes = $stmt_pacientes->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
     <script src="script/fecha.js"></script>
+    <script src="script/selectPaciente.js"></script>
 </body>
 
 </html>
