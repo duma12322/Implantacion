@@ -82,10 +82,10 @@ $nombreUsuario = $_SESSION['usuario'];
                         Cita Online
                     </div>
                     <div class="card-body">
-                        <a href="agendar_cita_online.php">
+                        <a href="agendar_cita_individual_online.php">
                             <img src="files/online.png" alt="Cita Online" class="img-fluid">
                         </a>
-                        <a href="agendar_cita_online.php">Agendar Cita</a>
+                        <a href="agendar_cita_individual_online.php">Agendar Cita</a>
                     </div>
                 </div>
             </div>
