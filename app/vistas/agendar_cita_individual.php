@@ -43,20 +43,37 @@ $nombreUsuario = $_SESSION['usuario'];
 
         <div class="row">
             <!-- Cita Presencial -->
-
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-header">
-                        Cita Presencial
-                    </div>
-                    <div class="card-body">
-                        <a href="agendar_cita_individual_presencial.php">
-                            <img src="files/presencial.png" alt="Cita Presencial" class="img-fluid">
-                        </a>
-                        <a href="agendar_cita_individual_presencial.php">Agendar Cita</a>
+            <?php if ($_SESSION['tipo_usuario'] === 'administrativo' || $_SESSION['tipo_usuario'] === 'psicologo') : ?>
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Cita Presencial
+                        </div>
+                        <div class="card-body">
+                            <a href="agendar_cita_individual_presencial2.php">
+                                <img src="files/presencial.png" alt="Cita Presencial" class="img-fluid">
+                            </a>
+                            <a href="agendar_cita_individual_presencial.php">Agendar Cita</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php endif; ?>
+
+            <?php if ($_SESSION['tipo_usuario'] === 'paciente') : ?>
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Cita Presencial
+                        </div>
+                        <div class="card-body">
+                            <a href="agendar_cita_individual_presencial.php">
+                                <img src="files/presencial.png" alt="Cita Presencial" class="img-fluid">
+                            </a>
+                            <a href="agendar_cita_individual_presencial.php">Agendar Cita</a>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
 
             <!-- Cita Online -->
             <div class="col-md-6 mb-4">
