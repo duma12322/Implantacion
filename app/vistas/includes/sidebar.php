@@ -51,7 +51,7 @@
                     <span class="nav-tooltip">Agendar Cita</span>
                 </li>
                 <li class="nav-item">
-                    <a href="consultar_cita.php" class="nav-link">
+                    <a href="consultar_cita_paciente.php" class="nav-link">
                         <i class="bi bi-clipboard-heart-fill"></i>
                         <span class="nav-label">Consultar Citas</span>
                     </a>
