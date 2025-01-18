@@ -50,10 +50,10 @@ $nombreUsuario = $_SESSION['usuario'];
                         Cita Presencial
                     </div>
                     <div class="card-body">
-                        <a href="cita.php">
+                        <a href="agendar_cita_individual_presencial.php">
                             <img src="files/presencial.png" alt="Cita Presencial" class="img-fluid">
                         </a>
-                        <a href="agendar_cita_presencial.php">Agendar Cita</a>
+                        <a href="agendar_cita_individual_presencial.php">Agendar Cita</a>
                     </div>
                 </div>
             </div>

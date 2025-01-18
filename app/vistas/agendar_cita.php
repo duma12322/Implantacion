@@ -81,14 +81,15 @@ if (isset($_POST['tipo_cita'])) {
                     <div class="card-body">
                         <form action="agendar_cita.php" method="POST">
                             <input type="hidden" name="tipo_cita" value="individual">
-                            <button type="submit" class="btn btn-primary">
-                                <img src="files/individual.png" alt="Cita Individual" class="img-fluid">
-                                Agendar Cita
+                            <button type="submit" class="btn-custom btn-block">
+                                <img src="files/individual.png" alt="Cita Individual" class="img-fluid" style="width: 100%;">
+                                <span>Agendar Cita</span>
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
+
             <!-- Cita Pareja -->
             <div class="col-md-6 mb-2">
                 <div class="card">
@@ -96,31 +97,33 @@ if (isset($_POST['tipo_cita'])) {
                     <div class="card-body">
                         <form action="agendar_cita.php" method="POST">
                             <input type="hidden" name="tipo_cita" value="pareja">
-                            <button type="submit" class="btn btn-primary">
-                                <img src="files/parejas.png" alt="Cita Pareja" class="img-fluid">
-                                Agendar Cita
+                            <button type="submit" class="btn-custom btn-block">
+                                <img src="files/parejas.png" alt="Cita Pareja" class="img-fluid" style="width: 100%;">
+                                <span>Agendar Cita</span>
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <!-- Cita Niño -->
             <div class="col-md-6 mb-2">
                 <div class="card">
-                    <div class="card-header">Cita Niño</div>
+                    <div class="card-header">Cita Infantil</div>
                     <div class="card-body">
                         <form action="agendar_cita.php" method="POST">
                             <input type="hidden" name="tipo_cita" value="infantil">
-                            <button type="submit" class="btn btn-primary">
-                                <img src="files/niños.png" alt="Cita Niño" class="img-fluid">
-                                Agendar Cita
+                            <button type="submit" class="btn-custom btn-block">
+                                <img src="files/niños.png" alt="Cita Infantil" class="img-fluid" style="width: 100%;">
+                                <span>Agendar Cita</span>
                             </button>
                         </form>
                     </div>
                 </div>
             </div>
+
             <!-- Cita Adolescente -->
             <div class="col-md-6 mb-2">
                 <div class="card">
@@ -128,9 +131,9 @@ if (isset($_POST['tipo_cita'])) {
                     <div class="card-body">
                         <form action="agendar_cita.php" method="POST">
                             <input type="hidden" name="tipo_cita" value="adolescente">
-                            <button type="submit" class="btn btn-primary">
-                                <img src="files/adolescentes.png" alt="Cita Adolescente" class="img-fluid">
-                                Agendar Cita
+                            <button type="submit" class="btn-custom btn-block">
+                                <img src="files/adolescentes.png" alt="Cita Adolescente" class="img-fluid" style="width: 100%;">
+                                <span>Agendar Cita</span>
                             </button>
                         </form>
                     </div>

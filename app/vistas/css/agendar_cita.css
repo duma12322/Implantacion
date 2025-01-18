@@ -111,12 +111,32 @@ a:hover {
   transform: scale(1.05); /* Efecto de agrandamiento al pasar el ratón */
 }
 
+/* Archivo styles.css */
+.btn-custom {
+    background-color: white !important;
+    color: #007bff;
+    border: 1px solid #007bff;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn-custom:hover {
+    background-color: white;
+    color: #f1b24a;
+}
+
+
 /* Add responsiveness */
 @media (max-width: 768px) {
   .col-md-6 {
     margin-bottom: 20px;
   }
 }
+
+
 
 
 
