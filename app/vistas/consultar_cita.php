@@ -1,16 +1,33 @@
 <?php
 session_start();
 
-// Verificar si el usuario está logueado
+// Incluir el archivo controlador
+include_once('../controladores/validar_consultar_cita.php');
+
+// Verifica si la sesión está activa 
 if (!isset($_SESSION['usuario'])) {
     header("Location: login_paciente.php");
     exit;
 }
 
-// Incluir el archivo controlador
-include_once('../controladores/validar_consultar_cita.php');
+// Verifica si se hizo clic en el botón de cerrar sesión 
+if (isset($_POST['cerrar_sesion'])) {
+    session_unset();
+    session_destroy();
+    header("Location: login_paciente.php");
+    exit;
+}
 
 $nombreUsuario = $_SESSION['usuario'];
+
+
+
+// Mostrar la Foto
+$stmt = $conn->prepare("SELECT foto FROM usuario WHERE usuario = :usuario");
+$stmt->execute([':usuario' => $nombreUsuario]);
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
 ?>
 
 <!DOCTYPE html>

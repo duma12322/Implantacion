@@ -18,7 +18,12 @@ if (isset($_POST['cerrar_sesion'])) {
 $nombreUsuario = $_SESSION['usuario'];
 
 // Conexión a la base de datos
-include '../../config/conexion.php'; // Asegúrate de que esta línea esté configurada para PDO
+include '../../config/conexion.php';
+
+// Mostrar la Foto
+$stmt = $conn->prepare("SELECT foto FROM usuario WHERE usuario = :usuario");
+$stmt->execute([':usuario' => $nombreUsuario]);
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (isset($_POST['tipo_cita'])) {
     // Inserta el tipo de cita seleccionado en la base de datos

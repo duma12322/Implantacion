@@ -1,0 +1,133 @@
+/* Estilo para las imágenes redondas */
+.avatar {
+    width: 180px;  /* Aumenta el tamaño de la imagen */
+    height: 180px;  /* Mantén la proporción */
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Avatar por defecto */
+.avatar.default-avatar {
+    background-color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;  /* Aumenta el tamaño de la letra en el avatar por defecto */
+    color: #fff;
+}
+
+/* Estilo de la tarjeta (card) */
+.card {
+    max-width: 1000px;  /* Aumenta el tamaño máximo de la tarjeta */
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);  /* Aumenta la sombra para darle un toque más elegante */
+    
+}
+
+/* Estilo del cuerpo de la tarjeta */
+.card-body {
+    padding: 40px;  /* Aumenta el padding para dar más espacio */
+}
+
+/* Estilo de las columnas del formulario */
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.form-container .form-group {
+    flex: 0 0 48%;
+}
+
+/* Asegurarse de que los campos de texto se expandan según sea necesario */
+input[type="text"], input[type="date"], input[type="email"], select {
+    width: 100%;
+}
+
+/* Estilo para el botón de actualización */
+button[type="submit"] {
+    padding: 12px 25px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Asegurarse de que el formulario se vea bien en dispositivos móviles */
+@media (max-width: 768px) {
+    .form-container .form-group {
+        flex: 0 0 100%;
+    }
+}
+
+/* Asegurarse de que el mensaje no se salga del contenedor */
+.card-body {
+    padding-bottom: 20px;  /* Ajusta este padding si es necesario */
+}
+
+/* Estilo para mostrar el mensaje de archivo seleccionado */
+#fileMessage {
+    font-size: 0.9em;
+    color: #6c757d;  /* Color gris más suave */
+    padding: 5px 0;
+    word-wrap: break-word;  /* Para evitar desbordes de texto largo */
+}
+
+/* Estilo para el input file */
+.file-upload {
+    display: inline-block;
+    margin: 10px 0;  /* Separación entre el input y el mensaje */
+}
+
+/* Para mantener el contenido centrado */
+.text-center {
+    text-align: center;
+}
+
+.container {
+    max-width: 1200px; /* Ajusta el valor según tus necesidades */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.perfil-title {
+        position: relative;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .perfil-title::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #000; /* Cambia el color de la línea */
+    }
+
+      /* Estilo personalizado para el botón */
+    .btn-primary {
+        background-color: #f1b24a !important; /* Color personalizado */
+        color: white; /* Asegura que el borde tenga el mismo color */
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 5px;
+    }
+
+    .btn-primary:hover {
+        background-color: #727272;
+
+    }
+
