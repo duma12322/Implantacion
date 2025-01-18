@@ -25,7 +25,20 @@ $stmt_paciente->execute();
 $paciente = $stmt_paciente->fetch(PDO::FETCH_ASSOC);
 
 if (!$paciente) {
-    echo "No se encontró información para el paciente.";
+    // Mostrar mensaje con SweetAlert si no se encuentra información del paciente
+    echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+    <script>
+      window.onload = function() {
+        Swal.fire({
+            icon: 'error',
+            title: 'No se encontró información para el paciente.',
+            showConfirmButton: false,
+            timer: 3000,
+            willClose: () => { window.location.href = 'login_paciente.php'; }
+        });
+      }
+    </script>";
     exit;
 }
 
@@ -77,7 +90,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $max_citas = $stmt_verificar_citas->fetch(PDO::FETCH_ASSOC)['max_citas'];
 
     if ($max_citas >= 3) {
-        echo "Has alcanzado el máximo de citas permitidas para el día.";
+        // Mensaje con SweetAlert si el paciente ha alcanzado el máximo de citas
+        echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+        <script>
+          window.onload = function() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Has alcanzado el máximo de citas permitidas para el día.',
+                 showConfirmButton: true,
+        confirmButtonText: 'OK',
+                timer: 3000,
+                willClose: () => { window.location.href = '../vistas/agendar_cita.php'; }
+            });
+          }
+        </script>";
         exit;
     }
 
@@ -97,7 +124,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $agenda = $stmt_agenda->fetch(PDO::FETCH_ASSOC);
 
     if ($agenda) {
-        echo "Ya hay una cita agendada en este horario.";
+        // Mensaje con SweetAlert si ya hay una cita agendada en ese horario
+        echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+        <script>
+          window.onload = function() {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Ya hay una cita agendada en este horario.',
+                 showConfirmButton: true,
+        confirmButtonText: 'OK',
+                timer: 10000,
+                willClose: () => { window.location.href = '../vistas/agendar_cita_individual_presencial.php'; }
+            });
+          }
+        </script>";
         exit;
     } else {
         $contador_cita = is_null($max_citas) ? 1 : $max_citas + 1;
@@ -142,9 +183,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt_pago->bindParam(':referencia_bancaria', $referencia_bancaria);
             $stmt_pago->execute();
 
-            echo "Cita agendada correctamente.";
+            // Mensaje de éxito y redirección
+            echo "
+            <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+            <script>
+              window.onload = function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Cita agendada correctamente.',
+                     showConfirmButton: true,
+        confirmButtonText: 'OK',
+                    timer: 3000,
+                    willClose: () => { window.location.href = '../vistas/agendar_cita.php'; }
+                });
+              }
+            </script>";
         } else {
-            echo "Error al agendar la cita: " . $stmt_cita->errorInfo()[2];
+            // Mensaje de error y redirección
+            echo "
+            <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+            <script>
+              window.onload = function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al agendar la cita: " . $stmt_cita->errorInfo()[2] . "',
+                     showConfirmButton: true,
+        confirmButtonText: 'OK',
+                    timer: 3000,
+                    willClose: () => { window.location.href = '../vistas/agendar_cita_individual_presencial.php'; }
+                });
+              }
+            </script>";
         }
     }
 }
