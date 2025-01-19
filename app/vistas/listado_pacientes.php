@@ -65,6 +65,7 @@ if (isset($_POST['id_usuario'])) {
 
     <!-- Sidebar -->
     <?php include 'includes/sidebar.php'; ?>
+    
 
     <div class="container mt-5">
         <h1 class="text-center mb-4">Listado de Pacientes</h1>
@@ -72,7 +73,7 @@ if (isset($_POST['id_usuario'])) {
         <!-- Botones de acciones principales -->
         <div class="d-flex justify-content-between mb-3">
             <div>
-                <a href="registro_paciente.php" class="btn btn-primary me-2">
+                <a href="agregar_paciente.php" class="btn btn-primary me-2">
                     <i class="bi bi-person-fill-add"></i> Agregar Paciente
                 </a>
                 <!-- Botón de Eliminar Paciente -->

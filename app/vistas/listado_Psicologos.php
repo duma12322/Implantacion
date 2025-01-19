@@ -34,7 +34,7 @@ if (isset($_POST['id_administrativo'])) {
     $id_administrativo = $_POST['id_administrativo'];
     $resultado = $controller->eliminarPsicologo($id_administrativo);
 
-    header('Location: /Implantacion/app/vistas/listado_psicologos.php');
+    header('Location: /Implantacion/app/vistas/listado_Psicologos.php');
     exit();
 }
 ?>
@@ -66,7 +66,7 @@ if (isset($_POST['id_administrativo'])) {
         <!-- Botones de acciones principales -->
         <div class="d-flex justify-content-between mb-3">
             <div>
-                <a href="registro_paciente.php" class="btn btn-primary me-2">
+                <a href="#" class="btn btn-primary me-2">
                     <i class="bi bi-person-fill-add"></i> Agregar Psicologo
                 </a>
                 <!-- Botón de Eliminar Psicólogo -->
