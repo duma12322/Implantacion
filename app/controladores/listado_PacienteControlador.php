@@ -45,4 +45,21 @@ class listado_PacienteControlador
     {
         $this->listado_PacienteModelo->cambiarEstadoUsuario($id_usuario);
     }
+
+    public function registrarPaciente($datosUsuario, $datosPaciente)
+    {
+        try {
+            $this->listado_PacienteModelo->registrarUsuario($datosUsuario, $datosPaciente);
+            return [
+                'mensaje' => '¡Registro exitoso!',
+                'tipo' => 'success'
+            ];
+        } catch (\Exception $e) {
+            return [
+                'mensaje' => 'Error en el registro: ' . $e->getMessage(),
+                'tipo' => 'error'
+            ];
+        }
+    }
+
 }

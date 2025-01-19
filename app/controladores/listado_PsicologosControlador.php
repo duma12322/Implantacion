@@ -46,4 +46,7 @@ class listado_PsicologosControlador
     {
         return $this->listado_PsicologosModelo->cambiarEstadoPsicologo($id_administrativo);
     }
-}
+
+   
+        }
+    

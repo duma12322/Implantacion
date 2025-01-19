@@ -108,4 +108,85 @@ class listado_PacienteModelo
             return [];
         }
     }
+
+    public function registrarUsuario($datosUsuario, $datosPaciente)
+    {
+        try {
+            // Iniciar una transacción
+            $this->conn->beginTransaction();
+
+            // Insertar datos en la tabla `usuario`
+            $queryUsuario = $this->conn->prepare(
+                "INSERT INTO usuario (usuario, correo, contraseña) VALUES (?, ?, ?)"
+            );
+            $queryUsuario->execute([
+                $datosUsuario['usuario'],
+                $datosUsuario['correo'],
+                md5($datosUsuario['contraseña']) // Hash de la contraseña
+            ]);
+
+            // Obtener el ID del usuario recién insertado
+            $idUsuario = $this->conn->lastInsertId();
+
+            // Insertar o actualizar datos en la tabla `direccion`
+            $queryDireccion = $this->conn->prepare(
+                "INSERT INTO direccion (id_estado, id_ciudad, id_municipio, id_parroquia, descripcion) 
+                 VALUES (?, ?, ?, ?, ?)"
+            );
+            $queryDireccion->execute([
+                $datosPaciente['id_estado'],
+                $datosPaciente['id_ciudad'],
+                $datosPaciente['id_municipio'],
+                $datosPaciente['id_parroquia'],
+                $datosPaciente['otro']
+            ]);
+
+            // Obtener el ID de la dirección recién insertada
+            $idDireccion = $this->conn->lastInsertId();
+
+            // Actualizar el usuario con datos adicionales
+            $queryActualizarUsuario = $this->conn->prepare(
+                "UPDATE usuario 
+                 SET tipo_doc = ?, num_doc = ?, nombre1 = ?, nombre2 = ?, apellido1 = ?, 
+                     apellido2 = ?, fecha_nac = ?, telefono = ?, pregunta_s1 = ?, 
+                     respuesta_1 = ?, pregunta_s2 = ?, respuesta_2 = ?, sexo = ? 
+                 WHERE id_usuario = ?"
+            );
+            $queryActualizarUsuario->execute([
+                $datosPaciente['tipo_doc'],
+                $datosPaciente['num_doc'],
+                $datosPaciente['nombre1'],
+                $datosPaciente['nombre2'],
+                $datosPaciente['apellido1'],
+                $datosPaciente['apellido2'],
+                $datosPaciente['fecha_nac'],
+                $datosPaciente['telefono'],
+                $datosPaciente['pregunta_s1'],
+                $datosPaciente['respuesta_1'],
+                $datosPaciente['pregunta_s2'],
+                $datosPaciente['respuesta_2'],
+                $datosPaciente['sexo'],
+                $idUsuario
+            ]);
+
+           
+
+            // Confirmar la transacción
+            $this->conn->commit();
+
+            return [
+                'status' => 'success',
+                'message' => '¡Registro exitoso!'
+            ];
+        } catch (Exception $e) {
+            // Revertir la transacción en caso de error
+            $this->conn->rollBack();
+
+            return [
+                'status' => 'error',
+                'message' => 'Error en el registro: ' . $e->getMessage()
+            ];
+        }
+    }
+
 }
