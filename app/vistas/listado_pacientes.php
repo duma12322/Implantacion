@@ -98,13 +98,13 @@ if (isset($_POST['id_usuario'])) {
         <table class="table table-striped table-hover table-wide" id="tablaPacientes">
             <thead class="table-primary">
                 <tr>
-                    <th>ID</th>
                     <th>Primer Nombre</th>
                     <th>Segundo Nombre</th>
                     <th>Primer Apellido</th>
                     <th>Segundo Apellido</th>
                     <th>Sexo</th>
                     <th>Fecha de Nacimiento</th>
+                    <th>Tipo de Documento</th>
                     <th>Número de Documento</th>
                     <th>Teléfono</th>
                     <th>Foto</th>
@@ -115,13 +115,13 @@ if (isset($_POST['id_usuario'])) {
                 <?php if (!empty($usuarios)) : ?>
                     <?php foreach ($usuarios as $usuario) : ?>
                         <tr onclick="selectRow(<?= htmlspecialchars($usuario['id_usuario']) ?>, this)">
-                            <td><?= htmlspecialchars($usuario['id_usuario']) ?></td>
                             <td><?= htmlspecialchars($usuario['nombre1']) ?></td>
                             <td><?= htmlspecialchars($usuario['nombre2']) ?></td>
                             <td><?= htmlspecialchars($usuario['apellido1']) ?></td>
                             <td><?= htmlspecialchars($usuario['apellido2']) ?></td>
                             <td><?= htmlspecialchars($usuario['sexo']) ?></td>
                             <td><?= htmlspecialchars($usuario['fecha_nac']) ?></td>
+                            <td><?= htmlspecialchars($usuario['tipo_doc']) ?></td>
                             <td><?= htmlspecialchars($usuario['num_doc']) ?></td>
                             <td><?= htmlspecialchars($usuario['telefono']) ?></td>
                             <td>

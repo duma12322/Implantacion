@@ -92,12 +92,12 @@ if (isset($_POST['id_administrativo'])) {
         <table class="table table-striped table-hover table-wide">
             <thead class="table-primary">
                 <tr>
-                    <th>ID</th>
                     <th>Primer Nombre</th>
                     <th>Segundo Nombre</th>
                     <th>Primer Apellido</th>
                     <th>Segundo Apellido</th>
                     <th>Fecha de Nacimiento</th>
+                    <th>Tipo de Documento</th>
                     <th>Número de Documento</th>
                     <th>Teléfono</th>
                     <th>Acciones</th>
@@ -107,12 +107,12 @@ if (isset($_POST['id_administrativo'])) {
                 <?php if (!empty($psicologos)) : ?>
                     <?php foreach ($psicologos as $psicologo) : ?>
                         <tr onclick="selectRow(<?= htmlspecialchars($psicologo['id_administrativo']) ?>, this)">
-                            <td><?= htmlspecialchars($psicologo['id_administrativo']) ?></td>
                             <td><?= htmlspecialchars($psicologo['Nombre1']) ?></td>
                             <td><?= htmlspecialchars($psicologo['Nombre2']) ?></td>
                             <td><?= htmlspecialchars($psicologo['Apellido1']) ?></td>
                             <td><?= htmlspecialchars($psicologo['Apellido2']) ?></td>
                             <td><?= htmlspecialchars($psicologo['Fecha_Nac']) ?></td>
+                            <td><?= htmlspecialchars($psicologo['tipo_doc']) ?></td>
                             <td><?= htmlspecialchars($psicologo['num_doc']) ?></td>
                             <td><?= htmlspecialchars($psicologo['telefono']) ?></td>
                             <td>
