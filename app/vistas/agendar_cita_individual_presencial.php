@@ -112,7 +112,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="form-group">
                 <label for="monto">Monto</label>
-                <input type="number" name="monto" id="monto" class="form-control" value="30" required>
+                <input type="number" name="monto" id="monto" class="form-control" value="30" readonly required>
             </div>
             <div class="form-group">
                 <label for="referencia_bancaria">Referencia Bancaria</label>

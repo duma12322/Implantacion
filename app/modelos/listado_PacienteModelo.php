@@ -43,38 +43,72 @@ class listado_PacienteModelo
 
     // Método para actualizar un usuario por su ID
     public function actualizarUsuarioPorId($id_usuario, $datos)
-    {
-        try {
-            $sql = "UPDATE usuario SET 
-                    nombre1 = :nombre1, 
-                    nombre2 = :nombre2, 
-                    apellido1 = :apellido1, 
-                    apellido2 = :apellido2, 
-                    sexo = :sexo, 
-                    fecha_nac = :fecha_nac, 
-                    num_doc = :num_doc, 
-                    telefono = :telefono 
-                    WHERE id_usuario = :id_usuario";
-            $stmt = $this->conn->prepare($sql);
+{
+    try {
+        // Iniciar transacción
+        $this->conn->beginTransaction();
 
-            // Asociar parámetros
-            $stmt->bindParam(':id_usuario', $id_usuario, \PDO::PARAM_INT);
-            $stmt->bindParam(':nombre1', $datos['nombre1']);
-            $stmt->bindParam(':nombre2', $datos['nombre2']);
-            $stmt->bindParam(':apellido1', $datos['apellido1']);
-            $stmt->bindParam(':apellido2', $datos['apellido2']);
-            $stmt->bindParam(':sexo', $datos['sexo']);
-            $stmt->bindParam(':fecha_nac', $datos['fecha_nac']);
-            $stmt->bindParam(':num_doc', $datos['num_doc']);
-            $stmt->bindParam(':telefono', $datos['telefono']);
+        // Actualizar los datos del usuario
+        $sqlUsuario = "UPDATE usuario SET 
+                        nombre1 = :nombre1, 
+                        nombre2 = :nombre2, 
+                        apellido1 = :apellido1, 
+                        apellido2 = :apellido2, 
+                        sexo = :sexo, 
+                        fecha_nac = :fecha_nac, 
+                        tipo_doc =:tipo_doc
+                        num_doc = :num_doc, 
+                        telefono = :telefono 
+                        WHERE id_usuario = :id_usuario";
+        $stmtUsuario = $this->conn->prepare($sqlUsuario);
 
-            // Ejecutar y devolver resultado
-            return $stmt->execute();
-        } catch (\PDOException $e) {
-            error_log("Error al actualizar usuario: " . $e->getMessage());
-            return false;
-        }
+        // Asociar parámetros del usuario
+        $stmtUsuario->bindParam(':id_usuario', $id_usuario, \PDO::PARAM_INT);
+        $stmtUsuario->bindParam(':nombre1', $datos['nombre1']);
+        $stmtUsuario->bindParam(':nombre2', $datos['nombre2']);
+        $stmtUsuario->bindParam(':apellido1', $datos['apellido1']);
+        $stmtUsuario->bindParam(':apellido2', $datos['apellido2']);
+        $stmtUsuario->bindParam(':sexo', $datos['sexo']);
+        $stmtUsuario->bindParam(':fecha_nac', $datos['fecha_nac']);
+        $stmtUsuario->bindParam(':tipo_doc', $datos['tipo_doc']);
+        $stmtUsuario->bindParam(':num_doc', $datos['num_doc']);
+        $stmtUsuario->bindParam(':telefono', $datos['telefono']);
+
+        // Ejecutar la actualización del usuario
+        $stmtUsuario->execute();
+
+        // Actualizar los datos de ubicación en la tabla `direccion`
+        $sqlDireccion = "UPDATE direccion SET 
+                            id_estado = :id_estado, 
+                            id_ciudad = :id_ciudad, 
+                            id_municipio = :id_municipio, 
+                            id_parroquia = :id_parroquia, 
+                            descripcion = :descripcion 
+                            WHERE id_usuario = :id_usuario";
+        $stmtDireccion = $this->conn->prepare($sqlDireccion);
+
+        // Asociar parámetros de la dirección
+        $stmtDireccion->bindParam(':id_usuario', $id_usuario, \PDO::PARAM_INT);
+        $stmtDireccion->bindParam(':id_estado', $datos['id_estado'], \PDO::PARAM_INT);
+        $stmtDireccion->bindParam(':id_ciudad', $datos['id_ciudad'], \PDO::PARAM_INT);
+        $stmtDireccion->bindParam(':id_municipio', $datos['id_municipio'], \PDO::PARAM_INT);
+        $stmtDireccion->bindParam(':id_parroquia', $datos['id_parroquia'], \PDO::PARAM_INT);
+        $stmtDireccion->bindParam(':descripcion', $datos['descripcion']);
+
+        // Ejecutar la actualización de la dirección
+        $stmtDireccion->execute();
+
+        // Confirmar la transacción
+        $this->conn->commit();
+
+        return true;
+    } catch (\PDOException $e) {
+        // Revertir transacción en caso de error
+        $this->conn->rollBack();
+        error_log("Error al actualizar usuario y dirección: " . $e->getMessage());
+        return false;
     }
+}
 
     // Método para cambiar el estado de un usuario (eliminar lógicamente)
     public function cambiarEstadoUsuario($id_usuario)

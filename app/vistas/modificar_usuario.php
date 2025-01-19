@@ -32,8 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fecha_nac = htmlspecialchars($_POST['fecha_nac']);
     $num_doc = htmlspecialchars($_POST['num_doc']);
     $telefono = htmlspecialchars($_POST['telefono']);
+    $direccion = htmlspecialchars($_POST['direccion']);
+    $estado = htmlspecialchars($_POST['estado']);
+    $ciudad = htmlspecialchars($_POST['ciudad']);
 
-    if (empty($nombre1) || empty($apellido1) || empty($sexo) || empty($fecha_nac) || empty($num_doc) || empty($telefono)) {
+    if (empty($nombre1) || empty($apellido1) || empty($sexo) || empty($fecha_nac) || empty($num_doc) || empty($telefono) || empty($direccion) || empty($estado) || empty($ciudad)) {
         $error = "Por favor, completa todos los campos obligatorios.";
     } else {
         $resultado = $controller->actualizarUsuario($id_usuario, [
@@ -45,6 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'fecha_nac' => $fecha_nac,
             'num_doc' => $num_doc,
             'telefono' => $telefono,
+            'direccion' => $direccion,
+            'id_estado' => $id_estado,
+            'id_ciudad' => $ciudad,
+            'id_municipio' => $id_municipio,
+            'id_parroquia' => $id_parroquia,
+            'descripcion' => $descripcion
         ]);
 
         if ($resultado) {
@@ -102,17 +111,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="nombre1">Primer Nombre</label>
-                                    <input class="form-control" id="nombre1" name="nombre1" type="text" value="<?= htmlspecialchars($usuario['nombre1']) ?>" required>
+                                    <input class="form-control" id="nombre1" name="nombre1" type="text" value="<?= htmlspecialchars( $usuario['nombre1']) ?>" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="nombre2">Segundo Nombre</label>
-                                    <input class="form-control" id="nombre2" name="nombre2" type="text" value="<?= htmlspecialchars($usuario['nombre2']) ?>">
+                                    <input class="form-control" id="nombre2" name="nombre2" type="text" value="<?= htmlspecialchars( $usuario['nombre2']) ?>">
                                 </div>
                             </div>
                             <div class="row gx-3 mb-3">
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="apellido1">Primer Apellido</label>
-                                    <input class="form-control" id="apellido1" name="apellido1" type="text" value="<?= htmlspecialchars($usuario['apellido1']) ?>" required>
+                                    <input class="form-control" id="apellido1" name="apellido1" type="text" value="<?= htmlspecialchars( $usuario['apellido1']) ?>" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="apellido2">Segundo Apellido</label>
@@ -131,6 +140,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <label class="small mb-1" for="fecha_nac">Fecha de Nacimiento</label>
                                     <input class="form-control" id="fecha_nac" name="fecha_nac" type="date" value="<?= htmlspecialchars($usuario['fecha_nac']) ?>" required>
                                 </div>
+                                <div class="mb-3">
+                                <label class="small mb-1" for="tipo_doc">Tipo de Documento</label>
+                                <select class="form-control" id="tipo_doc" name="tipo_doc" required>
+                                    <option value="V" <?= $usuario['tipo_doc'] === 'V' ? 'selected' : '' ?>>V</option>
+                                    <option value="E" <?= $usuario['tipo_doc'] === 'E' ? 'selected' : '' ?>>E</option>
+                                    <option value="J" <?= $usuario['tipo_doc'] === 'J' ? 'selected' : '' ?>>J</option>
+                                    <option value="P" <?= $usuario['tipo_doc'] === 'P' ? 'selected' : '' ?>>P</option>
+                                </select>
+                            </div>
                                 <div class="col-md-6">
                                     <label class="small mb-1" for="num_doc">Número de Documento</label>
                                     <input class="form-control" id="num_doc" name="num_doc" type="text" value="<?= htmlspecialchars($usuario['num_doc']) ?>" required>
@@ -139,6 +157,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="mb-3">
                                 <label class="small mb-1" for="telefono">Teléfono</label>
                                 <input class="form-control" id="telefono" name="telefono" type="text" value="<?= htmlspecialchars($usuario['telefono']) ?>" required>
+                            </div>
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="correo">Correo Electrónico</label>
+                                    <input class="form-control" id="correo" name="correo" type="email" value="<?= htmlspecialchars($usuario['correo']) ?>" required>
+                                </div>
+                               <!-- Dirección -->
+                            <div class="row gx-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="small mb-1" for="id_estado">Estado</label>
+                                    <select class="form-select" id="estado" name="id_estado" required>
+                        <option value="" disabled selected>Seleccione el estado</option>
+                        
+                        <!-- Opciones dinámicas -->
+                    </select>       
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="ciudad" class="form-label">Ciudad</label>
+                    <select class="form-select" id="ciudad" name="id_ciudad" required>
+                        <option value="" disabled selected>Seleccione la ciudad</option>
+                        <!-- Opciones dinámicas -->
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="municipio" class="form-label">Municipio</label>
+                    <select class="form-select" id="municipio" name="id_municipio" required>
+                        <option value="" disabled selected>Seleccione el municipio</option>
+                        <!-- Opciones dinámicas -->
+                    </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="parroquia" class="form-label">Parroquia</label>
+                    <select class="form-select" id="parroquia" name="id_parroquia" required>
+                        <option value="" disabled selected>Seleccione la parroquia</option>
+                        <!-- Opciones dinámicas -->
+                    </select>
+                </div>
+
+            <div class="col-md-6">
+                <label for="otro" class="form-label">Descripción de Ubicación</label>
+                <input type="text" class="form-control" id="otro" name="otro"></textarea>
+            </div>
                             </div>
                             <button class="btn btn-primary" type="submit">Guardar Cambios</button>
                         </form>
@@ -149,5 +209,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </body>
-
+<script src="script/registro.js"></script>
 </html>
