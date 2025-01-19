@@ -21,7 +21,7 @@ h4 {
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 20px;
-  width: 100%;
+  width: 80%; /* Ajuste del ancho al 100% del contenedor */
 }
 
 .card-header {
@@ -35,17 +35,27 @@ h4 {
 /* Aseguramos que las columnas estén alineadas correctamente */
 .row {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between; /* Distribuye las tarjetas con espacio entre ellas */
 }
 
-/* Ajustar las imágenes a un tamaño más pequeño */
+.col-md-6 {
+  display: flex;
+  justify-content: center; /* Centra el contenido en la columna */
+}
+
+.card-body {
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center; /* Centra el contenido verticalmente */
+}
+
 .card-body img {
-  width: 50%;
+  width: 60%; /* Ajusta el tamaño según sea necesario */
   height: auto;
   border-radius: 8px;
   transition: transform 0.3s ease-in-out;
 }
+
 
 /* Efecto hover en las imágenes */
 .card-body img:hover {
@@ -105,12 +115,30 @@ img:hover {
 a {
   text-decoration: none;
   display: block;
+  
 }
 
 a:hover {
   color: #f1b24a; /* Cambio a un color verde neón */
   text-shadow: 0 0 10px #4d774e (0, 179, 230, 0.8), 0 0 20px #164a41(0, 179, 230, 0.8); /* Resplandor neón */
   transform: scale(1.05); /* Efecto de agrandamiento al pasar el ratón */
+}
+
+/* Archivo styles.css */
+.btn-custom {
+    background-color: white !important;
+    color: #007bff;
+    border: 1px solid #007bff;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn-custom:hover {
+    background-color: white;
+    color: #f1b24a;
 }
 
 /* Add responsiveness */

@@ -22,7 +22,7 @@ if (isset($_GET['code'])) {
     file_put_contents($tokenPath, json_encode($client->getAccessToken()));
 
     // Redirigir al script de procesamiento de la cita
-    header('Location: ../vistas/agendar_cita_online_individual.php');
+    header('Location: /implantacion/app/vistas/agendar_cita_online_individual.php');
     exit;
 }
 

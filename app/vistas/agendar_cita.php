@@ -1,13 +1,16 @@
 <?php
 session_start();
 
-// Verifica si la sesión está activa 
+// Conexión a la base de datos
+include '../../config/conexion.php';
+
+// Verifica si la sesión está activa
 if (!isset($_SESSION['usuario'])) {
     header("Location: login_paciente.php");
     exit;
 }
 
-// Verifica si se hizo clic en el botón de cerrar sesión 
+// Verifica si se hizo clic en el botón de cerrar sesión
 if (isset($_POST['cerrar_sesion'])) {
     session_unset();
     session_destroy();
@@ -17,41 +20,27 @@ if (isset($_POST['cerrar_sesion'])) {
 
 $nombreUsuario = $_SESSION['usuario'];
 
-// Conexión a la base de datos
-include '../../config/conexion.php';
-
 // Mostrar la Foto
 $stmt = $conn->prepare("SELECT foto FROM usuario WHERE usuario = :usuario");
 $stmt->execute([':usuario' => $nombreUsuario]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (isset($_POST['tipo_cita'])) {
-    // Inserta el tipo de cita seleccionado en la base de datos
+    // Inserta el tipo de cita seleccionado en la base de datos y recupera el id_tipo_cita
     $tipoCita = $_POST['tipo_cita'];
     $sql = "INSERT INTO tipo_cita (tipo_cita, modalidad) VALUES (:tipoCita, '')";
-
-    // Prepara la consulta
     $stmt = $conn->prepare($sql);
+    $stmt->execute([':tipoCita' => $tipoCita]);
+    $id_tipo_cita = $conn->lastInsertId();
 
-    // Ejecuta la consulta con el valor del tipo de cita
-    if ($stmt->execute([':tipoCita' => $tipoCita])) {
-        // Redirige a la página según el tipo de cita
-        if ($tipoCita == 'individual') {
-            header("Location: agendar_cita_individual.php");
-        } elseif ($tipoCita == 'pareja') {
-            header("Location: agendar_cita_pareja.php");
-        } elseif ($tipoCita == 'infantil') {
-            header("Location: agendar_cita_nino.php");
-        } elseif ($tipoCita == 'adolescente') {
-            header("Location: agendar_cita_adolescente.php");
-        }
-        exit;
-    } else {
-        echo "Error al guardar el tipo de cita.";
-    }
+    // Guarda el id_tipo_cita en la sesión
+    $_SESSION['id_tipo_cita'] = $id_tipo_cita;
+
+    // Redirige a la página de selección de modalidad
+    header("Location: agendar_cita_individual.php");
+    exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -70,7 +59,6 @@ if (isset($_POST['tipo_cita'])) {
     <?php include 'includes/header.php'; ?>
     <!-- Sidebar -->
     <?php include 'includes/sidebar.php'; ?>
-
     <div class="container">
         <h4>Agenda tu cita</h4>
         <div class="row">
@@ -89,7 +77,6 @@ if (isset($_POST['tipo_cita'])) {
                     </div>
                 </div>
             </div>
-
             <!-- Cita Pareja -->
             <div class="col-md-6 mb-2">
                 <div class="card">
@@ -106,7 +93,6 @@ if (isset($_POST['tipo_cita'])) {
                 </div>
             </div>
         </div>
-
         <div class="row">
             <!-- Cita Niño -->
             <div class="col-md-6 mb-2">
@@ -123,7 +109,6 @@ if (isset($_POST['tipo_cita'])) {
                     </div>
                 </div>
             </div>
-
             <!-- Cita Adolescente -->
             <div class="col-md-6 mb-2">
                 <div class="card">
@@ -141,8 +126,6 @@ if (isset($_POST['tipo_cita'])) {
             </div>
         </div>
     </div>
-
-
     <!-- Vinculamos los scripts de Bootstrap 4 -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

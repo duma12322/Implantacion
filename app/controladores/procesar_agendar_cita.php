@@ -8,6 +8,11 @@ if (!isset($_SESSION['id_usuario'])) {
 }
 
 include_once('../../config/conexion.php');
+require_once('../../vendor/autoload.php');
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 
 // Obtener el ID de usuario desde la sesión
 $id_usuario = $_SESSION['id_usuario'];  // Asegúrate de que esto esté disponible en la sesión
@@ -158,16 +163,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_agenda = $conn->lastInsertId();
 
     // Insertar nueva cita
-    $query_cita = "
-            INSERT INTO cita (id_agenda, id_psicologo, id_paciente, fecha, motivo, id_tipo_cita) 
-            VALUES (:id_agenda, :id_psicologo, :id_paciente, :fecha, :motivo, 1)
-        ";
+    // Recupera el id_tipo_cita de la sesión 
+    $id_tipo_cita = $_SESSION['id_tipo_cita']; // Inserta la nueva cita utilizando el id_tipo_cita existente 
+    $query_cita = " INSERT INTO cita (id_agenda, id_psicologo, id_paciente, fecha, motivo, id_tipo_cita) 
+   VALUES (:id_agenda, :id_psicologo, :id_paciente, :fecha, :motivo, :id_tipo_cita) ";
     $stmt_cita = $conn->prepare($query_cita);
-    $stmt_cita->bindParam(':id_agenda', $id_agenda);
-    $stmt_cita->bindParam(':id_psicologo', $id_psicologo);
+    $stmt_cita->bindParam(
+      ':id_agenda',
+      $id_agenda
+    );
+    $stmt_cita->bindParam(
+      ':id_psicologo',
+      $id_psicologo
+    );
     $stmt_cita->bindParam(':id_paciente', $id_paciente);
     $stmt_cita->bindParam(':fecha', $fecha);
     $stmt_cita->bindParam(':motivo', $motivo);
+    $stmt_cita->bindParam(':id_tipo_cita', $id_tipo_cita); // Usar el id_tipo_cita de la sesión 
+    if ($stmt_cita->execute()) {
+      // Mensaje de éxito al crear la cita
+      echo "
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+<script>
+  window.onload = function() {
+    Swal.fire({
+      icon: 'success',
+      title: 'Cita creada exitosamente.',
+      showConfirmButton: true,
+      confirmButtonText: 'OK',
+      timer: 3000,
+      willClose: () => { window.location.href = '../vistas/agendar_cita.php'; }
+    });
+  }
+</script>";
+    } else {
+      // Mensaje de error al no poder crear la cita
+      echo "
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+<script>
+  window.onload = function() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error al crear la cita.',
+      showConfirmButton: true,
+      confirmButtonText: 'OK',
+      timer: 5000,
+      willClose: () => { window.location.href = '../vistas/agendar_cita_individual_onine.php'; }
+    });
+  }
+</script>";
+    }
 
     $query_usuario = "
     SELECT correo FROM usuario WHERE id_usuario = :id_usuario
@@ -180,11 +225,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($usuario) {
       $to = $usuario['correo'];
       $subject =
-        "Cita Online Programada";
+        "Cita Presencial Programada";
       $message =
-        " <html> <head> <title>Cita Online Programada</title> 
+        " <html> <head> <title>Cita Presencial Programada</title> 
     </head> <body> <p>Estimado(a) paciente,</p> 
-    <p>Nos complace informarte que tu cita online con el psicólogo ha sido programada exitosamente.</p> 
+    <p>Nos complace informarte que tu cita presencial con el psicólogo ha sido programada exitosamente.</p> 
     <p><strong>Detalles de la cita:</strong></p> <ul> <li><strong>Fecha:</strong> $fecha</li> 
     <li><strong>Hora de Inicio:</strong> $hora_inicio $ampm</li> 
     <li><strong>Hora de Finalización:</strong> $hora_final $ampm</li> 
@@ -217,9 +262,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->Body = $message;
 
         $mail->send();
-        echo 'El mensaje ha sido enviado';
+        // Mensaje de éxito al enviar el correo
+        echo "
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+<script>
+  window.onload = function() {
+    Swal.fire({
+      icon: 'success',
+      title: 'El mensaje ha sido enviado',
+      showConfirmButton: true,
+      confirmButtonText: 'OK',
+      timer: 3000,
+      willClose: () => { window.location.href = '../vistas/agendar_cita.php'; }
+    });
+  }
+</script>";
       } catch (Exception $e) {
-        echo "No se pudo enviar el mensaje. Error de PHPMailer: {$mail->ErrorInfo}";
+        // Mensaje de error al no poder enviar el correo
+        echo "
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+<script>
+  window.onload = function() {
+    Swal.fire({
+      icon: 'error',
+      title: 'No se pudo enviar el mensaje',
+      text: 'Error de PHPMailer: {$mail->ErrorInfo}',
+      showConfirmButton: true,
+      confirmButtonText: 'OK',
+      timer: 5000,
+      willClose: () => { window.location.href = '../vistas/agendar_cita_individual_onine.php'; }
+    });
+  }
+</script>";
       }
     }
 
@@ -245,7 +319,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               window.onload = function() {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Cita agendada correctamente.',
+                    title: 'Cita agendada correctamente. Revisa tu correo para el enlace de la reunión.',
                      showConfirmButton: true,
         confirmButtonText: 'OK',
                     timer: 3000,
