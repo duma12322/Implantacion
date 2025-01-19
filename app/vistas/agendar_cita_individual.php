@@ -18,26 +18,23 @@ if (isset($_POST['modalidad'])) {
     $id_tipo_cita = $_SESSION['id_tipo_cita'];
     $modalidad = $_POST['modalidad'];
     // Verifica que se haya recuperado el id_tipo_cita y la modalidad no esté vacía 
-    if (!empty($id_tipo_cita) && !empty($modalidad)) {
-        $sql = "UPDATE tipo_cita SET modalidad = :modalidad WHERE id_tipo_cita = :id_tipo_cita";
-        $stmt = $conn->prepare($sql); // Ejecuta la consulta con los valores de la modalidad 
-        if ($stmt->execute([':modalidad' => $modalidad, ':id_tipo_cita' => $id_tipo_cita])) {
-            // Redirige a la página según la modalidad seleccionada 
-            if ($modalidad == 'presencial') {
-                if ($tipoUsuario === 'paciente') {
-                    header("Location: agendar_cita_individual_presencial.php");
-                } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
-                    header("Location: agendar_cita_individual_presencial2.php");
-                }
-            } elseif ($modalidad == 'online') {
-                header("Location: agendar_cita_individual_online.php");
+
+    $sql = "UPDATE tipo_cita SET modalidad = :modalidad WHERE id_tipo_cita = :id_tipo_cita";
+    $stmt = $conn->prepare($sql); // Ejecuta la consulta con los valores de la modalidad 
+    if ($stmt->execute([':modalidad' => $modalidad, ':id_tipo_cita' => $id_tipo_cita])) {
+        // Redirige a la página según la modalidad seleccionada 
+        if ($modalidad == 'presencial') {
+            if ($tipoUsuario === 'paciente') {
+                header("Location: agendar_cita_individual_presencial.php");
+            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
+                header("Location: agendar_cita_individual_presencial2.php");
             }
-            exit;
-        } else {
-            echo "Error al actualizar la modalidad: " . $stmt->errorInfo()[2];
+        } elseif ($modalidad == 'online') {
+            header("Location: agendar_cita_individual_online.php");
         }
+        exit;
     } else {
-        echo "Error: id_tipo_cita o modalidad está vacío.";
+        echo "Error al actualizar la modalidad: " . $stmt->errorInfo()[2];
     }
 }
 
