@@ -17,7 +17,6 @@ if (isset($_POST['modalidad'])) {
     // Recupera el id_tipo_cita de la sesión 
     $id_tipo_cita = $_SESSION['id_tipo_cita'];
     $modalidad = $_POST['modalidad'];
-    // Verifica que se haya recuperado el id_tipo_cita y la modalidad no esté vacía 
 
     $sql = "UPDATE tipo_cita SET modalidad = :modalidad WHERE id_tipo_cita = :id_tipo_cita";
     $stmt = $conn->prepare($sql); // Ejecuta la consulta con los valores de la modalidad 
