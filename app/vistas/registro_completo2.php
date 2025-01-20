@@ -24,7 +24,7 @@ session_start();
                 confirmButtonText: 'OK',
                 timer: 3000
             }).then(() => {
-                window.location.href = 'registro_paciente2.php'; // Cambiar a la página deseada
+                window.location.href = 'login_paciente.php'; // Cambiar a la página deseada
             });
         </script>
         <?php

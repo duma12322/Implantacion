@@ -2,12 +2,6 @@
 require_once 'conexion.php'; // Conexión a la base de datos
 session_start();
 
-// Verificar si el id_usuario está presente en la sesión
-if (!isset($_SESSION['id_usuario'])) {
-    header("Location: registro_paciente.php"); // Si no, redirigir al primer paso
-    exit;
-}
-
 // Recibir datos del formulario
 $nombre1 = $_POST['nombre1'] ?? null;
 $tipo_doc = $_POST['tipo_doc'] ?? null;
@@ -23,6 +17,7 @@ $sexo = $_POST['sexo'] ?? null;
 $id_municipio = $_POST['id_municipio'] ?? null;
 $otro = $_POST['otro'] ?? null;
 $telefono = $_POST['telefono'] ?? null;
+$num_hijos = $_POST['num_hijos'] ?? null;
 
 // Recibir las respuestas de seguridad
 $pregunta_s1 = $_POST['pregunta_s1'] ?? null;
@@ -31,11 +26,35 @@ $pregunta_s2 = $_POST['pregunta_s2'] ?? null;
 $respuesta_2 = $_POST['respuesta_2'] ?? null;
 
 // Validar campos requeridos
-if (!$nombre1 || !$tipo_doc || !$id_estado || !$num_doc || !$id_ciudad || !$apellido1 || !$fecha_nac || !$id_parroquia || !$sexo || !$id_municipio || !$pregunta_s1 || !$respuesta_1 || !$pregunta_s2 || !$respuesta_2) {
+if (!$nombre1 || !$tipo_doc || !$id_estado || !$num_doc || !$id_ciudad || !$apellido1 || !$fecha_nac || !$id_parroquia || !$sexo || !$id_municipio || !$pregunta_s1 || !$respuesta_1 || !$pregunta_s2 || !$respuesta_2 || $num_hijos === null) {
     $_SESSION['mensaje'] = 'Por favor completa todos los campos requeridos.';
     $_SESSION['mensaje_tipo'] = 'error';
     header("Location: ../app/vistas/registro_completo.php");
     exit;
+}
+
+// Validar si el usuario es mayor de edad (18 años o más)
+$fecha_nac_obj = new DateTime($fecha_nac);
+$hoy = new DateTime();
+$edad = $hoy->diff($fecha_nac_obj)->y;
+
+if ($edad < 18) {
+    $_SESSION['mensaje'] = 'Debes ser mayor de 18 años para registrarte.';
+    $_SESSION['mensaje_tipo'] = 'error';
+    header("Location: ../app/vistas/registro_completo.php");
+    exit; // Detenemos la ejecución
+}
+
+// Verificar si el num_doc ya existe
+$queryDoc = $conn->prepare("SELECT COUNT(*) FROM usuario WHERE num_doc = ?");
+$queryDoc->execute([$num_doc]);
+$existeDoc = $queryDoc->fetchColumn();
+
+if ($existeDoc > 0) {
+    $_SESSION['mensaje'] = 'El número de documento ya está registrado.';
+    $_SESSION['mensaje_tipo'] = 'error';
+    header("Location: ../app/vistas/registro_completo.php");
+    exit; // Detenemos la ejecución
 }
 
 try {
@@ -64,14 +83,16 @@ try {
         $respuesta_1,
         $pregunta_s2,
         $respuesta_2,
-        $sexo,  // Asegúrate de que este campo sea el correcto
+        $sexo,
         $id_usuario
     ]);
 
-
     // Verificar si hubo algún error en la actualización
     if ($queryUsuario->errorCode() != '00000') {
-        die('Error en consulta de usuario: ' . implode(", ", $queryUsuario->errorInfo()));
+        $_SESSION['mensaje'] = 'Error al actualizar los datos del usuario.';
+        $_SESSION['mensaje_tipo'] = 'error';
+        header("Location: ../app/vistas/registro_completo.php");
+        exit;
     }
 
     // Insertar o actualizar la dirección
@@ -80,41 +101,45 @@ try {
     $queryDireccion->execute([$id_estado, $id_ciudad, $id_municipio, $id_parroquia, $otro]);
 
     if ($queryDireccion->errorCode() != '00000') {
-        die('Error en consulta de dirección: ' . implode(", ", $queryDireccion->errorInfo()));
+        $_SESSION['mensaje'] = 'Error al registrar la dirección.';
+        $_SESSION['mensaje_tipo'] = 'error';
+        header("Location: ../app/vistas/registro_completo.php");
+        exit;
     }
 
     // Obtener el id_direccion recién insertado
     $id_direccion = $conn->lastInsertId();
 
     // Insertar datos en la tabla paciente
-    $queryPaciente = $conn->prepare("INSERT INTO paciente (id_usuario, num_hijos, dispacitado, descrip_disca, id_direccion) 
-                                    VALUES (?, ?, ?, ?, ?)");
+    $queryPaciente = $conn->prepare("INSERT INTO paciente (id_usuario, num_hijos, id_direccion) 
+                                    VALUES (?, ?, ?)");
     $queryPaciente->execute([
         $id_usuario,
-        $_POST['num_hijos'],
-        $_POST['dispacitado'],
-        $_POST['descrip_disca'],
+        $num_hijos,
         $id_direccion
     ]);
 
     // Verificar si hubo algún error en la inserción
     if ($queryPaciente->errorCode() != '00000') {
-        die('Error en consulta de paciente: ' . implode(", ", $queryPaciente->errorInfo()));
+        $_SESSION['mensaje'] = 'Error al registrar los datos del paciente.';
+        $_SESSION['mensaje_tipo'] = 'error';
+        header("Location: ../app/vistas/registro_completo.php");
+        exit;
     }
 
     // Confirmar la transacción
     $conn->commit();
 
-    // Mensaje de éxito
+    // Mensaje de éxito 
     $_SESSION['mensaje'] = '¡Registro exitoso!';
     $_SESSION['mensaje_tipo'] = 'success';
-    header("Location: ../app/vistas/registro_completo.php");
+    header("Location: ../app/vistas/registro_completo2.php");
     exit;
 } catch (Exception $e) {
-    // Si ocurre un error, revertir la transacción
+    // Si ocurre un error, revertir la transacción 
     $conn->rollBack();
     $_SESSION['mensaje'] = 'Error en el registro: ' . $e->getMessage();
     $_SESSION['mensaje_tipo'] = 'error';
-    header("Location: ../app/vistas/registro_completo.php");
+    header("Location: ../app/vistas/registro_completo2.php");
     exit;
 }

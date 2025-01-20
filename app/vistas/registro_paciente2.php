@@ -106,6 +106,11 @@
                         </div>
 
                         <div class="input-field">
+                            <label>Número de hijos</label>
+                            <input type="number" name="num_hijos" placeholder="Ingrese cuántos hijos tiene" value="0" required>
+                        </div>
+
+                        <div class="input-field">
                             <label>Otro</label>
                             <input type="text" name="otro" placeholder="Ingrese detalles de su ubicacion">
                         </div>
