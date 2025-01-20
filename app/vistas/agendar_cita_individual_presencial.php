@@ -10,6 +10,7 @@ if (!isset($_SESSION['id_usuario'])) {
 $id_usuario = (int)$_SESSION['id_usuario'];
 
 include_once('../../config/conexion.php');
+
 $query_paciente = "
     SELECT 
         u.id_usuario, u.nombre1, u.nombre2, u.apellido1, u.apellido2, p.id_paciente 

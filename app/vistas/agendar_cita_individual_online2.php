@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+// Verifica si la sesión está activa
 // Verifica si la sesión está activa 
 if (!isset($_SESSION['usuario'])) {
     header("Location: login_paciente.php");
@@ -16,6 +17,7 @@ if (isset($_POST['cerrar_sesion'])) {
 }
 
 $nombreUsuario = $_SESSION['usuario'];
+
 include_once('../../config/conexion.php');
 
 // Consultar psicólogos disponibles
@@ -45,6 +47,7 @@ $query_agenda = "SELECT * FROM agenda WHERE status = 'Pendiente'";
 $stmt_agenda = $conn->prepare($query_agenda);
 $stmt_agenda->execute();
 $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -54,14 +57,14 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendar Cita Individual Presencial</title>
+    <title>Agendar Cita Individual Online</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
     <div class="container">
-        <h2 class="my-4">Agendar Cita Individual Presencial</h2>
-        <form action="../controladores/procesar_agendar_cita2.php" method="POST">
+        <h2 class="my-4">Agendar Cita Individual Online</h2>
+        <form action="../controladores/procesar_cita_online2.php" method="POST">
             <div class="form-group">
                 <label for="id_psicologo">Psicólogo</label>
                 <select name="id_psicologo" id="id_psicologo" class="form-control" required>
@@ -111,16 +114,15 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                 <select name="tipo_pago" id="tipo_pago" class="form-control" required>
                     <option value="TRANSFERENCIA BANCARIA">TRANSFERENCIA BANCARIA</option>
                     <option value="PAGO MOVIL">PAGO MOVIL</option>
-                    <option value="EFECTIVO $">EFECTIVO $</option>
                 </select>
-            </div>
-            <div class="form-group">
-                <label for="monto">Monto</label>
-                <input type="number" name="monto" id="monto" class="form-control" value="30" required>
             </div>
             <div class="form-group">
                 <label for="referencia_bancaria">Referencia Bancaria</label>
                 <input type="text" name="referencia_bancaria" id="referencia_bancaria" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="monto">Monto</label>
+                <input type="number" name="monto" id="monto" class="form-control" value="30" required>
             </div>
             <button type="submit" class="btn btn-success">Agendar Cita</button>
         </form>
@@ -128,11 +130,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-
     <script src="script/fecha.js"></script>
-    <script src="script/selectPaciente.js"></script>
 </body>
 
 </html>

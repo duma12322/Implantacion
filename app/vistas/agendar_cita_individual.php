@@ -29,7 +29,11 @@ if (isset($_POST['modalidad'])) {
                 header("Location: agendar_cita_individual_presencial2.php");
             }
         } elseif ($modalidad == 'online') {
-            header("Location: agendar_cita_individual_online.php");
+            if ($tipoUsuario === 'paciente') {
+                header("Location: agendar_cita_individual_online.php");
+            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
+                header("Location: agendar_cita_individual_online2.php");
+            }
         }
         exit;
     } else {
