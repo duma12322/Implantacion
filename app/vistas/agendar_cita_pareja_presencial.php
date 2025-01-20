@@ -60,7 +60,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <div class="container">
         <h2 class="my-4">Agendar Cita Individual Presencial</h2>
-        <form action="../controladores/procesar_agendar_cita.php" method="POST">
+        <form action="../controladores/procesar_agendar_cita_pareja.php" method="POST">
             <div class="form-group">
                 <label for="id_psicologo">Psicólogo</label>
                 <select name="id_psicologo" id="id_psicologo" class="form-control" required>
@@ -77,6 +77,43 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                 <input type="text" id="paciente_nombre" class="form-control" value="<?= $paciente['nombre1'] . ' ' . $paciente['nombre2'] . ' ' . $paciente['apellido1'] . ' ' . $paciente['apellido2']; ?>" readonly>
                 <input type="hidden" name="id_paciente" id="id_paciente" value="<?= $paciente['id_paciente']; ?>">
             </div>
+
+            <h3 class="mt-4">Datos de la Pareja</h3>
+            <div class="form-group">
+                <label for="relacion_nombre1">Primer Nombre</label>
+                <input type="text" name="relacion_nombre1" id="relacion_nombre1" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="relacion_nombre2">Segundo Nombre</label>
+                <input type="text" name="relacion_nombre2" id="relacion_nombre2" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="relacion_apellido1">Primer Apellido</label>
+                <input type="text" name="relacion_apellido1" id="relacion_apellido1" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="relacion_apellido2">Segundo Apellido</label>
+                <input type="text" name="relacion_apellido2" id="relacion_apellido2" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="relacion_fecha_nac">Fecha de Nacimiento</label>
+                <input type="date" name="relacion_fecha_nac" id="relacion_fecha_nac" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="relacion_tipo_doc">Tipo de Documento</label>
+                <select name="relacion_tipo_doc" id="relacion_tipo_doc" class="form-control">
+                    <option value="V">V</option>
+                    <option value="E">E</option>
+                    <option value="J">J</option>
+                    <option value="P">P</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="relacion_numero_doc">Número de Documento</label>
+                <input type="text" name="relacion_numero_doc" id="relacion_numero_doc" class="form-control" required>
+            </div>
+
+            <h3 class="mt-4">Datos de la Cita</h3>
             <div class="form-group">
                 <label for="fecha">Fecha de la Cita</label>
                 <input type="date" name="fecha" id="fecha" class="form-control" required>
@@ -98,10 +135,12 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             </div>
+
             <div class="form-group">
                 <label for="motivo">Motivo</label>
-                <input type="text" name="motivo" id="motivo" class="form-control" required>
+                <textarea name="motivo" id="motivo" class="form-control" rows="3" required></textarea>
             </div>
+
             <h4 class="mt-4">Pago</h4>
             <div class="form-group">
                 <label for="tipo_pago">Tipo de Pago</label>

@@ -22,7 +22,67 @@ if (isset($_GET['code'])) {
     file_put_contents($tokenPath, json_encode($client->getAccessToken()));
 
     // Redirigir al script de procesamiento de la cita
-    header('Location: /implantacion/app/vistas/agendar_cita_online_individual.php');
+    $tipoCita = $_SESSION['tipoCita'];
+    $modalidad = $_SESSION['modalidad'];
+    $tipoUsuario = $_SESSION['tipo_usuario'];
+
+    if ($tipoCita == 'pareja') {
+        if ($modalidad == 'presencial') {
+            if ($tipoUsuario === 'paciente') {
+                header("Location: /implantacion/app/controladores/procesar_cita_pareja_presencial.php");
+            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
+                header("Location: /implantacion/app/controladores/procesar_cita_pareja_presencial2.php");
+            }
+        } elseif ($modalidad == 'online') {
+            if ($tipoUsuario === 'paciente') {
+                header("Location: /implantacion/app/controladores/procesar_cita_pareja_online.php");
+            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
+                header("Location: /implantacion/app/controladores/procesar_cita_pareja_online2.php");
+            }
+        }
+    } elseif ($tipoCita == 'infantil') {
+        if ($modalidad == 'presencial') {
+            if ($tipoUsuario === 'paciente') {
+                header("Location: /implantacion/app/controladores/procesar_cita_infantil_presencial.php");
+            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
+                header("Location: /implantacion/app/controladores/procesar_cita_infantil_presencial2.php");
+            }
+        } elseif ($modalidad == 'online') {
+            if ($tipoUsuario === 'paciente') {
+                header("Location: /implantacion/app/controladores/procesar_cita_infantil_online.php");
+            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
+                header("Location: /implantacion/app/controladores/procesar_cita_infantil_online2.php");
+            }
+        }
+    } elseif ($tipoCita == 'adolescente') {
+        if ($modalidad == 'presencial') {
+            if ($tipoUsuario === 'paciente') {
+                header("Location: /implantacion/app/controladores/procesar_cita_adolescente_presencial.php");
+            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
+                header("Location: /implantacion/app/controladores/procesar_cita_adolescente_presencial2.php");
+            }
+        } elseif ($modalidad == 'online') {
+            if ($tipoUsuario === 'paciente') {
+                header("Location: /implantacion/app/controladores/procesar_cita_adolescente_online.php");
+            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
+                header("Location: /implantacion/app/controladores/procesar_cita_adolescente_online2.php");
+            }
+        }
+    } else { // Por defecto, se asume que es una cita individual
+        if ($modalidad == 'presencial') {
+            if ($tipoUsuario === 'paciente') {
+                header("Location: /implantacion/app/controladores/procesar_agendar_cita.php");
+            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
+                header("Location: /implantacion/app/controladores/procesar_agendar_cita2.php");
+            }
+        } elseif ($modalidad == 'online') {
+            if ($tipoUsuario === 'paciente') {
+                header("Location: /implantacion/app/controladores/procesar_agendar_cita_online.php");
+            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
+                header("Location: /implantacion/app/controladores/procesar_agendar_cita_online2.php");
+            }
+        }
+    }
     exit;
 }
 

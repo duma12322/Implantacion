@@ -36,8 +36,12 @@ if (isset($_POST['tipo_cita'])) {
     // Guarda el id_tipo_cita en la sesión
     $_SESSION['id_tipo_cita'] = $id_tipo_cita;
 
-    // Redirige a la página de selección de modalidad
-    header("Location: agendar_cita_individual.php");
+    // Redirige a la página correspondiente según el tipo de cita
+    if ($tipoCita == 'pareja') {
+        header("Location: agendar_cita_pareja.php");
+    } else {
+        header("Location: agendar_cita_individual.php");
+    }
     exit;
 }
 ?>

@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Verifica si la sesión está activa
 // Verifica si la sesión está activa 
 if (!isset($_SESSION['usuario'])) {
     header("Location: login_paciente.php");
