@@ -20,7 +20,7 @@
                 <input type="password" name="contraseña" id="contraseña" placeholder=" " required>
                 <label for="contraseña">Contraseña</label>
             </div>
-            <input type="hidden" name="tipo" value="paciente">
+            <input type="hidden" name="tipo" value="psicologo_admin">
             <div class="forget">
                 <label for="remember">
                     <input type="checkbox" id="remember">

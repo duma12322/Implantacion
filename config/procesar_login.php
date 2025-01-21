@@ -6,18 +6,41 @@ session_start();
 // Obtener datos del formulario
 $usuario = $_POST['usuario'];
 $contraseña = $_POST['contraseña'];
+$tipo = $_POST['tipo']; // Obtener el tipo de login del formulario
 
 try {
-    // Buscar en la tabla `usuario` (para pacientes)
-    $query = $conn->prepare("SELECT * FROM usuario WHERE usuario = :usuario");
-    $query->bindParam(':usuario', $usuario);
-    $query->execute();
-    $resultado = $query->fetch(PDO::FETCH_ASSOC);
+    if ($tipo === 'paciente') {
+        // Buscar en la tabla usuario (para pacientes)
+        $query = $conn->prepare("SELECT * FROM usuario WHERE usuario = :usuario");
+        $query->bindParam(':usuario', $usuario);
+        $query->execute();
+        $resultado = $query->fetch(PDO::FETCH_ASSOC);
 
-    $tipoUsuario = "paciente"; // Por defecto asumimos que es un paciente
-
-    // Si no es un paciente, verificar en la tabla `psicologo` y en la tabla `administrativo`
-    if (!$resultado) {
+        if ($resultado && md5($contraseña) === $resultado['contraseña']) {
+            // Configurar variables de sesión
+            $_SESSION['usuario'] = $resultado['usuario'];
+            $_SESSION['id_usuario'] = $resultado['id_usuario']; // Almacenar el ID del usuario en la sesión
+            $_SESSION['nombre1'] = $resultado['nombre1'];
+            $_SESSION['tipo_usuario'] = 'paciente';
+            header("Location: ../app/vistas/agendar_cita.php");
+            exit;
+        } else {
+            // Contraseña incorrecta o usuario no encontrado
+            echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js'></script>";
+            echo "<script>
+                    window.onload = function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '¡Error!',
+                            text: 'Usuario o contraseña incorrectos.',
+                        }).then(function() {
+                            window.location.href = '/implantacion/app/vistas/login_paciente.php';
+                        });
+                    }
+                  </script>";
+        }
+    } elseif ($tipo === 'psicologo_admin') {
+        // Buscar en la tabla psicologo y en la tabla administrativo
         $query = $conn->prepare("SELECT * FROM psicologo WHERE id_administrativo IN (SELECT id_administrativo FROM administrativo WHERE usuario = :usuario)");
         $query->bindParam(':usuario', $usuario);
         $query->execute();
@@ -29,35 +52,20 @@ try {
             $queryAdmin->execute();
             $adminResult = $queryAdmin->fetch(PDO::FETCH_ASSOC);
             $resultado = array_merge($resultado, $adminResult); // Combinar datos de psicólogo con administrativo
-            $tipoUsuario = "psicologo_admin";
+        } else {
+            $query = $conn->prepare("SELECT * FROM administrativo WHERE usuario = :usuario");
+            $query->bindParam(':usuario', $usuario);
+            $query->execute();
+            $resultado = $query->fetch(PDO::FETCH_ASSOC);
         }
-    }
 
-    if (!$resultado) {
-        $query = $conn->prepare("SELECT * FROM administrativo WHERE usuario = :usuario");
-        $query->bindParam(':usuario', $usuario);
-        $query->execute();
-        $resultado = $query->fetch(PDO::FETCH_ASSOC);
-
-        if ($resultado) {
-            $tipoUsuario = "psicologo_admin";
-        }
-    }
-
-    // Verificar si se encontró un resultado y validar contraseña
-    if ($resultado && isset($resultado['contraseña'])) {
-        if (md5($contraseña) === $resultado['contraseña']) {
+        if ($resultado && md5($contraseña) === $resultado['contraseña']) {
             // Configurar variables de sesión
             $_SESSION['usuario'] = $resultado['usuario'];
             $_SESSION['id_usuario'] = $resultado['id_usuario']; // Almacenar el ID del usuario en la sesión
             $_SESSION['nombre1'] = $resultado['nombre1'];
 
-            if (isset($resultado['id_usuario'])) {
-                // Usuario es un paciente
-                $_SESSION['tipo_usuario'] = 'paciente';
-                header("Location: ../app/vistas/agendar_cita.php");
-                exit;
-            } elseif (isset($resultado['id_psicologo'])) {
+            if (isset($resultado['id_psicologo'])) {
                 // Usuario es un psicólogo
                 $_SESSION['tipo_usuario'] = 'psicologo';
                 header("Location: ../app/vistas/dashboard.php");
@@ -69,11 +77,7 @@ try {
                 exit;
             }
         } else {
-            // Contraseña incorrecta
-            $redirectUrl = ($tipoUsuario === "paciente")
-                ? '/implantacion/app/vistas/login_paciente.php'
-                : '/implantacion/app/vistas/login_psicologo_admin.php';
-
+            // Contraseña incorrecta o usuario no encontrado
             echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js'></script>";
             echo "<script>
                     window.onload = function() {
@@ -82,26 +86,22 @@ try {
                             title: '¡Error!',
                             text: 'Usuario o contraseña incorrectos.',
                         }).then(function() {
-                            window.location.href = '$redirectUrl';
+                            window.location.href = '/implantacion/app/vistas/login_psicologo_admin.php';
                         });
                     }
                   </script>";
         }
     } else {
-        // Usuario no encontrado
-        $redirectUrl = ($tipoUsuario === "paciente")
-            ? '/implantacion/app/vistas/login_paciente.php'
-            : '/implantacion/app/vistas/login_psicologo_admin.php';
-
+        // Tipo de usuario no válido
         echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js'></script>";
         echo "<script>
                 window.onload = function() {
                     Swal.fire({
                         icon: 'error',
                         title: '¡Error!',
-                        text: 'Usuario o contraseña incorrectos.',
+                        text: 'Tipo de usuario no válido.',
                     }).then(function() {
-                        window.location.href = '$redirectUrl';
+                        window.location.href = '/implantacion/app/vistas/login_paciente.php';
                     });
                 }
               </script>";
