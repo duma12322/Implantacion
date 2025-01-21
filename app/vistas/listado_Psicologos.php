@@ -71,7 +71,7 @@ if (isset($_POST['id_administrativo'])) {
                 </a>
                 <!-- Botón de Eliminar Psicólogo -->
                 <form method="POST" class="d-inline deleteForm" id="deleteForm">
-                    <input type="hidden" name="id_administrativo" id="id_usuario_to_delete">
+                    <input type="hidden" name="id_administrativo" id="id_administrativo_to_delete">
                     <button type="submit" class="btn btn-danger" name="eliminar">
                         <i class="bi bi-trash-fill"></i> Eliminar
                     </button>
