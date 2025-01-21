@@ -59,6 +59,10 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
     <div class="container">
+        <nav class="nav nav-borders">
+            <a class="nav-link" href="agendar_cita.php">Volver al listado</a>
+        </nav>
+        <hr>
         <h2 class="my-4">Agendar Cita Individual Presencial</h2>
         <form action="../controladores/procesar_agendar_cita.php" method="POST">
             <div class="form-group">

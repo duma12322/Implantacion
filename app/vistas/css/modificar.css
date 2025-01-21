@@ -78,6 +78,12 @@ label {
     border-color: #727272;
 }
 
+h6 {
+    text-align: center;
+}
+
+
+
 
 @media (max-width: 768px) {
     .img-account-profile {
@@ -91,3 +97,5 @@ label {
         margin-right: 0.5rem;
     }
 }
+
+
