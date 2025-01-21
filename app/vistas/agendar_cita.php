@@ -39,8 +39,12 @@ if (isset($_POST['tipo_cita'])) {
     // Redirige a la página correspondiente según el tipo de cita
     if ($tipoCita == 'pareja') {
         header("Location: agendar_cita_pareja.php");
-    } else {
+    } else if ($tipoCita == 'individual') {
         header("Location: agendar_cita_individual.php");
+    } else if ($tipoCita == 'infaltil') {
+        header("Location: agendar_cita_infantil.php");
+    } else {
+        header("Location: agendar_cita_adolescente.php");
     }
     exit;
 }

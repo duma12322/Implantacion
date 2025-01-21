@@ -21,11 +21,12 @@ if (isset($_GET['code'])) {
     }
     file_put_contents($tokenPath, json_encode($client->getAccessToken()));
 
-    // Redirigir al script de procesamiento de la cita
-    $tipoCita = $_SESSION['tipoCita'];
-    $modalidad = $_SESSION['modalidad'];
-    $tipoUsuario = $_SESSION['tipo_usuario'];
+    // Verificar y establecer valores predeterminados para las claves de sesión
+    $tipoCita = isset($_SESSION['tipoCita']) ? $_SESSION['tipoCita'] : 'individual';
+    $modalidad = isset($_SESSION['modalidad']) ? $_SESSION['modalidad'] : 'presencial';
+    $tipoUsuario = isset($_SESSION['tipo_usuario']) ? $_SESSION['tipo_usuario'] : 'paciente';
 
+    // Redirigir al script de procesamiento de la cita
     if ($tipoCita == 'pareja') {
         if ($modalidad == 'presencial') {
             if ($tipoUsuario === 'paciente') {
@@ -68,7 +69,8 @@ if (isset($_GET['code'])) {
                 header("Location: /implantacion/app/controladores/procesar_cita_adolescente_online2.php");
             }
         }
-    } else { // Por defecto, se asume que es una cita individual
+    } else {
+        // Por defecto, se asume que es una cita individual
         if ($modalidad == 'presencial') {
             if ($tipoUsuario === 'paciente') {
                 header("Location: /implantacion/app/controladores/procesar_agendar_cita.php");
@@ -84,6 +86,20 @@ if (isset($_GET['code'])) {
         }
     }
     exit;
+}
+
+// Leer el token de acceso del archivo
+$tokenPath = '../../token.json';
+if (file_exists($tokenPath)) {
+    $accessToken = json_decode(file_get_contents($tokenPath), true);
+    $client->setAccessToken($accessToken);
+
+    // Si el token ha expirado, refrescarlo
+    if ($client->isAccessTokenExpired()) {
+        $client->fetchAccessTokenWithRefreshToken($client->getRefreshToken());
+        // Guardar el nuevo access token
+        file_put_contents($tokenPath, json_encode($client->getAccessToken()));
+    }
 }
 
 echo "Error al obtener el código de autorización.";

@@ -93,7 +93,7 @@
             <?php if ($_SESSION['tipo_usuario'] === 'administrativo') : ?>
                 <!-- Solo administrativo puede ver Logs -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="bitacora_front.php" class="nav-link">
                         <i class="bi bi-gear-fill"></i>
                         <span class="nav-label">Logs</span>
                     </a>
