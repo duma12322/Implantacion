@@ -272,7 +272,6 @@
                                     <li><strong>Individual:</strong> 30$</li>
                                     <li><strong>Parejas:</strong> 35$</li>
                                     <li><strong>Niños y Adolescentes:</strong> 30$</li>
-                                    <li><strong>Estudiantes:</strong> 15$</li>
                                 </ul>
                             </div>
                             <div class="modalidad-right">
@@ -281,8 +280,6 @@
                                 <ul>
                                     <li><strong>Individual:</strong> 20$</li>
                                     <li><strong>Parejas:</strong> 25$</li>
-                                    <li><strong>Niños y Adolescentes:</strong> 20$</li>
-                                    <li><strong>Estudiantes:</strong> 10$</li>
                                 </ul>
                             </div>
                         </div>

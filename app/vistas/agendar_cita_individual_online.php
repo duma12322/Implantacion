@@ -79,7 +79,21 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <div class="form-group">
-                <label for="fecha">Fecha</label>
+                <label for="discapacitado">¿Es discapacitado?</label>
+                <select name="discapacitado" id="discapacitado" class="form-control" required>
+                    <option value="1">Sí</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="descrip_disca">Descripción de la discapacidad</label>
+                <textarea type="text" name="descrip_disca" id="descrip_disca" class="form-control"></textarea>
+            </div>
+
+            <h3 class="mt-4">Datos de la Cita</h3>
+            <div class="form-group">
+                <label for="fecha">Fecha de Cita</label>
                 <input type="date" name="fecha" id="fecha" class="form-control" required>
             </div>
             <div class="form-group">
@@ -99,10 +113,12 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
             </div>
+
             <div class="form-group">
                 <label for="motivo">Motivo</label>
-                <input type="text" name="motivo" id="motivo" class="form-control" required>
+                <textarea name="motivo" id="motivo" class="form-control" required rows="4" cols="50"></textarea>
             </div>
+
             <h4 class="mt-4">Pago</h4>
             <div class="form-group">
                 <label for="tipo_pago">Tipo de Pago</label>
@@ -117,7 +133,7 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="form-group">
                 <label for="monto">Monto</label>
-                <input type="number" name="monto" id="monto" class="form-control" value="30" required>
+                <input type="number" name="monto" id="monto" class="form-control" value="20" readonly required>
             </div>
             <button type="submit" class="btn btn-success">Agendar Cita</button>
         </form>

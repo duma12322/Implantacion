@@ -41,7 +41,7 @@ $ampm = $_POST['am_pm'];
 $motivo = $_POST['motivo'];
 $tipo_pago = $_POST['tipo_pago'];
 $referencia_bancaria = $_POST['referencia_bancaria'];
-$monto = 30;
+$monto = 35;
 
 // Datos de la pareja 
 $relacion_nombre1 = $_POST['relacion_nombre1'];
@@ -51,6 +51,8 @@ $relacion_apellido2 = $_POST['relacion_apellido2'];
 $relacion_fecha_nac = $_POST['relacion_fecha_nac'];
 $relacion_tipo_doc = $_POST['relacion_tipo_doc'];
 $relacion_numero_doc = $_POST['relacion_numero_doc'];
+$relacion_discapacitado = $_POST['relacion_discapacitado'];
+$relacion_descrip_disca = $_POST['relacion_descrip_disca'];
 
 // Convertir hora AM/PM a formato 24 horas
 $hora24 = ($ampm == 'PM' && $hora != 12) ? $hora + 12 : (($ampm == 'AM' && $hora == 12) ? 0 : $hora);
@@ -61,6 +63,52 @@ $minutos_totales = ($hora24 * 60) + $minutos + 45;
 $hora_final24 = intdiv($minutos_totales, 60);
 $minutos_finales = $minutos_totales % 60;
 $hora_final = sprintf("%02d:%02d:00", $hora_final24, $minutos_finales);
+
+$query_update_paciente = "
+    UPDATE paciente
+    SET discapacitado = :discapacitado, descrip_disca = :descrip_disca
+    WHERE id_paciente = :id_paciente
+";
+$stmt_update_paciente = $conn->prepare($query_update_paciente);
+$stmt_update_paciente->bindParam(':discapacitado', $discapacitado, PDO::PARAM_INT);
+$stmt_update_paciente->bindParam(':descrip_disca', $descrip_disca, PDO::PARAM_STR);
+$stmt_update_paciente->bindParam(':id_paciente', $id_paciente, PDO::PARAM_INT);
+
+if ($stmt_update_paciente->execute()) {
+  echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+    <script>
+      window.onload = function() {
+        Swal.fire({
+          icon: 'success',
+          title: 'Información de discapacidad actualizada correctamente.',
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          timer: 3000,
+          willClose: () => {
+            window.location.href = 'ruta_a_tu_pagina.php'; 
+          }
+        });
+      }
+    </script>";
+} else {
+  echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+    <script>
+      window.onload = function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al actualizar la información de discapacidad: " . $stmt_update_paciente->errorInfo()[2] . "',
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          timer: 3000,
+          willClose: () => {
+            window.location.href = 'ruta_a_tu_pagina.php'; 
+          }
+        });
+      }
+    </script>";
+}
 
 // Verificar si el paciente tiene el máximo de citas permitidas para el día
 $query_verificar_citas = "
@@ -326,7 +374,8 @@ $stmt_pago->bindParam(':monto', $monto);
 $stmt_pago->bindParam(':referencia_bancaria', $referencia_bancaria);
 $stmt_pago->execute();
 
-$query_relacion = " INSERT INTO paciente_relacion (id_paciente, relacion_familiar, relacion_nombre1, relacion_nombre2, relacion_apellido1, relacion_apellido2, relacion_fecha_nac, relacion_tipo_doc, relacion_numero_doc) VALUES (:id_paciente, 'Pareja', :relacion_nombre1, :relacion_nombre2, :relacion_apellido1, :relacion_apellido2, :relacion_fecha_nac, :relacion_tipo_doc, :relacion_numero_doc) ";
+$query_relacion = " INSERT INTO paciente_relacion (id_paciente, relacion_familiar, relacion_nombre1, relacion_nombre2, relacion_apellido1, relacion_apellido2, relacion_fecha_nac, relacion_tipo_doc, relacion_numero_doc, relacion_discapacitado, relacion_descrip_disca) VALUES 
+(:id_paciente, 'Pareja', :relacion_nombre1, :relacion_nombre2, :relacion_apellido1, :relacion_apellido2, :relacion_fecha_nac, :relacion_tipo_doc, :relacion_numero_doc, :relacion_discapacitado, :relacion_descrip_disca) ";
 $stmt_relacion = $conn->prepare($query_relacion);
 $stmt_relacion->bindParam(':id_paciente', $id_paciente);
 $stmt_relacion->bindParam(':relacion_nombre1', $relacion_nombre1);
@@ -336,6 +385,8 @@ $stmt_relacion->bindParam(':relacion_apellido2', $relacion_apellido2);
 $stmt_relacion->bindParam(':relacion_fecha_nac', $relacion_fecha_nac);
 $stmt_relacion->bindParam(':relacion_tipo_doc', $relacion_tipo_doc);
 $stmt_relacion->bindParam(':relacion_numero_doc', $relacion_numero_doc);
+$stmt_relacion->bindParam(':relacion_discapacitado', $relacion_discapacitado);
+$stmt_relacion->bindParam(':relacion_descrip_disca', $relacion_descrip_disca);
 $stmt_relacion->execute(); // Mensaje de éxito
 
 // Mensaje de éxito al agendar la cita y enviar el enlace

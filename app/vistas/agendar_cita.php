@@ -36,12 +36,16 @@ if (isset($_POST['tipo_cita'])) {
     // Guarda el id_tipo_cita en la sesión
     $_SESSION['id_tipo_cita'] = $id_tipo_cita;
 
+    $_SESSION['tipoCita'] = $tipoCita;
+    $_SESSION['modalidad'] = $modalidad;
+
+    // Redirige a la página correspondiente según el tipo de cita
     // Redirige a la página correspondiente según el tipo de cita
     if ($tipoCita == 'pareja') {
         header("Location: agendar_cita_pareja.php");
     } else if ($tipoCita == 'individual') {
         header("Location: agendar_cita_individual.php");
-    } else if ($tipoCita == 'infaltil') {
+    } else if ($tipoCita == 'infantil') {
         header("Location: agendar_cita_infantil.php");
     } else {
         header("Location: agendar_cita_adolescente.php");

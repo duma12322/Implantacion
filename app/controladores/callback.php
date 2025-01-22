@@ -8,11 +8,12 @@ $client->setApplicationName('Implantacion');
 $client->setScopes(Google_Service_Calendar::CALENDAR);
 $client->setAuthConfig('../../credentials.json');
 $client->setAccessType('offline');
-$client->setApprovalPrompt('force'); // Añadido para asegurar que se obtenga el refresh token
+
+// Ruta del archivo del token
+$tokenPath = '../../token.json';
 
 // Obtener el código de autorización
 if (isset($_GET['code'])) {
-    $tokenPath = '../../token.json';
     $accessToken = $client->fetchAccessTokenWithAuthCode($_GET['code']);
     $client->setAccessToken($accessToken);
 
@@ -22,75 +23,12 @@ if (isset($_GET['code'])) {
     }
     file_put_contents($tokenPath, json_encode($client->getAccessToken()));
 
-    // Verificar y establecer valores predeterminados para las claves de sesión
-    $tipoCita = isset($_SESSION['tipoCita']) ? $_SESSION['tipoCita'] : 'individual';
-    $modalidad = isset($_SESSION['modalidad']) ? $_SESSION['modalidad'] : 'presencial';
-    $tipoUsuario = isset($_SESSION['tipo_usuario']) ? $_SESSION['tipo_usuario'] : 'paciente';
-
-    // Redirigir al script de procesamiento de la cita
-    if ($tipoCita == 'pareja') {
-        if ($modalidad == 'presencial') {
-            if ($tipoUsuario === 'paciente') {
-                header("Location: /implantacion/app/controladores/procesar_cita_pareja_presencial.php");
-            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
-                header("Location: /implantacion/app/controladores/procesar_cita_pareja_presencial2.php");
-            }
-        } elseif ($modalidad == 'online') {
-            if ($tipoUsuario === 'paciente') {
-                header("Location: /implantacion/app/controladores/procesar_cita_pareja_online.php");
-            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
-                header("Location: /implantacion/app/controladores/procesar_cita_pareja_online2.php");
-            }
-        }
-    } elseif ($tipoCita == 'infantil') {
-        if ($modalidad == 'presencial') {
-            if ($tipoUsuario === 'paciente') {
-                header("Location: /implantacion/app/controladores/procesar_cita_infantil_presencial.php");
-            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
-                header("Location: /implantacion/app/controladores/procesar_cita_infantil_presencial2.php");
-            }
-        } elseif ($modalidad == 'online') {
-            if ($tipoUsuario === 'paciente') {
-                header("Location: /implantacion/app/controladores/procesar_cita_infantil_online.php");
-            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
-                header("Location: /implantacion/app/controladores/procesar_cita_infantil_online2.php");
-            }
-        }
-    } elseif ($tipoCita == 'adolescente') {
-        if ($modalidad == 'presencial') {
-            if ($tipoUsuario === 'paciente') {
-                header("Location: /implantacion/app/controladores/procesar_cita_adolescente_presencial.php");
-            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
-                header("Location: /implantacion/app/controladores/procesar_cita_adolescente_presencial2.php");
-            }
-        } elseif ($modalidad == 'online') {
-            if ($tipoUsuario === 'paciente') {
-                header("Location: /implantacion/app/controladores/procesar_cita_adolescente_online.php");
-            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
-                header("Location: /implantacion/app/controladores/procesar_cita_adolescente_online2.php");
-            }
-        }
-    } else {
-        // Por defecto, se asume que es una cita individual
-        if ($modalidad == 'presencial') {
-            if ($tipoUsuario === 'paciente') {
-                header("Location: /implantacion/app/controladores/procesar_agendar_cita.php");
-            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
-                header("Location: /implantacion/app/controladores/procesar_agendar_cita2.php");
-            }
-        } elseif ($modalidad == 'online') {
-            if ($tipoUsuario === 'paciente') {
-                header("Location: /implantacion/app/controladores/procesar_agendar_cita_online.php");
-            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
-                header("Location: /implantacion/app/controladores/procesar_agendar_cita_online2.php");
-            }
-        }
-    }
+    // Redirigir a redireccionar.php
+    header("Location: /implantacion/app/controladores/redireccionar.php");
     exit;
 }
 
 // Leer el token de acceso del archivo
-$tokenPath = '../../token.json';
 if (file_exists($tokenPath)) {
     $accessToken = json_decode(file_get_contents($tokenPath), true);
     $client->setAccessToken($accessToken);
@@ -101,6 +39,17 @@ if (file_exists($tokenPath)) {
         // Guardar el nuevo access token
         file_put_contents($tokenPath, json_encode($client->getAccessToken()));
     }
+
+    // Redirigir a redireccionar.php
+    header("Location: /implantacion/app/controladores/redireccionar.php");
+    exit;
+}
+
+// Si no hay token, solicitar autorización
+if (!$client->getAccessToken()) {
+    $authUrl = $client->createAuthUrl();
+    header("Location: $authUrl");
+    exit;
 }
 
 echo "Error al obtener el código de autorización.";

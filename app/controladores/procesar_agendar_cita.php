@@ -67,6 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $motivo = $_POST['motivo'];
   $tipo_pago = $_POST['tipo_pago'];
   $referencia_bancaria = $_POST['referencia_bancaria'];
+  $discapacitado = $_POST['discapacitado'];
+  $descrip_disca = $_POST['descrip_disca'];
   $monto = 30;
 
   // Convertir hora AM/PM a formato 24 horas
@@ -78,6 +80,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $hora_final24 = intdiv($minutos_totales, 60);
   $minutos_finales = $minutos_totales % 60;
   $hora_final = sprintf("%02d:%02d:00", $hora_final24, $minutos_finales);
+
+  // Actualizar información del paciente con los datos de discapacidad
+  $query_update = "
+    UPDATE paciente
+    SET discapacitado = :discapacitado, descrip_disca = :descrip_disca
+    WHERE id_paciente = :id_paciente
+  ";
+  $stmt_update = $conn->prepare($query_update);
+  $stmt_update->bindParam(':discapacitado', $discapacitado, PDO::PARAM_INT);
+  $stmt_update->bindParam(':descrip_disca', $descrip_disca, PDO::PARAM_STR);
+  $stmt_update->bindParam(':id_paciente', $paciente['id_paciente'], PDO::PARAM_INT);
+
+  if ($stmt_update->execute()) {
+    echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+    <script>
+      window.onload = function() {
+        Swal.fire({
+          icon: 'success',
+          title: 'Información de discapacidad actualizada correctamente.',
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          timer: 3000,
+          willClose: () => {
+            window.location.href = 'ruta_a_tu_pagina.php'; 
+          }
+        });
+      }
+    </script>";
+  } else {
+    echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+    <script>
+      window.onload = function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al actualizar la información de discapacidad: " . $stmt_update->errorInfo()[2] . "',
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          timer: 3000,
+          willClose: () => {
+            window.location.href = 'ruta_a_tu_pagina.php'; 
+          }
+        });
+      }
+    </script>";
+  }
 
   // Verificar si el paciente tiene el máximo de citas permitidas para el día
   $query_verificar_citas = "

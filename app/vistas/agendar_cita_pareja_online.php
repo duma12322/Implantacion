@@ -73,6 +73,19 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
                 <input type="hidden" name="id_paciente" id="id_paciente" value="<?= $paciente['id_paciente']; ?>">
             </div>
 
+            <div class="form-group">
+                <label for="discapacitado">¿Es discapacitado?</label>
+                <select name="discapacitado" id="discapacitado" class="form-control" required>
+                    <option value="1">Sí</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="descrip_disca">Descripción de la discapacidad</label>
+                <textarea type="text" name="descrip_disca" id="descrip_disca" class="form-control"></textarea>
+            </div>
+
             <h3 class="mt-4">Datos de la Pareja</h3>
             <div class="form-group">
                 <label for="relacion_nombre1">Primer Nombre</label>
@@ -106,6 +119,19 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
             <div class="form-group">
                 <label for="relacion_numero_doc">Número de Documento</label>
                 <input type="text" name="relacion_numero_doc" id="relacion_numero_doc" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="relacion_discapacitado">¿Es discapacitado?</label>
+                <select name="relacion_discapacitado" id="relacion_discapacitado" class="form-control" required>
+                    <option value="1">Sí</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="relacion_descrip_disca">Descripción de la discapacidad</label>
+                <textarea type="text" name="relacion_descrip_disca" id="relacion_descrip_disca" class="form-control"></textarea>
             </div>
 
             <h3 class="mt-4">Datos de la Cita</h3>
@@ -150,7 +176,7 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="form-group">
                 <label for="monto">Monto</label>
-                <input type="number" name="monto" id="monto" class="form-control" value="30" required>
+                <input type="number" name="monto" id="monto" class="form-control" value="25" readonly required>
             </div>
             <button type="submit" class="btn btn-success">Agendar Cita</button>
         </form>

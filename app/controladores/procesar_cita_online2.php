@@ -17,15 +17,15 @@ $client->setAccessType('offline');
 // Verificar si ya tenemos un token de acceso guardado
 $tokenPath = '../../token.json';
 if (file_exists($tokenPath)) {
-    $accessToken = json_decode(file_get_contents($tokenPath), true);
-    $client->setAccessToken($accessToken);
+  $accessToken = json_decode(file_get_contents($tokenPath), true);
+  $client->setAccessToken($accessToken);
 }
 
 // Si el token ha caducado o no existe, redirigir a la autorización
 if ($client->isAccessTokenExpired() || !$client->getAccessToken()) {
-    $authUrl = $client->createAuthUrl();
-    header('Location: ' . filter_var($authUrl, FILTER_SANITIZE_URL));
-    exit;
+  $authUrl = $client->createAuthUrl();
+  header('Location: ' . filter_var($authUrl, FILTER_SANITIZE_URL));
+  exit;
 }
 
 // Crear servicio de Google Calendar
@@ -41,7 +41,9 @@ $ampm = $_POST['am_pm'];
 $motivo = $_POST['motivo'];
 $tipo_pago = $_POST['tipo_pago'];
 $referencia_bancaria = $_POST['referencia_bancaria'];
-$monto = 30;
+$discapacitado = $_POST['discapacitado'];
+$descrip_disca = $_POST['descrip_disca'];
+$monto = 20;
 
 // Convertir hora AM/PM a formato 24 horas
 $hora24 = ($ampm == 'PM' && $hora != 12) ? $hora + 12 : (($ampm == 'AM' && $hora == 12) ? 0 : $hora);
@@ -52,6 +54,53 @@ $minutos_totales = ($hora24 * 60) + $minutos + 45;
 $hora_final24 = intdiv($minutos_totales, 60);
 $minutos_finales = $minutos_totales % 60;
 $hora_final = sprintf("%02d:%02d:00", $hora_final24, $minutos_finales);
+
+// Consulta de actualización
+$query_update = "
+    UPDATE paciente
+    SET discapacitado = :discapacitado, descrip_disca = :descrip_disca
+    WHERE id_paciente = :id_paciente
+";
+$stmt_update = $conn->prepare($query_update);
+$stmt_update->bindParam(':discapacitado', $discapacitado, PDO::PARAM_INT);
+$stmt_update->bindParam(':descrip_disca', $descrip_disca, PDO::PARAM_STR);
+$stmt_update->bindParam(':id_paciente', $id_paciente, PDO::PARAM_INT);
+
+if ($stmt_update->execute()) {
+  echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+    <script>
+      window.onload = function() {
+        Swal.fire({
+          icon: 'success',
+          title: 'Información de discapacidad actualizada correctamente.',
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          timer: 3000,
+          willClose: () => {
+            window.location.href = 'ruta_a_tu_pagina.php'; // Cambia 'ruta_a_tu_pagina.php' por la ruta adecuada
+          }
+        });
+      }
+    </script>";
+} else {
+  echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+    <script>
+      window.onload = function() {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al actualizar la información de discapacidad: " . $stmt_update->errorInfo()[2] . "',
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          timer: 3000,
+          willClose: () => {
+            window.location.href = 'ruta_a_tu_pagina.php'; // Cambia 'ruta_a_tu_pagina.php' por la ruta adecuada
+          }
+        });
+      }
+    </script>";
+}
 
 // Verificar si el paciente tiene el máximo de citas permitidas para el día
 $query_verificar_citas = "
@@ -68,8 +117,8 @@ $stmt_verificar_citas->execute();
 $max_citas = $stmt_verificar_citas->fetch(PDO::FETCH_ASSOC)['max_citas'];
 
 if ($max_citas >= 3) {
-    // Mensaje con SweetAlert si el paciente ha alcanzado el máximo de citas
-    echo "
+  // Mensaje con SweetAlert si el paciente ha alcanzado el máximo de citas
+  echo "
         <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
         <script>
           window.onload = function() {
@@ -83,7 +132,7 @@ if ($max_citas >= 3) {
             });
           }
         </script>";
-    exit;
+  exit;
 }
 
 // Verificar si ya hay una cita en el horario
@@ -102,8 +151,8 @@ $stmt_agenda->execute();
 $agenda = $stmt_agenda->fetch(PDO::FETCH_ASSOC);
 
 if ($agenda) {
-    // Mensaje con SweetAlert si ya hay una cita agendada en ese horario
-    echo "
+  // Mensaje con SweetAlert si ya hay una cita agendada en ese horario
+  echo "
         <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
         <script>
           window.onload = function() {
@@ -117,30 +166,30 @@ if ($agenda) {
             });
           }
         </script>";
-    exit;
+  exit;
 } else {
-    $contador_cita = is_null($max_citas) ? 1 : $max_citas + 1;
+  $contador_cita = is_null($max_citas) ? 1 : $max_citas + 1;
 }
 
 // Crear evento en Google Calendar
 $event = new Google_Service_Calendar_Event([
-    'summary' => 'Cita con Psicólogo',
-    'location' => 'Online',
-    'description' => $motivo,
-    'start' => [
-        'dateTime' => $fecha . 'T' . $hora_inicio,
-        'timeZone' => 'America/Caracas',
-    ],
-    'end' => [
-        'dateTime' => $fecha . 'T' . $hora_final,
-        'timeZone' => 'America/Caracas',
-    ],
-    'conferenceData' => [
-        'createRequest' => [
-            'requestId' => uniqid(),
-            'conferenceSolutionKey' => ['type' => 'hangoutsMeet']
-        ]
+  'summary' => 'Cita con Psicólogo',
+  'location' => 'Online',
+  'description' => $motivo,
+  'start' => [
+    'dateTime' => $fecha . 'T' . $hora_inicio,
+    'timeZone' => 'America/Caracas',
+  ],
+  'end' => [
+    'dateTime' => $fecha . 'T' . $hora_final,
+    'timeZone' => 'America/Caracas',
+  ],
+  'conferenceData' => [
+    'createRequest' => [
+      'requestId' => uniqid(),
+      'conferenceSolutionKey' => ['type' => 'hangoutsMeet']
     ]
+  ]
 ]);
 
 $calendarId = 'primary';
@@ -159,11 +208,11 @@ $stmt_usuario->execute();
 $usuario = $stmt_usuario->fetch(PDO::FETCH_ASSOC);
 
 if ($usuario) {
-    $to = $usuario['correo'];
-    $subject =
-        "Cita Online Programada";
-    $message =
-        " <html> <head> <title>Cita Online Programada</title> 
+  $to = $usuario['correo'];
+  $subject =
+    "Cita Online Programada";
+  $message =
+    " <html> <head> <title>Cita Online Programada</title> 
     </head> <body> <p>Estimado(a) paciente,</p> 
     <p>Nos complace informarte que tu cita online con el psicólogo ha sido programada exitosamente.</p> 
     <p><strong>Detalles de la cita:</strong></p> <ul> <li><strong>Fecha:</strong> $fecha</li> 
@@ -175,32 +224,32 @@ if ($usuario) {
      <p>Si tienes alguna pregunta o necesitas reprogramar la cita, no dudes en contactarnos.</p> 
      <p>Saludos cordiales,<br>El equipo de EmocionVital</p> </body> </html> ";
 
-    // Configura PHPMailer
-    $mail = new PHPMailer(true);
-    try {
-        // Configuración del servidor
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'dunsuarez.ma@gmail.com';
-        $mail->Password = 'bctefgaywbterpcy';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
+  // Configura PHPMailer
+  $mail = new PHPMailer(true);
+  try {
+    // Configuración del servidor
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'dunsuarez.ma@gmail.com';
+    $mail->Password = 'bctefgaywbterpcy';
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = 587;
 
-        // Remitente
-        $mail->setFrom('dunsuarez.ma@gmail.com', 'EmocionVital');
+    // Remitente
+    $mail->setFrom('dunsuarez.ma@gmail.com', 'EmocionVital');
 
-        // Destinatario
-        $mail->addAddress($to);
+    // Destinatario
+    $mail->addAddress($to);
 
-        // Contenido
-        $mail->isHTML(true);
-        $mail->Subject = $subject;
-        $mail->Body = $message;
+    // Contenido
+    $mail->isHTML(true);
+    $mail->Subject = $subject;
+    $mail->Body = $message;
 
-        $mail->send();
-        // Mensaje de éxito al enviar el correo
-        echo "
+    $mail->send();
+    // Mensaje de éxito al enviar el correo
+    echo "
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
 <script>
   window.onload = function() {
@@ -214,9 +263,9 @@ if ($usuario) {
     });
   }
 </script>";
-    } catch (Exception $e) {
-        // Mensaje de error al no poder enviar el correo
-        echo "
+  } catch (Exception $e) {
+    // Mensaje de error al no poder enviar el correo
+    echo "
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
 <script>
   window.onload = function() {
@@ -231,7 +280,7 @@ if ($usuario) {
     });
   }
 </script>";
-    }
+  }
 }
 
 // Guardar la cita en la base de datos (en la tabla agenda)
@@ -258,20 +307,20 @@ $query_cita = " INSERT INTO cita (id_agenda, id_psicologo, id_paciente, fecha, m
    VALUES (:id_agenda, :id_psicologo, :id_paciente, :fecha, :motivo, :id_tipo_cita) ";
 $stmt_cita = $conn->prepare($query_cita);
 $stmt_cita->bindParam(
-    ':id_agenda',
-    $id_agenda
+  ':id_agenda',
+  $id_agenda
 );
 $stmt_cita->bindParam(
-    ':id_psicologo',
-    $id_psicologo
+  ':id_psicologo',
+  $id_psicologo
 );
 $stmt_cita->bindParam(':id_paciente', $id_paciente);
 $stmt_cita->bindParam(':fecha', $fecha);
 $stmt_cita->bindParam(':motivo', $motivo);
 $stmt_cita->bindParam(':id_tipo_cita', $id_tipo_cita); // Usar el id_tipo_cita de la sesión 
 if ($stmt_cita->execute()) {
-    // Mensaje de éxito al crear la cita
-    echo "
+  // Mensaje de éxito al crear la cita
+  echo "
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
 <script>
   window.onload = function() {
@@ -286,8 +335,8 @@ if ($stmt_cita->execute()) {
   }
 </script>";
 } else {
-    // Mensaje de error al no poder crear la cita
-    echo "
+  // Mensaje de error al no poder crear la cita
+  echo "
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
 <script>
   window.onload = function() {

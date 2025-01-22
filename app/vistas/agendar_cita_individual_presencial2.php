@@ -80,8 +80,23 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                         </option> <?php endforeach; ?>
                 </select>
             </div>
+
             <div class="form-group">
-                <label for="fecha">Fecha</label>
+                <label for="discapacitado">¿Es discapacitado?</label>
+                <select name="discapacitado" id="discapacitado" class="form-control" required>
+                    <option value="1">Sí</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="descrip_disca">Descripción de la discapacidad</label>
+                <textarea type="text" name="descrip_disca" id="descrip_disca" class="form-control"></textarea>
+            </div>
+
+            <h3 class="mt-4">Datos de la Cita</h3>
+            <div class="form-group">
+                <label for="fecha">Fecha de la Cita</label>
                 <input type="date" name="fecha" id="fecha" class="form-control" required>
             </div>
             <div class="form-group">
@@ -103,7 +118,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="form-group">
                 <label for="motivo">Motivo</label>
-                <input type="text" name="motivo" id="motivo" class="form-control" required>
+                <textarea type="text" name="motivo" id="motivo" class="form-control" required></textarea>
             </div>
             <h4 class="mt-4">Pago</h4>
             <div class="form-group">
@@ -115,12 +130,12 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                 </select>
             </div>
             <div class="form-group">
-                <label for="monto">Monto</label>
-                <input type="number" name="monto" id="monto" class="form-control" value="30" required>
-            </div>
-            <div class="form-group">
                 <label for="referencia_bancaria">Referencia Bancaria</label>
                 <input type="text" name="referencia_bancaria" id="referencia_bancaria" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="monto">Monto</label>
+                <input type="number" name="monto" id="monto" class="form-control" value="30" required>
             </div>
             <button type="submit" class="btn btn-success">Agendar Cita</button>
         </form>

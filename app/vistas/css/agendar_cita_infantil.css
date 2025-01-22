@@ -1,0 +1,175 @@
+
+
+/* CCS de Agendar Cita */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+}
+
+h4 {
+  text-align: center;
+ font-weight: bold;
+  font-family: 'Georgia', serif;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  font-size: 1.5rem;
+}
+
+/* Card styling */
+.card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  width: 80%; /* Ajuste del ancho al 100% del contenedor */
+}
+
+.card-header {
+  background: linear-gradient(#1b1b1b, #303030, #164a41);
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2rem;
+}
+
+/* Aseguramos que las columnas estén alineadas correctamente */
+.row {
+  display: flex;
+  justify-content: space-between; /* Distribuye las tarjetas con espacio entre ellas */
+}
+
+.col-md-6 {
+  display: flex;
+  justify-content: center; /* Centra el contenido en la columna */
+}
+
+.card-body {
+  display: flex;
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center; /* Centra el contenido verticalmente */
+}
+
+.card-body img {
+  width: 60%; /* Ajusta el tamaño según sea necesario */
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+}
+
+
+/* Efecto hover en las imágenes */
+.card-body img:hover {
+  transform: scale(1.01); /* Efecto de zoom sutil */
+  box-shadow: 0 0 10px 5px rgba(241, 178, 74, 0.7); /* Sombra con color #f1b24a */
+  filter: brightness(1); /* Devuelve el brillo a su nivel normal */
+}
+
+/* Estilo para los botones y enlaces */
+.card-body a {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Añadir un poco de espacio entre las tarjetas */
+.col-md-6 {
+  margin-bottom: 20px;
+}
+
+/* Responsividad: Aseguramos que las tarjetas ocupen el 50% del ancho en pantallas medianas */
+@media (max-width: 748px) {
+  .col-md-6 {
+    flex: 1 1 35%;
+    margin-bottom: 15px;
+  }
+}
+
+/* Image styling */
+img {
+  width: 80%;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect for images */
+img:hover {
+  transform: scale(1.05);
+}
+
+/* Column styling */
+.row {
+  margin-bottom: 30px;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Buttons and Links */
+a {
+  text-decoration: none;
+  display: block;
+  
+}
+
+a:hover {
+  color: #f1b24a; /* Cambio a un color verde neón */
+  text-shadow: 0 0 10px #4d774e (0, 179, 230, 0.8), 0 0 20px #164a41(0, 179, 230, 0.8); /* Resplandor neón */
+  transform: scale(1.05); /* Efecto de agrandamiento al pasar el ratón */
+}
+
+/* Archivo styles.css */
+.btn-custom {
+    background-color: white !important;
+    color: #007bff;
+    border: 1px solid #007bff;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn-custom:hover {
+    background-color: white;
+    color: #f1b24a;
+}
+
+/* Add responsiveness */
+@media (max-width: 768px) {
+  .col-md-6 {
+    margin-bottom: 20px;
+  }
+}
+
+
+.policy-box {
+    background-color: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.policy-box h5 {
+    font-weight: bold;
+    color: #007bff;
+  text-align: center;
+ font-weight: bold;
+  font-family: 'Georgia', serif;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+
+}
+
+.policy-box p {
+    color: #555;
+    font-size: 16px;
+}
