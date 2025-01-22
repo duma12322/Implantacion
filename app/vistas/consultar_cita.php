@@ -20,10 +20,13 @@ if (isset($_POST['cerrar_sesion'])) {
 
 $nombreUsuario = $_SESSION['usuario'];
 
-
-
 // Mostrar la Foto
 $stmt = $conn->prepare("SELECT foto FROM usuario WHERE usuario = :usuario");
+$stmt->execute([':usuario' => $nombreUsuario]);
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Mostrar la Foto
+$stmt = $conn->prepare("SELECT foto FROM administrativo  WHERE usuario = :usuario");
 $stmt->execute([':usuario' => $nombreUsuario]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -113,34 +116,45 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                             <td><?= htmlspecialchars($row['motivo']) ?></td>
                             <td><?= htmlspecialchars($row['tipo_cita']) ?></td>
                             <td><?= htmlspecialchars($row['modalidad']) ?></td>
-                            <td><?= htmlspecialchars($row['monto']) ?></td>
-                            <td><?= htmlspecialchars($row['status']) ?></td>
+                            <td><?= htmlspecialchars($row['tipo_pago']) . ' - $' . number_format($row['monto'], 2) ?></td>
+                            <td>
+                                <form method="POST" action="consultar_cita.php">
+                                    <select name="status" class="form-select">
+                                        <option value="Pendiente" <?= $row['status'] === 'Pendiente' ? 'selected' : '' ?>>Pendiente</option>
+                                        <option value="Confirmada" <?= $row['status'] === 'Confirmada' ? 'selected' : '' ?>>Confirmada</option>
+                                        <option value="Completada" <?= $row['status'] === 'Completada' ? 'selected' : '' ?>>Completada</option>
+                                        <option value="Cancelada" <?= $row['status'] === 'Cancelada' ? 'selected' : '' ?>>Cancelada</option>
+                                        <option value="Reprogramada" <?= $row['status'] === 'Reprogramada' ? 'selected' : '' ?>>Reprogramada</option>
+                                    </select>
+                                    <input type="hidden" name="id_agenda" value="<?= $row['id_agenda'] ?>">
+                                    <button type="submit" name="update_status" class="btn btn-primary mt-2">Guardar</button>
+                                </form>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="10" class="text-center">No se encontraron resultados</td>
+                        <td colspan="11" class="text-center text-muted">No se encontraron citas con los filtros seleccionados.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
-        </table>
 
-        <!-- Paginación -->
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <li class="page-item <?= ($page == 1) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page - 1 ?>">Anterior</a>
-                </li>
-                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                    <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+            <!-- Paginación -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item <?= ($page == 1) ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page - 1 ?>">Anterior</a>
                     </li>
-                <?php endfor; ?>
-                <li class="page-item <?= ($page == $total_pages) ? 'disabled' : '' ?>">
-                    <a class="page-link" href="?page=<?= $page + 1 ?>">Siguiente</a>
-                </li>
-            </ul>
-        </nav>
+                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                        <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+                        </li>
+                    <?php endfor; ?>
+                    <li class="page-item <?= ($page == $total_pages) ? 'disabled' : '' ?>">
+                        <a class="page-link" href="?page=<?= $page + 1 ?>">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
     </div>
 
     <!-- Scripts -->

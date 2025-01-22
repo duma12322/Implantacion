@@ -100,3 +100,25 @@ foreach ($params as $key => $value) {
 
 $stmt->execute();
 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Actualizar el estado de la agenda si se envía el formulario
+if (isset($_POST['update_status'])) {
+    $id_agenda = $_POST['id_agenda']; // Asegúrate de que id_agenda sea el campo correcto
+    $new_status = $_POST['status'];
+
+    // Actualizar el estado en la tabla agenda
+    $update_query = "UPDATE agenda SET status = :status WHERE id_agenda = :id_agenda";
+
+    try {
+        $stmt_update = $conn->prepare($update_query);
+        $stmt_update->bindValue(':status', $new_status);
+        $stmt_update->bindValue(':id_agenda', $id_agenda);
+        $stmt_update->execute();
+
+        // Redirigir a la misma página después de la actualización
+        header("Location: consultar_cita.php");
+        exit;
+    } catch (PDOException $e) {
+        die("Error al actualizar el estado: " . $e->getMessage());
+    }
+}

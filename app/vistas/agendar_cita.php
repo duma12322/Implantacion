@@ -25,6 +25,11 @@ $stmt = $conn->prepare("SELECT foto FROM usuario WHERE usuario = :usuario");
 $stmt->execute([':usuario' => $nombreUsuario]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// Mostrar la Foto
+$stmt = $conn->prepare("SELECT foto FROM administrativo  WHERE usuario = :usuario");
+$stmt->execute([':usuario' => $nombreUsuario]);
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
 if (isset($_POST['tipo_cita'])) {
     // Inserta el tipo de cita seleccionado en la base de datos y recupera el id_tipo_cita
     $tipoCita = $_POST['tipo_cita'];
@@ -68,7 +73,7 @@ if (isset($_POST['tipo_cita'])) {
 
 <body>
     <!-- Header -->
-   <header class="header">
+    <header class="header">
         <div class="dropdown">
             <!-- Botón del dropdown con la foto y el nombre del usuario -->
             <button class="dropbtn">

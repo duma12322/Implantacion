@@ -125,6 +125,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
             <div class="form-group">
                 <label for="tipo_pago">Tipo de Pago</label>
                 <select name="tipo_pago" id="tipo_pago" class="form-control" required>
+
                     <option value="TRANSFERENCIA BANCARIA">TRANSFERENCIA BANCARIA</option>
                     <option value="PAGO MOVIL">PAGO MOVIL</option>
                     <option value="EFECTIVO $">EFECTIVO $</option>
