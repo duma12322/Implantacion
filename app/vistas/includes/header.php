@@ -26,7 +26,7 @@
                 <?php echo htmlspecialchars($nombreUsuario); ?>
             </button>
             <div class="dropdown-content">
-                <a href="perfil_usuario.php">Perfil</a>
+                <a href="../../config/redirect.php">Perfil</a>
                 <a href="../../config/logout.php">Cerrar Sesion</a>
             </div>
         </div>
