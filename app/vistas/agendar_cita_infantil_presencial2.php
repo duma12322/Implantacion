@@ -221,16 +221,19 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script/relacion_num_doc.js"></script>
 
+
     <script>
-        // Obtiene los valores desde PHP
-        const numHijos = <?php echo json_encode($num_hijos); ?>;
-        const numDoc = <?php echo json_encode($num_doc); ?>;
+        const numHijos = <?php echo json_encode($num_hijos ?? null); ?>;
+        const numDoc = <?php echo json_encode($num_doc ?? null); ?>;
         const relacionNumeroDoc = numHijos + numDoc;
 
-        // Establece el campo de número de documento
         document.addEventListener('DOMContentLoaded', function() {
             const numeroDocField = document.getElementById('relacion_numero_doc');
-            numeroDocField.value = relacionNumeroDoc;
+            if (numeroDocField) {
+                numeroDocField.value = relacionNumeroDoc;
+            } else {
+                console.error("Campo 'relacion_numero_doc' no encontrado.");
+            }
         });
     </script>
 </body>

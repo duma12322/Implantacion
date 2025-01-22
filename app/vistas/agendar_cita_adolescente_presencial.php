@@ -160,7 +160,7 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
                 <label for="relacion_fecha_nac">Fecha de Nacimiento</label>
                 <input type="date" name="relacion_fecha_nac" id="relacion_fecha_nac" class="form-control" required>
                 <span id="age-warning" style="color: red; display: none;">Debe ser menor de edad.</span>
-                <span id="age-warning-12" style="color: red; display: none;">No puede ser mayor de 12 años.</span>
+                <span id="age-warning-12" style="color: red; display: none;">No puede ser menor de 12 años.</span>
             </div>
 
             <div class="form-group">
@@ -241,10 +241,9 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script/fecha.js"></script>
-    <script src="script/menorEdad.js "></script>
+    <script src="script/menorEdad2.js "></script>
     <script src="script/discapacitado.js"></script>
     <script src="script/relacion_discapacitado.js"></script>
-
 
     <script>
         const numHijos = <?php echo json_encode($num_hijos ?? null); ?>;

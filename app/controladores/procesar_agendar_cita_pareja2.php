@@ -157,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                  showConfirmButton: true,
         confirmButtonText: 'OK',
                 timer: 10000,
-                willClose: () => { window.location.href = '../vistas/agendar_cita_individual_presencial.php'; }
+                willClose: () => { window.location.href = '../vistas/agendar_cita_pareja_presencial2.php'; }
             });
           }
         </script>";
@@ -249,7 +249,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 showConfirmButton: true,
                 confirmButtonText: 'OK',
                 timer: 3000,
-                willClose: () => { window.location.href = '../vistas/agendar_cita_individual_presencial.php'; }
+                willClose: () => { window.location.href = '../vistas/agendar_cita_pareja_presencial2.php'; }
             });
           }
         </script>";

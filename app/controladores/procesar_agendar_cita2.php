@@ -41,41 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt_update->bindParam(':descrip_disca', $descrip_disca, PDO::PARAM_STR);
   $stmt_update->bindParam(':id_paciente', $paciente['id_paciente'], PDO::PARAM_INT);
 
-  if ($stmt_update->execute()) {
-    echo "
-    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
-    <script>
-      window.onload = function() {
-        Swal.fire({
-          icon: 'success',
-          title: 'Información de discapacidad actualizada correctamente.',
-          showConfirmButton: true,
-          confirmButtonText: 'OK',
-          timer: 3000,
-          willClose: () => {
-            window.location.href = 'ruta_a_tu_pagina.php'; // Cambia 'ruta_a_tu_pagina.php' por la ruta adecuada
-          }
-        });
-      }
-    </script>";
-  } else {
-    echo "
-    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
-    <script>
-      window.onload = function() {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error al actualizar la información de discapacidad: " . $stmt_update->errorInfo()[2] . "',
-          showConfirmButton: true,
-          confirmButtonText: 'OK',
-          timer: 3000,
-          willClose: () => {
-            window.location.href = 'ruta_a_tu_pagina.php'; // Cambia 'ruta_a_tu_pagina.php' por la ruta adecuada
-          }
-        });
-      }
-    </script>";
-  }
 
   // Verificar si el paciente tiene el máximo de citas permitidas para el día
   $query_verificar_citas = "

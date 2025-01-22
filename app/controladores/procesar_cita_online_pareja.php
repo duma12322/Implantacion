@@ -365,7 +365,7 @@ if ($stmt_cita->execute()) {
       showConfirmButton: true,
       confirmButtonText: 'OK',
       timer: 5000,
-      willClose: () => { window.location.href = '../vistas/agendar_cita_individual_onine.php'; }
+      willClose: () => { window.location.href = '../vistas/agendar_cita_pareja_online.php'; }
     });
   }
 </script>";

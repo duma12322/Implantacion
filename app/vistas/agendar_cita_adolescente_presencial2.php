@@ -1,32 +1,27 @@
 <?php
 session_start();
 
-// Verifica si la sesión está activa
-if (!isset($_SESSION['id_usuario'])) {
+// Verifica si la sesión está activa 
+if (!isset($_SESSION['usuario'])) {
     header("Location: login_paciente.php");
     exit;
 }
 
-$id_usuario = (int)$_SESSION['id_usuario'];
-
-include_once('../../config/conexion.php');
-
-$query_paciente = "
-    SELECT 
-        u.id_usuario, u.nombre1, u.nombre2, u.apellido1, u.apellido2, p.id_paciente 
-    FROM usuario u 
-    JOIN paciente p ON u.id_usuario = p.id_usuario
-    WHERE u.id_usuario = :id_usuario
-";
-$stmt_paciente = $conn->prepare($query_paciente);
-$stmt_paciente->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-$stmt_paciente->execute();
-$paciente = $stmt_paciente->fetch(PDO::FETCH_ASSOC);
-
-if (!$paciente) {
-    echo "No se encontró información para el paciente.";
+// Verifica si se hizo clic en el botón de cerrar sesión 
+if (isset($_POST['cerrar_sesion'])) {
+    session_unset();
+    session_destroy();
+    header("Location: login_paciente.php");
     exit;
 }
+
+$nombreUsuario = $_SESSION['usuario'];
+include_once('../../config/conexion.php');
+
+// Mostrar la Foto
+$stmt = $conn->prepare("SELECT foto FROM administrativo  WHERE usuario = :usuario");
+$stmt->execute([':usuario' => $nombreUsuario]);
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $query_psicologos = "
     SELECT 
@@ -40,46 +35,23 @@ $stmt_psicologos = $conn->prepare($query_psicologos);
 $stmt_psicologos->execute();
 $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
 
+// Consultar todos los pacientes
+$query_pacientes = "
+    SELECT p.id_paciente, CONCAT(u.nombre1, ' ', u.apellido1) AS nombre_completo
+    FROM paciente p
+    JOIN usuario u ON p.id_usuario = u.id_usuario
+";
+$stmt_pacientes = $conn->prepare($query_pacientes);
+$stmt_pacientes->execute();
+$result_pacientes = $stmt_pacientes->fetchAll(PDO::FETCH_ASSOC);
+
+
 $query_agenda = "SELECT * FROM agenda WHERE status = 'Pendiente'";
 $stmt_agenda = $conn->prepare($query_agenda);
 $stmt_agenda->execute();
 $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 
-// Obtener el número de hijos del paciente desde la base de datos
-$stmt_paciente = $conn->prepare("SELECT num_hijos FROM paciente WHERE id_paciente = :id_paciente");
-$stmt_paciente->execute([':id_paciente' => $paciente['id_paciente']]);
-$info_paciente = $stmt_paciente->fetch(PDO::FETCH_ASSOC);
 
-$stmt_usuario = $conn->prepare("SELECT tipo_doc FROM usuario WHERE id_usuario = :id_usuario");
-$stmt_usuario->execute([':id_usuario' => $id_usuario]);
-$info_usuario = $stmt_usuario->fetch(PDO::FETCH_ASSOC);
-
-$tipo_doc = isset($info_usuario['tipo_doc']) ? htmlspecialchars($info_usuario['tipo_doc']) : '';
-
-if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
-    $num_hijos = $info_paciente['num_hijos'];
-
-    // Obtener el número de documento del usuario desde la base de datos
-    $stmt_usuario = $conn->prepare("SELECT num_doc FROM usuario WHERE id_usuario = :id_usuario");
-    $stmt_usuario->execute([':id_usuario' => $id_usuario]);
-    $info_usuario = $stmt_usuario->fetch(PDO::FETCH_ASSOC);
-
-    if ($info_usuario && $info_usuario['num_doc'] !== NULL) {
-        $num_doc = $info_usuario['num_doc'];
-
-        // Crear el número de documento combinando el num_hijos y el num_doc con un guion
-        $relacion_numero_doc = $num_hijos . "-" . $num_doc;
-        echo "Número de Documento Generado: " . $relacion_numero_doc;
-        // Almacenar el valor en una variable de sesión
-        $_SESSION['relacion_numero_doc'] = $relacion_numero_doc;
-    } else {
-        echo "No se encontró un número de documento válido para el usuario.";
-        $relacion_numero_doc = "";
-    }
-} else {
-    echo "No se encontró un número de hijos válido para el paciente.";
-    $relacion_numero_doc = "";
-}
 ?>
 
 <!DOCTYPE html>
@@ -96,7 +68,7 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
 <body>
     <div class="container">
         <h2 class="my-4">Agendar Cita Individual Presencial</h2>
-        <form action="../controladores/procesar_agendar_cita_infantil.php" method="POST">
+        <form action="../controladores/procesar_agendar_cita_adolescente2.php" method="POST">
             <div class="form-group">
                 <label for="id_psicologo">Psicólogo</label>
                 <select name="id_psicologo" id="id_psicologo" class="form-control" required>
@@ -108,10 +80,12 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="paciente_nombre">Paciente</label>
-                <input type="text" id="paciente_nombre" class="form-control" value="<?= $paciente['nombre1'] . ' ' . $paciente['nombre2'] . ' ' . $paciente['apellido1'] . ' ' . $paciente['apellido2']; ?>" readonly>
-                <input type="hidden" name="id_paciente" id="id_paciente" value="<?= $paciente['id_paciente']; ?>">
+            <div class="form-group"> <label for="id_paciente">Paciente</label>
+                <select name="id_paciente" id="id_paciente" class="form-control" required>
+                    <option value="">Seleccione un paciente</option> <?php foreach ($result_pacientes as $row_paciente): ?>
+                        <option value="<?= $row_paciente['id_paciente']; ?>"> <?= $row_paciente['nombre_completo']; ?>
+                        </option> <?php endforeach; ?>
+                </select>
             </div>
 
             <div class="form-group">
@@ -165,12 +139,12 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
 
             <div class="form-group">
                 <label for="relacion_tipo_doc">Tipo de Documento</label>
-                <input type="text" name="relacion_tipo_doc" id="relacion_tipo_doc" class="form-control" value="<?= $tipo_doc ?>" readonly>
+                <input type="text" name="relacion_tipo_doc" id="relacion_tipo_doc" class="form-control" readonly>
             </div>
 
             <div class="form-group">
                 <label for="relacion_numero_doc">Número de Documento</label>
-                <input type="text" name="relacion_numero_doc" id="relacion_numero_doc" class="form-control" required readonly value="<?php echo htmlspecialchars($_SESSION['relacion_numero_doc'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="text" name="relacion_numero_doc" id="relacion_numero_doc" class="form-control" readonly>
             </div>
 
             <div class="form-group">
@@ -241,10 +215,11 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script/fecha.js"></script>
-    <script src="script/menorEdad.js "></script>
+    <script src="script/menorEdad2.js "></script>
     <script src="script/discapacitado.js"></script>
     <script src="script/relacion_discapacitado.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script/relacion_num_doc.js"></script>
 
     <script>
         const numHijos = <?php echo json_encode($num_hijos ?? null); ?>;
@@ -260,6 +235,7 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
             }
         });
     </script>
+
 </body>
 
 </html>

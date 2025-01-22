@@ -74,42 +74,6 @@ $stmt_update_paciente->bindParam(':discapacitado', $discapacitado, PDO::PARAM_IN
 $stmt_update_paciente->bindParam(':descrip_disca', $descrip_disca, PDO::PARAM_STR);
 $stmt_update_paciente->bindParam(':id_paciente', $id_paciente, PDO::PARAM_INT);
 
-if ($stmt_update_paciente->execute()) {
-  echo "
-    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
-    <script>
-      window.onload = function() {
-        Swal.fire({
-          icon: 'success',
-          title: 'Información de discapacidad actualizada correctamente.',
-          showConfirmButton: true,
-          confirmButtonText: 'OK',
-          timer: 3000,
-          willClose: () => {
-            window.location.href = 'ruta_a_tu_pagina.php'; 
-          }
-        });
-      }
-    </script>";
-} else {
-  echo "
-    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
-    <script>
-      window.onload = function() {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error al actualizar la información de discapacidad: " . $stmt_update_paciente->errorInfo()[2] . "',
-          showConfirmButton: true,
-          confirmButtonText: 'OK',
-          timer: 3000,
-          willClose: () => {
-            window.location.href = 'ruta_a_tu_pagina.php'; 
-          }
-        });
-      }
-    </script>";
-}
-
 // Verificar si el paciente tiene el máximo de citas permitidas para el día
 $query_verificar_citas = "
         SELECT MAX(contador_cita) AS max_citas 
@@ -170,7 +134,7 @@ if ($agenda) {
                  showConfirmButton: true,
         confirmButtonText: 'OK',
                 timer: 10000,
-                willClose: () => { window.location.href = '../vistas/agendar_cita_individual_online.php'; }
+                willClose: () => { window.location.href = '../vistas/agendar_cita_pareja_online2.php'; }
             });
           }
         </script>";
@@ -284,7 +248,7 @@ if ($usuario) {
       showConfirmButton: true,
       confirmButtonText: 'OK',
       timer: 5000,
-      willClose: () => { window.location.href = '../vistas/agendar_cita_individual_onine.php'; }
+      willClose: () => { window.location.href = '../vistas/agendar_cita_pareja_online2.php'; }
     });
   }
 </script>";
@@ -354,7 +318,7 @@ if ($stmt_cita->execute()) {
       showConfirmButton: true,
       confirmButtonText: 'OK',
       timer: 5000,
-      willClose: () => { window.location.href = '../vistas/agendar_cita_individual_onine.php'; }
+      willClose: () => { window.location.href = '../vistas/agendar_cita_pareja_online2.php'; }
     });
   }
 </script>";
