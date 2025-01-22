@@ -35,46 +35,23 @@ $stmt_psicologos = $conn->prepare($query_psicologos);
 $stmt_psicologos->execute();
 $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
 
+// Consultar todos los pacientes
+$query_pacientes = "
+    SELECT p.id_paciente, CONCAT(u.nombre1, ' ', u.apellido1) AS nombre_completo
+    FROM paciente p
+    JOIN usuario u ON p.id_usuario = u.id_usuario
+";
+$stmt_pacientes = $conn->prepare($query_pacientes);
+$stmt_pacientes->execute();
+$result_pacientes = $stmt_pacientes->fetchAll(PDO::FETCH_ASSOC);
+
+
 $query_agenda = "SELECT * FROM agenda WHERE status = 'Pendiente'";
 $stmt_agenda = $conn->prepare($query_agenda);
 $stmt_agenda->execute();
 $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 
-// Obtener el número de hijos del paciente desde la base de datos
-$stmt_paciente = $conn->prepare("SELECT num_hijos FROM paciente WHERE id_paciente = :id_paciente");
-$stmt_paciente->execute([':id_paciente' => $paciente['id_paciente']]);
-$info_paciente = $stmt_paciente->fetch(PDO::FETCH_ASSOC);
 
-$stmt_usuario = $conn->prepare("SELECT tipo_doc FROM usuario WHERE id_usuario = :id_usuario");
-$stmt_usuario->execute([':id_usuario' => $id_usuario]);
-$info_usuario = $stmt_usuario->fetch(PDO::FETCH_ASSOC);
-
-$tipo_doc = isset($info_usuario['tipo_doc']) ? htmlspecialchars($info_usuario['tipo_doc']) : '';
-
-if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
-    $num_hijos = $info_paciente['num_hijos'];
-
-    // Obtener el número de documento del usuario desde la base de datos
-    $stmt_usuario = $conn->prepare("SELECT num_doc FROM usuario WHERE id_usuario = :id_usuario");
-    $stmt_usuario->execute([':id_usuario' => $id_usuario]);
-    $info_usuario = $stmt_usuario->fetch(PDO::FETCH_ASSOC);
-
-    if ($info_usuario && $info_usuario['num_doc'] !== NULL) {
-        $num_doc = $info_usuario['num_doc'];
-
-        // Crear el número de documento combinando el num_hijos y el num_doc con un guion
-        $relacion_numero_doc = $num_hijos . "-" . $num_doc;
-
-        // Almacenar el valor en una variable de sesión
-        $_SESSION['relacion_numero_doc'] = $relacion_numero_doc;
-    } else {
-        echo "No se encontró un número de documento válido para el usuario.";
-        $relacion_numero_doc = "";
-    }
-} else {
-    echo "No se encontró un número de hijos válido para el paciente.";
-    $relacion_numero_doc = "";
-}
 ?>
 
 <!DOCTYPE html>
@@ -157,16 +134,17 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
                 <label for="relacion_fecha_nac">Fecha de Nacimiento</label>
                 <input type="date" name="relacion_fecha_nac" id="relacion_fecha_nac" class="form-control" required>
                 <span id="age-warning" style="color: red; display: none;">Debe ser menor de edad.</span>
+                <span id="age-warning-12" style="color: red; display: none;">No puede ser mayor de 12 años.</span>
             </div>
 
             <div class="form-group">
                 <label for="relacion_tipo_doc">Tipo de Documento</label>
-                <input type="text" name="relacion_tipo_doc" id="relacion_tipo_doc" class="form-control" value="<?= $tipo_doc ?>" readonly>
+                <input type="text" name="relacion_tipo_doc" id="relacion_tipo_doc" class="form-control" readonly>
             </div>
 
             <div class="form-group">
                 <label for="relacion_numero_doc">Número de Documento</label>
-                <input type="text" name="relacion_numero_doc" id="relacion_numero_doc" class="form-control" required readonly value="<?php echo htmlspecialchars($_SESSION['relacion_numero_doc'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="text" name="relacion_numero_doc" id="relacion_numero_doc" class="form-control" readonly>
             </div>
 
             <div class="form-group">
@@ -240,6 +218,8 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
     <script src="script/menorEdad.js "></script>
     <script src="script/discapacitado.js"></script>
     <script src="script/relacion_discapacitado.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script/relacion_num_doc.js"></script>
 
     <script>
         // Obtiene los valores desde PHP

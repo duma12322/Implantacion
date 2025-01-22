@@ -69,7 +69,7 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
 
         // Crear el número de documento combinando el num_hijos y el num_doc con un guion
         $relacion_numero_doc = $num_hijos . "-" . $num_doc;
-
+        echo "Número de Documento Generado: " . $relacion_numero_doc;
         // Almacenar el valor en una variable de sesión
         $_SESSION['relacion_numero_doc'] = $relacion_numero_doc;
     } else {
@@ -160,6 +160,7 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
                 <label for="relacion_fecha_nac">Fecha de Nacimiento</label>
                 <input type="date" name="relacion_fecha_nac" id="relacion_fecha_nac" class="form-control" required>
                 <span id="age-warning" style="color: red; display: none;">Debe ser menor de edad.</span>
+                <span id="age-warning-12" style="color: red; display: none;">No puede ser mayor de 12 años.</span>
             </div>
 
             <div class="form-group">
