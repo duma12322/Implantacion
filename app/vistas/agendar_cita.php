@@ -19,16 +19,29 @@ if (isset($_POST['cerrar_sesion'])) {
 }
 
 $nombreUsuario = $_SESSION['usuario'];
+$fotoUsuario = 'files/avatar.png '; // Cambia esta ruta según sea necesario
 
-// Mostrar la Foto
-$stmt = $conn->prepare("SELECT foto FROM usuario WHERE usuario = :usuario");
+// Aquí aseguramos que la variable $tipoUsuario esté definida
+if (isset($_SESSION['tipo_usuario'])) {
+    $tipoUsuario = $_SESSION['tipo_usuario'];
+} else {
+    // Manejar el caso donde $tipoUsuario no está definido
+    echo "No se encontró el tipo de usuario.";
+    exit;
+}
+
+// Mostrar la Foto según el tipo de usuario
+if ($tipoUsuario === 'paciente') {
+    $stmt = $conn->prepare("SELECT foto FROM usuario WHERE usuario = :usuario");
+} else {
+    $stmt = $conn->prepare("SELECT foto FROM administrativo WHERE usuario = :usuario");
+}
 $stmt->execute([':usuario' => $nombreUsuario]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Mostrar la Foto
-$stmt = $conn->prepare("SELECT foto FROM administrativo  WHERE usuario = :usuario");
-$stmt->execute([':usuario' => $nombreUsuario]);
-$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+if ($usuario && isset($usuario['foto'])) {
+    $fotoUsuario = $usuario['foto'];
+}
 
 if (isset($_POST['tipo_cita'])) {
     // Inserta el tipo de cita seleccionado en la base de datos y recupera el id_tipo_cita
@@ -44,7 +57,6 @@ if (isset($_POST['tipo_cita'])) {
     $_SESSION['tipoCita'] = $tipoCita;
     $_SESSION['modalidad'] = $modalidad;
 
-    // Redirige a la página correspondiente según el tipo de cita
     // Redirige a la página correspondiente según el tipo de cita
     if ($tipoCita == 'pareja') {
         header("Location: agendar_cita_pareja.php");

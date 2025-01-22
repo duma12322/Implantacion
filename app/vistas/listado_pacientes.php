@@ -22,6 +22,12 @@ if (isset($_POST['cerrar_sesion'])) {
 $nombreUsuario = $_SESSION['usuario'];
 // Inicializar el controlador y obtener usuarios
 $controller = new listado_PacienteControlador();
+
+// Mostrar la Foto
+$stmt = $conn->prepare("SELECT foto FROM administrativo  WHERE usuario = :usuario");
+$stmt->execute([':usuario' => $nombreUsuario]);
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
 $searchTerm = '';
 if (isset($_POST['search']) && !empty($_POST['search'])) {
     $searchTerm = $_POST['search'];
@@ -65,7 +71,7 @@ if (isset($_POST['id_usuario'])) {
 
     <!-- Sidebar -->
     <?php include 'includes/sidebar.php'; ?>
-    
+
 
     <div class="container mt-5">
         <h1 class="text-center mb-4">Listado de Pacientes</h1>

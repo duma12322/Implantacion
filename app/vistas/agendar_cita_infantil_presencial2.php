@@ -23,15 +23,6 @@ $stmt = $conn->prepare("SELECT foto FROM administrativo  WHERE usuario = :usuari
 $stmt->execute([':usuario' => $nombreUsuario]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Consultar todos los pacientes
-$query_pacientes = "
-    SELECT p.id_paciente, CONCAT(u.nombre1, ' ', u.apellido1) AS nombre_completo
-    FROM paciente p
-    JOIN usuario u ON p.id_usuario = u.id_usuario
-";
-$stmt_pacientes = $conn->prepare($query_pacientes);
-$stmt_pacientes->execute();
-$result_pacientes = $stmt_pacientes->fetchAll(PDO::FETCH_ASSOC);
 $query_psicologos = "
     SELECT 
         p.id_psicologo, 
@@ -48,6 +39,42 @@ $query_agenda = "SELECT * FROM agenda WHERE status = 'Pendiente'";
 $stmt_agenda = $conn->prepare($query_agenda);
 $stmt_agenda->execute();
 $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
+
+// Obtener el número de hijos del paciente desde la base de datos
+$stmt_paciente = $conn->prepare("SELECT num_hijos FROM paciente WHERE id_paciente = :id_paciente");
+$stmt_paciente->execute([':id_paciente' => $paciente['id_paciente']]);
+$info_paciente = $stmt_paciente->fetch(PDO::FETCH_ASSOC);
+
+$stmt_usuario = $conn->prepare("SELECT tipo_doc FROM usuario WHERE id_usuario = :id_usuario");
+$stmt_usuario->execute([':id_usuario' => $id_usuario]);
+$info_usuario = $stmt_usuario->fetch(PDO::FETCH_ASSOC);
+
+$tipo_doc = isset($info_usuario['tipo_doc']) ? htmlspecialchars($info_usuario['tipo_doc']) : '';
+
+if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
+    $num_hijos = $info_paciente['num_hijos'];
+
+    // Obtener el número de documento del usuario desde la base de datos
+    $stmt_usuario = $conn->prepare("SELECT num_doc FROM usuario WHERE id_usuario = :id_usuario");
+    $stmt_usuario->execute([':id_usuario' => $id_usuario]);
+    $info_usuario = $stmt_usuario->fetch(PDO::FETCH_ASSOC);
+
+    if ($info_usuario && $info_usuario['num_doc'] !== NULL) {
+        $num_doc = $info_usuario['num_doc'];
+
+        // Crear el número de documento combinando el num_hijos y el num_doc con un guion
+        $relacion_numero_doc = $num_hijos . "-" . $num_doc;
+
+        // Almacenar el valor en una variable de sesión
+        $_SESSION['relacion_numero_doc'] = $relacion_numero_doc;
+    } else {
+        echo "No se encontró un número de documento válido para el usuario.";
+        $relacion_numero_doc = "";
+    }
+} else {
+    echo "No se encontró un número de hijos válido para el paciente.";
+    $relacion_numero_doc = "";
+}
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +91,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <div class="container">
         <h2 class="my-4">Agendar Cita Individual Presencial</h2>
-        <form action="../controladores/procesar_agendar_cita_pareja2.php" method="POST">
+        <form action="../controladores/procesar_agendar_cita_infantil2.php" method="POST">
             <div class="form-group">
                 <label for="id_psicologo">Psicólogo</label>
                 <select name="id_psicologo" id="id_psicologo" class="form-control" required>
@@ -98,7 +125,17 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                 <textarea type="text" name="descrip_disca" id="descrip_disca" class="form-control"></textarea>
             </div>
 
-            <h3 class="mt-4">Datos de la Pareja</h3>
+            <h3 class="mt-4">Datos del Paciente Infantil</h3>
+            <div class="form-group">
+                <label for="relacion_familiar">Tipo de Documento</label>
+                <select name="relacion_familiar" id="relacion_familiar" class="form-control">
+                    <option value="Hijo">Hijo</option>
+                    <option value="Sobrino">Sobrino</option>
+                    <option value="Ahijado">Ahijado</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+
             <div class="form-group">
                 <label for="relacion_nombre1">Primer Nombre</label>
                 <input type="text" name="relacion_nombre1" id="relacion_nombre1" class="form-control" required>
@@ -115,23 +152,21 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                 <label for="relacion_apellido2">Segundo Apellido</label>
                 <input type="text" name="relacion_apellido2" id="relacion_apellido2" class="form-control">
             </div>
+
             <div class="form-group">
                 <label for="relacion_fecha_nac">Fecha de Nacimiento</label>
                 <input type="date" name="relacion_fecha_nac" id="relacion_fecha_nac" class="form-control" required>
+                <span id="age-warning" style="color: red; display: none;">Debe ser menor de edad.</span>
             </div>
+
             <div class="form-group">
                 <label for="relacion_tipo_doc">Tipo de Documento</label>
-                <select name="relacion_tipo_doc" id="relacion_tipo_doc" class="form-control">
-                    <option value="">Seleccione un tipo de documento</option>
-                    <option value="V">V</option>
-                    <option value="E">E</option>
-                    <option value="J">J</option>
-                    <option value="P">P</option>
-                </select>
+                <input type="text" name="relacion_tipo_doc" id="relacion_tipo_doc" class="form-control" value="<?= $tipo_doc ?>" readonly>
             </div>
+
             <div class="form-group">
                 <label for="relacion_numero_doc">Número de Documento</label>
-                <input type="text" name="relacion_numero_doc" id="relacion_numero_doc" class="form-control" required>
+                <input type="text" name="relacion_numero_doc" id="relacion_numero_doc" class="form-control" required readonly value="<?php echo htmlspecialchars($_SESSION['relacion_numero_doc'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
             </div>
 
             <div class="form-group">
@@ -202,8 +237,22 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script/fecha.js"></script>
+    <script src="script/menorEdad.js "></script>
     <script src="script/discapacitado.js"></script>
     <script src="script/relacion_discapacitado.js"></script>
+
+    <script>
+        // Obtiene los valores desde PHP
+        const numHijos = <?php echo json_encode($num_hijos); ?>;
+        const numDoc = <?php echo json_encode($num_doc); ?>;
+        const relacionNumeroDoc = numHijos + numDoc;
+
+        // Establece el campo de número de documento
+        document.addEventListener('DOMContentLoaded', function() {
+            const numeroDocField = document.getElementById('relacion_numero_doc');
+            numeroDocField.value = relacionNumeroDoc;
+        });
+    </script>
 </body>
 
 </html>

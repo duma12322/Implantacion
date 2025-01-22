@@ -19,6 +19,11 @@ $nombreUsuario = $_SESSION['usuario'];
 
 include_once('../../config/conexion.php');
 
+// Mostrar la Foto
+$stmt = $conn->prepare("SELECT foto FROM administrativo  WHERE usuario = :usuario");
+$stmt->execute([':usuario' => $nombreUsuario]);
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
 // Consultar psicólogos disponibles
 $query_psicologos = "
     SELECT 

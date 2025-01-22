@@ -19,6 +19,12 @@ if (isset($_POST['cerrar_sesion'])) {
 
 $nombreUsuario = $_SESSION['usuario'];
 $controller = new listado_PsicologosControlador();
+
+// Mostrar la Foto
+$stmt = $conn->prepare("SELECT foto FROM administrativo  WHERE usuario = :usuario");
+$stmt->execute([':usuario' => $nombreUsuario]);
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
 $searchTerm = '';
 if (isset($_POST['search']) && !empty($_POST['search'])) {
     $searchTerm = $_POST['search'];
