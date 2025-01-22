@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2025 a las 23:01:20
--- Versión del servidor: 11.4.4-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 22-01-2025 a las 01:55:48
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -79,17 +79,9 @@ INSERT INTO `agenda` (`id_agenda`, `fecha`, `hora_inicio`, `hora_final`, `contad
 (76, '2025-01-20', '22:00:00', '22:45:00', 1, 4, 'Pendiente', NULL),
 (77, '2025-01-20', '01:00:00', '01:45:00', 1, 2, 'Pendiente', NULL),
 (78, '2025-01-20', '03:00:00', '03:45:00', 1, 6, 'Pendiente', 'https://meet.google.com/jyo-emfb-qmb'),
-(80, '2025-01-21', '01:00:00', '01:45:00', 1, 2, 'Pendiente', NULL),
-(81, '2025-01-22', '22:00:00', '22:45:00', 1, 4, 'Pendiente', 'https://meet.google.com/mdv-skrh-pix'),
-(82, '2025-01-21', '05:00:00', '05:45:00', 1, 9, 'Pendiente', 'https://meet.google.com/zrt-jcbe-ayp'),
-(83, '2025-01-22', '05:00:00', '05:45:00', 1, 6, 'Pendiente', 'https://meet.google.com/hzn-bxpp-jdw'),
-(84, '2025-01-22', '07:00:00', '07:45:00', 1, 11, 'Pendiente', 'https://meet.google.com/jgf-nidc-zdq'),
-(85, '2025-01-23', '05:00:00', '05:45:00', 1, 2, 'Pendiente', 'https://meet.google.com/ure-rhwz-rmv'),
-(86, '2025-01-23', '22:00:00', '22:45:00', 1, 6, 'Pendiente', 'https://meet.google.com/hot-xife-yis'),
-(87, '2025-01-22', '03:00:00', '03:45:00', 2, 4, 'Pendiente', 'https://meet.google.com/jdh-irxm-bmm'),
-(88, '2025-02-27', '22:00:00', '22:45:00', 1, 5, 'Pendiente', 'https://meet.google.com/mgs-fppm-xhj'),
-(89, '2025-01-28', '22:00:00', '22:45:00', 1, 11, 'Pendiente', NULL),
-(90, '2025-01-26', '22:00:00', '22:45:00', 1, 4, 'Pendiente', 'https://meet.google.com/pbe-wrpa-onf');
+(91, '2025-01-29', '01:00:00', '01:45:00', 1, 11, 'Pendiente', NULL),
+(92, '2025-01-31', '10:00:00', '10:45:00', 1, 9, 'Pendiente', 'https://meet.google.com/dyu-zryj-jwj'),
+(93, '2025-02-02', '22:00:00', '22:45:00', 1, 2, 'Pendiente', 'https://meet.google.com/kqy-uhiy-kpy');
 
 -- --------------------------------------------------------
 
@@ -139,8 +131,9 @@ INSERT INTO `cita` (`id_cita`, `id_agenda`, `id_psicologo`, `id_paciente`, `id_t
 (83, 76, 7, 4, 135, '2025-01-20 00:00:00', 'Consulta'),
 (84, 77, 7, 2, 136, '2025-01-20 00:00:00', 'Test10'),
 (85, 78, 7, 6, 138, '2025-01-20 00:00:00', 'Test50'),
-(87, 80, 7, 2, 142, '2025-01-21 00:00:00', 'consultatestpareja'),
-(88, 81, 7, 4, 146, '2025-01-22 00:00:00', 'Test3');
+(89, 91, 7, 11, 159, '2025-01-29 00:00:00', 'test9'),
+(90, 92, 7, 9, 160, '2025-01-31 00:00:00', 'Test10'),
+(91, 93, 7, 2, 161, '2025-02-02 00:00:00', 'ConsultaPareja');
 
 -- --------------------------------------------------------
 
@@ -1397,12 +1390,10 @@ CREATE TABLE `paciente_relacion` (
 --
 
 INSERT INTO `paciente_relacion` (`id_paciente_relacion`, `id_paciente`, `relacion_familiar`, `relacion_nombre1`, `relacion_nombre2`, `relacion_apellido1`, `relacion_apellido2`, `relacion_fecha_nac`, `relacion_tipo_doc`, `relacion_numero_doc`) VALUES
-(1, 2, 'Pareja', 'Juan', 'Jose', 'Perez', 'Perez', '2000-01-01', 'V', '20145963'),
-(2, 4, 'Pareja', 'Test3', 'Test3', 'Test3', 'Test3', '1990-01-20', 'V', '10789654'),
-(3, 11, 'Pareja', 'test5', 'test5', 'test5', 'test5', '1990-01-22', 'V', '20145965'),
-(4, 2, 'Pareja', 'Test6', 'Test6', 'Test6', 'Test6', '1995-07-05', 'V', '19865236'),
-(5, 11, 'Pareja', 'Test7', 'Test7', 'Test7', 'Test7', '1991-02-10', 'E', '10789657'),
-(6, 4, 'Pareja', 'test8', 'test8', 'test8', 'test8', '1989-03-03', 'P', '878754512');
+(7, 11, 'Pareja', 'test9', 'test9', 'test9', 'test9', '1999-05-05', 'V', '19853658'),
+(8, 9, 'Pareja', 'Test10', 'Test10', 'Test10', 'Test10', '1994-10-16', 'V', '22198821'),
+(9, 2, 'Pareja', 'Jose', 'Luis', 'Perez', 'Mendoza', '1996-07-06', 'V', '20145968');
+
 -- --------------------------------------------------------
 
 --
@@ -1428,19 +1419,9 @@ INSERT INTO `pago_cita` (`id_pago_cita`, `id_cita`, `tipo_pago`, `monto`, `fecha
 (64, 83, 'TRANSFERENCIA BANCARIA', 30, '2025-01-20', 454545),
 (65, 84, 'TRANSFERENCIA BANCARIA', 30, '2025-01-20', 454545),
 (66, 85, 'TRANSFERENCIA BANCARIA', 30, '2025-01-20', 454545),
-(67, 86, 'TRANSFERENCIA BANCARIA', 30, '2025-01-20', 454545),
-(68, 87, 'TRANSFERENCIA BANCARIA', 30, '2025-01-20', 454545),
-(69, 88, 'TRANSFERENCIA BANCARIA', 30, '2025-01-20', 2147483647),
-(70, 89, 'TRANSFERENCIA BANCARIA', 30, '2025-01-21', 54454545),
-(71, 90, 'TRANSFERENCIA BANCARIA', 30, '2025-01-21', 45454545),
-(72, 91, 'TRANSFERENCIA BANCARIA', 30, '2025-01-21', 45454545),
-(73, 92, 'TRANSFERENCIA BANCARIA', 30, '2025-01-21', 454544444),
-(74, 93, 'TRANSFERENCIA BANCARIA', 30, '2025-01-21', 454545),
-(75, 94, 'PAGO MOVIL', 30, '2025-01-21', 112223366),
-(76, 95, 'TRANSFERENCIA BANCARIA', 30, '2025-01-21', 86324),
-(77, 96, 'TRANSFERENCIA BANCARIA', 30, '2025-01-21', 545454545),
-(78, 97, 'PAGO MOVIL', 30, '2025-01-21', 8597);
-
+(79, 89, 'TRANSFERENCIA BANCARIA', 30, '2025-01-21', 4589),
+(80, 90, 'TRANSFERENCIA BANCARIA', 30, '2025-01-21', 596347),
+(81, 91, 'TRANSFERENCIA BANCARIA', 30, '2025-01-21', 8569);
 
 -- --------------------------------------------------------
 
@@ -2666,21 +2647,9 @@ INSERT INTO `tipo_cita` (`id_tipo_cita`, `tipo_cita`, `modalidad`) VALUES
 (135, 'individual', 'presencial'),
 (136, 'individual', 'presencial'),
 (138, 'individual', 'online'),
-(142, 'pareja', 'presencial'),
-(145, 'pareja', 'online'),
-(146, 'pareja', 'online'),
-(148, 'individual', 'online'),
-(149, 'pareja', ''),
-(150, 'individual', 'online'),
-(151, 'pareja', 'online'),
-(152, 'pareja', 'online'),
-(153, 'individual', 'online'),
-(154, 'individual', 'online'),
-(155, 'pareja', 'presencial'),
-(156, 'individual', 'online'),
-(157, 'pareja', 'presencial'),
-(158, 'pareja', 'online');
-
+(159, 'pareja', 'presencial'),
+(160, 'pareja', 'online'),
+(161, 'pareja', 'online');
 
 -- --------------------------------------------------------
 
@@ -2839,13 +2808,13 @@ ALTER TABLE `administrativo`
 -- AUTO_INCREMENT de la tabla `agenda`
 --
 ALTER TABLE `agenda`
-  MODIFY `id_agenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id_agenda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT de la tabla `cita`
 --
 ALTER TABLE `cita`
-  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT de la tabla `direccion`
@@ -2875,13 +2844,13 @@ ALTER TABLE `paciente`
 -- AUTO_INCREMENT de la tabla `paciente_relacion`
 --
 ALTER TABLE `paciente_relacion`
-  MODIFY `id_paciente_relacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_paciente_relacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `pago_cita`
 --
 ALTER TABLE `pago_cita`
-  MODIFY `id_pago_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id_pago_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT de la tabla `psicologo`
@@ -2893,7 +2862,7 @@ ALTER TABLE `psicologo`
 -- AUTO_INCREMENT de la tabla `tipo_cita`
 --
 ALTER TABLE `tipo_cita`
-  MODIFY `id_tipo_cita` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
+  MODIFY `id_tipo_cita` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
@@ -2904,13 +2873,6 @@ ALTER TABLE `usuario`
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `especialidad_psicologo`
---
-ALTER TABLE `especialidad_psicologo`
-  ADD CONSTRAINT `fk_especialidad` FOREIGN KEY (`id_especialidad`) REFERENCES `especialidad` (`id_especialidad`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_psicologo` FOREIGN KEY (`id_psicologo`) REFERENCES `psicologo` (`id_psicologo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `psicologo`
