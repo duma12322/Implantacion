@@ -1,5 +1,7 @@
 <?php
 session_start();
+// Conexión a la base de datos
+include '../../config/conexion.php';
 
 // Verifica si la sesión está activa
 if (!isset($_SESSION['usuario'])) {
@@ -18,8 +20,10 @@ if (isset($_POST['cerrar_sesion'])) {
 
 $nombreUsuario = $_SESSION['usuario'];
 
-// Conexión a la base de datos
-include '../../config/conexion.php';
+// Mostrar la Foto
+$stmt = $conn->prepare("SELECT foto FROM administrativo  WHERE usuario = :usuario");
+$stmt->execute([':usuario' => $nombreUsuario]);
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Consulta SQL para obtener las citas por tipo y modalidad desde la tabla tipo_cita
 $sql = "SELECT 
