@@ -50,6 +50,12 @@ $stmt_paciente = $conn->prepare("SELECT num_hijos FROM paciente WHERE id_pacient
 $stmt_paciente->execute([':id_paciente' => $paciente['id_paciente']]);
 $info_paciente = $stmt_paciente->fetch(PDO::FETCH_ASSOC);
 
+$stmt_usuario = $conn->prepare("SELECT tipo_doc FROM usuario WHERE id_usuario = :id_usuario");
+$stmt_usuario->execute([':id_usuario' => $id_usuario]);
+$info_usuario = $stmt_usuario->fetch(PDO::FETCH_ASSOC);
+
+$tipo_doc = isset($info_usuario['tipo_doc']) ? htmlspecialchars($info_usuario['tipo_doc']) : '';
+
 if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
     $num_hijos = $info_paciente['num_hijos'];
 
@@ -111,12 +117,13 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
             <div class="form-group">
                 <label for="discapacitado">¿Es discapacitado?</label>
                 <select name="discapacitado" id="discapacitado" class="form-control" required>
+                    <option value="">Seleccione</option>
                     <option value="1">Sí</option>
                     <option value="0">No</option>
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="descrip_disca_group" style="display: none;">
                 <label for="descrip_disca">Descripción de la discapacidad</label>
                 <textarea type="text" name="descrip_disca" id="descrip_disca" class="form-control"></textarea>
             </div>
@@ -157,13 +164,9 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
 
             <div class="form-group">
                 <label for="relacion_tipo_doc">Tipo de Documento</label>
-                <select name="relacion_tipo_doc" id="relacion_tipo_doc" class="form-control">
-                    <option value="V">V</option>
-                    <option value="E">E</option>
-                    <option value="J">J</option>
-                    <option value="P">P</option>
-                </select>
+                <input type="text" name="relacion_tipo_doc" id="relacion_tipo_doc" class="form-control" value="<?= $tipo_doc ?>" readonly>
             </div>
+
             <div class="form-group">
                 <label for="relacion_numero_doc">Número de Documento</label>
                 <input type="text" name="relacion_numero_doc" id="relacion_numero_doc" class="form-control" required readonly value="<?php echo htmlspecialchars($_SESSION['relacion_numero_doc'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
@@ -171,13 +174,14 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
 
             <div class="form-group">
                 <label for="relacion_discapacitado">¿Es discapacitado?</label>
-                <select name="relacion_discapacitado" id="relacion_discapacitado" class="form-control" required>
+                <select name="relacion_discapacitado" id="relacion_discapacitado" class="form-control" required onchange="toggleDescriptionField()">
+                    <option value="">Seleccione</option>
                     <option value="1">Sí</option>
                     <option value="0">No</option>
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="descriptionField" style="display:none;">
                 <label for="relacion_descrip_disca">Descripción de la discapacidad</label>
                 <textarea type="text" name="relacion_descrip_disca" id="relacion_descrip_disca" class="form-control"></textarea>
             </div>
@@ -198,6 +202,7 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
                     </div>
                     <div class="col">
                         <select name="am_pm" id="am_pm" class="form-control" required>
+                            <option value="">Seleccione</option>
                             <option value="AM">AM</option>
                             <option value="PM">PM</option>
                         </select>
@@ -214,6 +219,7 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
             <div class="form-group">
                 <label for="tipo_pago">Tipo de Pago</label>
                 <select name="tipo_pago" id="tipo_pago" class="form-control" required>
+                    <option value="">Seleccione un tipo de pago</option>
                     <option value="TRANSFERENCIA BANCARIA">TRANSFERENCIA BANCARIA</option>
                     <option value="PAGO MOVIL">PAGO MOVIL</option>
                     <option value="EFECTIVO $">EFECTIVO $</option>
@@ -235,6 +241,8 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script/fecha.js"></script>
     <script src="script/menorEdad.js "></script>
+    <script src="script/discapacitado.js"></script>
+    <script src="script/relacion_discapacitado.js"></script>
 
     <script>
         // Obtiene los valores desde PHP

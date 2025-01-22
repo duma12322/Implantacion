@@ -81,12 +81,13 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
             <div class="form-group">
                 <label for="discapacitado">¿Es discapacitado?</label>
                 <select name="discapacitado" id="discapacitado" class="form-control" required>
+                    <option value="">Seleccione</option>
                     <option value="1">Sí</option>
                     <option value="0">No</option>
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="descrip_disca_group" style="display: none;">
                 <label for="descrip_disca">Descripción de la discapacidad</label>
                 <textarea type="text" name="descrip_disca" id="descrip_disca" class="form-control"></textarea>
             </div>
@@ -115,6 +116,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
             <div class="form-group">
                 <label for="relacion_tipo_doc">Tipo de Documento</label>
                 <select name="relacion_tipo_doc" id="relacion_tipo_doc" class="form-control">
+                    <option value="">Seleccione un tipo de documento</option>
                     <option value="V">V</option>
                     <option value="E">E</option>
                     <option value="J">J</option>
@@ -128,13 +130,14 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="form-group">
                 <label for="relacion_discapacitado">¿Es discapacitado?</label>
-                <select name="relacion_discapacitado" id="relacion_discapacitado" class="form-control" required>
+                <select name="relacion_discapacitado" id="relacion_discapacitado" class="form-control" required onchange="toggleDescriptionField()">
+                    <option value="">Seleccione</option>
                     <option value="1">Sí</option>
                     <option value="0">No</option>
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="descriptionField" style="display:none;">
                 <label for="relacion_descrip_disca">Descripción de la discapacidad</label>
                 <textarea type="text" name="relacion_descrip_disca" id="relacion_descrip_disca" class="form-control"></textarea>
             </div>
@@ -155,6 +158,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <div class="col">
                         <select name="am_pm" id="am_pm" class="form-control" required>
+                            <option value="">Seleccione</option>
                             <option value="AM">AM</option>
                             <option value="PM">PM</option>
                         </select>
@@ -171,6 +175,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
             <div class="form-group">
                 <label for="tipo_pago">Tipo de Pago</label>
                 <select name="tipo_pago" id="tipo_pago" class="form-control" required>
+                    <option value="">Seleccione un tipo de pago</option>
                     <option value="TRANSFERENCIA BANCARIA">TRANSFERENCIA BANCARIA</option>
                     <option value="PAGO MOVIL">PAGO MOVIL</option>
                     <option value="EFECTIVO $">EFECTIVO $</option>
@@ -191,6 +196,8 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script/fecha.js"></script>
+    <script src="script/discapacitado.js"></script>
+
 </body>
 
 </html>

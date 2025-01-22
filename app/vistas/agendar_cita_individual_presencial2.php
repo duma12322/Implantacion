@@ -84,12 +84,13 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
             <div class="form-group">
                 <label for="discapacitado">¿Es discapacitado?</label>
                 <select name="discapacitado" id="discapacitado" class="form-control" required>
+                    <option value="">Seleccione</option>
                     <option value="1">Sí</option>
                     <option value="0">No</option>
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="descrip_disca_group" style="display: none;">
                 <label for="descrip_disca">Descripción de la discapacidad</label>
                 <textarea type="text" name="descrip_disca" id="descrip_disca" class="form-control"></textarea>
             </div>
@@ -110,6 +111,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <div class="col">
                         <select name="am_pm" id="am_pm" class="form-control" required>
+                            <option value="">Seleccione</option>
                             <option value="AM">AM</option>
                             <option value="PM">PM</option>
                         </select>
@@ -124,6 +126,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
             <div class="form-group">
                 <label for="tipo_pago">Tipo de Pago</label>
                 <select name="tipo_pago" id="tipo_pago" class="form-control" required>
+                    <option value="">Seleccione un tipo de documento</option>
                     <option value="TRANSFERENCIA BANCARIA">TRANSFERENCIA BANCARIA</option>
                     <option value="PAGO MOVIL">PAGO MOVIL</option>
                     <option value="EFECTIVO $">EFECTIVO $</option>
@@ -148,6 +151,8 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 
     <script src="script/fecha.js"></script>
     <script src="script/selectPaciente.js"></script>
+    <script src="script/discapacitado.js"></script>
+    <script src="script/relacion_discapacitado.js"></script>
 </body>
 
 </html>

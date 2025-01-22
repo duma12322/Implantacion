@@ -81,12 +81,13 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
             <div class="form-group">
                 <label for="discapacitado">¿Es discapacitado?</label>
                 <select name="discapacitado" id="discapacitado" class="form-control" required>
+                    <option value="">Seleccione</option>
                     <option value="1">Sí</option>
                     <option value="0">No</option>
                 </select>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" id="descrip_disca_group" style="display: none;">
                 <label for="descrip_disca">Descripción de la discapacidad</label>
                 <textarea type="text" name="descrip_disca" id="descrip_disca" class="form-control"></textarea>
             </div>
@@ -107,6 +108,7 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <div class="col">
                         <select name="am_pm" id="am_pm" class="form-control" required>
+                            <option value="">Seleccione</option>
                             <option value="AM">AM</option>
                             <option value="PM">PM</option>
                         </select>
@@ -123,6 +125,7 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
             <div class="form-group">
                 <label for="tipo_pago">Tipo de Pago</label>
                 <select name="tipo_pago" id="tipo_pago" class="form-control" required>
+                    <option value="">Seleccione un tipo de pago</option>
                     <option value="TRANSFERENCIA BANCARIA">TRANSFERENCIA BANCARIA</option>
                     <option value="PAGO MOVIL">PAGO MOVIL</option>
                 </select>
@@ -142,6 +145,8 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script/fecha.js"></script>
+    <script src="script/discapacitado.js"></script>
+    <script src="script/relacion_discapacitado.js"></script>
 </body>
 
 </html>

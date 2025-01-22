@@ -86,6 +86,7 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
                 <label for="descrip_disca">Descripción de la discapacidad</label>
                 <textarea type="text" name="descrip_disca" id="descrip_disca" class="form-control"></textarea>
             </div>
+
             <h3 class="mt-4">Datos de la Pareja</h3>
             <div class="form-group">
                 <label for="relacion_nombre1">Primer Nombre</label>
