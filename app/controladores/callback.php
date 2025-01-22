@@ -8,6 +8,7 @@ $client->setApplicationName('Implantacion');
 $client->setScopes(Google_Service_Calendar::CALENDAR);
 $client->setAuthConfig('../../credentials.json');
 $client->setAccessType('offline');
+$client->setApprovalPrompt('force'); // Añadido para asegurar que se obtenga el refresh token
 
 // Obtener el código de autorización
 if (isset($_GET['code'])) {

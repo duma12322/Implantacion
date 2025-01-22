@@ -46,7 +46,7 @@ if (!empty($_GET['search'])) {
     $params[':search'] = $search;
 }
 
-// Construir consulta
+// Construir consulta base
 $query = " 
     SELECT a.id_agenda, a.fecha, a.hora_inicio, a.hora_final, a.status, 
            c.id_cita, c.motivo, c.fecha AS fecha_cita, 
@@ -69,35 +69,34 @@ if (!empty($where_clauses)) {
     $query .= " WHERE " . implode(" AND ", $where_clauses);
 }
 
-try {
-    $stmt = $conn->prepare($query);
-    foreach ($params as $key => $value) {
-        $stmt->bindValue($key, $value);
-    }
-    $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    die("Error en la consulta: " . $e->getMessage());
+// Paginación
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$limit = 10; // Número de resultados por página
+$offset = ($page - 1) * $limit;
+
+// Agregar el LIMIT a la consulta
+$query .= " LIMIT :limit OFFSET :offset";
+
+// Contar el número total de registros
+$count_query = "SELECT COUNT(*) as total FROM (" . substr($query, 0, strpos($query, 'LIMIT')) . ") as total_count";
+$count_stmt = $conn->prepare($count_query);
+foreach ($params as $key => $value) {
+    $count_stmt->bindValue($key, $value);
+}
+$count_stmt->execute();
+$total_rows = $count_stmt->fetch(PDO::FETCH_ASSOC)['total'];
+$total_pages = ceil($total_rows / $limit);
+
+// Ejecutar la consulta con LIMIT y OFFSET
+$stmt = $conn->prepare($query);
+
+// Ahora pasamos los valores de LIMIT y OFFSET como números enteros, sin comillas
+$stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+$stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+
+foreach ($params as $key => $value) {
+    $stmt->bindValue($key, $value);
 }
 
-// Actualizar el estado de la agenda si se envía el formulario
-if (isset($_POST['update_status'])) {
-    $id_agenda = $_POST['id_agenda']; // Asegúrate de que id_agenda sea el campo correcto
-    $new_status = $_POST['status'];
-
-    // Actualizar el estado en la tabla agenda
-    $update_query = "UPDATE agenda SET status = :status WHERE id_agenda = :id_agenda";
-
-    try {
-        $stmt_update = $conn->prepare($update_query);
-        $stmt_update->bindValue(':status', $new_status);
-        $stmt_update->bindValue(':id_agenda', $id_agenda);
-        $stmt_update->execute();
-
-        // Redirigir a la misma página después de la actualización
-        header("Location: consultar_cita.php");
-        exit;
-    } catch (PDOException $e) {
-        die("Error al actualizar el estado: " . $e->getMessage());
-    }
-}
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);

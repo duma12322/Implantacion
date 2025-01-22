@@ -118,3 +118,35 @@ if (isset($_POST['update_status'])) {
         die("Error al actualizar el estado: " . $e->getMessage());
     }
 }
+
+// Paginación
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$limit = 10; // Número de resultados por página
+$offset = ($page - 1) * $limit;
+
+// Agregar el LIMIT a la consulta
+$query .= " LIMIT :limit OFFSET :offset";
+
+// Contar el número total de registros
+$count_query = "SELECT COUNT(*) as total FROM (" . substr($query, 0, strpos($query, 'LIMIT')) . ") as total_count";
+$count_stmt = $conn->prepare($count_query);
+foreach ($params as $key => $value) {
+    $count_stmt->bindValue($key, $value);
+}
+$count_stmt->execute();
+$total_rows = $count_stmt->fetch(PDO::FETCH_ASSOC)['total'];
+$total_pages = ceil($total_rows / $limit);
+
+// Ejecutar la consulta con LIMIT y OFFSET
+$stmt = $conn->prepare($query);
+
+// Ahora pasamos los valores de LIMIT y OFFSET como números enteros, sin comillas
+$stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+$stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
+
+foreach ($params as $key => $value) {
+    $stmt->bindValue($key, $value);
+}
+
+$stmt->execute();
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
