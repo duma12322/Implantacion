@@ -41,7 +41,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Llamar al método registrarPaciente del controlador
     $resultado = $controlador->registrarPaciente($datosUsuario, $datosPaciente);
+// Subir la foto si se proporciona
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+            $foto_tmp = $_FILES['foto']['tmp_name'];
+            $foto_tipo = $_FILES['foto']['type'];
 
+            // Validar el tipo de archivo
+            $permitidos = ['image/jpeg', 'image/png', 'image/gif'];
+
+            if (in_array($foto_tipo, $permitidos)) {
+                // Leer la imagen y convertirla en binario
+                $foto_binaria = file_get_contents($foto_tmp);
+
+                // Verifica que se ha leído correctamente
+                if ($foto_binaria !== false) {
+                    // Actualizar la foto en la base de datos
+                    $sql_update_foto = "UPDATE usuario SET foto = :foto WHERE id_usuario = :id_usuario";
+                    $stmt_update_foto = $conn->prepare($sql_update_foto);
+                    $stmt_update_foto->bindParam(':foto', $foto_binaria, PDO::PARAM_LOB);
+                    $stmt_update_foto->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+                    $stmt_update_foto->execute();
+                } else {
+                    echo "Error al leer el archivo de la foto.";
+                }
+            } else {
+                echo "Tipo de archivo no permitido.";
+            }
+        }
     // Mostrar el mensaje de resultado
     $mensaje = $resultado['mensaje'];
     $tipoMensaje = $resultado['tipo'];
