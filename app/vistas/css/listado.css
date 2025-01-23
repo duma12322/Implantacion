@@ -1,29 +1,85 @@
 .table-wide {
-    width: 200%; /* Ajusta el ancho de la tabla */
-    max-width: 1600px; /* Puedes ajustar el valor según tus necesidades */
-    margin-left: -10%; /* Desplaza la tabla hacia la izquierda */
+    width: 100%; /* Establece el ancho al 100% */
+    max-width: 1700px; /* Limita el ancho máximo a 1700px */
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: auto; /* Agrega desplazamiento horizontal */
 }
 
+/* Ajustes del contenedor principal */
 .container {
     display: flex;
     flex-direction: column;
+    max-width: 1700px;
+    margin-left: 8%;
+    overflow-x: auto; /* Agrega desplazamiento horizontal si es necesario */
 }
 
+/* Barra de búsqueda */
+.search-container {
+    width: 100%;
+    margin-right: 0;
+}
+
+/* Flex para los filtros */
 .d-flex {
     display: flex;
-    justify-content: space-between; 
-    margin-left: -50px;
+    justify-content: space-between;
+    margin-left: 0;
 }
 
-/* Estilo para la barra de búsqueda */
-.search-container {
-    width: 40%; /* Aumenta el ancho de la barra de búsqueda */
-    margin-right: -13%; /* Alinea la barra a la derecha */
-}
-
+/* Si necesitas separar los elementos */
 .selected-row {
-    background-color: #d3d3d3; /* Gris claro */
+    background-color: #d3d3d3;
 }
 
+/* Consultas de medios para responsividad */
+@media (max-width: 480px) {
+    .search-container {
+        width: 100%;
+    }
 
+    .d-flex {
+        flex-direction: column;
+    }
+}
 
+@media (min-width: 481px) and (max-width: 767px) {
+    .search-container {
+        width: 100%;
+    }
+
+    .d-flex {
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .search-container {
+        width: 100%;
+    }
+
+    .d-flex {
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1199px) {
+    .search-container {
+        width: 50%;
+    }
+
+    .d-flex {
+        flex-direction: row;
+    }
+}
+
+@media (min-width: 1200px) {
+    .search-container {
+        width: 40%;
+    }
+
+    .d-flex {
+        flex-direction: row;
+    }
+}

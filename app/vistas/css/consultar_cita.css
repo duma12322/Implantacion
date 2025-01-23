@@ -12,7 +12,7 @@
   display: flex;
     flex-direction: column;
      max-width: 1700px;
-     
+     margin-left: 8%;
 }
 
 /* Barra de búsqueda */
@@ -31,4 +31,80 @@
 /* Si necesitas separar los elementos */
 .selected-row {
     background-color: #d3d3d3; /* Color de fondo para las filas seleccionadas */
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0.5rem;
+    }
+
+    /* Oculta columnas no esenciales en móviles */
+    .table-wide td:nth-child(3),
+    .table-wide th:nth-child(3),
+    .table-wide td:nth-child(4),
+    .table-wide th:nth-child(4),
+    .table-wide td:nth-child(7),
+    .table-wide th:nth-child(7) {
+        display: none;
+    }
+
+    /* Tabla como tarjetas */
+    .table-wide {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .table-wide tbody tr {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ddd;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .table-wide td {
+        display: block;
+        width: 100%;
+        padding: 0.5rem;
+        border: none;
+    }
+
+    .table-wide td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: inline-block;
+        margin-right: 0.5rem;
+    }
+
+    .table-wide thead {
+        display: none; /* Ocultar encabezados en móviles */
+    }
+
+    /* Botón centrado en las tarjetas */
+    .table-wide form {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+    /* Tablets: ajustar la tabla con scroll horizontal */
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .table-wide {
+        width: 100%;
+        max-width: 1024px;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 1200px) {
+    .table-wide {
+        max-width: 1700px;
+    }
 }
