@@ -106,6 +106,7 @@ if (isset($_POST['id_administrativo'])) {
                     <th>Tipo de Documento</th>
                     <th>Número de Documento</th>
                     <th>Teléfono</th>
+                    <th>Foto</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -121,6 +122,13 @@ if (isset($_POST['id_administrativo'])) {
                             <td><?= htmlspecialchars($psicologo['tipo_doc']) ?></td>
                             <td><?= htmlspecialchars($psicologo['num_doc']) ?></td>
                             <td><?= htmlspecialchars($psicologo['telefono']) ?></td>
+                            <td>
+                                <?php if ($usuario['foto']) : ?>
+                                    <img src="data:image/jpeg;base64,<?= base64_encode($usuario['foto']) ?>" alt="Foto" class="img-thumbnail" width="50" height="50" />
+                                <?php else : ?>
+                                    <span class="text-muted">No disponible</span>
+                                <?php endif; ?>
+                            </td>
                             <td>
                                 <a href="modificar_psicologo.php?id_administrativo=<?= htmlspecialchars($psicologo['id_administrativo']) ?>" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil"></i>
