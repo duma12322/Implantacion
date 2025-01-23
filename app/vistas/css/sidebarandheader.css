@@ -17,7 +17,7 @@
   transition: all 0.4s ease;
   border-right: 1px solid white;
   z-index: 1000; /* Asegúrate de que el sidebar esté por encima del contenido */
-  height: 100vh; /* Asegura que la barra lateral ocupe el 100% de la altura de la ventana */
+  height: 100vh !important; /* Asegura que la barra lateral ocupe el 100% de la altura de la ventana */
 }
 
 .sidebar.collapsed {
@@ -164,68 +164,6 @@
   width: 100%;
 }
 
-/* Código responsive media query para pantallas pequeñas */
-@media (max-width: 768px) {
-   .sidebar {
-    height: auto; /* Ajustar automáticamente la altura para pantallas pequeñas */
-    position: absolute;
-    overflow-y: hidden;
-    scrollbar-width: none;
-    width: 200px;
-  }
-
-  .sidebar.menu-active {
-    overflow-y: auto;
-  }
-
-  .sidebar .sidebar-header {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    background: #151a2d;
-    padding: 8px 10px;
-  }
-
-  .sidebar-header .header-logo img {
-    width: 40px;
-    height: 40px;
-  }
-
-  .sidebar-header .sidebar-toggler,
-  .sidebar-nav .nav-item:hover .nav-tooltip {
-    display: none;
-  }
-
-  .sidebar-header .menu-toggler {
-    display: flex;
-    height: 30px;
-    width: 30px;
-  }
-
-  .sidebar-header .menu-toggler span {
-    font-size: 1.3rem;
-  }
-
-  .sidebar .sidebar-nav .nav-list {
-    padding: 0 10px;
-  }
-
-  .sidebar-nav .nav-link {
-    gap: 10px;
-    padding: 10px;
-    font-size: 0.94rem;
-  }
-
-  .sidebar-nav .nav-link .nav-icon {
-    font-size: 0.75rem !important;
-  }
-
-  .sidebar-nav .secondary-nav {
-    position: relative;
-    bottom: 0;
-    margin: 40px 0 30px;
-  }
-}
 
 /* Estilo del header */
 header {
@@ -325,5 +263,153 @@ main {
     color: #007BFF; 
 }*/
 
+/* Para pantallas pequeñas (móviles) */
+@media (max-width: 480px) {
+  /* El sidebar ocupando todo el ancho */
+  .sidebar {
+    width: 60%;
+    background: linear-gradient(#1b1b1b, #303030, #164a41);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5% !important;
+    transition: height 0.5s ease-in-out; /* Transición suave */
+  }
+
+  /* Cuando el sidebar está colapsado */
+  .sidebar.collapsed {
+    width: 100%;
+    height: 20% !important; /* Altura cuando está desplegado */
+    max-height: 500px; /* Asegura que el sidebar se despliegue */
+    transition: max-height 0.5s ease-in-out; /* Transición suave */
+  }
+
+  /* Menú oculto cuando está colapsado */
+  .sidebar-nav {
+    max-height: 0; 
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out; /* Transición suave */
+  }
+
+  /* Cuando el sidebar se expande */
+  .sidebar.collapsed .sidebar-nav {
+    max-height: 500px; 
+    overflow: visible; /* Asegura que el menú sea visible */
+  }
+
+  /* Asegurar que se muestren los nav-label */
+  .nav-label {
+    display: none;
+  }
+
+  .sidebar.collapsed .nav-label {
+    display: block; /* Muestra los nav-label cuando el sidebar está desplegado */
+  }
+
+  /* Botón para abrir/cerrar el sidebar */
+  .sidebar-toggler {
+    cursor: pointer;
+    top: 10px;
+    right: 10px;
+    position: absolute; 
+  }
+}
+
+
+
+
+  /* Cuando el sidebar está colapsado */
+  .sidebar.collapsed {
+    height: 56px; /* Mantener el tamaño de barra superior */
+  }
+
+  /* Hacer que el menú sea horizontal en pantallas pequeñas */
+  .sidebar-nav .nav-list {
+    display: flex; /* Flexbox para alinear horizontalmente los elementos */
+    flex-direction: row; /* Alinear los íconos en una fila */
+    gap: 10px; /* Espacio entre los íconos */
+    padding: 0;
+  }
+
+  /* Asegúrate de que cada enlace del menú esté alineado horizontalmente */
+  .sidebar-nav .nav-link {
+    padding: 10px;
+    font-size: 14px;
+    color: white;
+    text-decoration: none;
+    display: flex; /* Asegura que los íconos estén alineados */
+    justify-content: center; /* Centra los íconos */
+  }
+
+  /* Mostrar el icono cuando el sidebar está colapsado */
+  .sidebar-toggler {
+    display: block;
+    cursor: pointer;
+  }
+
+  /* Ajustar el comportamiento del ícono */
+  .sidebar-nav .nav-link i {
+    font-size: 18px; /* Ajustar el tamaño de los iconos */
+    transition: color 0.3s ease;
+  }
+
+  /* Cambiar color del icono al pasar el ratón */
+  .sidebar-nav .nav-item:hover i {
+    color: #4d774e; /* Cambiar color del icono al hacer hover */
+  }
+
+  /* Ocultar texto en el sidebar cuando está colapsado */
+  .sidebar.collapsed .sidebar-nav .nav-link .nav-label {
+    display: none; /* Ocultar texto */
+  }
+
+  /* Mostrar el menú cuando el sidebar está expandido */
+  .sidebar.collapsed .sidebar-nav {
+    display: block;
+  }
+}
+
+/* Para pantallas medianas (tabletas) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .sidebar {
+    width: 250px; /* Ajusta el tamaño de la barra lateral */
+    height: 100vh !important;
+  }
+
+  .sidebar .sidebar-header {
+    padding: 20px;
+  }
+
+  .sidebar-nav .nav-link {
+    padding: 12px 15px;
+  }
+
+  header {
+    padding: 15px;
+    font-size: 16px;
+  }
+}
+
+/* Para pantallas grandes (escritorios) */
+@media (min-width: 1200px) {
+  .sidebar {
+    width: 270px; /* Tamaño predeterminado de la barra lateral */
+    height: 100vh !important;
+  }
+
+  .sidebar .sidebar-header {
+    padding: 25px;
+  }
+
+  .sidebar-nav .nav-link {
+    padding: 15px 20px;
+    font-size: 16px; /* Ajusta el tamaño de la fuente */
+  }
+
+  header {
+    padding: 20px;
+    font-size: 18px;
+  }
+}
 
 

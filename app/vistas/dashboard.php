@@ -152,6 +152,7 @@ $conn = null; // Cerrar la conexión
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script/sidebarandheader.js "></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Datos de citas (obtenidos del backend)

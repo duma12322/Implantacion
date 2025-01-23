@@ -1,28 +1,26 @@
-
-
-/* CCS de Agendar Cita */
+/* CSS de Agendar Cita */
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
+  margin: 0;
 }
 
 h4 {
   text-align: center;
- font-weight: bold;
+  font-weight: bold;
   font-family: 'Georgia', serif;
-  margin-bottom: 30px;
-  margin-top: 30px;
+  margin: 30px 0;
   font-size: 1.5rem;
 }
 
-/* Card styling */
+/* Estilizado de la tarjeta */
 .card {
   border: 1px solid #ddd;
   border-radius: 10px;
   overflow: hidden;
-  margin-bottom: 20px;
-  width: 80%;
-  margin-left: 10%; /* Añadí margen izquierdo para mover las tarjetas hacia la derecha */
+  margin: 20px auto;
+  width: 90%;
+  max-width: 500px; /* Limita el ancho máximo de las tarjetas */
 }
 
 .card-header {
@@ -46,22 +44,21 @@ h4 {
   padding: 0;
 }
 
-/* Ajustar las imágenes a un tamaño más pequeño */
+/* Ajustar las imágenes */
 .card-body img {
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  height: auto;
   border-radius: 8px;
   transition: transform 0.3s ease-in-out;
 }
 
-/* Efecto hover en las imágenes */
+/* Efecto hover en imágenes */
 .card-body img:hover {
-  transform: scale(1.01); /* Efecto de zoom sutil */
-  box-shadow: 0 0 10px 5px rgba(241, 178, 74, 0.7); /* Sombra con color #f1b24a */
-  filter: brightness(1); /* Devuelve el brillo a su nivel normal */
+  transform: scale(1.01);
+  box-shadow: 0 0 10px 5px rgba(241, 178, 74, 0.7);
 }
 
-/* Estilo para los botones y enlaces */
+/* Estilo de los enlaces */
 .card-body a {
   display: block;
   text-align: center;
@@ -71,73 +68,77 @@ h4 {
   color: #007bff;
 }
 
-/* Responsividad: Aseguramos que las tarjetas ocupen el 50% del ancho en pantallas medianas */
-@media (max-width: 748px) {
+/* Contenedor */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Botones y enlaces */
+a {
+  text-decoration: none;
+  display: block;
+}
+
+a:hover {
+  color: #f1b24a;
+  text-shadow: 0 0 10px rgba(77, 119, 78, 0.8), 0 0 20px rgba(22, 74, 65, 0.8);
+  transform: scale(1.05);
+}
+
+/* Botones personalizados */
+.btn-custom {
+  background-color: white !important;
+  color: #007bff;
+  border: 1px solid #007bff;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.btn-custom:hover {
+  background-color: white;
+  color: #f1b24a;
+}
+
+/* RESPONSIVIDAD */
+
+/* Para pantallas pequeñas (menos de 768px) */
+@media (max-width: 768px) {
+  h4 {
+    font-size: 1.2rem;
+  }
+
+  .card {
+    width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+  }
+
   .col-md-6 {
     flex: 1 1 100%;
     margin: 10px 0;
   }
-}
 
-/* Image styling */
-img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  transition: transform 0.3s ease-in-out;
-}
-
-/* Hover effect for images */
-img:hover {
-  transform: scale(1.05);
-}
-
-/* Container */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* Buttons and Links */
-a {
-  text-decoration: none;
-  display: block;
-  
-}
-
-a:hover {
-  color: #f1b24a; /* Cambio a un color verde neón */
-  text-shadow: 0 0 10px #4d774e (0, 179, 230, 0.8), 0 0 20px #164a41(0, 179, 230, 0.8); /* Resplandor neón */
-  transform: scale(1.05); /* Efecto de agrandamiento al pasar el ratón */
-}
-
-/* Archivo styles.css */
-.btn-custom {
-    background-color: white !important;
-    color: #007bff;
-    border: 1px solid #007bff;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 5px;
-    text-align: center;
-}
-
-.btn-custom:hover {
-    background-color: white;
-    color: #f1b24a;
-}
-
-
-/* Add responsiveness */
-@media (max-width: 768px) {
-  .col-md-6 {
-    margin-bottom: 20px;
+  .card-header {
+    font-size: 1rem;
+    padding: 8px;
   }
 }
 
+/* Para pantallas muy pequeñas (menos de 576px) */
+@media (max-width: 576px) {
+  h4 {
+    font-size: 1rem;
+  }
 
+  .card-body img {
+    width: 100%; /* Asegúrate de que las imágenes no se desborden */
+  }
 
-
-
-
+  .btn-custom {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+}

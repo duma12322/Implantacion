@@ -1,57 +1,30 @@
-/*function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const content = document.getElementById('main-content');
-    sidebar.classList.toggle('open');
-    content.classList.toggle('shift');
-}*/
-
 document.addEventListener('DOMContentLoaded', function() {
-   const sidebar = document.querySelector(".sidebar");
-   const sidebarToggler = document.querySelector(".sidebar-toggler");
-   const menuToggler = document.querySelector(".menu-toggler");
+  const sidebar = document.querySelector(".sidebar");
+  const sidebarToggler = document.querySelector(".sidebar-toggler");
 
-   // Ensure these heights match the CSS sidebar height values
-   let collapsedSidebarHeight = "56px"; // Height in mobile view (collapsed)
-   let fullSidebarHeight = "calc(100vh - 32px)"; // Height in larger screen
+  // Asegúrate de que las alturas coincidan con las definidas en CSS
+  let collapsedSidebarHeight = "56px"; // Altura en vista móvil (colapsada)
 
-   // Toggle sidebar's collapsed state
-   sidebarToggler.addEventListener("click", () => {
-     // Cambia el ícono según el estado del sidebar
-     if (sidebar.classList.contains("collapsed")) {
-       // Si está cerrado, cambia el ícono a caret-left (abierto)
-       sidebarToggler.innerHTML = '<i class="bi bi-caret-left-square-fill"></i>';
-     } else {
-       // Si está abierto, cambia el ícono a caret-right (cerrado)
-       sidebarToggler.innerHTML = '<i class="bi bi-caret-right-square-fill"></i>';
-     }
-     
-     // Alternar la clase 'collapsed' para abrir/cerrar el sidebar
-     sidebar.classList.toggle("collapsed");
-   });
+  // Comprobar el estado del sidebar en el almacenamiento local
+  const savedState = localStorage.getItem('sidebar-collapsed');
+  if (savedState !== null && window.innerWidth < 480) {
+    sidebar.classList.toggle('collapsed', JSON.parse(savedState));
+  }
 
-   // Update sidebar height and menu toggle text
-   const toggleMenu = (isMenuActive) => {
-     sidebar.style.height = isMenuActive ? `${sidebar.scrollHeight}px` : collapsedSidebarHeight;
-     menuToggler.innerHTML = isMenuActive
-  ? '<i class="bi bi-x-lg"></i>'  // Ícono de cerrar
-  : '<i class="bi bi-list"></i>';  // Ícono de menú
+  // Toggle del estado colapsado del sidebar (mostrar/ocultar menú)
+  sidebarToggler.addEventListener("click", () => {
+    if (window.innerWidth < 480) {  // Solo actúa en pantallas menores a 480px
+      sidebar.classList.toggle("collapsed");
+      localStorage.setItem('sidebar-collapsed', sidebar.classList.contains("collapsed"));
+    }
+  });
 
-   }
-
-   // Toggle menu-active class and adjust height
-   menuToggler.addEventListener("click", () => {
-     toggleMenu(sidebar.classList.toggle("menu-active"));
-   });
-
-   // (Optional code): Adjust sidebar height on window resize
-   window.addEventListener("resize", () => {
-     if (window.innerWidth >= 1024) {
-       sidebar.style.height = fullSidebarHeight;
-     } else {
-       sidebar.classList.remove("collapsed");
-       sidebar.style.height = "auto";
-       toggleMenu(sidebar.classList.contains("menu-active"));
-     }
-   });
+  // Ajustar la altura del sidebar en función del tamaño de la ventana
+  window.addEventListener("resize", () => {
+    if (window.innerWidth < 480) {
+      sidebar.style.height = sidebar.classList.contains("collapsed") ? collapsedSidebarHeight : "auto";
+    } else {
+      sidebar.style.height = "100vh";  // En pantallas grandes, el sidebar debe ocupar toda la altura
+    }
+  });
 });
-
