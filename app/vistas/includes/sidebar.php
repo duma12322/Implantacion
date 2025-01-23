@@ -82,7 +82,7 @@
                     <span class="nav-tooltip">Historiales</span>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="reporte_cita.php" class="nav-link">
                         <i class="bi bi-file-earmark-text-fill"></i>
                         <span class="nav-label">Reportes</span>
                     </a>

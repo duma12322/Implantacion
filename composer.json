@@ -3,6 +3,7 @@
     "description": "Proyecto para manejo de citas online",
     "require": {
         "google/apiclient": "^2.0",
-        "phpmailer/phpmailer": "^6.9"
+        "phpmailer/phpmailer": "^6.9",
+        "tecnickcom/tcpdf": "^6.8"
     }
 }
