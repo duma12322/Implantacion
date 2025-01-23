@@ -272,102 +272,70 @@ main {
     position: fixed;
     top: 0;
     left: 0;
-    height: 5% !important;
+    height: 56px; /* Altura cuando está colapsado */
+    overflow: hidden; /* Evitar que el contenido se muestre cuando está colapsado */
     transition: height 0.5s ease-in-out; /* Transición suave */
+    height: 14% !important;
+    border-radius: 10px;
   }
 
   /* Cuando el sidebar está colapsado */
   .sidebar.collapsed {
-    width: 100%;
-    height: 20% !important; /* Altura cuando está desplegado */
-    max-height: 500px; /* Asegura que el sidebar se despliegue */
-    transition: max-height 0.5s ease-in-out; /* Transición suave */
+    height: 56px; /* Solo la barra superior cuando está colapsado */
+    overflow: hidden; /* Asegura que el contenido esté oculto */
+  }
+
+  /* Cuando el sidebar se expande */
+  .sidebar:not(.collapsed) {
+    height: auto; /* Altura ajustable cuando se expande */
+    overflow: visible; /* Mostrar el contenido */
   }
 
   /* Menú oculto cuando está colapsado */
   .sidebar-nav {
-    max-height: 0; 
+    display: none; /* Ocultar el menú cuando está colapsado */
+    max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease-in-out; /* Transición suave */
+    transition: max-height 0.5s ease-in-out;
   }
 
-  /* Cuando el sidebar se expande */
-  .sidebar.collapsed .sidebar-nav {
-    max-height: 500px; 
-    overflow: visible; /* Asegura que el menú sea visible */
+  /* Mostrar el menú cuando el sidebar está expandido */
+  .sidebar:not(.collapsed) .sidebar-nav {
+    display: block; /* Mostrar los elementos de la navegación */
+    max-height: 500px; /* Ajustar la altura del menú cuando se expanda */
+    overflow: visible;
   }
 
-  /* Asegurar que se muestren los nav-label */
+  /* Ajustes de estilo para los ítems del menú */
+  .sidebar-nav .nav-item {
+    width: 100%;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    margin: 5px 0;
+    border-radius: 5px;
+  }
+
+  .sidebar-nav .nav-link {
+    display: block;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    text-decoration: none;
+  }
+
   .nav-label {
-    display: none;
-  }
-
-  .sidebar.collapsed .nav-label {
-    display: block; /* Muestra los nav-label cuando el sidebar está desplegado */
+    display: block; /* Asegura que las etiquetas de navegación se muestren */
   }
 
   /* Botón para abrir/cerrar el sidebar */
   .sidebar-toggler {
     cursor: pointer;
     top: 10px;
-    right: 10px;
-    position: absolute; 
+    left: 25px;
+    position: absolute;
   }
 }
 
-
-
-
-  /* Cuando el sidebar está colapsado */
-  .sidebar.collapsed {
-    height: 56px; /* Mantener el tamaño de barra superior */
-  }
-
-  /* Hacer que el menú sea horizontal en pantallas pequeñas */
-  .sidebar-nav .nav-list {
-    display: flex; /* Flexbox para alinear horizontalmente los elementos */
-    flex-direction: row; /* Alinear los íconos en una fila */
-    gap: 10px; /* Espacio entre los íconos */
-    padding: 0;
-  }
-
-  /* Asegúrate de que cada enlace del menú esté alineado horizontalmente */
-  .sidebar-nav .nav-link {
-    padding: 10px;
-    font-size: 14px;
-    color: white;
-    text-decoration: none;
-    display: flex; /* Asegura que los íconos estén alineados */
-    justify-content: center; /* Centra los íconos */
-  }
-
-  /* Mostrar el icono cuando el sidebar está colapsado */
-  .sidebar-toggler {
-    display: block;
-    cursor: pointer;
-  }
-
-  /* Ajustar el comportamiento del ícono */
-  .sidebar-nav .nav-link i {
-    font-size: 18px; /* Ajustar el tamaño de los iconos */
-    transition: color 0.3s ease;
-  }
-
-  /* Cambiar color del icono al pasar el ratón */
-  .sidebar-nav .nav-item:hover i {
-    color: #4d774e; /* Cambiar color del icono al hacer hover */
-  }
-
-  /* Ocultar texto en el sidebar cuando está colapsado */
-  .sidebar.collapsed .sidebar-nav .nav-link .nav-label {
-    display: none; /* Ocultar texto */
-  }
-
-  /* Mostrar el menú cuando el sidebar está expandido */
-  .sidebar.collapsed .sidebar-nav {
-    display: block;
-  }
-}
 
 /* Para pantallas medianas (tabletas) */
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -411,5 +379,7 @@ main {
     font-size: 18px;
   }
 }
+
+
 
 

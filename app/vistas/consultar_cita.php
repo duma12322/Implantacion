@@ -89,72 +89,75 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         </form>
 
         <!-- Tabla de citas -->
-        <table class="table table-striped table-hover">
-            <thead class="table-primary">
-                <tr>
-                    <th>Paciente</th>
-                    <th>Psicólogo</th>
-                    <th>Fecha</th>
-                    <th>Hora Inicio</th>
-                    <th>Hora Final</th>
-                    <th>Motivo</th>
-                    <th>Tipo de Cita</th>
-                    <th>Modalidad</th>
-                    <th>Pago</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($result)): ?>
-                    <?php foreach ($result as $row): ?>
-                        <tr>
-                            <td><?= htmlspecialchars($row['nombre_paciente'] . ' ' . $row['apellido_paciente']) ?></td>
-                            <td><?= htmlspecialchars($row['nombre_psicologo'] . ' ' . $row['apellido_psicologo']) ?></td>
-                            <td><?= htmlspecialchars($row['fecha']) ?></td>
-                            <td><?= htmlspecialchars($row['hora_inicio']) ?></td>
-                            <td><?= htmlspecialchars($row['hora_final']) ?></td>
-                            <td><?= htmlspecialchars($row['motivo']) ?></td>
-                            <td><?= htmlspecialchars($row['tipo_cita']) ?></td>
-                            <td><?= htmlspecialchars($row['modalidad']) ?></td>
-                            <td><?= htmlspecialchars($row['tipo_pago']) . ' - $' . number_format($row['monto'], 2) ?></td>
-                            <td>
-                                <form method="POST" action="consultar_cita.php">
-                                    <select name="status" class="form-select">
-                                        <option value="Pendiente" <?= $row['status'] === 'Pendiente' ? 'selected' : '' ?>>Pendiente</option>
-                                        <option value="Confirmada" <?= $row['status'] === 'Confirmada' ? 'selected' : '' ?>>Confirmada</option>
-                                        <option value="Completada" <?= $row['status'] === 'Completada' ? 'selected' : '' ?>>Completada</option>
-                                        <option value="Cancelada" <?= $row['status'] === 'Cancelada' ? 'selected' : '' ?>>Cancelada</option>
-                                        <option value="Reprogramada" <?= $row['status'] === 'Reprogramada' ? 'selected' : '' ?>>Reprogramada</option>
-                                    </select>
-                                    <input type="hidden" name="id_agenda" value="<?= $row['id_agenda'] ?>">
-                                    <button type="submit" name="update_status" class="btn btn-primary mt-2">Guardar</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-primary">
                     <tr>
-                        <td colspan="11" class="text-center text-muted">No se encontraron citas con los filtros seleccionados.</td>
+                        <th>Paciente</th>
+                        <th>Psicólogo</th>
+                        <th>Fecha</th>
+                        <th>Hora Inicio</th>
+                        <th>Hora Final</th>
+                        <th>Motivo</th>
+                        <th>Tipo de Cita</th>
+                        <th>Modalidad</th>
+                        <th>Pago</th>
+                        <th>Estado</th>
                     </tr>
-                <?php endif; ?>
-            </tbody>
+                </thead>
+                <tbody>
+                    <?php if (!empty($result)): ?>
+                        <?php foreach ($result as $row): ?>
+                            <tr>
+                                <td data-label="Paciente"><?= htmlspecialchars($row['nombre_paciente'] . ' ' . $row['apellido_paciente']) ?></td>
+                                <td data-label="Psicólogo"><?= htmlspecialchars($row['nombre_psicologo'] . ' ' . $row['apellido_psicologo']) ?></td>
+                                <td data-label="Fecha"><?= htmlspecialchars($row['fecha']) ?></td>
+                                <td data-label="Hora Inicio"><?= htmlspecialchars($row['hora_inicio']) ?></td>
+                                <td data-label="Hora Final"><?= htmlspecialchars($row['hora_final']) ?></td>
+                                <td data-label="Motivo"><?= htmlspecialchars($row['motivo']) ?></td>
+                                <td data-label="Tipo de Cita"><?= htmlspecialchars($row['tipo_cita']) ?></td>
+                                <td data-label="Modalidad"><?= htmlspecialchars($row['modalidad']) ?></td>
+                                <td data-label="Pago"><?= htmlspecialchars($row['tipo_pago']) . ' - $' . number_format($row['monto'], 2) ?></td>
+                                <td data-label="Estado">
+                                    <form method="POST" action="consultar_cita.php">
+                                        <select name="status" class="form-select">
+                                            <option value="Pendiente" <?= $row['status'] === 'Pendiente' ? 'selected' : '' ?>>Pendiente</option>
+                                            <option value="Confirmada" <?= $row['status'] === 'Confirmada' ? 'selected' : '' ?>>Confirmada</option>
+                                            <option value="Completada" <?= $row['status'] === 'Completada' ? 'selected' : '' ?>>Completada</option>
+                                            <option value="Cancelada" <?= $row['status'] === 'Cancelada' ? 'selected' : '' ?>>Cancelada</option>
+                                            <option value="Reprogramada" <?= $row['status'] === 'Reprogramada' ? 'selected' : '' ?>>Reprogramada</option>
+                                        </select>
+                                        <input type="hidden" name="id_agenda" value="<?= $row['id_agenda'] ?>">
+                                        <button type="submit" name="update_status" class="btn btn-primary mt-2">Guardar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="11" class="text-center text-muted">No se encontraron citas con los filtros seleccionados.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
 
-            <!-- Paginación -->
-            <nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item <?= ($page == 1) ? 'disabled' : '' ?>">
-                        <a class="page-link" href="?page=<?= $page - 1 ?>">Anterior</a>
+        <!-- Paginación -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item <?= ($page == 1) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $page - 1 ?>">Anterior</a>
+                </li>
+                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                    <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
+                        <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
                     </li>
-                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                        <li class="page-item <?= ($i == $page) ? 'active' : '' ?>">
-                            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
-                        </li>
-                    <?php endfor; ?>
-                    <li class="page-item <?= ($page == $total_pages) ? 'disabled' : '' ?>">
-                        <a class="page-link" href="?page=<?= $page + 1 ?>">Siguiente</a>
-                    </li>
-                </ul>
-            </nav>
+                <?php endfor; ?>
+                <li class="page-item <?= ($page == $total_pages) ? 'disabled' : '' ?>">
+                    <a class="page-link" href="?page=<?= $page + 1 ?>">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
     <!-- Scripts -->
