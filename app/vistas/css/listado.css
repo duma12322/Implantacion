@@ -36,7 +36,7 @@
 /* Consultas de medios para responsividad */
 @media (max-width: 480px) {
     .search-container {
-        width: 100%;
+        width: 90%;
     }
 
     .d-flex {

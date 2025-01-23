@@ -53,13 +53,13 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendar Cita Individual Presencial</title>
+    <title>Agendar Cita Pareja Presencial</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
     <div class="container">
-        <h2 class="my-4">Agendar Cita Individual Presencial</h2>
+        <h2 class="my-4">Agendar Cita Pareja Presencial</h2>
         <form action="../controladores/procesar_agendar_cita_pareja.php" method="POST">
             <div class="form-group">
                 <label for="id_psicologo">Psicólogo</label>
