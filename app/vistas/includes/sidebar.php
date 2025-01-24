@@ -75,18 +75,18 @@
                     <span class="nav-tooltip">Pacientes</span>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="bi bi-person-vcard-fill"></i>
-                        <span class="nav-label">Historiales</span>
-                    </a>
-                    <span class="nav-tooltip">Historiales</span>
-                </li>
-                <li class="nav-item">
                     <a href="reporte_cita.php" class="nav-link">
                         <i class="bi bi-file-earmark-text-fill"></i>
                         <span class="nav-label">Reportes</span>
                     </a>
                     <span class="nav-tooltip">Reportes</span>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-person-vcard-fill"></i>
+                        <span class="nav-label">Historiales</span>
+                    </a>
+                    <span class="nav-tooltip">Historiales</span>
                 </li>
             <?php endif; ?>
 
