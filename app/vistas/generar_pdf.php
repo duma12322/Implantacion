@@ -24,12 +24,33 @@ function generarPDF($paciente, $empresa, $relacion)
     $pdf->Line(10, 10, 200, 10);
 
     // Información de la empresa
-    $pdf->SetFont('helvetica', '', 10);
-    $pdf->SetXY(15, 25);
+    $direccion = $empresa['dirreccion'];
+    $palabras = explode(' ', $direccion);
+    $direccion_formateada = '';
+    $contador = 0;
+
+    foreach ($palabras as $palabra) {
+        $direccion_formateada .= $palabra . ' ';
+        $contador++;
+
+        // Cada 2 palabras, agrega un salto de línea
+        if ($contador % 8 == 0) {
+            $direccion_formateada .= "\n";
+        }
+    }
+
+    $pdf->SetFont(
+        'helvetica',
+        '',
+        10
+    );
+    $pdf->SetXY(15, 20);
     $pdf->MultiCell(0, 6, $empresa['razon_social'] . "\n" .
-        $empresa['tipo_documento'] . "-" . $empresa['n_documeto'] .
-        "\n" . $empresa['dirreccion'] . "\n" . $empresa['correo'] .
-        "\n" . $empresa['tlf_local'] . " / " . $empresa['tlf_celular'], 0, 'C', 0);
+        $empresa['tipo_documento'] . "-" . $empresa['n_documeto'] . "\n" .
+        $direccion_formateada . "\n" .
+        $empresa['correo'] . "\n" .
+        $empresa['tlf_local'] . " / " . $empresa['tlf_celular'], 0, 'C', 0);
+
 
     // Fecha de reporte
     $pdf->SetFont('helvetica', 'I', 10);
@@ -56,7 +77,15 @@ function generarPDF($paciente, $empresa, $relacion)
     $pdf->SetFont('helvetica', '', 12);
     $pdf->SetFillColor(255, 255, 255);
     $pdf->Cell(0, 10, 'Documento: ' . htmlspecialchars($paciente['tipo_documento'] . '-' . $paciente['numero_documento']), 1, 1, 'L', 1);
-    $pdf->Cell(0, 10, 'Paciente: ' . htmlspecialchars($paciente['nombre_paciente'] . ' ' . $paciente['apellido_paciente']), 1, 1, 'L', 1);
+    if (
+        $paciente['tipo_cita'] == 'individual'
+    ) {
+        $nombre_tipo = 'Paciente:';
+    } else {
+        $nombre_tipo = 'Solicitante:';
+    }
+    // Mostrar el nombre
+    $pdf->Cell(0, 10, $nombre_tipo . ' ' . htmlspecialchars($paciente['nombre_paciente'] . ' ' . $paciente['apellido_paciente']), 1, 1, 'L', 1);
     $pdf->Cell(0, 10, 'Fecha: ' . date_format(date_create($paciente['fecha_cita']), 'Y-m-d'), 1, 1, 'L', 1);
     $pdf->Cell(0, 10, 'Hora Inicio: ' . htmlspecialchars($paciente['hora_inicio']), 1, 1, 'L', 1);
     $pdf->Cell(0, 10, 'Hora Final: ' . htmlspecialchars($paciente['hora_final']), 1, 1, 'L', 1);
