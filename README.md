@@ -17,27 +17,30 @@ El sistema de gestión de consultas de Emoción Vital está diseñado para ofrec
 
 # ¿Como funciona?
 1.	Página de Inicio:
-•	El portal informativo incluye secciones como: ¿Quiénes somos?, Servicios que ofrecemos, Consultas y Precios, Acerca de mí y Contactos.
-2.	Solicitar una Consulta:
-•	Los usuarios deben ingresar al sistema haciendo clic en "Ingresar" y colocando su usuario y contraseña.
-•	Si no están registrados, deben hacer clic en "Registrar" y llenar el formulario de registro de paciente con todos los campos requeridos.
-3.	Gestión de Citas:
-•	Una vez dentro del sistema, el paciente puede seleccionar entre:
-1.	Psicoterapia individual
-2.	Psicoterapia para parejas
-3.	Psicoterapia para niños
-4.	Psicoterapia para adolescentes
-•	Las dos primeras opciones se pueden elegir en modalidades online o presencial, mientras que las consultas para menores de edad solo están disponibles en modalidad presencial.
-•	El sistema enviará un correo electrónico al agendar la cita con los datos de esta y marcará el evento en Google Calendar.
-•	En el apartado de "Consultar Citas," se mostrará un historial de citas agendadas y su estado (pendientes, confirmadas, completadas, canceladas o reprogramadas).
-4.	Inicio de Sesión del Psicólogo y Administrador:
-•	El psicólogo tiene un login aparte para mejorar la seguridad y eficiencia.
-•	El inicio de sesión muestra un resumen de citas del mes, el módulo de agendar citas, y el apartado para consultar citas y marcar su estado.
-•	También incluye el módulo de Pacientes, donde puede ver, modificar, eliminar o agregar datos de pacientes.
-•	El módulo de reportes permite generar e imprimir reportes de citas.
-5.	Rol de Administrador:
-•	Creado para hacer escalable el sistema, permitiendo registrar y gestionar datos de nuevos psicólogos si ingresan más especialistas al consultorio.
+  •	El portal informativo incluye secciones como: ¿Quiénes somos?, Servicios que ofrecemos, Consultas y Precios, Acerca de mí y Contactos.
 
+2.	Solicitar una Consulta:
+  •	Los usuarios deben ingresar al sistema haciendo clic en "Ingresar" y colocando su usuario y contraseña.
+  •	Si no están registrados, deben hacer clic en "Registrar" y llenar el formulario de registro de paciente con todos los campos requeridos.
+
+3.	Gestión de Citas:
+  •	Una vez dentro del sistema, el paciente puede seleccionar entre:
+     	Psicoterapia individual
+     	Psicoterapia para parejas
+     	Psicoterapia para niños
+     	Psicoterapia para adolescentes
+  •	Las dos primeras opciones se pueden elegir en modalidades online o presencial, mientras que las consultas para menores de edad solo están disponibles en modalidad presencial.
+  •	El sistema enviará un correo electrónico al agendar la cita con los datos de esta y marcará el evento en Google Calendar.
+  •	En el apartado de "Consultar Citas," se mostrará un historial de citas agendadas y su estado (pendientes, confirmadas, completadas, canceladas o reprogramadas).
+
+4.	Inicio de Sesión del Psicólogo y Administrador:
+  •	El psicólogo tiene un login aparte para mejorar la seguridad y eficiencia.
+  •	El inicio de sesión muestra un resumen de citas del mes, el módulo de agendar citas, y el apartado para consultar citas y marcar su estado.
+  •	También incluye el módulo de Pacientes, donde puede ver, modificar, eliminar o agregar datos de pacientes.
+  •	El módulo de reportes permite generar e imprimir reportes de citas.
+
+5.	Rol de Administrador:
+  •	Creado para hacer escalable el sistema, permitiendo registrar y gestionar datos de nuevos psicólogos si ingresan más especialistas al consultorio.
 
 # Paso a Paso de Instalación y Configuración
 
