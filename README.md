@@ -15,32 +15,51 @@
 # Definición del Sistema
 El sistema de gestión de consultas de Emoción Vital está diseñado para ofrecer un apoyo psicológico integral y accesible, adaptándose a las necesidades de cada persona. Este sistema permite a los usuarios gestionar sus citas, ya sea de manera presencial u online, brindando un espacio para su bienestar emocional y mental.
 
-# ¿Como funciona?
-1.	Página de Inicio:
-•	El portal informativo incluye secciones como: ¿Quiénes somos?, Servicios que ofrecemos, Consultas y Precios, Acerca de mí y Contactos.
+# ¿Cómo funciona?
 
-2.	Solicitar una Consulta:
-•	Los usuarios deben ingresar al sistema haciendo clic en "Ingresar" y colocando su usuario y contraseña.
-•	Si no están registrados, deben hacer clic en "Registrar" y llenar el formulario de registro de paciente con todos los campos requeridos.
+## 1. Página de Inicio:
+- El portal informativo incluye secciones como:
+  - ¿Quiénes somos?
+  - Servicios que ofrecemos
+  - Consultas y Precios
+  - Acerca de mí
+  - Contactos
 
-3.	Gestión de Citas:
-•	Una vez dentro del sistema, el paciente puede seleccionar entre:
-	Psicoterapia individual
-	Psicoterapia para parejas
-	Psicoterapia para niños
-	Psicoterapia para adolescentes
-•	Las dos primeras opciones se pueden elegir en modalidades online o presencial, mientras que las consultas para menores de edad solo están disponibles en modalidad presencial.
-•	El sistema enviará un correo electrónico al agendar la cita con los datos de esta y marcará el evento en Google Calendar.
-•	En el apartado de "Consultar Citas," se mostrará un historial de citas agendadas y su estado (pendientes, confirmadas, completadas, canceladas o reprogramadas).
+## 2. Solicitar una Consulta:
+- Los usuarios deben ingresar al sistema haciendo clic en **"Ingresar"** y colocando su usuario y contraseña.
+- Si no están registrados, deben hacer clic en **"Registrar"** y llenar el formulario de registro de paciente con todos los campos requeridos.
 
-4.	Inicio de Sesión del Psicólogo y Administrador:
-•	El psicólogo tiene un login aparte para mejorar la seguridad y eficiencia.
-•	El inicio de sesión muestra un resumen de citas del mes, el módulo de agendar citas, y el apartado para consultar citas y marcar su estado.
-•	También incluye el módulo de Pacientes, donde puede ver, modificar, eliminar o agregar datos de pacientes.
-•	El módulo de reportes permite generar e imprimir reportes de citas.
+## 3. Gestión de Citas:
+- Una vez dentro del sistema, el paciente puede seleccionar entre:
+  - **Psicoterapia individual**
+  - **Psicoterapia para parejas**
+  - **Psicoterapia para niños**
+  - **Psicoterapia para adolescentes**
+- Las dos primeras opciones se pueden elegir en modalidades **online** o **presencial**, mientras que las consultas para menores de edad solo están disponibles en modalidad **presencial**.
+- El sistema enviará un **correo electrónico** al agendar la cita con los datos de esta y marcará el evento en **Google Calendar**.
+- En el apartado de **"Consultar Citas"**, se mostrará un historial de citas agendadas y su estado:
+  - Pendientes
+  - Confirmadas
+  - Completadas
+  - Canceladas
+  - Reprogramadas
 
-5.	Rol de Administrador:
-•	Creado para hacer escalable el sistema, permitiendo registrar y gestionar datos de nuevos psicólogos si ingresan más especialistas al consultorio.
+## 4. Inicio de Sesión del Psicólogo y Administrador:
+- El psicólogo tiene un login aparte para mejorar la seguridad y eficiencia.
+- El inicio de sesión muestra:
+  - Un resumen de citas del mes
+  - El módulo de **agendar citas**
+  - El apartado para consultar citas y marcar su estado
+  - El módulo de **Pacientes**, donde puede:
+    - Ver
+    - Modificar
+    - Eliminar
+    - Agregar datos de pacientes
+  - El módulo de **Reportes** permite generar e imprimir reportes de citas.
+
+## 5. Rol de Administrador:
+- Diseñado para hacer escalable el sistema, permitiendo:
+  - Registrar y gestionar datos de nuevos psicólogos si ingresan más especialistas al consultorio.
 
 # Paso a Paso de Instalación y Configuración
 
