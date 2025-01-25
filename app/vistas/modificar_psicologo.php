@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Paciente</title>
+    <title>Agregar Psicólogo</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -116,10 +116,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div class="col-lg-8">
                     <div class="card mb-4">
-                        <div class="card-header">Detalles del Paciente</div>
+                        <div class="card-header">Detalles del Psicólogo</div>
                         <div class="card-body">
                             <div class="form-section">
-                                <h2>Datos de Usuario</h2>
+                                <h2>Datos del Psicólogo</h2>
                                 <div class="mb-3">
                                     <label for="usuario" class="form-label">Usuario</label>
                                     <input type="text" id="usuario" name="usuario" class="form-control" value="<?= htmlspecialchars($psicologo['usuario']) ?>" required>
