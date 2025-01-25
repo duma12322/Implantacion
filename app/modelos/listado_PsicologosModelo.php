@@ -198,5 +198,22 @@ class listado_PsicologosModelo
         }
     }
 
+    public function obtenerPsicologoPorIdAdministrativo($id_administrativo)
+    {
+        try {
+            $sql = $this->conn->prepare("SELECT a.*, p.*, e.Tipo_Esp 
+                                         FROM administrativo a
+                                         INNER JOIN psicologo p ON a.id_administrativo = p.id_administrativo
+                                         LEFT JOIN especialidad_psicologo ep ON p.id_psicologo = ep.id_psicologo
+                                         LEFT JOIN especialidad e ON ep.id_especialidad = e.id_especialidad
+                                         WHERE a.id_administrativo = ?");
+            $sql->execute([$id_administrativo]);
+            return $sql->fetch(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log("Error al obtener psicólogo: " . $e->getMessage());
+            return false;
+        }
+    }
+
 }
 

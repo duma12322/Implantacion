@@ -58,6 +58,11 @@ class listado_PsicologosControlador
         return $this->listado_PsicologosModelo->registrarPsicologo($usuario, $contraseña_encriptada, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $id_especialidad, $descripcion, $foto);
     }
 
+    public function obtenerPsicologoPorIdAdministrativo($id_administrativo)
+    {
+        return $this->listado_PsicologosModelo->obtenerPsicologoPorIdAdministrativo($id_administrativo);
+    }
+
     
 }
     
