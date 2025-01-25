@@ -47,6 +47,14 @@ class listado_PsicologosControlador
         return $this->listado_PsicologosModelo->cambiarEstadoPsicologo($id_administrativo);
     }
 
+    public function obtenerEspecialidades() {
+        return $this->listado_PsicologosModelo->obtenerEspecialidades();
+    }
    
-        }
+    public function registrarPsicologo($usuario, $contraseña, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $id_especialidad, $descripcion, $foto) {
+        // Encriptar la contraseña usando md5
+        $contraseña_encriptada = md5($contraseña);
+        return $this->listado_PsicologosModelo->registrarPsicologo($usuario, $contraseña_encriptada, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $id_especialidad, $descripcion, $foto);
+    }
+}
     

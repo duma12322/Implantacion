@@ -18,10 +18,13 @@ class listado_PsicologosModelo
     public function listarPsicologos()
     {
         try {
-            $sql = $this->conn->prepare("SELECT a.* 
-                                         FROM administrativo a
-                                         INNER JOIN psicologo p ON a.id_administrativo = p.id_administrativo
-                                         WHERE a.status = 'activo'");
+            $sql = $this->conn->prepare("SELECT p.*, a.*, e.*
+                                        FROM psicologo p
+                                        JOIN administrativo a ON p.id_administrativo = a.id_administrativo
+                                        LEFT JOIN especialidad_psicologo ep ON p.id_psicologo = ep.id_psicologo
+                                        LEFT JOIN especialidad e ON ep.id_especialidad = e.id_especialidad
+                                        WHERE a.status = 'activo'
+                                        GROUP BY p.id_psicologo");
             $sql->execute();
             return $sql->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
@@ -101,11 +104,13 @@ class listado_PsicologosModelo
             $searchTerm = "%" . $searchTerm . "%";
 
             // Preparar la consulta SQL para buscar en los campos Nombre1 y num_doc
-            $sql = $this->conn->prepare("SELECT a.* 
-                                         FROM administrativo a
-                                         INNER JOIN psicologo p ON a.id_administrativo = p.id_administrativo
-                                         WHERE (a.Nombre1 LIKE :searchTerm OR a.num_doc LIKE :searchTerm) 
-                                         AND a.status = 'activo'");
+            $sql = $this->conn->prepare("SELECT p.*, a.*, e.*
+                                        FROM psicologo p
+                                        JOIN administrativo a ON p.id_administrativo = a.id_administrativo
+                                        LEFT JOIN especialidad_psicologo ep ON p.id_psicologo = ep.id_psicologo
+                                        LEFT JOIN especialidad e ON ep.id_especialidad = e.id_especialidad
+                                        WHERE (a.Nombre1 LIKE :searchTerm OR a.num_doc LIKE :searchTerm) 
+                                        AND a.status = 'activo'");
             $sql->bindParam(':searchTerm', $searchTerm, \PDO::PARAM_STR);
             $sql->execute();
 
@@ -114,6 +119,45 @@ class listado_PsicologosModelo
         } catch (\PDOException $e) {
             error_log("Error al buscar psicólogos filtrados: " . $e->getMessage());
             return [];
+        }
+    }
+
+    public function obtenerEspecialidades()
+    {
+        try {
+            $sql = $this->conn->prepare("SELECT id_especialidad, Tipo_Esp FROM especialidad");
+            $sql->execute();
+            return $sql->fetchAll(\PDO::FETCH_ASSOC);
+        } catch (\PDOException $e) {
+            error_log("Error al obtener especialidades: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    public function registrarPsicologo($usuario, $contraseña, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $id_especialidad, $descripcion, $foto)
+    {
+        try {
+            $this->conn->beginTransaction();
+
+            $sql = $this->conn->prepare("INSERT INTO administrativo (usuario, contraseña, Nombre1, Nombre2, Apellido1, Apellido2, tipo_doc, num_doc, correo, Fecha_Nac, telefono, status, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $sql->execute([$usuario, $contraseña, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $foto]);
+
+            $id_administrativo = $this->conn->lastInsertId();
+
+            $sql = $this->conn->prepare("INSERT INTO psicologo (id_administrativo) VALUES (?)");
+            $sql->execute([$id_administrativo]);
+
+            $id_psicologo = $this->conn->lastInsertId();
+
+            $sql = $this->conn->prepare("INSERT INTO especialidad_psicologo (id_especialidad, id_psicologo) VALUES (?, ?)");
+            $result = $sql->execute([$id_especialidad, $id_psicologo]);
+
+            $this->conn->commit();
+            return $result;
+        } catch (\PDOException $e) {
+            $this->conn->rollBack();
+            error_log("Error al registrar psicólogo: " . $e->getMessage());
+            return false;
         }
     }
 

@@ -72,7 +72,7 @@ if (isset($_POST['id_administrativo'])) {
         <!-- Botones de acciones principales -->
         <div class="d-flex justify-content-between mb-3">
             <div>
-                <a href="#" class="btn btn-primary me-2">
+                <a href="registrar_psicologo.php" class="btn btn-primary me-2">
                     <i class="bi bi-person-fill-add"></i> Agregar Psicologo
                 </a>
                 <!-- Botón de Eliminar Psicólogo -->
@@ -98,14 +98,12 @@ if (isset($_POST['id_administrativo'])) {
         <table class="table table-striped table-hover table-wide">
             <thead class="table-primary">
                 <tr>
-                    <th>Primer Nombre</th>
-                    <th>Segundo Nombre</th>
-                    <th>Primer Apellido</th>
-                    <th>Segundo Apellido</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
                     <th>Fecha de Nacimiento</th>
-                    <th>Tipo de Documento</th>
-                    <th>Número de Documento</th>
+                    <th>Cédula de Identidad</th>
                     <th>Teléfono</th>
+                    <th>Especialidad</th>
                     <th>Foto</th>
                     <th>Acciones</th>
                 </tr>
@@ -114,17 +112,15 @@ if (isset($_POST['id_administrativo'])) {
                 <?php if (!empty($psicologos)) : ?>
                     <?php foreach ($psicologos as $psicologo) : ?>
                         <tr onclick="selectRow(<?= htmlspecialchars($psicologo['id_administrativo']) ?>, this)">
-                            <td><?= htmlspecialchars($psicologo['Nombre1']) ?></td>
-                            <td><?= htmlspecialchars($psicologo['Nombre2']) ?></td>
-                            <td><?= htmlspecialchars($psicologo['Apellido1']) ?></td>
-                            <td><?= htmlspecialchars($psicologo['Apellido2']) ?></td>
+                            <td><?= $psicologo['Nombre1'] . ' ' . $psicologo['Nombre2'] ?></td>
+                            <td><?= $psicologo['Apellido1'] . ' ' . $psicologo['Apellido2'] ?></td>
                             <td><?= htmlspecialchars($psicologo['Fecha_Nac']) ?></td>
-                            <td><?= htmlspecialchars($psicologo['tipo_doc']) ?></td>
-                            <td><?= htmlspecialchars($psicologo['num_doc']) ?></td>
+                            <td><?= htmlspecialchars($psicologo['tipo_doc']) ?>-<?= htmlspecialchars($psicologo['num_doc']) ?></td>
                             <td><?= htmlspecialchars($psicologo['telefono']) ?></td>
+                            <td><?= htmlspecialchars($psicologo['Tipo_Esp']) ?></td>
                             <td>
-                                <?php if ($usuario['foto']) : ?>
-                                    <img src="data:image/jpeg;base64,<?= base64_encode($usuario['foto']) ?>" alt="Foto" class="img-thumbnail" width="50" height="50" />
+                                <?php if (!empty($psicologo['foto'])) : ?>
+                                    <img src="data:image/jpeg;base64,<?= base64_encode($psicologo['foto']) ?>" alt="Foto" class="img-thumbnail" width="50" height="50" />
                                 <?php else : ?>
                                     <span class="text-muted">No disponible</span>
                                 <?php endif; ?>
@@ -134,7 +130,7 @@ if (isset($_POST['id_administrativo'])) {
                                     <i class="bi bi-pencil"></i>
                                 </a>
                                 <form method="POST" class="deleteForm d-inline">
-                                    <input type="hidden" name="id_administrativo" id="id_usuario_to_delete" value="">
+                                    <input type="hidden" name="id_administrativo" id="id_usuario_to_delete" value="<?= htmlspecialchars($psicologo['id_administrativo']) ?>">
                                     <button type="submit" class="btn btn-danger btn-sm">
                                         <i class="bi bi-trash"></i>
                                     </button>
