@@ -162,33 +162,44 @@ $event = $service->events->insert($calendarId, $event, ['conferenceDataVersion' 
 // Obtener el enlace de Google Meet
 $link_meet = $event->getHangoutLink();
 
-// Obtener correo del usuario logueado
-$query_usuario = "
-    SELECT correo FROM usuario WHERE id_usuario = :id_usuario
-";
-$stmt_usuario = $conn->prepare($query_usuario);
-$stmt_usuario->bindParam(':id_usuario', $id_usuario);
-$stmt_usuario->execute();
-$usuario = $stmt_usuario->fetch(PDO::FETCH_ASSOC);
+// Obtener correo del paciente
+$sql = "SELECT u.correo 
+            FROM usuario u
+            INNER JOIN paciente p ON p.id_usuario = u.id_usuario
+            WHERE p.id_paciente = :id_paciente";
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':id_paciente', $id_paciente, PDO::PARAM_INT);
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($usuario) {
-  $to = $usuario['correo'];
-  $subject =
-    "Cita Online Programada";
-  $message =
-    " <html> <head> <title>Cita Online Programada</title> 
-    </head> <body> <p>Estimado(a) paciente,</p> 
-    <p>Nos complace informarte que tu cita online con el psicólogo ha sido programada exitosamente.</p> 
-    <p><strong>Detalles de la cita:</strong></p> <ul> <li><strong>Fecha:</strong> $fecha</li> 
-    <li><strong>Hora de Inicio:</strong> $hora_inicio $ampm</li> 
-    <li><strong>Hora de Finalización:</strong> $hora_final $ampm</li> 
-    <li><strong>Motivo:</strong> $motivo</li> </ul> <p>Por favor, únete a la sesión usando el siguiente enlace:</p>
-     <p><a href='$link_meet'>$link_meet</a></p> <p><strong>Advertencia:</strong> Ingrese al enlace a la hora y fecha agendada, por favor.</p> 
-     <p>Te recomendamos conectarte unos minutos antes para asegurarte de que todo funciona correctamente.</p> 
-     <p>Si tienes alguna pregunta o necesitas reprogramar la cita, no dudes en contactarnos.</p> 
-     <p>Saludos cordiales,<br>El equipo de EmocionVital</p> </body> </html> ";
+if ($result) {
+  $to = $result['correo']; // Correo del paciente
+  $subject = "Cita Online Programada";
+  $message = "
+        <html> 
+        <head> <title>Cita Online Programada</title> </head> 
+        <body> 
+            <p>Estimado(a) paciente,</p> 
+            <p>Nos complace informarte que tu cita online con el psicólogo ha sido programada exitosamente.</p> 
+            <p><strong>Detalles de la cita:</strong></p> 
+            <ul> 
+                <li><strong>Fecha:</strong> $fecha</li> 
+                <li><strong>Hora de Inicio:</strong> $hora_inicio $ampm</li> 
+                <li><strong>Hora de Finalización:</strong> $hora_final $ampm</li> 
+                <li><strong>Motivo:</strong> $motivo</li> 
+                <li><strong>Con un Status:</strong> $status</li> 
+            </ul> 
+            <p>Por favor, únete a la sesión usando el siguiente enlace:</p>
+            <p><a href='$link_meet'>$link_meet</a></p> 
+            <p><strong>Advertencia:</strong> Ingrese al enlace a la hora y fecha agendada, por favor.</p> 
+            <p>Te recomendamos conectarte unos minutos antes para asegurarte de que todo funciona correctamente.</p> 
+            <p>Si tienes alguna pregunta o necesitas reprogramar la cita, no dudes en contactarnos.</p> 
+            <p>Saludos cordiales,<br>El equipo de EmocionVital</p> 
+        </body> 
+        </html>
+    ";
 
-  // Configura PHPMailer
+  // Configurar PHPMailer
   $mail = new PHPMailer(true);
   try {
     // Configuración del servidor
@@ -206,13 +217,13 @@ if ($usuario) {
     // Destinatario
     $mail->addAddress($to);
 
-    // Contenido
+    // Contenido del correo
     $mail->isHTML(true);
     $mail->Subject = $subject;
     $mail->Body = $message;
 
+    // Enviar correo
     $mail->send();
-    // Mensaje de éxito al enviar el correo
     echo "
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
 <script>
@@ -240,7 +251,7 @@ if ($usuario) {
       showConfirmButton: true,
       confirmButtonText: 'OK',
       timer: 5000,
-      willClose: () => { window.location.href = '../vistas/agendar_cita_individual_onine2.php'; }
+      willClose: () => { window.location.href = '../vistas/agendar_cita_individual_online.php'; }
     });
   }
 </script>";

@@ -59,7 +59,7 @@
                 </li>
             <?php endif; ?>
 
-            <?php if ($_SESSION['tipo_usuario'] === 'administrativo' || $_SESSION['tipo_usuario'] === 'psicologo') : ?>
+            <?php if ($_SESSION['tipo_usuario'] === 'administrativo') : ?>
                 <li class="nav-item">
                     <a href="../vistas/listado_Psicologos.php" class="nav-link">
                         <i class="bi bi-person-hearts"></i>
@@ -67,6 +67,9 @@
                     </a>
                     <span class="nav-tooltip">Psicologos</span>
                 </li>
+            <?php endif; ?>
+
+            <?php if ($_SESSION['tipo_usuario'] === 'administrativo' || $_SESSION['tipo_usuario'] === 'psicologo') : ?>
                 <li class="nav-item">
                     <a href="../vistas/listado_pacientes.php" class="nav-link">
                         <i class="bi bi-person-plus-fill"></i>

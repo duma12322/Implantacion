@@ -145,6 +145,100 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt_new_agenda->execute();
     $id_agenda = $conn->lastInsertId();
 
+    // Obtener correo del paciente
+    $sql = "SELECT u.correo 
+            FROM usuario u
+            INNER JOIN paciente p ON p.id_usuario = u.id_usuario
+            WHERE p.id_paciente = :id_paciente";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':id_paciente', $id_paciente, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($result) {
+      $to = $result['correo']; // Correo del paciente
+      $subject = "Cita Presencial Programada";
+      $message = "
+        <html> 
+        <head> <title>Cita Presencial Programada</title> </head> 
+        <body> 
+            <p>Estimado(a) paciente,</p> 
+            <p>Nos complace informarte que tu cita presencial con el psicólogo ha sido programada exitosamente.</p> 
+            <p><strong>Detalles de la cita:</strong></p> 
+            <ul> 
+                <li><strong>Fecha:</strong> $fecha</li> 
+                <li><strong>Hora de Inicio:</strong> $hora_inicio $ampm</li> 
+                <li><strong>Hora de Finalización:</strong> $hora_final $ampm</li> 
+                <li><strong>Motivo:</strong> $motivo</li> 
+                  <li><strong>Con un Status:</strong> $status</li> 
+            </ul> 
+            <p>Por favor, dirijase a la direccion indicada a continuacion:</p>
+     <p>Carrera 90 entre Calles 80 y 77 Edificio Flores, Piso 8 Consultorio 8-2</p> <p><strong>Advertencia:</strong> Dirijase a la hora y fecha agendada, por favor.</p> 
+     <p>Si tienes alguna pregunta o necesitas reprogramar la cita, no dudes en contactarnos.</p> 
+     <p>+58-0418-001-00-11</p> 
+        <p>Saludos cordiales,<br>El equipo de EmocionVital</p> 
+     </body> 
+     </html>";
+
+      // Configurar PHPMailer
+      $mail = new PHPMailer(true);
+      try {
+        // Configuración del servidor
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'dunsuarez.ma@gmail.com';
+        $mail->Password = 'bctefgaywbterpcy';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        // Remitente
+        $mail->setFrom('dunsuarez.ma@gmail.com', 'EmocionVital');
+
+        // Destinatario
+        $mail->addAddress($to);
+
+        // Contenido del correo
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $message;
+
+        // Enviar correo
+        $mail->send();
+        echo "
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+<script>
+  window.onload = function() {
+    Swal.fire({
+      icon: 'success',
+      title: 'El mensaje ha sido enviado',
+      showConfirmButton: true,
+      confirmButtonText: 'OK',
+      timer: 3000,
+      willClose: () => { window.location.href = '../vistas/agendar_cita.php'; }
+    });
+  }
+</script>";
+      } catch (Exception $e) {
+        // Mensaje de error al no poder enviar el correo
+        echo "
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+<script>
+  window.onload = function() {
+    Swal.fire({
+      icon: 'error',
+      title: 'No se pudo enviar el mensaje',
+      text: 'Error de PHPMailer: {$mail->ErrorInfo}',
+      showConfirmButton: true,
+      confirmButtonText: 'OK',
+      timer: 5000,
+      willClose: () => { window.location.href = '../vistas/agendar_cita_individual_online.php'; }
+    });
+  }
+</script>";
+      }
+    }
+
     // Insertar nueva cita
     $id_tipo_cita = $_SESSION['id_tipo_cita']; // Inserta la nueva cita utilizando el id_tipo_cita existente
     $query_cita = " INSERT INTO cita (id_agenda, id_psicologo, id_paciente, fecha, motivo, id_tipo_cita) 

@@ -237,10 +237,14 @@ if ($usuario) {
     <p><strong>Detalles de la cita:</strong></p> <ul> <li><strong>Fecha:</strong> $fecha</li> 
     <li><strong>Hora de Inicio:</strong> $hora_inicio $ampm</li> 
     <li><strong>Hora de Finalización:</strong> $hora_final $ampm</li> 
-    <li><strong>Motivo:</strong> $motivo</li> </ul> <p>Por favor, únete a la sesión usando el siguiente enlace:</p>
+    <li><strong>Motivo:</strong> $motivo</li> 
+      <li><strong>Con un Status:</strong> $status</li> 
+    </ul> 
+    <p>Por favor, únete a la sesión usando el siguiente enlace:</p>
      <p><a href='$link_meet'>$link_meet</a></p> <p><strong>Advertencia:</strong> Ingrese al enlace a la hora y fecha agendada, por favor.</p> 
      <p>Te recomendamos conectarte unos minutos antes para asegurarte de que todo funciona correctamente.</p> 
      <p>Si tienes alguna pregunta o necesitas reprogramar la cita, no dudes en contactarnos.</p> 
+     <p>+58-0418-001-00-11</p> 
      <p>Saludos cordiales,<br>El equipo de EmocionVital</p> </body> </html> ";
 
   // Configura PHPMailer

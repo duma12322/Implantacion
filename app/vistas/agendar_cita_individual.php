@@ -2,10 +2,13 @@
 session_start();
 include '../../config/conexion.php';
 
+// Verificar si el usuario está autenticado
 if (!isset($_SESSION['usuario'])) {
     header("Location: login_paciente.php");
     exit;
 }
+
+// Verificar si el usuario cerró sesión
 if (isset($_POST['cerrar_sesion'])) {
     session_unset();
     session_destroy();
@@ -13,42 +16,43 @@ if (isset($_POST['cerrar_sesion'])) {
     exit;
 }
 
+// Variables de sesión
 $nombreUsuario = $_SESSION['usuario'];
-$tipoUsuario = $_SESSION['tipo_usuario'];
+$tipoUsuario = $_SESSION['tipo_usuario'] ?? 'paciente';
 
+// Manejar la modalidad seleccionada
 if (isset($_POST['modalidad'])) {
-    $id_tipo_cita = $_SESSION['id_tipo_cita'];
+    $id_tipo_cita = $_SESSION['id_tipo_cita'] ?? null;
     $modalidad = $_POST['modalidad'];
+    $_SESSION['modalidad'] = $modalidad;
 
-    $sql = "UPDATE tipo_cita SET modalidad = :modalidad WHERE id_tipo_cita = :id_tipo_cita";
-    $stmt = $conn->prepare($sql);
-    if ($stmt->execute([':modalidad' => $modalidad, ':id_tipo_cita' => $id_tipo_cita])) {
-        if ($modalidad == 'presencial') {
-            if ($tipoUsuario === 'paciente') {
-                header("Location: agendar_cita_individual_presencial.php");
-            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
-                header("Location: agendar_cita_individual_presencial2.php");
+    // Actualizar la modalidad en la base de datos
+    if ($id_tipo_cita) {
+        $sql = "UPDATE tipo_cita SET modalidad = :modalidad WHERE id_tipo_cita = :id_tipo_cita";
+        $stmt = $conn->prepare($sql);
+
+        if ($stmt->execute([':modalidad' => $modalidad, ':id_tipo_cita' => $id_tipo_cita])) {
+            // Redirigir según la modalidad y el tipo de usuario
+            if ($modalidad === 'presencial') {
+                header("Location: " . ($tipoUsuario === 'paciente' ? "agendar_cita_individual_presencial.php" : "agendar_cita_individual_presencial2.php"));
+            } elseif ($modalidad === 'online') {
+                header("Location: " . ($tipoUsuario === 'paciente' ? "agendar_cita_individual_online.php" : "agendar_cita_individual_online2.php"));
             }
-        } elseif ($modalidad == 'online') {
-            if ($tipoUsuario === 'paciente') {
-                header("Location: agendar_cita_individual_online.php");
-            } elseif ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
-                header("Location: agendar_cita_individual_online2.php");
-            }
+            exit;
+        } else {
+            echo "Error al actualizar la modalidad: " . $stmt->errorInfo()[2];
         }
-        exit;
     } else {
-        echo "Error al actualizar la modalidad: " . $stmt->errorInfo()[2];
+        echo "ID de tipo de cita no encontrado.";
     }
 }
 
-// Mostrar la foto según el tipo de usuario
-if ($tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo') {
-    $stmt = $conn->prepare("SELECT foto FROM administrativo WHERE usuario = :usuario");
-} else {
-    $stmt = $conn->prepare("SELECT foto FROM usuario WHERE usuario = :usuario");
-}
-
+// Mostrar la foto del usuario según su tipo
+$stmt = $conn->prepare(
+    $tipoUsuario === 'administrativo' || $tipoUsuario === 'psicologo'
+        ? "SELECT foto FROM administrativo WHERE usuario = :usuario"
+        : "SELECT foto FROM usuario WHERE usuario = :usuario"
+);
 $stmt->execute([':usuario' => $nombreUsuario]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -68,25 +72,19 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <body>
     <!-- Header -->
-
     <header class="header">
         <div class="dropdown">
-            <!-- Botón del dropdown con la foto y el nombre del usuario -->
             <button class="dropbtn">
-                <!-- Aquí se muestra la foto del usuario -->
                 <?php if (!empty($usuario['foto'])): ?>
                     <img src="data:image/jpeg;base64,<?php echo base64_encode($usuario['foto']); ?>" class="patient-photo" alt="Foto del usuario" />
                 <?php else: ?>
-                    <!-- Si no hay foto, se muestra la del avatar -->
                     <img src="files/avatar.png" class="patient-photo" alt="Avatar por defecto" />
                 <?php endif; ?>
-
-                <!-- Mostrar el nombre del usuario -->
                 <?php echo htmlspecialchars($nombreUsuario); ?>
             </button>
             <div class="dropdown-content">
                 <a href="perfil_usuario.php">Perfil</a>
-                <a href="../../config/logout.php">Cerrar Sesion</a>
+                <a href="../../config/logout.php">Cerrar Sesión</a>
             </div>
         </div>
     </header>
@@ -94,12 +92,10 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
     <!-- Sidebar -->
     <?php include 'includes/sidebar.php'; ?>
 
+    <!-- Contenido principal -->
     <div class="container">
         <h4>Seleccione el tipo de cita:</h4>
-
         <div class="row">
-
-            <!-- Cita Presencial -->
             <div class="col-md-6 mb-4">
                 <div class="card">
                     <div class="card-header">Cita Presencial</div>
@@ -115,7 +111,6 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 </div>
             </div>
 
-            <!-- Cita Online -->
             <div class="col-md-6 mb-4">
                 <div class="card">
                     <div class="card-header">Cita Online</div>
@@ -132,7 +127,6 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             </div>
         </div>
 
-        <!-- Política de Citas -->
         <div class="policy-box mt-4">
             <h5>Política de Citas</h5>
             <p>Todas las citas tienen una duración máxima de 45 minutos. Por favor, llegue puntual para aprovechar al máximo su tiempo.</p>
@@ -145,7 +139,6 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="script/agendar_cita_individual.js"></script>
     <script src="script/sidebarandheader.js"></script>
-
 </body>
 
 </html>

@@ -109,6 +109,7 @@ if (isset($_POST['update_status'])) {
     // Actualizar el estado en la tabla agenda
     $update_query = "UPDATE agenda SET status = :status WHERE id_agenda = :id_agenda";
 
+
     try {
         $stmt_update = $conn->prepare($update_query);
         $stmt_update->bindValue(':status', $new_status);

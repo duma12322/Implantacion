@@ -103,6 +103,7 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                         <th>Modalidad</th>
                         <th>Pago</th>
                         <th>Estado</th>
+                        <th>Enviar Correo</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -130,6 +131,16 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                                         <input type="hidden" name="id_agenda" value="<?= $row['id_agenda'] ?>">
                                         <button type="submit" name="update_status" class="btn btn-primary mt-2">Guardar</button>
                                     </form>
+                                <td colspan="6" class="text-center">
+                                    <?php if ($row['status'] == 'Confirmada' || $row['status'] == 'Cancelada'): ?>
+                                        <form method="POST" action="../controladores/enviar_correo.php">
+                                            <input type="hidden" name="id_agenda" value="<?= $row['id_agenda'] ?>">
+                                            <button type="submit" class="btn btn-info btn-sm mt-2" id="enviarCorreoBtn" <?php echo ($row['status'] == 'Confirmada' || $row['status'] == 'Cancelada') ? '' : 'disabled'; ?>>Enviar Correo</button>
+                                        </form>
+                                    <?php else: ?>
+                                        <button type="button" class="btn btn-info btn-sm mt-2" id="enviarCorreoBtn" disabled>Enviar Correo</button>
+                                    <?php endif; ?>
+                                </td>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -164,6 +175,19 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script/sidebarandheader.js "></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Detectar el cambio de estado y habilitar el botón
+        const estado = '<?= $row['status'] ?>'; // Obtener el estado directamente desde PHP
+        const enviarCorreoBtn = document.getElementById('enviarCorreoBtn');
+
+        // Verificar el estado y habilitar el botón si es 'Confirmada' o 'Cancelada'
+        if (estado === 'Confirmada' || estado === 'Cancelada') {
+            enviarCorreoBtn.disabled = false;
+        } else {
+            enviarCorreoBtn.disabled = true;
+        }
+    </script>
+
 </body>
 
 </html>
