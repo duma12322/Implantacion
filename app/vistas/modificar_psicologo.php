@@ -187,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="form-section">
                                 <h2>Especialidad</h2>
                                 <div class="row g-3">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <label for="nombre1" class="form-label">Nombre</label>
                                         <select class="form-select" id="especialidad" name="especialidad" required>
                                             <?php foreach ($especialidades as $especialidad): ?>

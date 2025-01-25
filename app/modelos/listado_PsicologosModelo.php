@@ -122,6 +122,7 @@ class listado_PsicologosModelo
         }
     }
 
+    //Método que permite buscar las especialidades de los psicólogos
     public function obtenerEspecialidades()
     {
         try {
@@ -134,6 +135,7 @@ class listado_PsicologosModelo
         }
     }
 
+    //Metodo para registrar un psicologo incluyendo su especialidad
     public function registrarPsicologo($usuario, $contraseña, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $id_especialidad, $descripcion, $foto)
     {
         try {
@@ -161,6 +163,7 @@ class listado_PsicologosModelo
         }
     }
 
+    //Método para actualizar un psicologo incluyendo su especialidad
     public function actualizarPsicologo($id_psicologo, $usuario, $contraseña, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $id_especialidad, $foto)
     {
         try {
@@ -198,6 +201,7 @@ class listado_PsicologosModelo
         }
     }
 
+    //Metodo para buscar un psicologo por su id_administrativo y obtener su especialidad
     public function obtenerPsicologoPorIdAdministrativo($id_administrativo)
     {
         try {
@@ -215,6 +219,7 @@ class listado_PsicologosModelo
         }
     }
 
+    //Método para eliminar definitivamente un psicólogo
     public function eliminacionDefinitivaPsicologo($id_administrativo)
     {
         try {

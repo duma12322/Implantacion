@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Paciente</title>
+    <title>Agregar Psicólogo</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -96,10 +96,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div class="col-lg-8">
                     <div class="card mb-4">
-                        <div class="card-header">Detalles del Paciente</div>
+                        <div class="card-header">Detalles del Psicólogo</div>
                         <div class="card-body">
                             <div class="form-section">
-                                <h2>Datos de Usuario</h2>
+                                <h2>Datos del Psicólogo</h2>
                                 <div class="mb-3">
                                     <label for="usuario" class="form-label">Usuario</label>
                                     <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Ingrese un usuario" required>
@@ -169,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="form-section">
                                 <h2>Especialidad</h2>
                                 <div class="row g-3">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <label for="nombre1" class="form-label">Nombre</label>
                                         <select class="form-select" id="especialidad" name="especialidad" required>
                                             <option disabled selected>Seleccione la especialidad</option>
@@ -177,10 +177,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                 <option value="<?= $especialidad['id_especialidad'] ?>"><?= $especialidad['Tipo_Esp'] ?></option>
                                             <?php endforeach; ?>
                                         </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="nombre2" class="form-label">Descripción</label>
-                                        <textarea name="" id="" class="form-control"></textarea>
                                     </div>
                                 </div>
                             </div>
