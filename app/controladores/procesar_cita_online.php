@@ -192,7 +192,7 @@ if ($usuario) {
     <li><strong>Hora de Inicio:</strong> $hora_inicio $ampm</li> 
     <li><strong>Hora de Finalización:</strong> $hora_final $ampm</li> 
     <li><strong>Motivo:</strong> $motivo</li> 
-      <li><strong>Con un Status:</strong> $status</li> 
+      <li><strong>Con un Status:</strong> Pendiente</li> 
     </ul>
      <p>Por favor, únete a la sesión usando el siguiente enlace:</p>
      <p><a href='$link_meet'>$link_meet</a></p> <p><strong>Advertencia:</strong> Ingrese al enlace a la hora y fecha agendada, por favor.</p> 

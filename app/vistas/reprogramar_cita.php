@@ -74,7 +74,7 @@ if (isset($_GET['id_agenda'])) {
             <a class="nav-link" href="consultar_cita.php">Volver al listado</a>
         </nav>
         <h2 class="my-4">Reprogramar Cita</h2>
-        <form action="procesar_reprogramar_cita.php" method="POST">
+        <form action="../controladores/procesar_reprogramar_cita.php" method="POST">
 
             <input type="hidden" name="id_cita" value="<?= $cita['id_cita']; ?>">
 

@@ -241,7 +241,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <li><strong>Hora de Inicio:</strong> $hora_inicio $ampm</li> 
     <li><strong>Hora de Finalización:</strong> $hora_final $ampm</li> 
     <li><strong>Motivo:</strong> $motivo</li> 
-      <li><strong>Con un Status:</strong> $status</li> 
+      <li><strong>Con un Status:</strong> Pendiente</li> 
     </ul> 
      <p>Por favor, dirijase a la direccion indicada a continuacion:</p>
      <p>Carrera 90 entre Calles 80 y 77 Edificio Flores, Piso 8 Consultorio 8-2</p> <p><strong>Advertencia:</strong> Dirijase a la hora y fecha agendada, por favor.</p> 
