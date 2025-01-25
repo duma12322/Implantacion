@@ -36,9 +36,10 @@ class listado_PsicologosControlador
     }
 
     // Método para actualizar un psicólogo
-    public function actualizarPsicologo($id_administrativo, $datos)
+    public function actualizarPsicologo($id_psicologo, $usuario, $contraseña, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $id_especialidad, $foto)
     {
-        return $this->listado_PsicologosModelo->actualizarPsicologoPorId($id_administrativo, $datos);
+        $contraseña_encriptada = $contraseña ? md5($contraseña) : null;
+        return $this->listado_PsicologosModelo->actualizarPsicologo($id_psicologo, $usuario, $contraseña_encriptada, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $id_especialidad, $foto);
     }
 
     // Método para eliminar (cambiar el estado) un psicólogo
@@ -56,5 +57,7 @@ class listado_PsicologosControlador
         $contraseña_encriptada = md5($contraseña);
         return $this->listado_PsicologosModelo->registrarPsicologo($usuario, $contraseña_encriptada, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $id_especialidad, $descripcion, $foto);
     }
+
+    
 }
     
