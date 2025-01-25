@@ -191,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <label for="nombre1" class="form-label">Nombre</label>
                                         <select class="form-select" id="especialidad" name="especialidad" required>
                                             <?php foreach ($especialidades as $especialidad): ?>
-                                                <option value="<?= $especialidad['id_especialidad'] ?>"><?= $especialidad['Tipo_Esp'] ?></option>
+                                                <option value="<?= $especialidad['id_especialidad'] ?>"><?= $especialidad['Tipo_Esp'] ?>->(<?= $especialidad['Descripcion'] ?>)</option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>

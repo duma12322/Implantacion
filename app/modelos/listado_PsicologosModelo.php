@@ -126,7 +126,7 @@ class listado_PsicologosModelo
     public function obtenerEspecialidades()
     {
         try {
-            $sql = $this->conn->prepare("SELECT id_especialidad, Tipo_Esp FROM especialidad");
+            $sql = $this->conn->prepare("SELECT id_especialidad, Tipo_Esp, Descripcion FROM especialidad");
             $sql->execute();
             return $sql->fetchAll(\PDO::FETCH_ASSOC);
         } catch (\PDOException $e) {
