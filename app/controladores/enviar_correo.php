@@ -96,11 +96,11 @@ if (isset($_POST['id_agenda'])) {
         $status = $row_cita['status'];
         $paciente_email = $row_cita['correo'];
 
-        // Aquí decides el asunto y el mensaje según el estado de la cita
-        $asunto = "Confirmación de Cita";  // O lo que corresponda según el caso
+
+        $asunto = "Informacion de Cita";
         $mensaje =
             "  <html> 
-        <head> <title>Cita Presencial Programada</title> </head> 
+        <head> <title>Actualizacion de Cita Programada</title> </head> 
         <body> 
             <p>Estimado(a) paciente,</p> 
             <p>Nos complace informarte que el estatus de tu cita ha sido actualizado. A continuación, te proporcionamos los detalles de la misma:</p> 

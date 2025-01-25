@@ -141,6 +141,14 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                                         <button type="button" class="btn btn-info btn-sm mt-2" id="enviarCorreoBtn" disabled>Enviar Correo</button>
                                     <?php endif; ?>
                                 </td>
+                                <td class="text-center">
+                                    <?php if ($row['status'] == 'Reprogramada'): ?>
+                                        <form method="GET" action="reprogramar_cita.php">
+                                            <input type="hidden" name="id_agenda" value="<?= $row['id_agenda'] ?>">
+                                            <button type="submit" class="btn btn-warning btn-sm mt-2">Reprogramar</button>
+                                        </form>
+                                    <?php endif; ?>
+                                </td>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
