@@ -161,5 +161,42 @@ class listado_PsicologosModelo
         }
     }
 
+    public function actualizarPsicologo($id_psicologo, $usuario, $contraseña, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $id_especialidad, $foto)
+    {
+        try {
+            $this->conn->beginTransaction();
+
+            $sql = "UPDATE administrativo SET usuario = ?, Nombre1 = ?, Nombre2 = ?, Apellido1 = ?, Apellido2 = ?, tipo_doc = ?, num_doc = ?, correo = ?, Fecha_Nac = ?, telefono = ?, status = ?";
+            $params = [$usuario, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus];
+
+            if ($contraseña) {
+                $sql .= ", contraseña = ?";
+                $params[] = $contraseña;
+            }
+
+            if ($foto) {
+                $sql .= ", foto = ?";
+                $params[] = $foto;
+            }
+
+            $sql .= " WHERE id_administrativo = (SELECT id_administrativo FROM psicologo WHERE id_psicologo = ?)";
+            $params[] = $id_psicologo;
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute($params);
+
+            $sql = "UPDATE especialidad_psicologo SET id_especialidad = ? WHERE id_psicologo = ?";
+            $stmt = $this->conn->prepare($sql);
+            $result = $stmt->execute([$id_especialidad, $id_psicologo]);
+
+            $this->conn->commit();
+            return $result;
+        } catch (\PDOException $e) {
+            $this->conn->rollBack();
+            error_log("Error al actualizar psicólogo: " . $e->getMessage());
+            return false;
+        }
+    }
+
 }
 
