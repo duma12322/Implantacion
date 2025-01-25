@@ -63,6 +63,11 @@ class listado_PsicologosControlador
         return $this->listado_PsicologosModelo->obtenerPsicologoPorIdAdministrativo($id_administrativo);
     }
 
+    public function eliminacionDefinitivaPsicologo($id_administrativo)
+{
+    return $this->listado_PsicologosModelo->eliminacionDefinitivaPsicologo($id_administrativo);
+}
+
     
 }
     

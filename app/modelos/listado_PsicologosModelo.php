@@ -215,5 +215,34 @@ class listado_PsicologosModelo
         }
     }
 
+    public function eliminacionDefinitivaPsicologo($id_administrativo)
+    {
+        try {
+            $this->conn->beginTransaction();
+
+            // Eliminar de la tabla especialidad_psicologo
+            $sql = "DELETE FROM especialidad_psicologo WHERE id_psicologo = (SELECT id_psicologo FROM psicologo WHERE id_administrativo = ?)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$id_administrativo]);
+
+            // Eliminar de la tabla psicologo
+            $sql = "DELETE FROM psicologo WHERE id_administrativo = ?";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([$id_administrativo]);
+
+            // Eliminar de la tabla administrativo
+            $sql = "DELETE FROM administrativo WHERE id_administrativo = ?";
+            $stmt = $this->conn->prepare($sql);
+            $result = $stmt->execute([$id_administrativo]);
+
+            $this->conn->commit();
+            return $result;
+        } catch (\PDOException $e) {
+            $this->conn->rollBack();
+            error_log("Error al eliminar psicólogo: " . $e->getMessage());
+            return false;
+        }
+    }
+
 }
 

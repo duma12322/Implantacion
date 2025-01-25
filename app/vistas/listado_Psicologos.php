@@ -38,7 +38,7 @@ if (!empty($searchTerm)) {
 
 if (isset($_POST['id_administrativo'])) {
     $id_administrativo = $_POST['id_administrativo'];
-    $resultado = $controller->eliminarPsicologo($id_administrativo);
+    $resultado = $controller->eliminacionDefinitivaPsicologo($id_administrativo);
 
     header('Location: /Implantacion/app/vistas/listado_Psicologos.php');
     exit();
