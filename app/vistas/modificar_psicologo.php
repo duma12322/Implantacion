@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $controller->actualizarPsicologo($id_psicologo, $usuario, $contraseña, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $id_especialidad, $foto);
 
     if ($result) {
-        header('Location: /Implantacion-main/app/vistas/listado_Psicologos.php');
+        header('Location: /Implantacion/app/vistas/listado_Psicologos.php');
         exit();
     } else {
         echo "Error al actualizar el psicólogo.";
