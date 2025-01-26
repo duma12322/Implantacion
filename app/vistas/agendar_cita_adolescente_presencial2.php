@@ -105,9 +105,9 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                 <textarea type="text" name="descrip_disca" id="descrip_disca" class="form-control"></textarea>
             </div>
 
-            <h3 class="mt-4">Datos del Paciente Infantil</h3>
+            <h3 class="mt-4">Datos del Paciente Adolescente</h3>
             <div class="form-group">
-                <label for="relacion_familiar">Tipo de Documento</label>
+                <label for="relacion_familiar">Tipo de Relación</label>
                 <select name="relacion_familiar" id="relacion_familiar" class="form-control">
                     <option value="Hijo">Hijo</option>
                     <option value="Sobrino">Sobrino</option>
@@ -137,17 +137,22 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                 <label for="relacion_fecha_nac">Fecha de Nacimiento</label>
                 <input type="date" name="relacion_fecha_nac" id="relacion_fecha_nac" class="form-control" required>
                 <span id="age-warning" style="color: red; display: none;">Debe ser menor de edad.</span>
-                <span id="age-warning-12" style="color: red; display: none;">No puede ser mayor de 12 años.</span>
+                <span id="age-warning-12" style="color: red; display: none;">No puede ser menor de 12 años.</span>
             </div>
 
             <div class="form-group">
                 <label for="relacion_tipo_doc">Tipo de Documento</label>
-                <input type="text" name="relacion_tipo_doc" id="relacion_tipo_doc" class="form-control" readonly>
+                <select name="relacion_tipo_doc" id="relacion_tipo_doc" class="form-control">
+                    <option value="">Seleccione un tipo de documento</option>
+                    <option value="V">V</option>
+                    <option value="E">E</option>
+                    <option value="J">J</option>
+                    <option value="P">P</option>
+                </select>
             </div>
-
             <div class="form-group">
                 <label for="relacion_numero_doc">Número de Documento</label>
-                <input type="text" name="relacion_numero_doc" id="relacion_numero_doc" class="form-control" readonly>
+                <input type="text" name="relacion_numero_doc" id="relacion_numero_doc" class="form-control" required>
             </div>
 
             <div class="form-group">
@@ -224,20 +229,6 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script/relacion_num_doc.js"></script>
 
-    <script>
-        const numHijos = <?php echo json_encode($num_hijos ?? null); ?>;
-        const numDoc = <?php echo json_encode($num_doc ?? null); ?>;
-        const relacionNumeroDoc = numHijos + numDoc;
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const numeroDocField = document.getElementById('relacion_numero_doc');
-            if (numeroDocField) {
-                numeroDocField.value = relacionNumeroDoc;
-            } else {
-                console.error("Campo 'relacion_numero_doc' no encontrado.");
-            }
-        });
-    </script>
 
 </body>
 
