@@ -35,14 +35,13 @@ if (!$paciente) {
 }
 
 // Obtener los datos de la dirección del paciente
-$query_direccion = "
-    SELECT d.*, e.estado, c.ciudad, m.municipio, pr.parroquia
-    FROM direccion d
-    LEFT JOIN estados e ON d.id_estado = e.id_estado
-    LEFT JOIN ciudades c ON d.id_ciudad = c.id_ciudad
-    LEFT JOIN municipios m ON d.id_municipio = m.id_municipio
-    LEFT JOIN parroquias pr ON d.id_parroquia = pr.id_parroquia
-    WHERE d.id_direccion = :id_direccion";
+$query_direccion = "SELECT d.*, e.estado, c.ciudad, m.municipio, pr.parroquia
+                    FROM direccion d
+                    LEFT JOIN estados e ON d.id_estado = e.id_estado
+                    LEFT JOIN ciudades c ON d.id_ciudad = c.id_ciudad
+                    LEFT JOIN municipios m ON d.id_municipio = m.id_municipio
+                    LEFT JOIN parroquias pr ON d.id_parroquia = pr.id_parroquia
+                    WHERE d.id_direccion = :id_direccion";
 $stmt_direccion = $conn->prepare($query_direccion);
 $stmt_direccion->bindParam(':id_direccion', $paciente['id_direccion'], PDO::PARAM_INT);
 $stmt_direccion->execute();
@@ -72,6 +71,9 @@ $parroquias = $stmt_parroquias->fetchAll(PDO::FETCH_ASSOC);
 // Procesar el formulario de actualización
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recoger los datos del formulario
+    $usuario = htmlspecialchars($_POST['usuario']);
+    $contraseña = htmlspecialchars($_POST['contraseña']);
+    $correo = htmlspecialchars($_POST['correo']);
     $nombre1 = htmlspecialchars($_POST['nombre1']);
     $nombre2 = htmlspecialchars($_POST['nombre2']);
     $apellido1 = htmlspecialchars($_POST['apellido1']);
@@ -86,17 +88,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $municipio = htmlspecialchars($_POST['municipio']);
     $parroquia = htmlspecialchars($_POST['parroquia']);
     $descripcion = htmlspecialchars($_POST['descripcion']);
+    $num_hijos = htmlspecialchars($_POST['num_hijos']);
+    $discapacitado = htmlspecialchars($_POST['discapacitado']);
+    $descrip_disca = htmlspecialchars($_POST['descrip_disca']);
+    $pregunta_s1 = htmlspecialchars($_POST['pregunta_s1']);
+    $respuesta_1 = htmlspecialchars($_POST['respuesta_1']);
+    $pregunta_s2 = htmlspecialchars($_POST['pregunta_s2']);
+    $respuesta_2 = htmlspecialchars($_POST['respuesta_2']);
 
     // Validar los campos obligatorios
     if (empty($nombre1) || empty($apellido1) || empty($sexo) || empty($fecha_nac) || empty($num_doc) || empty($tipo_doc) || empty($telefono) || empty($estado) || empty($ciudad)) {
         $error = "Por favor, completa todos los campos obligatorios.";
     } else {
+        // Hashear la contraseña con md5
+        $contraseña_hashed = md5($contraseña);
+
         // Actualizar los datos del usuario
-        $query_update_usuario = "
-            UPDATE usuario 
-            SET nombre1 = :nombre1, nombre2 = :nombre2, apellido1 = :apellido1, apellido2 = :apellido2,
-                sexo = :sexo, fecha_nac = :fecha_nac, num_doc = :num_doc, tipo_doc = :tipo_doc, telefono = :telefono
-            WHERE id_usuario = :id_usuario";
+        $query_update_usuario = "UPDATE usuario SET
+                                nombre1 = :nombre1,
+                                nombre2 = :nombre2,
+                                apellido1 = :apellido1,
+                                apellido2 = :apellido2,
+                                sexo = :sexo,
+                                fecha_nac = :fecha_nac,
+                                num_doc = :num_doc,
+                                tipo_doc = :tipo_doc,
+                                telefono = :telefono,
+                                correo = :correo,
+                                contraseña = :contraseña,
+                                usuario = :usuario,
+                                pregunta_s1 = :pregunta_s1,
+                                respuesta_1 = :respuesta_1,
+                                pregunta_s2 = :pregunta_s2,
+                                respuesta_2 = :respuesta_2
+                                WHERE id_usuario = :id_usuario";
         $stmt_update_usuario = $conn->prepare($query_update_usuario);
         $stmt_update_usuario->bindParam(':nombre1', $nombre1);
         $stmt_update_usuario->bindParam(':nombre2', $nombre2);
@@ -107,14 +132,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_update_usuario->bindParam(':num_doc', $num_doc);
         $stmt_update_usuario->bindParam(':tipo_doc', $tipo_doc);
         $stmt_update_usuario->bindParam(':telefono', $telefono);
+        $stmt_update_usuario->bindParam(':correo', $correo);
+        $stmt_update_usuario->bindParam(':contraseña', $contraseña_hashed); // Usar la contraseña hasheada
+        $stmt_update_usuario->bindParam(':usuario', $usuario);
+        $stmt_update_usuario->bindParam(':pregunta_s1', $pregunta_s1);
+        $stmt_update_usuario->bindParam(':respuesta_1', $respuesta_1);
+        $stmt_update_usuario->bindParam(':pregunta_s2', $pregunta_s2);
+        $stmt_update_usuario->bindParam(':respuesta_2', $respuesta_2);
         $stmt_update_usuario->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
         $stmt_update_usuario->execute();
 
+        // Actualizar los datos del paciente
+        $query_update_paciente = "UPDATE paciente SET
+                                num_hijos = :num_hijos,
+                                discapacitado = :discapacitado,
+                                descrip_disca = :descrip_disca
+                                WHERE id_usuario = :id_usuario";
+        $stmt_update_paciente = $conn->prepare($query_update_paciente);
+        $stmt_update_paciente->bindParam(':num_hijos', $num_hijos);
+        $stmt_update_paciente->bindParam(':discapacitado', $discapacitado);
+        $stmt_update_paciente->bindParam(':descrip_disca', $descrip_disca);
+        $stmt_update_paciente->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+        $stmt_update_paciente->execute();
+
         // Actualizar los datos de la dirección
-        $query_update_direccion = "
-            UPDATE direccion
-            SET id_estado = :estado, id_ciudad = :ciudad, id_municipio = :municipio, id_parroquia = :parroquia, descripcion = :descripcion
-            WHERE id_direccion = :id_direccion";
+        $query_update_direccion = "UPDATE direccion SET
+                                id_estado = :estado,
+                                id_ciudad = :ciudad,
+                                id_municipio = :municipio,
+                                id_parroquia = :parroquia,
+                                descripcion = :descripcion
+                                WHERE id_direccion = :id_direccion";
         $stmt_update_direccion = $conn->prepare($query_update_direccion);
         $stmt_update_direccion->bindParam(':estado', $estado);
         $stmt_update_direccion->bindParam(':ciudad', $ciudad);
@@ -131,7 +179,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Validar el tipo de archivo
             $permitidos = ['image/jpeg', 'image/png', 'image/gif'];
-
             if (in_array($foto_tipo, $permitidos)) {
                 // Leer la imagen y convertirla en binario
                 $foto_binaria = file_get_contents($foto_tmp);
@@ -157,7 +204,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -185,30 +234,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div class="col-lg-8">
                     <div class="card mb-4">
-                        <div class="card-header">Detalles de la cuenta</div>
+                        <div class="card-header">Detalles del Paciente</div>
+                        <div class="card-body">
+                            <div class="form-section">
+                                <h2>Datos de Usuario</h2>
+                                <div class="mb-3"> <label for="usuario" class="form-label">Usuario</label> <input type="text" class="form-control" id="usuario" name="usuario" value="<?= $usuario['usuario'] ?>" required> </div>
+                                <div class="mb-3"> <label for="contraseña" class="form-label">Contraseña</label> <input type="text" class="form-control" id="contraseña" name="contraseña" value="<?= $usuario['contraseña'] ?>" required> </div>
+                                <div class="mb-3"> <label for="correo" class="form-label">Correo</label> <input type="text" class="form-control" id="correo" name="correo" value="<?= $usuario['correo'] ?>" required> </div>
+                            </div>
+                        </div>
+                        <hr>
+
                         <div class="card-body"> <?php if (isset($error)): ?> <div class="alert alert-danger"><?= $error ?></div> <?php endif; ?> <div class="row">
+                                <h2>Datos Personales</h2>
+
                                 <div class="col-md-6">
+
                                     <div class="mb-3"> <label for="nombre1" class="form-label">Primer Nombre</label> <input type="text" class="form-control" id="nombre1" name="nombre1" value="<?= $usuario['nombre1'] ?>" required> </div>
                                     <div class="mb-3"> <label for="nombre2" class="form-label">Segundo Nombre</label> <input type="text" class="form-control" id="nombre2" name="nombre2" value="<?= $usuario['nombre2'] ?>"> </div>
                                     <div class="mb-3"> <label for="apellido1" class="form-label">Primer Apellido</label> <input type="text" class="form-control" id="apellido1" name="apellido1" value="<?= $usuario['apellido1'] ?>" required> </div>
                                     <div class="mb-3"> <label for="apellido2" class="form-label">Segundo Apellido</label> <input type="text" class="form-control" id="apellido2" name="apellido2" value="<?= $usuario['apellido2'] ?>"> </div>
+                                    <div class="mb-3">
+                                        <label for="discapacitado" class="form-label">Discapacitado</label>
+                                        <input type="text" class="form-control" id="discapacitado" name="discapacitado" value="<?= isset($paciente['discapacitado']) ? ($paciente['discapacitado'] == 1 ? 'Sí' : 'No') : '' ?>" readonly>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="descrip_disca" class="form-label">Descripción de la Discapacidad</label>
+                                        <input type="text" class="form-control" id="descrip_disca" name="descrip_disca" value="<?= isset($paciente['descrip_disca']) ? htmlspecialchars($paciente['descrip_disca']) : '' ?>">
+
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="num_hijos" class="form-label">Número de Hijos</label>
+                                        <input type="text" class="form-control" id="num_hijos" name="num_hijos" value="<?= isset($paciente['num_hijos']) ? htmlspecialchars($paciente['num_hijos']) : '' ?>">
+                                    </div>
                                     <div class="mb-3"> <label for="sexo" class="form-label">Sexo</label> <select id="sexo" name="sexo" class="form-select" required>
                                             <option value="Masculino" <?= ($usuario['sexo'] == 'Masculino') ? 'selected' : '' ?>>Masculino</option>
                                             <option value="Femenino" <?= ($usuario['sexo'] == 'Femenino') ? 'selected' : '' ?>>Femenino</option>
                                         </select> </div>
                                     <div class="mb-3"> <label for="fecha_nac" class="form-label">Fecha de Nacimiento</label> <input type="date" class="form-control" id="fecha_nac" name="fecha_nac" value="<?= $usuario['fecha_nac'] ?>" required> </div>
-                                    <div class="mb-3"> <label for="num_doc" class="form-label">Número de Documento</label> <input type="text" class="form-control" id="num_doc" name="num_doc" value="<?= $usuario['num_doc'] ?>" required> </div>
                                     <div class="mb-3"> <label for="tipo_doc" class="form-label">Tipo de Documento</label> <select id="tipo_doc" name="tipo_doc" class="form-select" required>
                                             <option value="V" <?= ($usuario['tipo_doc'] == 'V') ? 'selected' : '' ?>>V</option>
                                             <option value="E" <?= ($usuario['tipo_doc'] == 'E') ? 'selected' : '' ?>>E</option>
                                             <option value="J" <?= ($usuario['tipo_doc'] == 'J') ? 'selected' : '' ?>>J</option>
                                             <option value="P" <?= ($usuario['tipo_doc'] == 'P') ? 'selected' : '' ?>>P</option>
                                         </select> </div>
+                                    <div class="mb-3"> <label for="num_doc" class="form-label">Número de Documento</label> <input type="text" class="form-control" id="num_doc" name="num_doc" value="<?= $usuario['num_doc'] ?>" required> </div>
                                     <div class="mb-3"> <label for="telefono" class="form-label">Teléfono</label> <input type="text" class="form-control" id="telefono" name="telefono" value="<?= $usuario['telefono'] ?>" required> </div>
                                 </div>
-                            </div> <!-- Estados y otros selectores -->
+                            </div>
+
+                            <!-- Estados y otros selectores -->
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3"> <label for="estado" class="form-label">Estado</label> <select class="form-control" id="estado" name="estado" required>
@@ -232,6 +310,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-3"> <label for="descripcion" class="form-label">Descripción</label> <textarea class="form-control" id="descripcion" name="descripcion" rows="3"><?= htmlspecialchars($direccion['descripcion']) ?></textarea> </div>
+                                </div>
+                                <hr>
+                                <div class="form-section">
+                                    <h2>Preguntas de Seguridad</h2>
+                                    <div class="mb-3">
+                                        <label>Pregunta de seguridad 1</label>
+                                        <select id="pregunta_s1" name="pregunta_s1" class="form-select" required>
+                                            <option disabled selected>Seleccione la primera pregunta de seguridad</option>
+                                            <option value="NOMBRE DE MI MADRE" <?= $usuario['pregunta_s1'] == 'NOMBRE DE MI MADRE' ? 'selected' : '' ?>>NOMBRE DE MI MADRE</option>
+                                            <option value="NOMBRE DE MI MASCOTA" <?= $usuario['pregunta_s1'] == 'NOMBRE DE MI MASCOTA' ? 'selected' : '' ?>>NOMBRE DE MI MASCOTA</option>
+                                            <option value="NOMBRE DE MI PRIMER COLEGIO" <?= $usuario['pregunta_s1'] == 'NOMBRE DE MI PRIMER COLEGIO' ? 'selected' : '' ?>>NOMBRE DE MI PRIMER COLEGIO</option>
+                                            <option value="NOMBRE DE MI PRIMER TRABAJO" <?= $usuario['pregunta_s1'] == 'NOMBRE DE MI PRIMER TRABAJO' ? 'selected' : '' ?>>NOMBRE DE MI PRIMER TRABAJO</option>
+                                            <option value="NOMBRE DE MI PADRE" <?= $usuario['pregunta_s1'] == 'NOMBRE DE MI PADRE' ? 'selected' : '' ?>>NOMBRE DE MI PADRE</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="respuesta_1" class="form-label">Respuesta</label>
+                                        <input type="text" id="respuesta_1" name="respuesta_1" class="form-control" placeholder="Ingrese su respuesta" value="<?= htmlspecialchars($usuario['respuesta_1']) ?>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Pregunta de Seguridad 2</label>
+                                        <select id="pregunta_s2" name="pregunta_s2" class="form-select" required>
+                                            <option disabled selected>Seleccione la segunda pregunta de seguridad</option>
+                                            <option value="NOMBRE DE MI HERMANO MAYOR" <?= $usuario['pregunta_s2'] == 'NOMBRE DE MI HERMANO MAYOR' ? 'selected' : '' ?>>NOMBRE DE MI HERMANO MAYOR</option>
+                                            <option value="DONDE NACIO SU MADRE" <?= $usuario['pregunta_s2'] == 'DONDE NACIO SU MADRE' ? 'selected' : '' ?>>DONDE NACIO SU MADRE</option>
+                                            <option value="NOMBRE DE MEJOR AMIGO DE LA INFANCIA" <?= $usuario['pregunta_s2'] == 'NOMBRE DE MEJOR AMIGO DE LA INFANCIA' ? 'selected' : '' ?>>NOMBRE DE MEJOR AMIGO DE LA INFANCIA</option>
+                                            <option value="PELICULA FAVORITA" <?= $usuario['pregunta_s2'] == 'PELICULA FAVORITA' ? 'selected' : '' ?>>PELICULA FAVORITA</option>
+                                            <option value="SEGUNDO APELLIDO DE MI MADRE" <?= $usuario['pregunta_s2'] == 'SEGUNDO APELLIDO DE MI MADRE' ? 'selected' : '' ?>>SEGUNDO APELLIDO DE MI MADRE</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="respuesta_2" class="form-label">Respuesta</label>
+                                        <input type="text" id="respuesta_2" name="respuesta_2" class="form-control" placeholder="Ingrese su respuesta" value="<?= htmlspecialchars($usuario['respuesta_2']) ?>" required>
+                                    </div>
+
                                 </div>
                             </div> <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
                         </div>

@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'pregunta_s2' => $_POST['pregunta_s2'] ?? null,
         'respuesta_2' => $_POST['respuesta_2'] ?? null,
         'num_hijos' => $_POST['num_hijos'] ?? null,
-        'dispacitado' => $_POST['dispacitado'] ?? null,
+        'discapacitado' => isset($_POST['discapacitado']) && $_POST['discapacitado'] === 'Sí' ? 1 : 0,
         'descrip_disca' => $_POST['descrip_disca'] ?? null
     ];
 
@@ -78,6 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -176,6 +178,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <label for="fecha_nac" class="form-label">Fecha de Nacimiento</label>
                                         <input type="date" id="fecha_nac" name="fecha_nac" class="form-control" required>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <label for="discapacitado" class="form-label">Discapacitado</label>
+                                        <select id="discapacitado" name="discapacitado" class="form-control" required>
+                                            <option value="#">Seleccione</option>
+                                            <option value="No">No</option>
+                                            <option value="Sí">Sí</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="descrip_disca" class="form-label">Descripción de discapacidad</label>
+                                        <input type="text" id="descrip_disca" name="descrip_disca" class="form-control" placeholder="Descripción de la discapacidad">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="otro" class="form-label">Numero de hijos</label>
+                                        <input type="number" class="form-control" id="num_hijos" name="num_hijos" placeholder="Ingrese la cantidad de hijos" value="0" required>
+                                    </div>
+
                                     <div class="col-md-6 mb-3">
                                         <label for="estado" class="form-label">Estado</label>
                                         <select class="form-select" id="estado" name="id_estado" required>
@@ -206,16 +227,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="otro" class="form-label">Numero de hijos</label>
-                                        <input type="number" class="form-control" id="num_hijos" name="num_hijos" placeholder="Ingrese la cantidad de hijos" value="0" required>
-                                    </div>
-
-                                    <div class="col-md-6">
                                         <label for="otro" class="form-label">Descripción de Ubicación</label>
                                         <input type="text" class="form-control" id="otro" name="otro" placeholder="Ingrese detalles de su ubicación.">
                                     </div>
-
-
                                 </div>
                             </div>
                             <hr>
