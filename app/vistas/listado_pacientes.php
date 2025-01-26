@@ -82,13 +82,6 @@ if (isset($_POST['id_usuario'])) {
                 <a href="agregar_paciente.php" class="btn btn-primary me-2">
                     <i class="bi bi-person-fill-add"></i> Agregar Paciente
                 </a>
-                <!-- Botón de Eliminar Paciente -->
-                <form method="POST" class="d-inline" id="deleteForm">
-                    <input type="hidden" name="id_usuario" id="id_usuario_to_delete">
-                    <button type="submit" class="btn btn-danger" name="eliminar">
-                        <i class="bi bi-trash-fill"></i> Eliminar
-                    </button>
-                </form>
             </div>
 
             <!-- Barra de búsqueda -->

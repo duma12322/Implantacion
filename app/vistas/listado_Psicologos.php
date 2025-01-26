@@ -75,13 +75,6 @@ if (isset($_POST['id_administrativo'])) {
                 <a href="registrar_psicologo.php" class="btn btn-primary me-2">
                     <i class="bi bi-person-fill-add"></i> Agregar Psicologo
                 </a>
-                <!-- Botón de Eliminar Psicólogo -->
-                <form method="POST" class="deleteForm d-inline">
-                                    <input type="hidden" name="id_administrativo" id="id_usuario_to_delete" value="<?= htmlspecialchars($psicologo['id_administrativo']) ?>">
-                                    <button type="submit" class="btn btn-danger btn-sm">
-                                        <i class="bi bi-trash-fill"></i>Eliminar
-                                    </button>
-                                </form>
             </div>
 
             <!-- Barra de búsqueda -->
@@ -146,18 +139,7 @@ if (isset($_POST['id_administrativo'])) {
             </tbody>
         </table>
     </div>
-    <script>
-        // Seleccionar una fila y asignar el id_administrativo al formulario principal
-        function selectRow(id, rowElement) {
-            // Resaltar la fila seleccionada
-            const tableRows = document.querySelectorAll("tr");
-            tableRows.forEach(row => row.classList.remove("table-active")); // Quitar la clase activa de otras filas
-            rowElement.classList.add("table-active"); // Agregar clase activa a la fila seleccionada
 
-            // Asignar el id_administrativo al campo oculto del formulario principal
-            document.getElementById("id_administrativo_to_delete").value = id;
-        }
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script/sidebarandheader.js"></script>
     <script src="script/listado_psicologo.js"></script>
