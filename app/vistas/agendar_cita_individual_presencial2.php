@@ -142,7 +142,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="form-group">
                 <label for="monto">Monto</label>
-                <input type="number" name="monto" id="monto" class="form-control" value="35" readonly required>
+                <input type="number" name="monto" id="monto" class="form-control" value="30" readonly required>
             </div>
             <div class="form-group" id="referencia-group">
                 <label for="referencia_bancaria">Referencia Bancaria</label>
@@ -161,7 +161,25 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <script src="script/selectPaciente.js"></script>
     <script src="script/discapacitado.js"></script>
     <script src="script/relacion_discapacitado.js"></script>
-    <script src="script/referecia.js"></script>
+    <script>
+        function toggleReferencia() {
+            let tipoPago = document.getElementById('tipo_pago').value;
+            let referenciaInput = document.getElementById('referencia_bancaria');
+
+            if (tipoPago === 'EFECTIVO $') {
+                referenciaInput.value = '0000'; // Asignar valor
+                referenciaInput.disabled = true; // Deshabilitar
+            } else {
+                referenciaInput.value = ''; // Limpiar valor
+                referenciaInput.disabled = false; // Habilitar
+            }
+        }
+
+        // Ejecutar la función una vez al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleReferencia(); // Inicializa el estado del campo al cargar la página
+        });
+    </script>
 </body>
 
 </html>
