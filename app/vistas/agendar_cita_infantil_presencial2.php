@@ -107,7 +107,6 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 
             <h3 class="mt-4">Datos del Paciente Infantil</h3>
             <div class="form-group">
-                <label for="relacion_familiar">Tipo de Documento</label>
                 <select name="relacion_familiar" id="relacion_familiar" class="form-control">
                     <option value="Hijo">Hijo</option>
                     <option value="Sobrino">Sobrino</option>
