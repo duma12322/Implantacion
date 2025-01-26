@@ -38,7 +38,7 @@ if (!empty($searchTerm)) {
 
 if (isset($_POST['id_administrativo'])) {
     $id_administrativo = $_POST['id_administrativo'];
-    $resultado = $controller->eliminacionDefinitivaPsicologo($id_administrativo);
+    $resultado = $controller->eliminarPsicologo($id_administrativo);
 
     header('Location: /Implantacion/app/vistas/listado_Psicologos.php');
     exit();
@@ -75,13 +75,6 @@ if (isset($_POST['id_administrativo'])) {
                 <a href="registrar_psicologo.php" class="btn btn-primary me-2">
                     <i class="bi bi-person-fill-add"></i> Agregar Psicologo
                 </a>
-                <!-- Botón de Eliminar Psicólogo -->
-                <form method="POST" class="d-inline deleteForm" id="deleteForm">
-                    <input type="hidden" name="id_administrativo" id="id_administrativo_to_delete">
-                    <button type="submit" class="btn btn-danger" name="eliminar">
-                        <i class="bi bi-trash-fill"></i> Eliminar
-                    </button>
-                </form>
             </div>
 
             <!-- Barra de búsqueda -->
