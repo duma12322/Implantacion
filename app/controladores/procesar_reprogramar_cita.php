@@ -38,16 +38,46 @@ $stmt_cita->execute([
     ':id_cita' => $id_cita
 ]);
 
-// Actualiza la hora y fecha en la tabla `agenda`
-$query_agenda = "UPDATE agenda SET fecha = :fecha, hora_inicio = :hora_inicio, hora_final = :hora_final WHERE id_agenda = (SELECT id_agenda FROM cita WHERE id_cita = :id_cita)";
-$stmt_agenda = $conn->prepare($query_agenda);
-$stmt_agenda->execute([
-    ':fecha' => $fecha,
-    ':hora_inicio' => $hora_inicio,
-    ':hora_final' => $hora_final,
-    ':id_cita' => $id_cita
-]);
+if ($stmt_cita->execute()) {
+    // Actualiza la hora y fecha en la tabla `agenda`
+    $query_agenda = "UPDATE agenda SET fecha = :fecha, hora_inicio = :hora_inicio, hora_final = :hora_final WHERE id_agenda = (SELECT id_agenda FROM cita WHERE id_cita = :id_cita)";
+    $stmt_agenda = $conn->prepare($query_agenda);
+    $stmt_agenda->execute([
+        ':fecha' => $fecha,
+        ':hora_inicio' => $hora_inicio,
+        ':hora_final' => $hora_final,
+        ':id_cita' => $id_cita
+    ]);
 
-// Redirige a la página de confirmación o listado
-header("Location: consultar_cita.php?mensaje=Reprogramación exitosa");
-exit;
+    // Redirige a la página de confirmación o listado
+    echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+        <script>
+          window.onload = function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Cita reprogramada exitosamente',
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+                timer: 3000,
+                willClose: () => { window.location.href = '../vistas/agendar_cita.php'; }
+            });
+          }
+        </script>";
+} else {
+    // Mensaje de error
+    echo "
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+        <script>
+          window.onload = function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al reprogramar la cita: " . $stmt_cita->errorInfo()[2] . "',
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+                timer: 3000,
+                willClose: () => { window.location.href = '../vistas/agendar_cita_individual_presencial.php'; }
+            });
+          }
+        </script>";
+}
