@@ -59,13 +59,13 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
         <h1 class="text-center mb-4">Reporte Citas</h1>
 
         <!-- Barra de búsqueda -->
-        <form method="GET" action="consultar_cita.php" class="d-flex justify-content-between mb-4">
+        <form method="GET" action="reporte_cita.php" class="d-flex justify-content-between mb-4">
             <input type="text" name="search" class="form-control me-2" placeholder="Buscar psicólogo o paciente..." value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
             <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i> Buscar</button>
         </form>
 
         <!-- Filtros -->
-        <form method="GET" action="consultar_cita.php" class="mb-4">
+        <form method="GET" action="reporte_cita.php" class="mb-4">
             <div class="row">
                 <div class="col">
                     <label for="status">Estado:</label>

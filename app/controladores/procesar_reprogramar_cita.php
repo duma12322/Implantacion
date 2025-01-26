@@ -4,8 +4,8 @@ include_once('../../config/conexion.php');
 
 // Verifica si el usuario está autenticado
 if (!isset($_SESSION['usuario'])) {
-    header("Location: login_paciente.php");
-    exit;
+  header("Location: login_paciente.php");
+  exit;
 }
 
 // Recibe los datos del formulario
@@ -32,25 +32,25 @@ $hora_final = sprintf("%02d:%02d:00", $hora_final24, $minutos_finales);
 $query_cita = "UPDATE cita SET id_psicologo = :id_psicologo, id_paciente = :id_paciente, motivo = :motivo WHERE id_cita = :id_cita";
 $stmt_cita = $conn->prepare($query_cita);
 $stmt_cita->execute([
-    ':id_psicologo' => $id_psicologo,
-    ':id_paciente' => $id_paciente,
-    ':motivo' => $motivo,
-    ':id_cita' => $id_cita
+  ':id_psicologo' => $id_psicologo,
+  ':id_paciente' => $id_paciente,
+  ':motivo' => $motivo,
+  ':id_cita' => $id_cita
 ]);
 
 if ($stmt_cita->execute()) {
-    // Actualiza la hora y fecha en la tabla `agenda`
-    $query_agenda = "UPDATE agenda SET fecha = :fecha, hora_inicio = :hora_inicio, hora_final = :hora_final WHERE id_agenda = (SELECT id_agenda FROM cita WHERE id_cita = :id_cita)";
-    $stmt_agenda = $conn->prepare($query_agenda);
-    $stmt_agenda->execute([
-        ':fecha' => $fecha,
-        ':hora_inicio' => $hora_inicio,
-        ':hora_final' => $hora_final,
-        ':id_cita' => $id_cita
-    ]);
+  // Actualiza la hora y fecha en la tabla `agenda`
+  $query_agenda = "UPDATE agenda SET fecha = :fecha, hora_inicio = :hora_inicio, hora_final = :hora_final WHERE id_agenda = (SELECT id_agenda FROM cita WHERE id_cita = :id_cita)";
+  $stmt_agenda = $conn->prepare($query_agenda);
+  $stmt_agenda->execute([
+    ':fecha' => $fecha,
+    ':hora_inicio' => $hora_inicio,
+    ':hora_final' => $hora_final,
+    ':id_cita' => $id_cita
+  ]);
 
-    // Redirige a la página de confirmación o listado
-    echo "
+  // Redirige a la página de confirmación o listado
+  echo "
         <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
         <script>
           window.onload = function() {
@@ -60,13 +60,13 @@ if ($stmt_cita->execute()) {
                 showConfirmButton: true,
                 confirmButtonText: 'OK',
                 timer: 3000,
-                willClose: () => { window.location.href = '../vistas/agendar_cita.php'; }
+                willClose: () => { window.location.href = '../vistas/reprogramar_cita.php'; }
             });
           }
         </script>";
 } else {
-    // Mensaje de error
-    echo "
+  // Mensaje de error
+  echo "
         <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
         <script>
           window.onload = function() {

@@ -107,13 +107,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="col-lg-4">
                     <div class="card mb-4 mb-lg-0">
                         <div class="card-header">Foto de Perfil</div>
-                        <div class="card-body text-center">
-                            <div class="avatar default-avatar">A</div>
-                            <h6>Fotografía</h6>
-                            <input type="file" name="foto" id="foto" class="text-center center-block file-upload form-control-file">
+                        <div class="card-body text-center"> <?php if (!empty($psicologo['foto'])): ?>
+                                <img src="data:image/jpeg;base64,<?php echo base64_encode($psicologo['foto']); ?>" class="avatar img-circle img-thumbnail" alt="avatar">
+                            <?php else: ?>
+                                <div class="avatar default-avatar">A</div>
+                            <?php endif; ?>
+                            <h6>Cambiar foto</h6> <input type="file" name="foto" class="text-center center-block file-upload">
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-8">
                     <div class="card mb-4">
                         <div class="card-header">Detalles del Psicólogo</div>

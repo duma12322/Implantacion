@@ -134,7 +134,7 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
             </div>
             <div class="form-group">
                 <label for="monto">Monto</label>
-                <input type="number" name="monto" id="monto" class="form-control" value="35" readonly required>
+                <input type="number" name="monto" id="monto" class="form-control" value="20" readonly required>
             </div>
             <div class="form-group" id="referencia-group">
                 <label for="referencia_bancaria">Referencia Bancaria</label>
