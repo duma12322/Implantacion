@@ -40,7 +40,13 @@ $minutos = $_POST['minutos'] ?? null;
 $ampm = $_POST['am_pm'] ?? null;
 $motivo = $_POST['motivo'] ?? null;
 $tipo_pago = $_POST['tipo_pago'] ?? null;
-$referencia_bancaria = $_POST['referencia_bancaria'] ?? null;
+$referencia_bancaria = $_POST['referencia_bancaria'] ?? '0000'; // Valor por defecto
+
+// Verificar si el tipo de pago es efectivo y ajustar el valor de referencia
+if ($_POST['tipo_pago'] === 'EFECTIVO $') {
+  $referencia_bancaria = '0000';
+}
+
 $discapacitado = $_POST['discapacitado'] ?? null;
 $descrip_disca = $_POST['descrip_disca'] ?? null;
 $monto = 20 ?? null;

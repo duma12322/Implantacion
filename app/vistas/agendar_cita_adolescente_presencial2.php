@@ -196,7 +196,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
             <h4 class="mt-4">Pago</h4>
             <div class="form-group">
                 <label for="tipo_pago">Tipo de Pago</label>
-                <select name="tipo_pago" id="tipo_pago" class="form-control" required>
+                <select name="tipo_pago" id="tipo_pago" class="form-control" required onchange="toggleReferencia()">
                     <option value="">Seleccione un tipo de pago</option>
                     <option value="TRANSFERENCIA BANCARIA">TRANSFERENCIA BANCARIA</option>
                     <option value="PAGO MOVIL">PAGO MOVIL</option>
@@ -207,7 +207,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                 <label for="monto">Monto</label>
                 <input type="number" name="monto" id="monto" class="form-control" value="35" readonly required>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="referencia-group">
                 <label for="referencia_bancaria">Referencia Bancaria</label>
                 <input type="text" name="referencia_bancaria" id="referencia_bancaria" class="form-control" required>
             </div>
@@ -223,6 +223,8 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <script src="script/relacion_discapacitado.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script/relacion_num_doc.js"></script>
+    <script src="script/referencia.js"></script>
+
 
     <script>
         const numHijos = <?php echo json_encode($num_hijos ?? null); ?>;

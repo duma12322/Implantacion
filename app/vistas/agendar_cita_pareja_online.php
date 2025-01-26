@@ -172,19 +172,20 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
             <h4 class="mt-4">Pago</h4>
             <div class="form-group">
                 <label for="tipo_pago">Tipo de Pago</label>
-                <select name="tipo_pago" id="tipo_pago" class="form-control" required>
+                <select name="tipo_pago" id="tipo_pago" class="form-control" required onchange="toggleReferencia()">
                     <option value="">Seleccione un tipo de pago</option>
                     <option value="TRANSFERENCIA BANCARIA">TRANSFERENCIA BANCARIA</option>
                     <option value="PAGO MOVIL">PAGO MOVIL</option>
+                    <option value="EFECTIVO $">EFECTIVO $</option>
                 </select>
             </div>
             <div class="form-group">
+                <label for="monto">Monto</label>
+                <input type="number" name="monto" id="monto" class="form-control" value="35" readonly required>
+            </div>
+            <div class="form-group" id="referencia-group">
                 <label for="referencia_bancaria">Referencia Bancaria</label>
                 <input type="text" name="referencia_bancaria" id="referencia_bancaria" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="monto">Monto</label>
-                <input type="number" name="monto" id="monto" class="form-control" value="25" readonly required>
             </div>
             <button type="submit" class="btn btn-success">Agendar Cita</button>
         </form>
@@ -195,7 +196,7 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
     <script src="script/fecha.js"></script>
     <script src="script/discapacitado.js"></script>
     <script src="script/relacion_discapacitado.js"></script>
-
+    <script src="script/referencia.js"></script>
 </body>
 
 </html>

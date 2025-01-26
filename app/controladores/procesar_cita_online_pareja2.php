@@ -40,7 +40,13 @@ $minutos = $_POST['minutos'];
 $ampm = $_POST['am_pm'];
 $motivo = $_POST['motivo'];
 $tipo_pago = $_POST['tipo_pago'];
-$referencia_bancaria = $_POST['referencia_bancaria'];
+$referencia_bancaria = $_POST['referencia_bancaria'] ?? '0000'; // Valor por defecto
+
+// Verificar si el tipo de pago es efectivo y ajustar el valor de referencia
+if ($_POST['tipo_pago'] === 'EFECTIVO $') {
+  $referencia_bancaria = '0000';
+}
+
 $monto = 35;
 
 // Datos de la pareja 
