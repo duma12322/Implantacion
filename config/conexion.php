@@ -1,7 +1,7 @@
 <?php
 
 $host = "localhost";
-$dbname = "implantacion";
+$dbname = "emocionvital";
 $username = "root";
 $password = "";
 
