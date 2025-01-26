@@ -260,11 +260,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               window.onload = function() {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Cita agendada correctamente.',
+                    title: 'Cita agendada correctamente. Revisa tu correo para el enlace de la reunión.',
                     showConfirmButton: true,
                     confirmButtonText: 'OK',
                     timer: 3000,
-                    willClose: () => { window.location.href = '../vistas/agendar_cita_individual_presencial2.php'; }
+                    willClose: () => { window.location.href = '../vistas/agendar_cita.php'; }
                 });
               }
             </script>";
