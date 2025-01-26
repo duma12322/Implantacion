@@ -15,31 +15,7 @@ if (!isset($_SESSION['id_usuario'])) {
 
 $id_usuario = (int)$_SESSION['id_usuario'];
 
-// Crear el cliente de Google
-$client = new Google_Client();
-$client->setApplicationName('Implantacion');
-$client->setScopes(Google_Service_Calendar::CALENDAR);
-$client->setAuthConfig('../../credentials.json');
-$client->setAccessType('offline');
 
-// Verificar si ya tenemos un token de acceso guardado
-$tokenPath = '../../token.json';
-if (file_exists($tokenPath)) {
-  $accessToken = json_decode(file_get_contents($tokenPath), true);
-  $client->setAccessToken($accessToken);
-}
-
-// Si el token ha caducado o no existe, redirigir a la autorización
-if ($client->isAccessTokenExpired() || !$client->getAccessToken()) {
-  $authUrl = $client->createAuthUrl();
-  header('Location: ' . filter_var($authUrl, FILTER_SANITIZE_URL));
-  exit;
-}
-
-// Crear servicio de Google Calendar
-$service = new Google_Service_Calendar($client);
-
-// Obtener datos del formulario
 // Obtener datos del formulario
 $id_psicologo = $_POST['id_psicologo'];
 $id_paciente = $_POST['id_paciente'];
