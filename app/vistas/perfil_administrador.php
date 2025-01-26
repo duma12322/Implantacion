@@ -52,8 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fecha_nac = $_POST['fecha_nac'];
     $telefono = $_POST['telefono'];
     $correo = $_POST['correo'];
-    $especialidad = $_POST['especialidad'];
-    
+
+
     // Verificar si hay una foto nueva
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
         $foto_tmp = $_FILES['foto']['tmp_name'];
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt_update->bindParam(':fecha_nac', $fecha_nac);
     $stmt_update->bindParam(':telefono', $telefono);
     $stmt_update->bindParam(':correo', $correo);
-    
+
     $stmt_update->bindParam(':id_administrativo', $id_administrativo);
     $stmt_update->execute();
 

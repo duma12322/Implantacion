@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $telefono = $_POST['telefono'];
     $correo = $_POST['correo'];
     $especialidad = $_POST['especialidad'];
-    
+
     // Verificar si hay una foto nueva
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
         $foto_tmp = $_FILES['foto']['tmp_name'];
@@ -112,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt_update->bindParam(':fecha_nac', $fecha_nac);
     $stmt_update->bindParam(':telefono', $telefono);
     $stmt_update->bindParam(':correo', $correo);
-    
+
     $stmt_update->bindParam(':id_administrativo', $id_administrativo);
     $stmt_update->execute();
 
@@ -239,18 +239,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </label>
                             <input type="date" class="form-control" name="fecha_nac" value="<?php echo $usuario['Fecha_Nac']; ?>">
                         </div>
-                        <div class="form-group">
-                            <label for="Tipo_Esp">
-                                <h4>Especialidad</h4>
-                            </label>
-                            <input type="text" class="form-control" name="Tipo_Esp" value="<?php echo isset($usuario['Tipo_Esp']) ? htmlspecialchars($usuario['Tipo_Esp']) : ''; ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="Descripcion">
-                                <h4>Descripcion de especialidad</h4>
-                            </label>
-                            <input type="Text" class="form-control" name="Descripcion" value="<?php echo isset($usuario['Descripcion']) ? htmlspecialchars($usuario['Descripcion']) : ''; ?>"> 
-                        </div>
+                        <?php if ($_SESSION['tipo_usuario'] === 'psicologo') : ?>
+                            <div class="form-group">
+                                <label for="Tipo_Esp">
+                                    <h4>Especialidad</h4>
+                                </label>
+                                <input type="text" class="form-control" name="Tipo_Esp" value="<?php echo isset($usuario['Tipo_Esp']) ? htmlspecialchars($usuario['Tipo_Esp']) : ''; ?>">
+                            </div>
+                            <div class="form-group">
+                                <label for="Descripcion">
+                                    <h4>Descripcion de especialidad</h4>
+                                </label>
+                                <input type="Text" class="form-control" name="Descripcion" value="<?php echo isset($usuario['Descripcion']) ? htmlspecialchars($usuario['Descripcion']) : ''; ?>">
+                            </div>
+                        <?php endif; ?>
                         <hr>
                     </div>
                     <button type="submit" class="btn btn-primary">Actualizar Perfil</button>
