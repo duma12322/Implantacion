@@ -229,7 +229,6 @@ $info_usuario = $stmt_usuario->fetch(PDO::FETCH_ASSOC);
     <script src="script/discapacitado.js"></script>
     <script src="script/relacion_discapacitado.js"></script>
     <script src="script/referencia.js"></script>
-
 </body>
 
 </html>
