@@ -170,6 +170,8 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                         </select>
                     </div>
                 </div>
+                <!-- Aquí se mostrará el mensaje de advertencia -->
+                <div id="advertencia" style="color: red; margin-top: 10px;"></div>
             </div>
 
             <div class="form-group">
@@ -204,6 +206,8 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <script src="script/fecha.js"></script>
     <script src="script/discapacitado.js"></script>
     <script src="script/relacion_discapacitado.js"></script>
+    <script src="script/validarHora.js"></script>
+
     <script>
         function toggleReferencia() {
             let tipoPago = document.getElementById('tipo_pago').value;

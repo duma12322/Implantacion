@@ -186,6 +186,8 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                         </select>
                     </div>
                 </div>
+                <!-- Aquí se mostrará el mensaje de advertencia -->
+                <div id="advertencia" style="color: red; margin-top: 10px;"></div>
             </div>
 
             <div class="form-group">
@@ -223,7 +225,26 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <script src="script/relacion_discapacitado.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script/relacion_num_doc.js"></script>
-    <script src="script/referencia.js"></script>
+    <script src="script/validarHora.js"></script>
+    <script>
+        function toggleReferencia() {
+            let tipoPago = document.getElementById('tipo_pago').value;
+            let referenciaInput = document.getElementById('referencia_bancaria');
+
+            if (tipoPago === 'EFECTIVO $') {
+                referenciaInput.value = '0000'; // Asignar valor
+                referenciaInput.disabled = true; // Deshabilitar
+            } else {
+                referenciaInput.value = ''; // Limpiar valor
+                referenciaInput.disabled = false; // Habilitar
+            }
+        }
+
+        // Ejecutar la función una vez al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleReferencia(); // Inicializa el estado del campo al cargar la página
+        });
+    </script>
 
 
     <script>

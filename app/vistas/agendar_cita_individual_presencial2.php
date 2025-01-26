@@ -125,7 +125,10 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                         </select>
                     </div>
                 </div>
+                <!-- Aquí se mostrará el mensaje de advertencia -->
+                <div id="advertencia" style="color: red; margin-top: 10px;"></div>
             </div>
+
             <div class="form-group">
                 <label for="motivo">Motivo</label>
                 <textarea type="text" name="motivo" id="motivo" class="form-control" required></textarea>
@@ -161,6 +164,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <script src="script/selectPaciente.js"></script>
     <script src="script/discapacitado.js"></script>
     <script src="script/relacion_discapacitado.js"></script>
+    <script src="script/validarHora.js"></script>
     <script>
         function toggleReferencia() {
             let tipoPago = document.getElementById('tipo_pago').value;
@@ -180,6 +184,6 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
             toggleReferencia(); // Inicializa el estado del campo al cargar la página
         });
     </script>
-</body>
+
 
 </html>
