@@ -227,7 +227,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <script src="script/discapacitado.js"></script>
     <script src="script/relacion_discapacitado.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="script/relacion_num_doc.js"></script>
+   
 
 
 </body>
