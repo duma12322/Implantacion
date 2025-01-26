@@ -142,7 +142,7 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
 
             <h3 class="mt-4">Datos de la Cita</h3>
             <div class="form-group">
-                <label for="fecha">Fecha de la cita</label>
+                <label for="fecha">Fecha de la Cita</label>
                 <input type="date" name="fecha" id="fecha" class="form-control" required>
             </div>
             <div class="form-group">
@@ -162,6 +162,8 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
                         </select>
                     </div>
                 </div>
+                <!-- Aquí se mostrará el mensaje de advertencia -->
+                <div id="advertencia" style="color: red; margin-top: 10px;"></div>
             </div>
 
             <div class="form-group">
@@ -195,6 +197,7 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
     <script src="script/fecha.js"></script>
     <script src="script/discapacitado.js"></script>
     <script src="script/relacion_discapacitado.js"></script>
+    <script src="script/validarHoraO.js"></script>
 </body>
 
 </html>
