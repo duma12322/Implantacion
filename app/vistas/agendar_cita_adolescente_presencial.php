@@ -54,32 +54,8 @@ $stmt_usuario = $conn->prepare("SELECT tipo_doc FROM usuario WHERE id_usuario = 
 $stmt_usuario->execute([':id_usuario' => $id_usuario]);
 $info_usuario = $stmt_usuario->fetch(PDO::FETCH_ASSOC);
 
-$tipo_doc = isset($info_usuario['tipo_doc']) ? htmlspecialchars($info_usuario['tipo_doc']) : '';
 
-if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
-    $num_hijos = $info_paciente['num_hijos'];
 
-    // Obtener el número de documento del usuario desde la base de datos
-    $stmt_usuario = $conn->prepare("SELECT num_doc FROM usuario WHERE id_usuario = :id_usuario");
-    $stmt_usuario->execute([':id_usuario' => $id_usuario]);
-    $info_usuario = $stmt_usuario->fetch(PDO::FETCH_ASSOC);
-
-    if ($info_usuario && $info_usuario['num_doc'] !== NULL) {
-        $num_doc = $info_usuario['num_doc'];
-
-        // Crear el número de documento combinando el num_hijos y el num_doc con un guion
-        $relacion_numero_doc = $num_hijos . "-" . $num_doc;
-        echo "Número de Documento Generado: " . $relacion_numero_doc;
-        // Almacenar el valor en una variable de sesión
-        $_SESSION['relacion_numero_doc'] = $relacion_numero_doc;
-    } else {
-        echo "No se encontró un número de documento válido para el usuario.";
-        $relacion_numero_doc = "";
-    }
-} else {
-    echo "No se encontró un número de hijos válido para el paciente.";
-    $relacion_numero_doc = "";
-}
 ?>
 
 <!DOCTYPE html>
@@ -131,9 +107,9 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
                 <textarea type="text" name="descrip_disca" id="descrip_disca" class="form-control"></textarea>
             </div>
 
-            <h3 class="mt-4">Datos del Paciente Infantil</h3>
+            <h3 class="mt-4">Datos del Paciente Adolescente</h3>
             <div class="form-group">
-                <label for="relacion_familiar">Tipo de Documento</label>
+                <label for="relacion_familiar">Tipo de Relación</label>
                 <select name="relacion_familiar" id="relacion_familiar" class="form-control">
                     <option value="Hijo">Hijo</option>
                     <option value="Sobrino">Sobrino</option>
@@ -168,12 +144,17 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
 
             <div class="form-group">
                 <label for="relacion_tipo_doc">Tipo de Documento</label>
-                <input type="text" name="relacion_tipo_doc" id="relacion_tipo_doc" class="form-control" value="<?= $tipo_doc ?>" readonly>
+                <select name="relacion_tipo_doc" id="relacion_tipo_doc" class="form-control">
+                    <option value="">Seleccione un tipo de documento</option>
+                    <option value="V">V</option>
+                    <option value="E">E</option>
+                    <option value="J">J</option>
+                    <option value="P">P</option>
+                </select>
             </div>
-
             <div class="form-group">
                 <label for="relacion_numero_doc">Número de Documento</label>
-                <input type="text" name="relacion_numero_doc" id="relacion_numero_doc" class="form-control" required readonly value="<?php echo htmlspecialchars($_SESSION['relacion_numero_doc'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="text" name="relacion_numero_doc" id="relacion_numero_doc" class="form-control" required>
             </div>
 
             <div class="form-group">
@@ -248,22 +229,6 @@ if ($info_paciente && $info_paciente['num_hijos'] !== NULL) {
     <script src="script/discapacitado.js"></script>
     <script src="script/relacion_discapacitado.js"></script>
     <script src="script/referencia.js"></script>
-
-    <script>
-        const numHijos = <?php echo json_encode($num_hijos ?? null); ?>;
-        const numDoc = <?php echo json_encode($num_doc ?? null); ?>;
-        const relacionNumeroDoc = numHijos + numDoc;
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const numeroDocField = document.getElementById('relacion_numero_doc');
-            if (numeroDocField) {
-                numeroDocField.value = relacionNumeroDoc;
-            } else {
-                console.error("Campo 'relacion_numero_doc' no encontrado.");
-            }
-        });
-    </script>
-
 
 </body>
 

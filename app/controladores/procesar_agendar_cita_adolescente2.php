@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($_POST['tipo_pago'] === 'EFECTIVO $') {
     $referencia_bancaria = '0000';
   }
-
   $monto = 30;
 
   // Datos del infante 
