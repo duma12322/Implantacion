@@ -23,10 +23,11 @@ $stmt = $conn->prepare("SELECT foto FROM administrativo WHERE usuario = :usuario
 $stmt->execute([':usuario' => $nombreUsuario]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
 // Verifica si se ha recibido el parámetro 'id_agenda' en la URL
-if (isset($_GET['id_agenda'])) {
-    $id_agenda = $_GET['id_agenda'];
+$id_agenda = isset($_GET['id_agenda']) ? $_GET['id_agenda'] : null;
+
+if ($id_agenda) {
+    // Consulta la cita si existe el id_agenda
     $query_cita = "
     SELECT c.*, ag.fecha AS fecha_agenda, ag.hora_inicio, 
            p.id_paciente, CONCAT(u.nombre1, ' ', u.apellido1) AS nombre_completo, 
@@ -38,13 +39,14 @@ if (isset($_GET['id_agenda'])) {
     JOIN psicologo s ON c.id_psicologo = s.id_psicologo
     JOIN administrativo a ON s.id_administrativo = a.id_administrativo
     WHERE ag.id_agenda = :id_agenda
-";
+    ";
     $stmt_cita = $conn->prepare($query_cita);
     $stmt_cita->execute([':id_agenda' => $id_agenda]);
     $cita = $stmt_cita->fetch(PDO::FETCH_ASSOC);
 
     if (!$cita) {
-        echo "Cita no encontrada.";
+        // Redirige a la página de reprogramación si no se encuentra una cita válida
+        header("Location: reprogramar_cita.php");
         exit;
     }
 
@@ -52,10 +54,12 @@ if (isset($_GET['id_agenda'])) {
     $fecha = date('Y-m-d', strtotime($cita['fecha_agenda'])); // Usar 'fecha_agenda'
     $hora = date('H:i', strtotime($cita['hora_inicio'])); // Usar 'hora_inicio'
 } else {
-    echo "No se ha proporcionado una cita válida.";
+    // Si no se proporciona una cita, redirige a la página de reprogramación
+    header("Location: consultar_cita.php");
     exit;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
