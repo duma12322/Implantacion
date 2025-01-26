@@ -191,31 +191,7 @@ if ($agenda) {
 }
 
 // Crear evento en Google Calendar
-$event = new Google_Service_Calendar_Event([
-  'summary' => 'Cita con Psicólogo',
-  'location' => 'Online',
-  'description' => $motivo,
-  'start' => [
-    'dateTime' => $fecha . 'T' . $hora_inicio,
-    'timeZone' => 'America/Caracas',
-  ],
-  'end' => [
-    'dateTime' => $fecha . 'T' . $hora_final,
-    'timeZone' => 'America/Caracas',
-  ],
-  'conferenceData' => [
-    'createRequest' => [
-      'requestId' => uniqid(),
-      'conferenceSolutionKey' => ['type' => 'hangoutsMeet']
-    ]
-  ]
-]);
-
-$calendarId = 'primary';
-$event = $service->events->insert($calendarId, $event, ['conferenceDataVersion' => 1]);
-
-// Obtener el enlace de Google Meet
-$link_meet = $event->getHangoutLink();
+$link_meet = "https://meet.google.com/kqy-uhiy-kpy";
 
 // Obtener correo del usuario logueado
 $query_usuario = "

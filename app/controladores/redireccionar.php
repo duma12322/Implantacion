@@ -30,20 +30,20 @@ $rutaBase = '/implantacion/app/controladores/';
 // Definir la ruta de redirección
 if ($tipoCita === 'pareja') {
     $ruta = ($modalidad === 'presencial')
-        ? (($tipoUsuario === 'paciente') ? 'procesar_cita_pareja_presencial.php' : 'procesar_cita_pareja_presencial2.php')
-        : (($tipoUsuario === 'paciente') ? 'procesar_cita_pareja_online.php' : 'procesar_cita_pareja_online2.php');
+        ? (($tipoUsuario === 'paciente') ? 'procesar_agendar_cita_pareja.php' : 'procesar_agendar_cita_pareja2.php')
+        : (($tipoUsuario === 'paciente') ? 'procesar_cita_online_pareja.php' : 'procesar_cita_online_pareja2.php');
 } elseif ($tipoCita === 'infantil') {
     $ruta = ($modalidad === 'presencial')
-        ? (($tipoUsuario === 'paciente') ? 'procesar_cita_infantil_presencial.php' : 'procesar_cita_infantil_presencial2.php')
+        ? (($tipoUsuario === 'paciente') ? 'procesar_agendar_cita_infantil.php' : 'procesar_agendar_cita_infantil2.php')
         : (($tipoUsuario === 'paciente') ? 'procesar_cita_infantil_online.php' : 'procesar_cita_infantil_online2.php');
 } elseif ($tipoCita === 'adolescente') {
     $ruta = ($modalidad === 'presencial')
-        ? (($tipoUsuario === 'paciente') ? 'procesar_cita_adolescente_presencial.php' : 'procesar_cita_adolescente_presencial2.php')
+        ? (($tipoUsuario === 'paciente') ? 'procesar_agendar_cita_adolescente.php' : 'procesar_agendar_cita_adolescente2.php')
         : (($tipoUsuario === 'paciente') ? 'procesar_cita_adolescente_online.php' : 'procesar_cita_adolescente_online2.php');
 } else {
     $ruta = ($modalidad === 'presencial')
         ? (($tipoUsuario === 'paciente') ? 'procesar_agendar_cita.php' : 'procesar_agendar_cita2.php')
-        : (($tipoUsuario === 'paciente') ? 'procesar_agendar_cita_online.php' : 'procesar_agendar_cita_online2.php');
+        : (($tipoUsuario === 'paciente') ? 'procesar_cita_online.php' : 'procesar_cita_online2.php');
 }
 
 // Redirigir al archivo correspondiente

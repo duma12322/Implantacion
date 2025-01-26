@@ -32,18 +32,18 @@ if ($client->isAccessTokenExpired() || !$client->getAccessToken()) {
 $service = new Google_Service_Calendar($client);
 
 // Obtener datos del formulario
-$id_psicologo = $_POST['id_psicologo'];
-$id_paciente = $_POST['id_paciente'];
-$fecha = $_POST['fecha'];
-$hora = $_POST['hora'];
-$minutos = $_POST['minutos'];
-$ampm = $_POST['am_pm'];
-$motivo = $_POST['motivo'];
-$tipo_pago = $_POST['tipo_pago'];
-$referencia_bancaria = $_POST['referencia_bancaria'];
-$discapacitado = $_POST['discapacitado'];
-$descrip_disca = $_POST['descrip_disca'];
-$monto = 20;
+$id_psicologo = $_POST['id_psicologo'] ?? null;
+$id_paciente = $_POST['id_paciente'] ?? null;
+$fecha = $_POST['fecha'] ?? null;
+$hora = $_POST['hora'] ?? null;
+$minutos = $_POST['minutos'] ?? null;
+$ampm = $_POST['am_pm'] ?? null;
+$motivo = $_POST['motivo'] ?? null;
+$tipo_pago = $_POST['tipo_pago'] ?? null;
+$referencia_bancaria = $_POST['referencia_bancaria'] ?? null;
+$discapacitado = $_POST['discapacitado'] ?? null;
+$descrip_disca = $_POST['descrip_disca'] ?? null;
+$monto = 20 ?? null;
 
 // Convertir hora AM/PM a formato 24 horas
 $hora24 = ($ampm == 'PM' && $hora != 12) ? $hora + 12 : (($ampm == 'AM' && $hora == 12) ? 0 : $hora);
@@ -135,32 +135,8 @@ if ($agenda) {
   $contador_cita = is_null($max_citas) ? 1 : $max_citas + 1;
 }
 
-// Crear evento en Google Calendar
-$event = new Google_Service_Calendar_Event([
-  'summary' => 'Cita con Psicólogo',
-  'location' => 'Online',
-  'description' => $motivo,
-  'start' => [
-    'dateTime' => $fecha . 'T' . $hora_inicio,
-    'timeZone' => 'America/Caracas',
-  ],
-  'end' => [
-    'dateTime' => $fecha . 'T' . $hora_final,
-    'timeZone' => 'America/Caracas',
-  ],
-  'conferenceData' => [
-    'createRequest' => [
-      'requestId' => uniqid(),
-      'conferenceSolutionKey' => ['type' => 'hangoutsMeet']
-    ]
-  ]
-]);
-
-$calendarId = 'primary';
-$event = $service->events->insert($calendarId, $event, ['conferenceDataVersion' => 1]);
-
-// Obtener el enlace de Google Meet
-$link_meet = $event->getHangoutLink();
+// Enlace fijo de Google Meet
+$link_meet = "https://meet.google.com/ure-rhwz-rmv";
 
 // Obtener correo del paciente
 $sql = "SELECT u.correo 
