@@ -158,11 +158,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <div class="col-md-6">
                                         <label for="estatus" class="form-label">Estatus</label>
                                         <select id="estatus" name="estatus" class="form-select" required>
-                                            <option disabled selected>Seleccione estatus</option>
-                                            <option value="activo" <?= isset($psicologo['estatus']) && $psicologo['estatus'] == 'activo' ? 'selected' : '' ?>>Activo</option>
-                                            <option value="inactivo" <?= isset($psicologo['estatus']) && $psicologo['estatus'] == 'inactivo' ? 'selected' : '' ?>>Inactivo</option>
+                                            <option value="activo" <?= (isset($psicologo['estatus']) && $psicologo['estatus'] == 'activo') || !isset($psicologo) ? 'selected' : '' ?>>Activo</option>
                                         </select>
                                     </div>
+
+
                                 </div>
                             </div>
                             <hr>

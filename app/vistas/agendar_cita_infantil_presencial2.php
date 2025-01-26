@@ -137,7 +137,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
                 <label for="relacion_fecha_nac">Fecha de Nacimiento</label>
                 <input type="date" name="relacion_fecha_nac" id="relacion_fecha_nac" class="form-control" required>
                 <span id="age-warning" style="color: red; display: none;">Debe ser menor de edad.</span>
-                <span id="age-warning-12" style="color: red; display: none;">Debe ser mayor de 12 años.</span>
+                <span id="age-warning-12" style="color: red; display: none;">No puede ser mayor de 12 años.</span>
             </div>
 
             <div class="form-group">
