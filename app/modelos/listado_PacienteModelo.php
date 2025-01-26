@@ -225,53 +225,5 @@ class listado_PacienteModelo
     }
 
     // Método para listar las ciudades
-    public function listarCiudades()
-    {
-        try {
-            $sql = $this->conn->prepare("SELECT * FROM ciudades");
-            $sql->execute();
-            return $sql->fetchAll(\PDO::FETCH_ASSOC);
-        } catch (\PDOException $e) {
-            error_log("Error al listar ciudades: " . $e->getMessage());
-            return [];
-        }
-    }
 
-    public function listarMunicipios($id_estado)
-    {
-        try {
-            $sql = $this->conn->prepare("SELECT * FROM municipios WHERE id_estado = :id_estado");
-            $sql->bindParam(':id_estado', $id_estado, \PDO::PARAM_INT);
-            $sql->execute();
-            return $sql->fetchAll(\PDO::FETCH_ASSOC) ?: [];  // Return empty array if null
-        } catch (\PDOException $e) {
-            error_log("Error al listar municipios: " . $e->getMessage());
-            return [];  // Return empty array on error
-        }
-    }
-
-    public function listarParroquias($id_municipio)
-    {
-        try {
-            $sql = $this->conn->prepare("SELECT * FROM parroquias WHERE id_municipio = :id_municipio");
-            $sql->bindParam(':id_municipio', $id_municipio, \PDO::PARAM_INT);
-            $sql->execute();
-            return $sql->fetchAll(\PDO::FETCH_ASSOC) ?: [];  // Return empty array if null
-        } catch (\PDOException $e) {
-            error_log("Error al listar parroquias: " . $e->getMessage());
-            return [];  // Return empty array on error
-        }
-    }
-
-    public function listarEstados()
-    {
-        try {
-            $sql = $this->conn->prepare("SELECT * FROM estados");
-            $sql->execute();
-            return $sql->fetchAll(\PDO::FETCH_ASSOC);
-        } catch (\PDOException $e) {
-            error_log("Error al listar estados: " . $e->getMessage());
-            return [];
-        }
-    }
 }

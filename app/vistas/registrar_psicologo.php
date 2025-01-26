@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "Error al subir la foto: " . $fotografia['error'];
     }
-    
+
     $result = $controller->registrarPsicologo($usuario, $contraseña, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $id_especialidad, $descripcion, $foto);
 
     if ($result) {
@@ -136,11 +136,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <div class="col-md-6">
                                         <label for="tipo_doc" class="form-label">Tipo de Documento</label>
                                         <select id="tipo_doc" name="tipo_doc" class="form-select" required>
-                                        <option disabled selected>Seleccione su tipo de documento</option>
-                                        <option value="V" <?= isset($psicologo['tipo_doc']) && $psicologo['tipo_doc'] == 'V' ? 'selected' : '' ?>>V</option>
-                                        <option value="E" <?= isset($psicologo['tipo_doc']) && $psicologo['tipo_doc'] == 'E' ? 'selected' : '' ?>>E</option>
-                                        <option value="J" <?= isset($psicologo['tipo_doc']) && $psicologo['tipo_doc'] == 'J' ? 'selected' : '' ?>>J</option>
-                                        <option value="P" <?= isset($psicologo['tipo_doc']) && $psicologo['tipo_doc'] == 'P' ? 'selected' : '' ?>>P</option>
+                                            <option disabled selected>Seleccione su tipo de documento</option>
+                                            <option value="V" <?= isset($psicologo['tipo_doc']) && $psicologo['tipo_doc'] == 'V' ? 'selected' : '' ?>>V</option>
+                                            <option value="E" <?= isset($psicologo['tipo_doc']) && $psicologo['tipo_doc'] == 'E' ? 'selected' : '' ?>>E</option>
+                                            <option value="J" <?= isset($psicologo['tipo_doc']) && $psicologo['tipo_doc'] == 'J' ? 'selected' : '' ?>>J</option>
+                                            <option value="P" <?= isset($psicologo['tipo_doc']) && $psicologo['tipo_doc'] == 'P' ? 'selected' : '' ?>>P</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
@@ -192,7 +192,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
-<script src="script/registro.js"></script>
 
 </html>
