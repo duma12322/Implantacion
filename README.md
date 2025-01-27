@@ -82,7 +82,7 @@ El sistema de gestión de consultas de Emoción Vital está diseñado para ofrec
    - Abre tu navegador y escribe `http://localhost` o `http://localhost/phpmyadmin/` en la barra de direcciones. Deberías ver la página de inicio de XAMPP o la herramienta phpMyAdmin.
 
 4. **Verificar la versión de PHP:**
-   - Usa el comando `php -v` en la línea de comandos (cmd) para verificar que tienes PHP 8.2.4.
+   - Usa el comando `php -v` en la línea de comandos (cmd) para verificar que tienes PHP 8.2.4. En su defecto, si no está disponible el comando `php -v` para la versión de Windows que estas utilizando, podrás visualizar la información en el panel de administración de phpMyAdmin en la tarjeta denominada `Servidor web`.
 
 ## 2. Instalar Git
 
