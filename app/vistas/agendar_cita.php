@@ -3,6 +3,7 @@ session_start();
 
 // Conexión a la base de datos
 include '../../config/conexion.php';
+include 'log.php';
 
 // Verifica si la sesión está activa
 if (!isset($_SESSION['usuario'])) {
@@ -21,6 +22,7 @@ if (isset($_POST['cerrar_sesion'])) {
 $nombreUsuario = $_SESSION['usuario'];
 $fotoUsuario = 'files/avatar.png '; // Cambia esta ruta según sea necesario
 
+
 // Aquí aseguramos que la variable $tipoUsuario esté definida
 if (isset($_SESSION['tipo_usuario'])) {
     $tipoUsuario = $_SESSION['tipo_usuario'];
@@ -38,6 +40,12 @@ if ($tipoUsuario === 'paciente') {
 }
 $stmt->execute([':usuario' => $nombreUsuario]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Verificamos que la variable de sesión exista antes de usarla
+if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'paciente') {
+    registrar_log($_SESSION['usuario'], "Paciente inició sesión");
+}
+
 
 if ($usuario && isset($usuario['foto'])) {
     $fotoUsuario = $usuario['foto'];

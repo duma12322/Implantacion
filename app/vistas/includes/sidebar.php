@@ -85,7 +85,7 @@
                     <span class="nav-tooltip">Reportes</span>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="historial_medico.php" class="nav-link">
                         <i class="bi bi-person-vcard-fill"></i>
                         <span class="nav-label">Historiales</span>
                     </a>
@@ -96,7 +96,7 @@
             <?php if ($_SESSION['tipo_usuario'] === 'administrativo') : ?>
                 <!-- Solo administrativo puede ver Logs -->
                 <li class="nav-item">
-                    <a href="bitacora_front.php" class="nav-link">
+                    <a href="logs.php" class="nav-link">
                         <i class="bi bi-gear-fill"></i>
                         <span class="nav-label">Logs</span>
                     </a>

@@ -2,6 +2,7 @@
 session_start();
 // Conexión a la base de datos
 include '../../config/conexion.php';
+include 'log.php';
 
 // Verifica si la sesión está activa
 if (!isset($_SESSION['usuario'])) {
@@ -19,6 +20,7 @@ if (isset($_POST['cerrar_sesion'])) {
 }
 
 $nombreUsuario = $_SESSION['usuario'];
+registrar_log($nombreUsuario, "Inicio sesión");
 
 // Mostrar la Foto
 $stmt = $conn->prepare("SELECT foto FROM administrativo  WHERE usuario = :usuario");

@@ -179,16 +179,35 @@ class listado_PacienteModelo
         try {
             // Iniciar una transacción
             $this->conn->beginTransaction();
+            echo "Transacción iniciada.\n";
 
             // Insertar datos en la tabla `usuario`
             $queryUsuario = $this->conn->prepare(
-                "INSERT INTO usuario (usuario, correo, contraseña) VALUES (?, ?, ?)"
+                "INSERT INTO usuario (usuario, correo, contraseña, nombre1, nombre2, apellido1, apellido2, sexo, fecha_nac, tipo_doc, num_doc, telefono, pregunta_s1, respuesta_1, pregunta_s2, respuesta_2, status) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
             );
-            $queryUsuario->execute([
+            if (!$queryUsuario->execute([
                 $datosUsuario['usuario'],
                 $datosUsuario['correo'],
-                md5($datosUsuario['contraseña']) // Hash de la contraseña
-            ]);
+                md5($datosUsuario['contraseña']), // Hash de la contraseña
+                $datosUsuario['nombre1'],
+                $datosUsuario['nombre2'],
+                $datosUsuario['apellido1'],
+                $datosUsuario['apellido2'],
+                $datosUsuario['sexo'],
+                $datosUsuario['fecha_nac'],
+                $datosUsuario['tipo_doc'],
+                $datosUsuario['num_doc'],
+                $datosUsuario['telefono'],
+                $datosUsuario['pregunta_s1'],
+                $datosUsuario['respuesta_1'],
+                $datosUsuario['pregunta_s2'],
+                $datosUsuario['respuesta_2'],
+                'activo' // Status activo por defecto
+            ])) {
+                throw new \Exception("Error al insertar los datos del usuario: " . implode(", ", $queryUsuario->errorInfo()));
+            }
+            echo "Datos del usuario insertados correctamente.\n";
 
             // Obtener el ID del usuario recién insertado
             $idUsuario = $this->conn->lastInsertId();
@@ -196,33 +215,48 @@ class listado_PacienteModelo
             // Insertar o actualizar datos en la tabla `direccion`
             $queryDireccion = $this->conn->prepare(
                 "INSERT INTO direccion (id_estado, id_ciudad, id_municipio, id_parroquia, descripcion) 
-                 VALUES (?, ?, ?, ?, ?)"
+            VALUES (?, ?, ?, ?, ?)"
             );
-            $queryDireccion->execute([
+            if (!$queryDireccion->execute([
                 $datosPaciente['id_estado'],
                 $datosPaciente['id_ciudad'],
                 $datosPaciente['id_municipio'],
                 $datosPaciente['id_parroquia'],
                 $datosPaciente['otro']
-            ]);
+            ])) {
+                throw new \Exception("Error al insertar los datos de la dirección: " . implode(", ", $queryDireccion->errorInfo()));
+            }
+            echo "Datos de la dirección insertados correctamente.\n";
 
             // Obtener el ID de la dirección recién insertada
             $idDireccion = $this->conn->lastInsertId();
 
             // Insertar datos del paciente
             $queryPaciente = $this->conn->prepare(
-                "INSERT INTO paciente (id_usuario, id_direccion) VALUES (?, ?)"
+                "INSERT INTO paciente (id_usuario, id_direccion, num_hijos, discapacitado, descrip_disca) 
+            VALUES (?, ?, ?, ?, ?)"
             );
-            $queryPaciente->execute([$idUsuario, $idDireccion]);
+            if (!$queryPaciente->execute([
+                $idUsuario,
+                $idDireccion,
+                $datosPaciente['num_hijos'],
+                $datosPaciente['discapacitado'],
+                $datosPaciente['descrip_disca']
+            ])) {
+                throw new \Exception("Error al insertar los datos del paciente: " . implode(", ", $queryPaciente->errorInfo()));
+            }
+            echo "Datos del paciente insertados correctamente.\n";
 
             // Confirmar la transacción
             $this->conn->commit();
-        } catch (\PDOException $e) {
+            echo "Transacción completada correctamente.\n";
+        } catch (\Exception $e) {
             // Si ocurre un error, revertir la transacción
             $this->conn->rollBack();
-            throw new \Exception("Error al registrar el usuario: " . $e->getMessage());
+            echo "Error al registrar el usuario: " . $e->getMessage() . "\n";
         }
     }
+
 
     // Método para listar las ciudades
 

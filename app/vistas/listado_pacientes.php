@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../controladores/listado_PacienteControlador.php';
-
+include 'log.php';
 
 use app\controladores\listado_PacienteControlador;
 
@@ -46,6 +46,9 @@ if (isset($_POST['id_usuario'])) {
     $controller = new listado_PacienteControlador();
     $controller->eliminarUsuario($id_usuario);
     echo "Usuario eliminado correctamente";
+
+    registrar_log($_SESSION['usuario'], "Eliminó al usuario con ID $id_usuario");
+
     // Redirigir después de la eliminación
     header('Location: /Implantacion/app/vistas/listado_pacientes.php');
     exit();

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../controladores/listado_PsicologosControlador.php';
+include 'log.php';
 
 use app\controladores\listado_PsicologosControlador;
 
@@ -39,6 +40,9 @@ if (!empty($searchTerm)) {
 if (isset($_POST['id_administrativo'])) {
     $id_administrativo = $_POST['id_administrativo'];
     $resultado = $controller->eliminarPsicologo($id_administrativo);
+    $nombreUsuarioEliminar = $usuarioAEliminar['nombre1'] . ' ' . $usuarioAEliminar['apellido1'];
+
+    registrar_log($_SESSION['usuario'], "Eliminó al psicologo con ID $id_administrativo");
 
     header('Location: /Implantacion/app/vistas/listado_Psicologos.php');
     exit();

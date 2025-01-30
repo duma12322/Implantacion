@@ -45,7 +45,7 @@ class listado_PacienteControlador
         $this->listado_PacienteModelo->cambiarEstadoUsuario($id_usuario);
     }
 
-    public function registrarPaciente($datosUsuario, $datosPaciente)
+    public function registrarUsuario($datosUsuario, $datosPaciente)
     {
         try {
             $this->listado_PacienteModelo->registrarUsuario($datosUsuario, $datosPaciente);

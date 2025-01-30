@@ -1,46 +1,81 @@
 <?php
+session_start();
+
 require_once '../../config/conexion.php';
 require_once '../../app/controladores/listado_PacienteControlador.php';
+include 'log.php';
 
 use app\controladores\listado_PacienteControlador;
 
 // Crear una instancia del controlador
 $controlador = new listado_PacienteControlador();
 
+if (!isset($_SESSION['usuario'])) {
+    header("Location: login_psicologo.admin.php");
+    exit;
+}
+
+if (isset($_POST['cerrar_sesion'])) {
+    session_unset();
+    session_destroy();
+    header("Location: login_psicologo_admin.php");
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener datos enviados desde el formulario
     $datosUsuario = [
         'usuario' => $_POST['usuario'] ?? null,
         'correo' => $_POST['correo'] ?? null,
-        'contraseña' => md5($_POST['contraseña'] ?? '') // Encriptar contraseña con MD5
-    ];
-
-    $datosPaciente = [
+        'contraseña' => $_POST['contraseña'] ?? '',
         'nombre1' => $_POST['nombre1'] ?? null,
-        'tipo_doc' => $_POST['tipo_doc'] ?? null,
-        'id_estado' => $_POST['id_estado'] ?? null,
         'nombre2' => $_POST['nombre2'] ?? null,
-        'num_doc' => $_POST['num_doc'] ?? null,
-        'id_ciudad' => $_POST['id_ciudad'] ?? null,
         'apellido1' => $_POST['apellido1'] ?? null,
-        'fecha_nac' => $_POST['fecha_nac'] ?? null,
-        'id_parroquia' => $_POST['id_parroquia'] ?? null,
         'apellido2' => $_POST['apellido2'] ?? null,
         'sexo' => $_POST['sexo'] ?? null,
-        'id_municipio' => $_POST['id_municipio'] ?? null,
-        'otro' => $_POST['otro'] ?? null,
+        'fecha_nac' => $_POST['fecha_nac'] ?? null,
+        'tipo_doc' => $_POST['tipo_doc'] ?? null,
+        'num_doc' => $_POST['num_doc'] ?? null,
         'telefono' => $_POST['telefono'] ?? null,
         'pregunta_s1' => $_POST['pregunta_s1'] ?? null,
         'respuesta_1' => $_POST['respuesta_1'] ?? null,
         'pregunta_s2' => $_POST['pregunta_s2'] ?? null,
         'respuesta_2' => $_POST['respuesta_2'] ?? null,
+        'status' => 'activo'
+    ];
+
+    $datosPaciente = [
+        'id_estado' => $_POST['id_estado'] ?? null,
+        'id_ciudad' => $_POST['id_ciudad'] ?? null,
+        'id_municipio' => $_POST['id_municipio'] ?? null,
+        'id_parroquia' => $_POST['id_parroquia'] ?? null,
+        'otro' => $_POST['otro'] ?? null,
         'num_hijos' => $_POST['num_hijos'] ?? null,
         'discapacitado' => isset($_POST['discapacitado']) && $_POST['discapacitado'] === 'Sí' ? 1 : 0,
         'descrip_disca' => $_POST['descrip_disca'] ?? null
     ];
 
-    // Llamar al método registrarPaciente del controlador
-    $resultado = $controlador->registrarPaciente($datosUsuario, $datosPaciente);
+    // Llamar al método registrarUsuario del controlador
+    $resultado = $controlador->registrarUsuario($datosUsuario, $datosPaciente);
+
+    // Verificar si el usuario fue registrado exitosamente
+    if ($resultado) {
+        // Obtener el ID del usuario creado
+        $id_usuario = $controlador->obtenerUsuarioPorId($datosUsuario['usuario']); // Asumiendo que el método retorna el ID del usuario
+
+        // Mostrar el ID y nombre del usuario creado
+        echo "Usuario creado con éxito! ID: $id_usuario - Nombre: {$datosUsuario['nombre1']} {$datosUsuario['apellido1']}";
+
+        // Registrar el log
+        registrar_log($_SESSION['usuario'], "Registró un nuevo psicólogo con el nombre: {$datosUsuario['nombre1']} {$datosUsuario['apellido1']}");
+
+        // Redirigir al listado de pacientes después de éxito
+        header('Location: listado_pacientes.php');
+        exit(); // Asegurarse de detener la ejecución después de la redirección
+    } else {
+        echo "Error en el registro.";
+    }
+
     // Subir la foto si se proporciona
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
         $foto_tmp = $_FILES['foto']['tmp_name'];
@@ -56,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Verifica que se ha leído correctamente
             if ($foto_binaria !== false) {
                 // Actualizar la foto en la base de datos
+                $conn = new PDO($dsn, $username, $password); // Asegúrate de usar la conexión adecuada
                 $sql_update_foto = "UPDATE usuario SET foto = :foto WHERE id_usuario = :id_usuario";
                 $stmt_update_foto = $conn->prepare($sql_update_foto);
                 $stmt_update_foto->bindParam(':foto', $foto_binaria, PDO::PARAM_LOB);
@@ -68,16 +104,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Tipo de archivo no permitido.";
         }
     }
-    // Mostrar el mensaje de resultado
-    $mensaje = $resultado['mensaje'];
-    $tipoMensaje = $resultado['tipo'];
-
-    if ($tipoMensaje == 'success') {
-        header("Location: listado_pacientes.php");
-        exit;
-    }
 }
 ?>
+
 
 
 <!DOCTYPE html>
@@ -153,6 +182,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         <input type="text" id="apellido2" name="apellido2" class="form-control" placeholder="Ingrese su segundo apellido">
                                     </div>
                                     <div class="col-md-6">
+                                        <label for="telefono" class="form-label">Telefono</label>
+                                        <input type="text" id="telefono" name="telefono" class="form-control" placeholder="Ingrese su numero de telefono" required>
+                                    </div>
+                                    <div class="col-md-6">
                                         <label for="tipo_doc" class="form-label">Tipo de Documento</label>
                                         <select id="tipo_doc" name="tipo_doc" class="form-select" required>
                                             <option disabled selected>Seleccione su tipo de documento</option>
@@ -163,16 +196,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="num_doc" class="form-label">Número de Documento</label>
-                                        <input type="text" id="num_doc" name="num_doc" class="form-control" placeholder="Ingrese su número de documento" required>
-                                    </div>
-                                    <div class="col-md-6">
                                         <label for="sexo" class="form-label">Sexo</label>
                                         <select id="sexo" name="sexo" class="form-select" required>
                                             <option disabled selected>Seleccione su sexo</option>
                                             <option value="Masculino">Masculino</option>
                                             <option value="Femenino">Femenino</option>
                                         </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="num_doc" class="form-label">Número de Documento</label>
+                                        <input type="text" id="num_doc" name="num_doc" class="form-control" placeholder="Ingrese su número de documento" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="fecha_nac" class="form-label">Fecha de Nacimiento</label>

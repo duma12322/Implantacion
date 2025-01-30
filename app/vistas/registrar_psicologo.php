@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../config/conexion.php';
 require_once __DIR__ . '/../controladores/listado_PsicologosControlador.php';
+include 'log.php';
 
 use app\controladores\listado_PsicologosControlador;
 
@@ -54,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $controller->registrarPsicologo($usuario, $contraseña, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $id_especialidad, $descripcion, $foto);
 
     if ($result) {
+        registrar_log($_SESSION['usuario'], "Registró un nuevo psicólogo con el nombre: $nombre1 $apellido1");
         header('Location: /Implantacion/app/vistas/listado_Psicologos.php');
         exit();
     } else {
@@ -61,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
