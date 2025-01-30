@@ -12,11 +12,11 @@ if (!isset($_SESSION['usuario'])) {
 $usuario = $_SESSION['usuario']; // El valor del usuario en la sesión
 
 // Recibir datos del formulario
-$entrevistador = $_POST['entrevistador'] ?? null;
+$entrevistador = $_POST['entrevistador'] ;
 $fecha_nac = $_POST['fecha_nac'] ?? null;
 $instruccion = $_POST['instruccion'] ?? null;
 $edo_civil = $_POST['edo_civil'] ?? null;
-$estudio_trabajo = $_POST['estudios_trabajos'] ?? null;
+$estudio_trabajo = $_POST['estudios_trabajos'] ;
 $lugar_resi = $_POST['lugar_resi'] ?? null;
 $procedencia = $_POST['procedencia'] ?? null;
 $fecha_p_cita = $_POST['fecha_p_cita'] ?? null;
@@ -27,7 +27,7 @@ $religion = $_POST['religion'] ?? null;
 $grado_ciclo = $_POST['grado_ciclo'] ?? null;
 $ti_resi = $_POST['ti_resi'] ?? null;
 $informante = $_POST['informante'] ?? null;
-$motivo = $_POST['motivo'] ?? null;  // Usar null si no se envía
+$motivo = $_POST['motivo'] ;
 $inicio_curso = $_POST['inicio_curso'] ?? null;
 $tiempo_proble = $_POST['tiempo_proble'] ?? null;
 $suceso_dia = $_POST['suceso_dia'] ?? null;
