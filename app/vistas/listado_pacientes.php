@@ -107,6 +107,7 @@ if (isset($_POST['id_usuario'])) {
                     <th>Número de Documento</th>
                     <th>Teléfono</th>
                     <th>Foto</th>
+                    <th>Historial Medico</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -129,6 +130,14 @@ if (isset($_POST['id_usuario'])) {
                                 <?php else : ?>
                                     <span class="text-muted">No disponible</span>
                                 <?php endif; ?>
+                            </td>
+                            <td>
+                                <a href="historial_medico.php?id_usuario=<?= htmlspecialchars($usuario['id_usuario']) ?>" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-plus"></i>
+                                </a>
+                                <a href="Modificar_historial_medico.php?id_usuario=<?= htmlspecialchars($usuario['id_usuario']) ?>" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pen"></i>
+                                </a>
                             </td>
                             <td>
                                 <a href="modificar_usuario.php?id_usuario=<?= htmlspecialchars($usuario['id_usuario']) ?>" class="btn btn-warning btn-sm">
