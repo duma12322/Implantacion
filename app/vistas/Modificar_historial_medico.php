@@ -18,7 +18,6 @@ $query_combined = "
         u.*, 
         p.*, 
         pa.*, 
-        a.*, 
         hi.*,
         hps.*, 
         rsn.*,
@@ -38,8 +37,6 @@ $query_combined = "
         paciente p ON u.id_usuario = p.id_usuario
     JOIN 
         paciente_relacion pa ON p.id_paciente = pa.id_paciente
-    JOIN 
-        administrativo a ON h.id_administrativo = a.id_administrativo
     JOIN
         historial hi ON u.id_usuario = hi.id_usuario
     JOIN 
@@ -81,7 +78,7 @@ if (!$result) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Registro de Paciente</title>
+    <title>Modificar historial medico</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/perfil_usuario.css">
@@ -89,7 +86,7 @@ if (!$result) {
 </head>
 <body>
     <div class="container">
-        <form action="prueba.php" method="POST">
+        <form action="../../config/guardar_historial.php" method="POST">
             <div class="card mb-4">
                 <div class="card-header">Historial Clínico</div>
                 <div class="card-body">
@@ -100,7 +97,7 @@ if (!$result) {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="Nombre1" class="form-label">Entrevistador</label>
-                                <input type="text" class="form-control" id="Nombre1" name="Nombre1" value="<?= htmlspecialchars($result['Apellido1'] .' '. $result['Nombre1']) ?>" required>
+                                <input type="text" class="form-control" id="Nombre1" name="Nombre1" value="<?= $result['entrevistador']?>" required>
                             </div>
                             <h4>I.DATOS DE FILIACIÓN</h4>
                             <div class="mb-3">
@@ -282,7 +279,7 @@ if (!$result) {
 
                     <div class="mb-3">
                         <label for="estatura_nacer" class="form-label">Estatura al Nacer</label>
-                        <input type="number" class="form-control" id="estatura_nacer" name="estatura_nacer" value="<?= htmlspecialchars($result['estatura al nacer']) ?>" required>
+                        <input type="number" class="form-control" id="estatura_nacer" name="estatura_nacer" value="<?= htmlspecialchars($result['estatura_al_nacer']) ?>" required>
                     </div>
 
                     <div class="mb-3">
@@ -292,7 +289,7 @@ if (!$result) {
 
                     <div class="mb-3">
                         <label for="perimetro_cefalico" class="form-label">Perímetro Cefálico</label>
-                        <input type="number" class="form-control" id="perimetro_cefalico" name="perimetro_cefalico" value="<?= $result['perimetro cefalico'] ?>" required>
+                        <input type="number" class="form-control" id="perimetro_cefalico" name="perimetro_cefalico" value="<?= $result['perimetro_cefalico'] ?>" required>
                     </div>
 
                     <div class="mb-3">
@@ -386,12 +383,12 @@ if (!$result) {
 
                     <div class="mb-3">
                         <label for="juego_infantil" class="form-label">6.	Juego infantil:</label>
-                        <textarea class="form-control" id="juego_infantil" name="juego_infantil" required><?= htmlspecialchars($result['juego infantil']) ?></textarea>
+                        <textarea class="form-control" id="juego_infantil" name="juego_infantil" required><?= htmlspecialchars($result['juego_infantil']) ?></textarea>
                     </div>
 
                     <div class="mb-3">
                         <label for="caracter_y_comportamiento" class="form-label">7.  Carácter y Comportamiento en los Primeros Años</label>
-                        <textarea class="form-control" id="caracter_y_comportamiento" name="caracter_y_comportamiento" required><?= htmlspecialchars($result['caracter y comportamiento primero años']) ?></textarea>
+                        <textarea class="form-control" id="caracter_y_comportamiento" name="caracter_y_comportamiento" required><?= htmlspecialchars($result['caracter_y_comportamiento_primero_años']) ?></textarea>
                     </div> 
                     <h5> 8.	Relación social (niñez):</h5>
                     <div class="mb-3">
@@ -503,7 +500,7 @@ if (!$result) {
 
                     <div class="mb-3">
                         <label for="grado_autonomia_deliberacion_accion" class="form-label">19.	Grado de autonomía en la deliberación y la acción:</label>
-                        <textarea class="form-control" id="grado_autonomia_deliberacion_accion" name="grado_autonomia_deliberacion_accion"><?= htmlspecialchars($result['grado_autonomía_deliberación_acción:']) ?></textarea>
+                        <textarea class="form-control" id="grado_autonomia_deliberacion_accion" name="grado_autonomia_deliberacion_accion"><?= htmlspecialchars($result['grado_autonomía_deliberación_acción']) ?></textarea>
                     </div>
 
                     <div class="mb-3">
@@ -701,7 +698,7 @@ if (!$result) {
 
                         <div class="mb-3">
                             <label for="esposo_a" class="form-label">4. Esposo (a):</label>
-                            <textarea class="form-control" id="esposo_a" name="esposo_a"><?= htmlspecialchars($result['esposo(a)']) ?></textarea>
+                            <textarea class="form-control" id="esposo_a" name="esposo_a"><?= htmlspecialchars($result['esposo_a']) ?></textarea>
                         </div>
 
                         <div class="mb-3">
