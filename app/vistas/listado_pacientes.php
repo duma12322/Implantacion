@@ -24,7 +24,7 @@ $nombreUsuario = $_SESSION['usuario'];
 $controller = new listado_PacienteControlador();
 
 // Mostrar la Foto
-$stmt = $conn->prepare("SELECT foto FROM administrativo  WHERE usuario = :usuario");
+$stmt = $conn->prepare("SELECT foto FROM administrativo WHERE usuario = :usuario");
 $stmt->execute([':usuario' => $nombreUsuario]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -43,17 +43,31 @@ if (!empty($searchTerm)) {
 if (isset($_POST['id_usuario'])) {
     $id_usuario = $_POST['id_usuario'];
 
-    $controller = new listado_PacienteControlador();
-    $controller->eliminarUsuario($id_usuario);
-    echo "Usuario eliminado correctamente";
+    // Obtener el nombre del usuario que se eliminará
+    $stmt = $conn->prepare("SELECT nombre1, apellido1 FROM usuario WHERE id_usuario = :id_usuario");
+    $stmt->execute([':id_usuario' => $id_usuario]);
+    $usuarioEliminado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    registrar_log($_SESSION['usuario'], "Eliminó al usuario con ID $id_usuario");
+    if ($usuarioEliminado) {
+        // Eliminar usuario
+        $controller->eliminarUsuario($id_usuario);
+        echo "Usuario eliminado correctamente.";
 
-    // Redirigir después de la eliminación
-    header('Location: /Implantacion/app/vistas/listado_pacientes.php');
-    exit();
+        // Mostrar el ID y nombre del usuario eliminado
+        echo "Usuario eliminado con éxito! ID: $id_usuario - Nombre: {$usuarioEliminado['nombre1']} {$usuarioEliminado['apellido1']}";
+
+        // Registrar el log
+        registrar_log($_SESSION['usuario'], "Eliminó al usuario con el nombre: {$usuarioEliminado['nombre1']} {$usuarioEliminado['apellido1']}");
+
+        // Redirigir después de la eliminación
+        header('Location: /Implantacion/app/vistas/listado_pacientes.php');
+        exit();
+    } else {
+        echo "No se encontró el usuario para eliminar.";
+    }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

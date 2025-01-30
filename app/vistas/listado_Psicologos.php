@@ -39,15 +39,28 @@ if (!empty($searchTerm)) {
 
 if (isset($_POST['id_administrativo'])) {
     $id_administrativo = $_POST['id_administrativo'];
+
+    // Obtener los detalles del psicólogo a eliminar (nombre y apellido)
+    $stmt = $conn->prepare("SELECT nombre1, apellido1 FROM administrativo WHERE id_administrativo = :id_administrativo");
+    $stmt->execute([':id_administrativo' => $id_administrativo]);
+    $usuarioAEliminar = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($usuarioAEliminar) {
+        $nombreUsuarioEliminar = $usuarioAEliminar['nombre1'] . ' ' . $usuarioAEliminar['apellido1'];
+    }
+
+    // Llamar al método para eliminar al psicólogo
     $resultado = $controller->eliminarPsicologo($id_administrativo);
-    $nombreUsuarioEliminar = $usuarioAEliminar['nombre1'] . ' ' . $usuarioAEliminar['apellido1'];
 
-    registrar_log($_SESSION['usuario'], "Eliminó al psicologo con ID $id_administrativo");
+    // Registrar el log de la eliminación
+    registrar_log($_SESSION['usuario'], "Eliminó al psicologo: $nombreUsuarioEliminar");
 
+    // Redirigir al listado de psicólogos después de la eliminación
     header('Location: /Implantacion/app/vistas/listado_Psicologos.php');
     exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">

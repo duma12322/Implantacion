@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../config/conexion.php';
 require_once __DIR__ . '/../controladores/listado_PsicologosControlador.php';
+include 'log.php';
 
 use app\controladores\listado_PsicologosControlador;
 
@@ -24,6 +25,7 @@ $especialidades = $controller->obtenerEspecialidades();
 
 $psicologo = null;
 if (isset($_GET['id_administrativo'])) {
+    // Obtener los datos del psicólogo por ID
     $psicologo = $controller->obtenerPsicologoPorIdAdministrativo($_GET['id_administrativo']);
 }
 
@@ -49,30 +51,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $foto = file_get_contents($fotografia['tmp_name']);
     }
 
-    // Depuración: Imprimir los datos recibidos
-    echo "<pre>";
-    print_r([
-        'id_psicologo' => $id_psicologo,
-        'usuario' => $usuario,
-        'contraseña' => $contraseña,
-        'nombre1' => $nombre1,
-        'nombre2' => $nombre2,
-        'apellido1' => $apellido1,
-        'apellido2' => $apellido2,
-        'tipo_doc' => $tipo_doc,
-        'num_doc' => $num_doc,
-        'correo' => $correo,
-        'fecha_nac' => $fecha_nac,
-        'telefono' => $telefono,
-        'estatus' => $estatus,
-        'id_especialidad' => $id_especialidad,
-        'foto' => $foto ? 'Foto cargada' : 'Sin foto'
-    ]);
-    echo "</pre>";
-
+    // Realizar la actualización del psicólogo
     $result = $controller->actualizarPsicologo($id_psicologo, $usuario, $contraseña, $nombre1, $nombre2, $apellido1, $apellido2, $tipo_doc, $num_doc, $correo, $fecha_nac, $telefono, $estatus, $id_especialidad, $foto);
 
     if ($result) {
+        // Registrar el log con el nombre y apellido del psicólogo
+        $nombreUsuarioModificar = $nombre1 . ' ' . $apellido1;
+        registrar_log($_SESSION['usuario'], "Actualizó los datos del psicólogo: $nombreUsuarioModificar");
+
+        // Redirigir después de la actualización
         header('Location: /Implantacion/app/vistas/listado_Psicologos.php');
         exit();
     } else {
@@ -80,6 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 

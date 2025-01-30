@@ -1,6 +1,22 @@
 <?php
+session_start();
 // Conexión a la base de datos
 require_once '../../config/conexion.php';
+include 'log.php';
+
+
+if (!isset($_SESSION['usuario'])) {
+    header("Location: login_psicologo.admin.php");
+    exit;
+}
+
+if (isset($_POST['cerrar_sesion'])) {
+    session_unset();
+    session_destroy();
+    header("Location: login_psicologo_admin.php");
+    exit;
+}
+
 
 // Verificar si el ID de usuario está presente
 if (!isset($_GET['id_usuario']) || empty($_GET['id_usuario'])) {
@@ -97,6 +113,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($nombre1) || empty($apellido1) || empty($sexo) || empty($fecha_nac) || empty($num_doc) || empty($tipo_doc) || empty($telefono) || empty($estado) || empty($ciudad)) {
         $error = "Por favor, completa todos los campos obligatorios.";
     } else {
+        // Encriptar la contraseña
+        $contraseña_encriptada = password_hash($contraseña, PASSWORD_DEFAULT);
         // Actualizar los datos del usuario
         $query_update_usuario = "
             UPDATE usuario 
@@ -146,6 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_update_direccion->bindParam(':id_direccion', $paciente['id_direccion'], PDO::PARAM_INT);
         $stmt_update_direccion->execute();
 
+        registrar_log($_SESSION['usuario'], "Actualizó los datos del psicólogo: $nombre1 $apellido1");
         // Redirigir si la actualización es exitosa
         header("Location: listado_pacientes.php?mensaje=Usuario actualizado exitosamente");
         exit;
