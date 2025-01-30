@@ -18,8 +18,39 @@ if (isset($_POST['cerrar_sesion'])) {
 }
 
 $nombreUsuario = $_SESSION['usuario'];
+// Verificar si el ID de usuario está presente
+if (!isset($_GET['id_usuario']) || empty($_GET['id_usuario'])) {
+    echo "ID de usuario no válido.";
+    exit;
+}
 
+$id_usuario = htmlspecialchars($_GET['id_usuario']);
 
+$query_result = "
+    SELECT 
+        u.*, 
+        p.*, 
+        pr.*
+        
+    FROM 
+        usuario u
+    JOIN 
+        paciente p ON u.id_usuario = p.id_usuario
+    LEFT JOIN 
+        paciente_relacion pr ON p.id_paciente = pr.id_paciente
+    
+    WHERE 
+        u.id_usuario = :id_usuario";
+        
+$stmt_result = $conn->prepare($query_result);
+$stmt_result->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+$stmt_result->execute();
+$result = $stmt_result->fetch(PDO::FETCH_ASSOC);
+
+if (!$result) {
+    echo "Usuario no encontrado.";
+    exit;
+}
 
 
 ?>
@@ -233,7 +264,7 @@ $nombreUsuario = $_SESSION['usuario'];
 
                     <div class="mb-3">
                         <label for="estatura_nacer" class="form-label">Estatura al Nacer</label>
-                        <input type="number" class="form-control" id="estatura_nacer" name="estatura_nacer" required>
+                        <input type="number" class="form-control" id="estatura_al_nacer" name="estatura_al_nacer" required>
                     </div>
 
                     <div class="mb-3">
@@ -539,10 +570,7 @@ $nombreUsuario = $_SESSION['usuario'];
                         <textarea class="form-control" id="recreacion" name="recreacion"></textarea>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="abuelo_p" class="form-label">Abuelo Paterno</label>
-                        <input type="text" class="form-control" id="abuelo_p" name="abuelo_p" maxlength="70" required>
-                    </div>
+                    
 
                     <div class="mb-3">
                         <label for="conducta_sexual" class="form-label">28. Conducta sexual (inicio y vida sexual, desde los juegos infantiles a la actualidad) Relación con las personas del mismo sexo y del sexo opuesto:</label>
