@@ -41,7 +41,7 @@ $query_result = "
     
     WHERE 
         u.id_usuario = :id_usuario";
-        
+
 $stmt_result = $conn->prepare($query_result);
 $stmt_result->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
 $stmt_result->execute();
@@ -81,8 +81,8 @@ if (!$result) {
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="Nombre1" class="form-label">Entrevistador</label>
-                                <input type="text" class="form-control" id="Nombre1" name="Nombre1">
+                                <label for="entrevistador" class="form-label">Entrevistador</label>
+                                <input type="text" class="form-control" id="entrevistador" name="entrevistador">
                             </div>
                             <h4>I.DATOS DE FILIACIÓN</h4>
                             <div class="mb-3">
@@ -146,10 +146,6 @@ if (!$result) {
                             <div class="mb-3">
                                 <label for="religion" class="form-label">Religión</label>
                                 <input type="text" class="form-control" id="religion" name="religion">
-                            </div>
-                            <div class="mb-3">
-                                <label for="relacion_telefono" class="form-label">Teléfono</label>
-                                <input type="text" class="form-control" id="relacion_telefono" name="relacion_telefono" value="<?= $result['relacion_telefono'] ?>">
                             </div>
                             <div class="mb-3">
                                 <label for="edades_hijos" class="form-label">Edades de los Hijos</label>
@@ -263,7 +259,7 @@ if (!$result) {
                     </div>
 
                     <div class="mb-3">
-                        <label for="estatura_nacer" class="form-label">Estatura al Nacer</label>
+                        <label for="estatura_al_nacer" class="form-label">Estatura al Nacer</label>
                         <input type="number" class="form-control" id="estatura_al_nacer" name="estatura_al_nacer" required>
                     </div>
 
@@ -283,8 +279,8 @@ if (!$result) {
                     </div>
 
                     <div class="mb-3">
-                        <label for="llorro" class="form-label">¿Lloró?</label>
-                        <select class="form-control" id="llorro" name="llorro" required>
+                        <label for="lloro" class="form-label">¿Lloró?</label>
+                        <select class="form-control" id="lloro" name="lloro" required>
                             <option value="si">Sí</option>
                             <option value="no">No</option>
                         </select>
@@ -482,8 +478,8 @@ if (!$result) {
                     </div>
 
                     <div class="mb-3">
-                        <label for="grado_autonomia_deliberacion_accion" class="form-label">19. Grado de autonomía en la deliberación y la acción:</label>
-                        <textarea class="form-control" id="grado_autonomia_deliberacion_accion" name="grado_autonomia_deliberacion_accion"></textarea>
+                        <label for="grado_autonomía_deliberación_acción" class="form-label">19. Grado de autonomía en la deliberación y la acción:</label>
+                        <textarea class="form-control" id="grado_autonomía_deliberación_acción" name="grado_autonomía_deliberación_acción"></textarea>
                     </div>
 
                     <div class="mb-3">
@@ -570,7 +566,7 @@ if (!$result) {
                         <textarea class="form-control" id="recreacion" name="recreacion"></textarea>
                     </div>
 
-                    
+
 
                     <div class="mb-3">
                         <label for="conducta_sexual" class="form-label">28. Conducta sexual (inicio y vida sexual, desde los juegos infantiles a la actualidad) Relación con las personas del mismo sexo y del sexo opuesto:</label>

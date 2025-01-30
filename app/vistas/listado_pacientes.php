@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . '/../controladores/listado_PacienteControlador.php';
-include 'log.php';
+include '../controladores/log.php';
 
 use app\controladores\listado_PacienteControlador;
 

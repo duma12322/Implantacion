@@ -1,5 +1,27 @@
 <?php
-include '../../config/conexion.php'; // Ajusta la ruta si es necesario
+session_start();
+include '../../config/conexion.php';
+
+if (!isset($_SESSION['usuario'])) {
+    header("Location: login_psicologo.admin.php");
+    exit;
+}
+
+// Verifica si se hizo clic en el botón de cerrar sesión
+if (isset($_POST['cerrar_sesion'])) {
+    // Destruye la sesión y redirige al login
+    session_unset();
+    session_destroy();
+    header("Location: login_psicologo_admin.php");
+    exit;
+}
+
+$nombreUsuario = $_SESSION['usuario'];
+
+// Mostrar la Foto
+$stmt = $conn->prepare("SELECT foto FROM administrativo WHERE usuario = :usuario");
+$stmt->execute([':usuario' => $nombreUsuario]);
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Filtro por usuario si se envía desde el formulario
 $usuario_filtro = isset($_GET['usuario']) ? $_GET['usuario'] : '';
@@ -29,46 +51,19 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bitácora de Acciones</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        input[type="text"],
-        button {
-            padding: 8px;
-            margin-top: 5px;
-        }
-
-        .container {
-            width: 80%;
-            margin: auto;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/logs.css">
+    <link rel="stylesheet" href="css/sidebarandheader.css">
 </head>
 
 <body>
-    <div class="container">
-        <h2>Bitácora de Acciones</h2>
+    <div class="container mt-5">
+        <nav class="nav nav-borders">
+            <a class="nav-link" href="dashboard.php">Volver al listado</a>
+        </nav>
+        <hr>
+        <h1 class="text-center mb-4">Bitacora de acciones</h1>
         <form method="GET">
             <input type="text" name="usuario" placeholder="Filtrar por usuario" value="<?= htmlspecialchars($_GET['usuario'] ?? '') ?>">
             <button type="submit">Buscar</button>
@@ -92,6 +87,13 @@ $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </table>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Incluir SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Incluir archivo JS -->
+    <script src="script/sidebarandheader.js "></script>
+    <script src="script/listado_psicologo.js"></script>
 </body>
 
 </html>

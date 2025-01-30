@@ -3,7 +3,7 @@ session_start();
 
 // Conexión a la base de datos
 include '../../config/conexion.php';
-include 'log.php';
+include '../controladores/log.php';
 
 // Verifica si la sesión está activa
 if (!isset($_SESSION['usuario'])) {

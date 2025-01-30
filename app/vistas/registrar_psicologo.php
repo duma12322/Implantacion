@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../config/conexion.php';
 require_once __DIR__ . '/../controladores/listado_PsicologosControlador.php';
-include 'log.php';
+include '../controladores/log.php';
 
 use app\controladores\listado_PsicologosControlador;
 

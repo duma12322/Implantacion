@@ -2,7 +2,7 @@
 session_start();
 // Conexión a la base de datos
 require_once '../../config/conexion.php';
-include 'log.php';
+include '../controladores/log.php';
 
 
 if (!isset($_SESSION['usuario'])) {

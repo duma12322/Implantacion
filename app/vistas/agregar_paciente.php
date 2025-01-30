@@ -3,7 +3,7 @@ session_start();
 
 require_once '../../config/conexion.php';
 require_once '../../app/controladores/listado_PacienteControlador.php';
-include 'log.php';
+include '../controladores/log.php';
 
 use app\controladores\listado_PacienteControlador;
 

@@ -2,14 +2,24 @@
 // Conexión a la base de datos
 require_once 'conexion.php';
 
-// Verifica si la sesión está activa
 session_start(); // Asegúrate de iniciar la sesión
 if (!isset($_SESSION['usuario'])) {
     header("Location: login_psicologo_admin.php");
     exit;
 }
 
-$usuario = $_SESSION['usuario']; // El valor del usuario en la sesión
+// Obtener id_usuario desde la URL
+if (isset($_GET['id_usuario'])) {
+    $id_usuario = $_GET['id_usuario'];
+} else {
+    $id_usuario = $_SESSION['id_usuario_creacion'] ?? null;
+}
+
+// Verificar que id_usuario no sea nulo
+if (empty($id_usuario)) {
+    die("ID de usuario no válido.");
+}
+//echo "ID de usuario utilizado para la creación: " . $id_usuario; // Mensaje de depuración
 
 // Recibir datos del formulario
 $entrevistador = $_POST['entrevistador'] ?? null;
@@ -49,7 +59,7 @@ $estatura_al_nacer = $_POST['estatura_al_nacer'] ?? null; // Asegúrate de que e
 $peso = $_POST['peso'] ?? null;
 $perimetro_cefalico = $_POST['perimetro_cefalico'] ?? null;
 $taraxico = $_POST['taraxico'] ?? null;
-$llorró = $_POST['llorro'] ?? null;
+$lloro = $_POST['lloro'] ?? null;
 $reflejos = $_POST['reflejos'] ?? null;
 $lenguaje = $_POST['lenguaje'] ?? null;
 $juego = $_POST['juego'] ?? null;
@@ -87,7 +97,8 @@ $particularidades_adole = $_POST['particularidades_adole'] ?? null;
 $proble_afectivo_adole = $_POST['proble_afectivo_adole'] ?? null;
 $grado_armonia_madurez_bio_psico = $_POST['grado_armonia_madurez_bio_psico'] ?? null;
 $desarrollo_voluntad = $_POST['desarrollo_voluntad'] ?? null;
-$grado_autonomía_deliberación_acción  = $_POST['grado_autonomía_deliberación_acción '] ?? null; // Asegúrate de que el nombre sea correcto
+$economia = $_POST['economia'] ?? null;
+$grado_autonomía_deliberación_acción  = $_POST['grado_autonomía_deliberación_acción '] ?? null;
 $persistencia_esfuerzo = $_POST['persistencia_esfuerzo'] ?? null;
 $jerarvalores_estilovida_sexaceina = $_POST['jerarvalores_estilovida_sexaceina'] ?? null;
 $norma_nivel_familiar = $_POST['norma_nivel_familiar'] ?? null;
@@ -142,26 +153,58 @@ if (empty($motivo)) {
     die("El campo 'motivo' es obligatorio y no puede estar vacío.");
 }
 
-// Insertar datos en las tablas
-$query = $conn->prepare("INSERT INTO historial_medico (entrevistador, instruccion, edo_civil, estudio_trabajo, lugar_resi, procedencia, fecha_p_cita, edad, lugar_nacimient, ocupacion, religion, grado_ciclo, ti_resi, informante) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$query->execute([
-    $entrevistador,
-    $instruccion,
-    $edo_civil,
-    $estudio_trabajo,
-    $lugar_resi,
-    $procedencia,
-    $fecha_p_cita,
-    $edad,
-    $lugar_nacimient,
-    $ocupacion,
-    $religion,
-    $grado_ciclo,
-    $ti_resi,
-    $informante
-]);
+// Definir las variables de ID inicialmente
+$id_paciente_relacion = null;
+$id_historial = null;
+$id_historia_perso_social = null;
+$id_relacion_social_niñez = null;
+$id_escolaridad = null;
+$id_conducta = null;
+$id_traba_social = null;
+$id_conductas_pareja = null;
+$id_antecedentes_familiares = null;
+$id_diag_resul_trata_evo = null;
 
-$query = $conn->prepare("INSERT INTO historial (motivo, inicio_curso, tiempo_proble, suceso_dia, dia_anterior, que_hizo, como_se_calmo, hablo_alguien_del_problema, factores_desenca_del_proble, ultimo_trata_fisi_psico, autodescrpi_perso, filosofia_vida) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+// Obtener id_paciente_relacion desde la tabla paciente_relacion
+// Obtener id_paciente desde la tabla paciente
+$query_paciente = "
+    SELECT id_paciente 
+    FROM paciente 
+    WHERE id_usuario = :id_usuario";
+
+$stmt_paciente = $conn->prepare($query_paciente);
+$stmt_paciente->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+$stmt_paciente->execute();
+$result_paciente = $stmt_paciente->fetch(PDO::FETCH_ASSOC);
+
+if (!$result_paciente) {
+    echo "No se encontró el paciente.";
+    exit;
+}
+
+$id_paciente = $result_paciente['id_paciente'];
+
+// Obtener id_paciente_relacion desde la tabla paciente_relacion
+$query_paciente_relacion = "
+    SELECT id_paciente_relacion 
+    FROM paciente_relacion 
+    WHERE id_paciente = :id_paciente";
+
+$stmt_paciente_relacion = $conn->prepare($query_paciente_relacion);
+$stmt_paciente_relacion->bindParam(':id_paciente', $id_paciente, PDO::PARAM_INT);
+$stmt_paciente_relacion->execute();
+$result_paciente_relacion = $stmt_paciente_relacion->fetch(PDO::FETCH_ASSOC);
+
+if (!$result_paciente_relacion) {
+    echo "No se encontró la relación de paciente.";
+    exit;
+}
+
+$id_paciente_relacion = $result_paciente_relacion['id_paciente_relacion'];
+
+$query = $conn->prepare("INSERT INTO historial
+(motivo, inicio_curso, tiempo_proble, suceso_dia, dia_anterior, que_hizo, como_se_calmo, hablo_alguien_del_problema, factores_desenca_del_proble, ultimo_trata_fisi_psico, autodescrpi_perso, filosofia_vida)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 $query->execute([
     $motivo,
     $inicio_curso,
@@ -176,8 +219,7 @@ $query->execute([
     $autodescrpi_perso,
     $filosofia_vida
 ]);
-
-
+$id_historial = $conn->lastInsertId();
 
 $query = $conn->prepare("INSERT INTO relacion_social_niñez (r_s_padres, r_s_hermanos, r_s_otros_familiares, r_s_conocidos, r_s_extraños_m_edad_d_edad, grado_integracion_a_ellos) VALUES (?, ?, ?, ?, ?, ?)");
 $query->execute([
@@ -188,6 +230,7 @@ $query->execute([
     $r_s_extraños_m_edad_d_edad,
     $grado_integracion_a_ellos
 ]);
+$id_relacion_social_niñez = $conn->lastInsertId();
 
 $query = $conn->prepare("INSERT INTO escolaridad (adaptacion_ingreso_escu, integracion_condiscipulos, comportamiento_salon_clase, compor_recreo, relacion_demas, aislamiento, descrip_aislamiento, experiencia_estudio_primarios, experiencia_estudio_segundario, experiencia_estudio_superior) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 $query->execute([
@@ -202,6 +245,7 @@ $query->execute([
     $experiencia_estudio_segundario,
     $experiencia_estudio_superior
 ]);
+$id_escolaridad = $conn->lastInsertId();
 
 $query = $conn->prepare("INSERT INTO conducta (proble_afectivo_conducta_niñez, proble_afectivo_pubertad, particularidades_adole, proble_afectivo_adole, grado_armonia_madurez_bio_psico, desarrollo_voluntad, grado_autonomía_deliberación_acción, persistencia_esfuerzo, jerarvalores_estilovida_sexaceina, norma_nivel_familiar, prefe_smo, habitos_intereses, enfermedad_accidente) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 $query->execute([
@@ -219,6 +263,7 @@ $query->execute([
     $habitos_intereses,
     $enfermedad_accidente
 ]);
+$id_conducta = $conn->lastInsertId();
 
 $query = $conn->prepare("INSERT INTO traba_social (eleccion_profesion, vivienda, economía, r_jefe_super_compa_subal, crecimiento_psicosocial, ambiciones_laboral, cambio_profesion, cuadro_familiar, relaciones_interperso, religion, recreacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 $query->execute([
@@ -234,8 +279,9 @@ $query->execute([
     $religion,
     $recreacion
 ]);
+$id_traba_social = $conn->lastInsertId();
 
-$query = $conn->prepare("INSERT INTO conductas_pareja (conducta_sexual, elegir_pareja, fiel_exigente, noviazgo, matrimonio, opinion_matrimonio, particularidades_dia_boda, vida_matrimonial, separacion, divorcio, proble_peri_criti_particu_climaterio_menopausia_edadcriti	) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$query = $conn->prepare("INSERT INTO conductas_pareja (conducta_sexual, elegir_pareja, fiel_exigente, noviazgo, matrimonio, opinion_matrimonio, particularidades_dia_boda, vida_matrimonial, separacion, divorcio, proble_peri_criti_particu_climaterio_menopausia_edadcriti ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 $query->execute([
     $conducta_sexual,
     $elegir_pareja,
@@ -247,11 +293,12 @@ $query->execute([
     $vida_matrimonial,
     $separacion,
     $divorcio,
-    $proble_peri_criti_particu_climaterio_menopausia_edadcriti	
+    $proble_peri_criti_particu_climaterio_menopausia_edadcriti
 ]);
+$id_conductas_pareja = $conn->lastInsertId();
 
 $query = $conn->prepare("INSERT INTO antecedentes_familiares (abuelo_p, abuela_p, padre, tios_p, abuelo_m, abuela_m, madre, tios_m, hermanos, esposo_a, hijos, colaterales) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-$query->execute ([
+$query->execute([
     $abuelo_p,
     $abuela_p,
     $padre,
@@ -265,6 +312,7 @@ $query->execute ([
     $hijos,
     $colaterales
 ]);
+$id_antecedentes_familiares = $conn->lastInsertId();
 
 $query = $conn->prepare("INSERT INTO diag_resul_trata_evo (signos_sintoma, patologia_sindrome, trastorno, nivel_afectacion, conclusion_diag, exa_conductual_facultades_psiquicas, eva_psico, programa_trata_propuesto, evolucion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 $query->execute([
@@ -278,8 +326,9 @@ $query->execute([
     $programa_trata_propuesto,
     $evolucion
 ]);
+$id_diag_resul_trata_evo = $conn->lastInsertId();
 
-$query = $conn->prepare("INSERT INTO historia_perso_social (edad_madre_nacer, parto, tipo_atencion_parto, descrip_tipo_atencion, termino, postnatalidad, estatura_al_nacer, peso, perimetro_cefalico, taraxico, llorró, reflejos, lenguaje, juego, edad_camino, encopresis, edad_control_enco, enuresis, edad_control_enu, motroci_fina, motrici_gruesa, movimi_pinza, alimentacion_infancia, crianza, juego_infantil, caracter_y_comportamiento_primero_años) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+$query = $conn->prepare("INSERT INTO historia_perso_social (edad_madre_nacer, parto, tipo_atencion_parto, descrip_tipo_atencion, termino, postnatalidad, estatura_al_nacer, peso, perimetro_cefalico, taraxico, lloro, reflejos, lenguaje, juego, edad_camino, encopresis, edad_control_enco, enuresis, edad_control_enu, motroci_fina, motrici_gruesa, movimi_pinza, alimentacion_infancia, crianza, juego_infantil, caracter_y_comportamiento_primero_años) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 $query->execute([
     $edad_madre_nacer,
     $parto,
@@ -291,7 +340,7 @@ $query->execute([
     $peso,
     $perimetro_cefalico,
     $taraxico,
-    $llorró,
+    $lloro,
     $reflejos,
     $lenguaje,
     $juego,
@@ -308,6 +357,49 @@ $query->execute([
     $juego_infantil,
     $caracter_y_comportamiento_primero_años
 ]);
+$id_historia_perso_social = $conn->lastInsertId();
+
+// Ahora la consulta SQL con los campos de ID añadidos
+$query = $conn->prepare("INSERT INTO historial_medico 
+    (id_usuario, id_paciente_relacion, id_historial, id_historia_perso_social, id_relacion_social_niñez, 
+    id_escolaridad, id_conducta, id_traba_social, id_conductas_pareja, id_antecedentes_familiares, id_diag_resul_trata_evo, 
+    entrevistador, instruccion, edo_civil, estudio_trabajo, lugar_resi, procedencia, fecha_p_cita, edad, 
+    lugar_nacimient, ocupacion, religion, grado_ciclo, ti_resi, informante) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+$query->execute([
+    $id_usuario,  // Añadir id_usuario aquí
+    $id_paciente_relacion,
+    $id_historial,  // Usar el id obtenido
+    $id_historia_perso_social,  // Usar el id obtenido
+    $id_relacion_social_niñez,  // Usar el id obtenido
+    $id_escolaridad,  // Usar el id obtenido
+    $id_conducta,  // Usar el id obtenido
+    $id_traba_social,  // Usar el id obtenido
+    $id_conductas_pareja,  // Usar el id obtenido
+    $id_antecedentes_familiares,  // Usar el id obtenido
+    $id_diag_resul_trata_evo,  // Usar el id obtenido
+    $entrevistador,
+    $instruccion,
+    $edo_civil,
+    $estudio_trabajo,
+    $lugar_resi,
+    $procedencia,
+    $fecha_p_cita,
+    $edad,
+    $lugar_nacimient,
+    $ocupacion,
+    $religion,
+    $grado_ciclo,
+    $ti_resi,
+    $informante
+]);
+
+// Verifica si se insertó correctamente
+if ($query->rowCount()) {
+    echo "Datos insertados correctamente.";
+} else {
+    echo "Error al insertar los datos.";
+}
 header("Location: ../app/vistas/listado_pacientes.php");
 exit;
-?>
