@@ -85,7 +85,7 @@
                     <span class="nav-tooltip">Reportes</span>
                 </li>
                 <li class="nav-item">
-                    <a href="historial_medico.php" class="nav-link">
+                    <a href="listado_historial.php" class="nav-link">
                         <i class="bi bi-person-vcard-fill"></i>
                         <span class="nav-label">Historiales</span>
                     </a>
