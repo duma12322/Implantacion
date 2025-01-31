@@ -1,4 +1,3 @@
-/* Google Font Link */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 
 * {
@@ -21,15 +20,15 @@ body {
   position: relative;
   max-width: 850px;
   width: 100%;
-  height: 450px; /* Ajusté la altura a un valor fijo, puedes cambiarlo según sea necesario */
+  height: 450px;
   background: #fff;
   padding: 0;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-  display: flex; /* Cambié a flex para dividir el espacio entre la imagen y el formulario */
+  display: flex;
 }
 
 .container .cover {
-  width: 50%; /* Ajusté el tamaño al 50% */
+  width: 50%;
   height: 100%;
   z-index: 98;
   position: relative;
@@ -43,7 +42,7 @@ body {
 }
 
 .container .forms {
-  width: 50%; /* Ajusté el tamaño al 50% */
+  width: 50%;
   height: 90%;
   display: flex;
   justify-content: center;
@@ -184,5 +183,49 @@ body {
 
   .container #flip:checked ~ .forms .login-form {
     display: none;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .container {
+    height: auto;
+  }
+
+  .container .forms {
+    width: 100%;
+  }
+
+  .form-content {
+    padding: 10px;
+  }
+
+  .forms .form-content .title {
+    font-size: 20px;
+  }
+
+  .form-content .input-box input {
+    padding: 0 15px;
+    font-size: 14px;
+  }
+
+  .forms .form-content .button input {
+    padding: 10px 0;
+  }
+
+.forms .form-content .button input {
+  color: #fff;
+  background: #f1b24a;
+  border-radius: 6px;
+  padding: 0;
+  cursor: pointer;
+  margin-bottom: 60px; 
+  transition: all 0.4s ease;
+}
+
+  .text.sign-up-text2 {
+    width: 150%;
+    margin-bottom: -30px; /* Ajusté el margen inferior para pantallas pequeñas */
+    margin-left: -80px;
   }
 }
