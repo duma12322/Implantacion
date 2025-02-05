@@ -2,13 +2,17 @@
 include_once('../../config/conexion.php');
 
 session_start(); // Asegúrate de iniciar la sesión
-if (!isset($_SESSION['usuario'])) {
-    header("Location: login_psicologo_admin.php");
-    exit;
-}
 
-// Obtener id_usuario desde la URL
-$id_usuario_modificar = $_GET['id_usuario'] ?? $_SESSION['id_usuario_creacion'] ?? null;
+// Depuración: Verificar los parámetros POST
+//echo "POST Parameters: ";
+//var_dump($_POST);
+
+// Obtener id_usuario desde la sesión
+$id_usuario_modificar = $_SESSION['id_usuario_modificar'] ?? null;
+
+// Depuración
+//echo "ID Usuario Modificar: ";
+//var_dump($id_usuario_modificar); 
 
 // Verificar que id_usuario no sea nulo
 if (empty($id_usuario_modificar)) {

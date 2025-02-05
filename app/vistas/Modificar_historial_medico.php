@@ -2,12 +2,14 @@
 session_start();
 // Conexión a la base de datos
 require_once '../../config/conexion.php';
+include '../controladores/log.php';
 
 // Verifica si la sesión está activa 
 if (!isset($_SESSION['usuario'])) {
     header("Location: login_paciente.php");
     exit;
 }
+
 
 // Verifica si se hizo clic en el botón de cerrar sesión 
 if (isset($_POST['cerrar_sesion'])) {
@@ -17,14 +19,18 @@ if (isset($_POST['cerrar_sesion'])) {
     exit;
 }
 
-// Verificar si el ID de usuario a modificar está presente
+// Verificar si el ID de usuario a modificar está presente en la URL
 if (!isset($_GET['id_usuario']) || empty($_GET['id_usuario'])) {
     echo "ID de usuario no válido.";
     exit;
 }
 
 $id_usuario_modificar = htmlspecialchars($_GET['id_usuario']);
-echo "ID del usuario a modificar: " . $id_usuario_modificar . "<br>";
+
+// Guarda el id_usuario en la sesión
+$_SESSION['id_usuario_modificar'] = $id_usuario_modificar;
+
+//echo "ID del usuario a modificar: " . $id_usuario_modificar . "<br>";
 
 // Obtener los datos del usuario a modificar
 $query_result = "
@@ -51,7 +57,7 @@ if (!$result) {
     exit;
 }
 
-echo "Datos básicos del usuario obtenidos.<br>";
+//echo "Datos básicos del usuario obtenidos.<br>";
 
 // Obtener los datos combinados de historial médico, historial, historia_perso_social, relacion_social_niñez, escolaridad, conducta, traba_social y antecedentes_familiares
 $query_combined_test = "
@@ -114,15 +120,25 @@ $stmt_combined_test->bindParam(':id_usuario', $id_usuario_modificar, PDO::PARAM_
 $stmt_combined_test->execute();
 $result_test = $stmt_combined_test->fetch(PDO::FETCH_ASSOC);
 
-if (!$result_test) {
-    echo "Datos de historial médico no encontrados.<br>";
-} else {
-    echo "Datos de historial médico obtenidos con éxito.<br>";
-}
+registrar_log($_SESSION['usuario'], "Modificó al usuario con el nombre: {$result['nombre1']} {$result['apellido1']}");
 
-echo "<pre>";
-print_r($result_test);
-echo "</pre>";
+if (!$result_test) {
+    echo "
+    <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.all.min.js'></script>
+    <script>
+      window.onload = function() {
+        Swal.fire({
+          icon: 'warning',
+          title: 'No se ha creado el historial medico de este paciente',
+          showConfirmButton: true,
+          confirmButtonText: 'OK',
+          timer: 3000,
+          willClose: () => { window.location.href = '../vistas/listado_pacientes.php'; }
+        });
+      }
+    </script>";
+    exit;
+}
 ?>
 
 

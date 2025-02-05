@@ -2,6 +2,7 @@
 session_start();
 // Conexión a la base de datos
 require_once '../../config/conexion.php';
+//include '../controladores/log.php';
 
 // Verifica si la sesión está activa 
 if (!isset($_SESSION['usuario'])) {
@@ -46,6 +47,8 @@ $stmt_result = $conn->prepare($query_result);
 $stmt_result->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
 $stmt_result->execute();
 $result = $stmt_result->fetch(PDO::FETCH_ASSOC);
+
+//registrar_log($_SESSION['usuario'], "Creo el historial medico al usuario con el nombre: {$result['nombre1']} {$result['apellido1']}");
 
 if (!$result) {
     echo "Usuario no encontrado.";
