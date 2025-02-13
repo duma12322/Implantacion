@@ -179,7 +179,7 @@ if (!$result_test) {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="entrevistador" class="form-label">Entrevistador</label>
-                                <select class="form-control" id="entrevistador" name="entrevistador">
+                                <select class="form-control form-control-lg" id="entrevistador" name="entrevistador">
                                     <?php foreach ($psicologos as $psicologo): ?>
                                         <option value="<?php echo htmlspecialchars($psicologo['id_administrativo']); ?>">
                                             <?php echo htmlspecialchars($psicologo['nombre_completo']); ?>
@@ -187,6 +187,7 @@ if (!$result_test) {
                                     <?php endforeach; ?>
                                 </select>
                             </div>
+
                             <h4>I. DATOS DE FILIACIÓN</h4>
                             <div class="mb-3">
                                 <label for="nombre1" class="form-label">Nombres Completos</label>
@@ -380,7 +381,7 @@ if (!$result_test) {
 
                     <div class="mb-3">
                         <label for="lloro" class="form-label">¿Lloró?</label>
-                        <select class="form-control" id="lloro" name="lloro" required>
+                        <select class="form-control form-control-lg" id=" lloro" name="lloro" required>
                             <option value="si" <?= ($result_test['lloro'] == 'si') ? 'selected' : '' ?>>Sí</option>
                             <option value="no" <?= ($result_test['lloro'] == 'no') ? 'selected' : '' ?>>No</option>
                         </select>
@@ -408,7 +409,7 @@ if (!$result_test) {
 
                     <div class="mb-3">
                         <label for="encopresis" class="form-label">¿Encopresis?</label>
-                        <select class="form-control" id="encopresis" name="encopresis" required>
+                        <select class="form-control form-control-lg" id=" encopresis" name="encopresis" required>
                             <option value="0" <?= ($result_test['encopresis'] == 0) ? 'selected' : '' ?>>No</option>
                             <option value="1" <?= ($result_test['encopresis'] == 1) ? 'selected' : '' ?>>Sí</option>
                         </select>
@@ -421,7 +422,7 @@ if (!$result_test) {
 
                     <div class="mb-3">
                         <label for="enuresis" class="form-label">¿Enuresis?</label>
-                        <select class="form-control" id="enuresis" name="enuresis" required>
+                        <select class="form-control form-control-lg" id="enuresis" name="enuresis" required>
                             <option value="0" <?= ($result_test['enuresis'] == 0) ? 'selected' : '' ?>>No</option>
                             <option value="1" <?= ($result_test['enuresis'] == 1) ? 'selected' : '' ?>>Sí</option>
                         </select>

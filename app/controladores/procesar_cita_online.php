@@ -312,7 +312,7 @@ echo "
       title: 'Cita agendada correctamente. Revisa tu correo para el enlace de la reunión.',
       showConfirmButton: true,
       confirmButtonText: 'OK',
-      timer: 3000,
+      timer: 20000,
       willClose: () => { window.location.href = '../vistas/agendar_cita.php'; }
     });
   }

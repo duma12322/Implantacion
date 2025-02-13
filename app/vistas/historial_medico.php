@@ -94,7 +94,7 @@ if (!$result) {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="entrevistador" class="form-label">Entrevistador</label>
-                                <select class="form-control" id="entrevistador" name="entrevistador">
+                                <select class="form-control form-control-lg" id="entrevistador" name="entrevistador">
                                     <?php foreach ($psicologos as $psicologo): ?>
                                         <option value="<?php echo htmlspecialchars($psicologo['id_administrativo']); ?>">
                                             <?php echo htmlspecialchars($psicologo['nombre_completo']); ?>
@@ -298,7 +298,7 @@ if (!$result) {
 
                     <div class="mb-3">
                         <label for="lloro" class="form-label">¿Lloró?</label>
-                        <select class="form-control" id="lloro" name="lloro" required>
+                        <select class="form-control form-control-lg" id="lloro" name="lloro" required>
                             <option value="si">Sí</option>
                             <option value="no">No</option>
                         </select>
@@ -326,7 +326,7 @@ if (!$result) {
 
                     <div class="mb-3">
                         <label for="encopresis" class="form-label">¿Encopresis?</label>
-                        <select class="form-control" id="encopresis" name="encopresis" required>
+                        <select class="form-control form-control-lg" id="encopresis" name="encopresis" required>
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>
@@ -339,7 +339,7 @@ if (!$result) {
 
                     <div class="mb-3">
                         <label for="enuresis" class="form-label">¿Enuresis?</label>
-                        <select class="form-control" id="enuresis" name="enuresis" required>
+                        <select class="form-control form-control-lg" id="enuresis" name="enuresis" required>
                             <option value="0">No</option>
                             <option value="1">Sí</option>
                         </select>

@@ -200,6 +200,7 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     <script src="script/bootstrap.min.js/bootstrap.min.js"></script>
     <script src="script/fecha.js"></script>
     <script src="script/discapacitado.js"></script>
+    <script src="script/relacion_discapacitado.js"></script>
     <script src="script/validarHora.js"></script>
     <script>
         function toggleReferencia() {

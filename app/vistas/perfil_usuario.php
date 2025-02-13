@@ -27,7 +27,7 @@ if (!$usuario_data) {
 $id_usuario = $usuario_data['id_usuario']; // Obtener el id_usuario
 
 // Obtener los datos del usuario
-$sql = "SELECT u.*, d.descripcion, e.estado AS estado, c.ciudad AS ciudad, m.municipio AS municipio, pr.parroquia AS parroquia
+$sql = "SELECT u.*, d.id_direccion, d.descripcion, e.estado AS estado, c.ciudad AS ciudad, m.municipio AS municipio, pr.parroquia AS parroquia
         FROM usuario u
         LEFT JOIN paciente p ON u.id_usuario = p.id_usuario  
         LEFT JOIN direccion d ON p.id_direccion = d.id_direccion  

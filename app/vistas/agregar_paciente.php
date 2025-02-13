@@ -214,7 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                     <div class="col-md-6">
                                         <label for="discapacitado" class="form-label">Discapacitado</label>
-                                        <select id="discapacitado" name="discapacitado" class="form-control" required>
+                                        <select id="discapacitado" name="discapacitado" class="form-control form-control-lg" required>
                                             <option value="#">Seleccione</option>
                                             <option value="No">No</option>
                                             <option value="Sí">Sí</option>
