@@ -76,8 +76,8 @@ if (isset($_POST['id_usuario'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Pacientes</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/listado.css">
     <link rel="stylesheet" href="css/sidebarandheader.css">
 </head>
@@ -178,9 +178,9 @@ if (isset($_POST['id_usuario'])) {
         </table>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script/bootstrap.bundle.min.js"></script>
     <!-- Incluir SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script/sweetalert2.min.js"></script>
 
     <!-- Incluir archivo JS -->
     <script src="script/sidebarandheader.js "></script>

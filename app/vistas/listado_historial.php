@@ -31,7 +31,29 @@ if (!empty($searchTerm)) {
     $historias = $controller->obtenerHistoriaClinica();
 }
 
+// Mostrar la Foto
+$stmt = $conn->prepare("SELECT foto FROM administrativo WHERE usuario = :usuario");
+$stmt->execute([':usuario' => $nombreUsuario]);
+$usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Iterar sobre cada historia para obtener la información del entrevistador
+foreach ($historias as &$historia) {
+    $id_entrevistador = $historia['entrevistador'];
+    $query_entrevistador = "
+        SELECT CONCAT(a.Nombre1, ' ', a.Apellido1) AS nombre_completo 
+        FROM administrativo a 
+        WHERE a.id_administrativo = :id_administrativo";
+
+    $stmt_entrevistador = $conn->prepare($query_entrevistador);
+    $stmt_entrevistador->bindParam(':id_administrativo', $id_entrevistador, PDO::PARAM_INT);
+    $stmt_entrevistador->execute();
+    $entrevistador = $stmt_entrevistador->fetch(PDO::FETCH_ASSOC);
+
+    // Añadir el nombre completo del entrevistador a la historia
+    $historia['entrevistador_nombre'] = $entrevistador ? $entrevistador['nombre_completo'] : 'Desconocido';
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -40,8 +62,8 @@ if (!empty($searchTerm)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Historias Clínicas</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/listado.css">
     <link rel="stylesheet" href="css/sidebarandheader.css">
 </head>
@@ -60,9 +82,9 @@ if (!empty($searchTerm)) {
         <!-- Botones de acciones principales -->
         <div class="d-flex justify-content-between mb-3">
             <div>
-                <a href="#" class="btn btn-primary me-2">
+                <!-- <a href="#" class="btn btn-primary me-2">
                     <i class="bi bi-person-fill-add"></i> Agregar Historia Clínica
-                </a>
+                </a> -->
             </div>
 
             <!-- Barra de búsqueda -->
@@ -89,16 +111,13 @@ if (!empty($searchTerm)) {
                 <?php if (!empty($historias)) : ?>
                     <?php foreach ($historias as $historia) : ?>
                         <tr onclick="selectRow(<?= htmlspecialchars($historia['id_usuario']) ?>, this)">
-                            <td><?= $historia['nombre1'] . ' ' . $historia['nombre2'] . ' ' .  $historia['apellido1'] . ' ' . $historia['apellido2']?></td>
+                            <td><?= $historia['nombre1'] . ' ' . $historia['nombre2'] . ' ' .  $historia['apellido1'] . ' ' . $historia['apellido2'] ?></td>
                             <td><?= htmlspecialchars($historia['tipo_doc']) ?>-<?= htmlspecialchars($historia['num_doc']) ?></td>
                             <td><?= htmlspecialchars($historia['sexo']) ?></td>
                             <td><?= htmlspecialchars($historia['edo_civil']) ?></td>
                             <td><?= htmlspecialchars($historia['fecha_p_cita']) ?></td>
-                            <td><?= htmlspecialchars($historia['entrevistador']) ?></td>
+                            <td><?= htmlspecialchars($historia['entrevistador_nombre']) ?></td>
                             <td>
-                                <a href="" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
                                 <form method="POST" class="deleteForm d-inline">
                                     <input type="hidden" name="id_administrativo" id="id_usuario_to_delete" value="">
                                     <button type="submit" class="btn btn-danger btn-sm">
@@ -117,10 +136,11 @@ if (!empty($searchTerm)) {
         </table>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script/bootstrap.bundle.min.js"></script>
     <script src="script/sidebarandheader.js"></script>
     <script src="script/listado_psicologo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="script/sweetalert2.min.js"></script>
+
 </body>
 
 </html>

@@ -48,6 +48,16 @@ $stmt_result->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
 $stmt_result->execute();
 $result = $stmt_result->fetch(PDO::FETCH_ASSOC);
 
+$query_psicologos = "
+    SELECT a.id_administrativo, CONCAT(a.Nombre1, ' ', a.Apellido1) AS nombre_completo 
+    FROM psicologo p
+    JOIN administrativo a ON p.id_administrativo = a.id_administrativo
+    WHERE a.status = 'activo'";
+
+$stmt_psicologos = $conn->prepare($query_psicologos);
+$stmt_psicologos->execute();
+$psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
+
 //registrar_log($_SESSION['usuario'], "Creo el historial medico al usuario con el nombre: {$result['nombre1']} {$result['apellido1']}");
 
 if (!$result) {
@@ -64,10 +74,9 @@ if (!$result) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Registro de Paciente</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-4.5.2/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/perfil_usuario.css">
     <link rel="stylesheet" href="css/modificar.css">
 </head>
@@ -85,7 +94,13 @@ if (!$result) {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="entrevistador" class="form-label">Entrevistador</label>
-                                <input type="text" class="form-control" id="entrevistador" name="entrevistador">
+                                <select class="form-control" id="entrevistador" name="entrevistador">
+                                    <?php foreach ($psicologos as $psicologo): ?>
+                                        <option value="<?php echo htmlspecialchars($psicologo['id_administrativo']); ?>">
+                                            <?php echo htmlspecialchars($psicologo['nombre_completo']); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                             <h4>I.DATOS DE FILIACIÓN</h4>
                             <div class="mb-3">
@@ -742,7 +757,7 @@ if (!$result) {
             <button type="submit" class="btn btn-primary">Registrar Historial Medico</button>
         </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

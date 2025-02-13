@@ -10,8 +10,8 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro Completo</title>
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.7/dist/sweetalert2.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.7/dist/sweetalert2.all.min.js"></script>
+    <link href="css/sweetalert2.min.css" rel="stylesheet">
+    <script src="script/sweetalert2.all11.7.7.min.js"></script>
 </head>
 
 <body>

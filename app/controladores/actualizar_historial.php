@@ -20,6 +20,7 @@ if (empty($id_usuario_modificar)) {
 }
 
 // Obtener los datos del formulario para la actualización
+// Obtener los datos del formulario para la actualización
 $datos_historial_medico = [
     'fecha_p_cita' => $_POST['fecha_p_cita'],
     'edad' => $_POST['edad'],
@@ -35,7 +36,8 @@ $datos_historial_medico = [
     'grado_ciclo' => $_POST['grado_ciclo'],
     'ti_resi' => $_POST['ti_resi'],
     'informante' => $_POST['informante'],
-    'entrevistador' => $_POST['entrevistador']
+    'entrevistador' => $_POST['entrevistador'],
+    'id_administrativo' => $_POST['entrevistador'] // Mismo valor que el entrevistador seleccionado
 ];
 
 $datos_historial = [
@@ -159,10 +161,11 @@ $datos_completos = array_merge(
 
 try {
     // Ejecutar los UPDATE para cada conjunto de datos
+    // Actualizar el query para incluir id_administrativo
     $query_historial_medico = "UPDATE historial_medico SET 
-        fecha_p_cita = ?, edad = ?, lugar_nacimient = ?, instruccion = ?, ocupacion = ?, edo_civil = ?, 
-        religion = ?, id_paciente_relacion = ?, estudio_trabajo = ?, procedencia = ?, lugar_resi = ?, 
-        grado_ciclo = ?, ti_resi = ?, informante = ?, entrevistador = ? WHERE id_usuario = ?";
+    fecha_p_cita = ?, edad = ?, lugar_nacimient = ?, instruccion = ?, ocupacion = ?, edo_civil = ?, 
+    religion = ?, id_paciente_relacion = ?, estudio_trabajo = ?, procedencia = ?, lugar_resi = ?, 
+    grado_ciclo = ?, ti_resi = ?, informante = ?, entrevistador = ?, id_administrativo = ? WHERE id_usuario = ?";
     $stmt = $conn->prepare($query_historial_medico);
     $stmt->execute(array_merge(array_values($datos_historial_medico), [$id_usuario_modificar]));
 

@@ -49,7 +49,8 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agendar Cita Individual Online</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-4.5.2/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons/bootstrap-icons.min.css">
 </head>
 
 <body>
@@ -143,9 +144,9 @@ $result_psicologos = $stmt_psicologos->fetchAll(PDO::FETCH_ASSOC);
             <button type="submit" class="btn btn-success">Agendar Cita</button>
         </form>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script/jquery.min.js"></script>
+    <script src="script/popper.min.js"></script>
+    <script src="script/bootstrap.min.js/bootstrap.min.js"></script>
     <script src="script/fecha.js"></script>
     <script src="script/discapacitado.js"></script>
     <script src="script/relacion_discapacitado.js"></script>

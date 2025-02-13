@@ -57,7 +57,8 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cita Individual</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-4.5.2/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/agendar_cita_infantil.css">
     <link rel="stylesheet" href="css/sidebarandheader.css">
 </head>
@@ -117,9 +118,9 @@ $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
     </div>
 
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script/jquery.min.js"></script>
+    <script src="script/popper.min.js"></script>
+    <script src="script/bootstrap.min.js/bootstrap.min.js"></script>
     <script src="script/agendar_cita_individual.js"></script>
     <script src="script/sidebarandheader.js"></script>
 

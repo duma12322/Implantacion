@@ -26,7 +26,7 @@
                     <input type="checkbox" id="remember">
                     <p>Recuérdame</p>
                 </label>
-                <a href="#">¿Olvidaste tu contraseña?</a>
+                <!--<a href="#">¿Olvidaste tu contraseña?</a>-->
             </div>
             <button type="submit">Iniciar Sesión</button>
             <!--<div class="register">

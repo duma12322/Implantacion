@@ -20,7 +20,11 @@ if (isset($_POST['cerrar_sesion'])) {
 }
 
 $nombreUsuario = $_SESSION['usuario'];
-registrar_log($nombreUsuario, "Inicio sesión");
+
+if (!isset($_SESSION['log_registrado_dashboard'])) {
+    registrar_log($nombreUsuario, "Esta en Dashboard");
+    $_SESSION['log_registrado_dashboard'] = true; // Marca que el log ya se ha registrado
+}
 
 // Mostrar la Foto
 $stmt = $conn->prepare("SELECT foto FROM administrativo  WHERE usuario = :usuario");
@@ -65,8 +69,8 @@ $conn = null; // Cerrar la conexión
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Consultorio Psicológico</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-4.5.2/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/sidebarandheader.css">
 </head>
@@ -150,10 +154,11 @@ $conn = null; // Cerrar la conexión
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script/jquery.min.js"></script>
+    <script src="script/popper.min.js"></script>
+    <script src="script/bootstrap.min.js/bootstrap.min.js"></script>
+    <script src="script/chart.min.js"></script>
+
     <script src="script/sidebarandheader.js "></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {

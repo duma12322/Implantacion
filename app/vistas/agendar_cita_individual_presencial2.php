@@ -154,11 +154,12 @@ $result_agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
             <button type="submit" class="btn btn-success">Agendar Cita</button>
         </form>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="script/jquery.min.js"></script>
+    <script src="script/popper.min.js"></script>
+    <script src="script/bootstrap.min.js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/select2.min.css">
+    <script src="js/select2.min.js"></script>
+
 
     <script src="script/fecha.js"></script>
     <script src="script/selectPaciente.js"></script>

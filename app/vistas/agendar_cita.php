@@ -41,11 +41,13 @@ if ($tipoUsuario === 'paciente') {
 $stmt->execute([':usuario' => $nombreUsuario]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Verificamos que la variable de sesión exista antes de usarla
-if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'paciente') {
-    registrar_log($_SESSION['usuario'], "Paciente inició sesión");
-}
 
+if (isset($_SESSION['tipo_usuario']) && $_SESSION['tipo_usuario'] === 'paciente') {
+    if (!isset($_SESSION['log_registrado'])) {
+        registrar_log($_SESSION['usuario'], "Paciente esta en agendar cita");
+        $_SESSION['log_registrado'] = true; // Marca que el log ya se ha registrado
+    }
+}
 
 if ($usuario && isset($usuario['foto'])) {
     $fotoUsuario = $usuario['foto'];
@@ -85,8 +87,8 @@ if (isset($_POST['tipo_cita'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda tu cita</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-4.5.2/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-icons/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/agendar_cita.css">
     <link rel="stylesheet" href="css/sidebarandheader.css">
 </head>
@@ -184,10 +186,9 @@ if (isset($_POST['tipo_cita'])) {
         </div>
     </div>
     <!-- Vinculamos los scripts de Bootstrap 4 -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <script src="script/jquery.min.js"></script>
+    <script src="script/popper.min.js"></script>
+    <script src="script/bootstrap.min.js/bootstrap.min.js"></script>
     <!-- Script -->
     <script src="script/sidebarandheader.js"></script>
 </body>

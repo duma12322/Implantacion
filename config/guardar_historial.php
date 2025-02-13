@@ -22,7 +22,9 @@ if (empty($id_usuario)) {
 //echo "ID de usuario utilizado para la creación: " . $id_usuario; // Mensaje de depuración
 
 // Recibir datos del formulario
+// Recibir datos del formulario
 $entrevistador = $_POST['entrevistador'] ?? null;
+$id_administrativo = $_POST['id_administrativo'] ?? null;
 $fecha_nac = $_POST['fecha_nac'] ?? null;
 $instruccion = $_POST['instruccion'] ?? null;
 $edo_civil = $_POST['edo_civil'] ?? null;
@@ -359,26 +361,32 @@ $query->execute([
 ]);
 $id_historia_perso_social = $conn->lastInsertId();
 
-// Ahora la consulta SQL con los campos de ID añadidos
-$query = $conn->prepare("INSERT INTO historial_medico 
-    (id_usuario, id_paciente_relacion, id_historial, id_historia_perso_social, id_relacion_social_niñez, 
-    id_escolaridad, id_conducta, id_traba_social, id_conductas_pareja, id_antecedentes_familiares, id_diag_resul_trata_evo, 
-    entrevistador, instruccion, edo_civil, estudio_trabajo, lugar_resi, procedencia, fecha_p_cita, edad, 
-    lugar_nacimient, ocupacion, religion, grado_ciclo, ti_resi, informante) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+// Preparar y ejecutar la consulta
+$query = $conn->prepare("
+    INSERT INTO historial_medico (
+        id_usuario, id_paciente_relacion, id_historial, id_historia_perso_social, 
+        id_relacion_social_niñez, id_escolaridad, id_conducta, id_traba_social, 
+        id_conductas_pareja, id_antecedentes_familiares, id_diag_resul_trata_evo, 
+        entrevistador, instruccion, edo_civil, estudio_trabajo, lugar_resi, procedencia, 
+        fecha_p_cita, edad, lugar_nacimient, ocupacion, religion, grado_ciclo, ti_resi, informante,
+        id_administrativo
+    ) VALUES (
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+    )
+");
 
 $query->execute([
-    $id_usuario,  // Añadir id_usuario aquí
+    $id_usuario,
     $id_paciente_relacion,
-    $id_historial,  // Usar el id obtenido
-    $id_historia_perso_social,  // Usar el id obtenido
-    $id_relacion_social_niñez,  // Usar el id obtenido
-    $id_escolaridad,  // Usar el id obtenido
-    $id_conducta,  // Usar el id obtenido
-    $id_traba_social,  // Usar el id obtenido
-    $id_conductas_pareja,  // Usar el id obtenido
-    $id_antecedentes_familiares,  // Usar el id obtenido
-    $id_diag_resul_trata_evo,  // Usar el id obtenido
+    $id_historial,
+    $id_historia_perso_social,
+    $id_relacion_social_niñez,
+    $id_escolaridad,
+    $id_conducta,
+    $id_traba_social,
+    $id_conductas_pareja,
+    $id_antecedentes_familiares,
+    $id_diag_resul_trata_evo,
     $entrevistador,
     $instruccion,
     $edo_civil,
@@ -392,8 +400,14 @@ $query->execute([
     $religion,
     $grado_ciclo,
     $ti_resi,
-    $informante
+    $informante,
+    $id_administrativo
 ]);
+
+// Ahora, asegurándote de que el `id_administrativo` está en `entrevistador`
+$query_update = $conn->prepare("UPDATE entrevistador SET id_administrativo = ? WHERE id = ?");
+$query_update->execute([$id_administrativo, $entrevistador]);
+
 
 // Verifica si se insertó correctamente
 if ($query->rowCount()) {
